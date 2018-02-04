@@ -4,7 +4,7 @@ import { ScriptLoaderService } from '../../../../../../_services/script-loader.s
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-portlets-draggable",
     templateUrl: "./portlets-draggable.component.html",
     encapsulation: ViewEncapsulation.None,
 })
@@ -18,9 +18,9 @@ export class PortletsDraggableComponent implements OnInit, AfterViewInit {
 
     }
     ngAfterViewInit() {
-        this._script.load('.m-grid__item.m-grid__item--fluid.m-wrapper',
-            'assets/vendors/custom/jquery-ui/jquery-ui.bundle.js',
-            'assets/demo/default/custom/components/portlets/draggable.js');
+        this._script.loadScripts('app-portlets-draggable',
+            ['assets/vendors/custom/jquery-ui/jquery-ui.bundle.js',
+                'assets/demo/default/custom/components/portlets/draggable.js']);
 
     }
 

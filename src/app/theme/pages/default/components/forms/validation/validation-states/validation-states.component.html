@@ -1,5 +1,5 @@
 <!-- BEGIN: Subheader -->
-<div class="m-subheader">
+<div class="m-subheader" appunwraptag="">
 	<div class="d-flex align-items-center">
 		<div class="mr-auto">
 			<h3 class="m-subheader__title m-subheader__title--separator">
@@ -430,9 +430,11 @@
 							Left Addon
 						</label>
 						<div class="input-group m-input-group">
-							<span class="input-group-addon" id="basic-addon1">
-								<i class="la la-bar-chart"></i>
-							</span>
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1">
+									<i class="la la-bar-chart"></i>
+								</span>
+							</div>
 							<input type="text" class="form-control form-control-success m-input" placeholder="Email" aria-describedby="basic-addon1">
 						</div>
 						<div class="form-control-feedback">
@@ -448,9 +450,11 @@
 						</label>
 						<div class="input-group m-input-group">
 							<input type="text" class="form-control form-control-warning m-input" value="4444a" placeholder="Email" aria-describedby="basic-addon1">
-							<span class="input-group-addon" id="basic-addon1">
-								USD
-							</span>
+							<div class="input-group-append">
+								<span class="input-group-text" id="basic-addon1">
+									USD
+								</span>
+							</div>
 						</div>
 						<div class="form-control-feedback">
 							Shucks, check the formatting of that and try again.
@@ -464,13 +468,15 @@
 							Input with danger
 						</label>
 						<div class="input-group m-input-group">
-							<span class="input-group-addon" id="basic-addon1">
+							<span class="input-group-text" id="basic-addon1">
 								@
 							</span>
 							<input type="text" class="form-control form-control-danger m-input" placeholder="Email" aria-describedby="basic-addon1">
-							<span class="input-group-addon" id="basic-addon1">
-								<i class="la la-comments"></i>
-							</span>
+							<div class="input-group-append">
+								<span class="input-group-text" id="basic-addon1">
+									<i class="la la-comments"></i>
+								</span>
+							</div>
 						</div>
 						<div class="form-control-feedback">
 							Sorry, that username's taken. Try another?
@@ -754,11 +760,11 @@
 							Left Button
 						</label>
 						<div class="input-group">
-							<span class="input-group-btn">
+							<div class="input-group-prepend">
 								<button class="btn btn-secondary" type="button">
 									Go!
 								</button>
-							</span>
+							</div>
 							<input type="text" class="form-control form-control-success" placeholder="Search for...">
 						</div>
 						<div class="form-control-feedback">
@@ -774,11 +780,11 @@
 						</label>
 						<div class="input-group">
 							<input type="text" class="form-control form-control-warning" placeholder="Search for...">
-							<span class="input-group-btn">
+							<div class="input-group-append">
 								<button class="btn btn-brand" type="button">
 									Go!
 								</button>
-							</span>
+							</div>
 						</div>
 						<div class="form-control-feedback">
 							Shucks, check the formatting of that and try again.
@@ -792,17 +798,17 @@
 							Both Buttons
 						</label>
 						<div class="input-group">
-							<span class="input-group-btn">
+							<div class="input-group-prepend">
 								<button class="btn btn-secondary" type="button">
 									Go!
 								</button>
-							</span>
+							</div>
 							<input type="text" class="form-control form-control-danger" placeholder="Search for...">
-							<span class="input-group-btn">
+							<div class="input-group-append">
 								<button class="btn btn-secondary" type="button">
 									Go!
 								</button>
-							</span>
+							</div>
 						</div>
 						<div class="form-control-feedback">
 							Sorry, that username's taken. Try another?
@@ -856,11 +862,11 @@
 						Left Button
 					</label>
 					<div class="input-group">
-						<span class="input-group-btn">
+						<div class="input-group-prepend">
 							<button class="btn btn-secondary" type="button">
 								Go!
 							</button>
-						</span>
+						</div>
 						<input type="text" class="form-control form-control-success" placeholder="Search for...">
 					</div>
 					<div class="form-control-feedback">
@@ -876,11 +882,11 @@
 					</label>
 					<div class="input-group">
 						<input type="text" class="form-control form-control-warning" placeholder="Search for...">
-						<span class="input-group-btn">
+						<div class="input-group-append">
 							<button class="btn btn-brand" type="button">
 								Go!
 							</button>
-						</span>
+						</div>
 					</div>
 					<div class="form-control-feedback">
 						Shucks, check the formatting of that and try again.
@@ -894,17 +900,17 @@
 						Both Buttons
 					</label>
 					<div class="input-group">
-						<span class="input-group-btn">
+						<div class="input-group-prepend">
 							<button class="btn btn-secondary" type="button">
 								Go!
 							</button>
-						</span>
+						</div>
 						<input type="text" class="form-control form-control-danger" placeholder="Search for...">
-						<span class="input-group-btn">
+						<div class="input-group-append">
 							<button class="btn btn-secondary" type="button">
 								Go!
 							</button>
-						</span>
+						</div>
 					</div>
 					<div class="form-control-feedback">
 						Sorry, that username's taken. Try another?
@@ -949,11 +955,11 @@
 						Left Button
 					</label>
 					<div class="input-group">
-						<span class="input-group-btn">
+						<div class="input-group-prepend">
 							<button class="btn btn-secondary" type="button">
 								Go!
 							</button>
-						</span>
+						</div>
 						<input type="text" class="form-control form-control-success" placeholder="Search for...">
 					</div>
 					<div class="form-control-feedback">
@@ -969,11 +975,11 @@
 					</label>
 					<div class="input-group">
 						<input type="text" class="form-control form-control-warning" placeholder="Search for...">
-						<span class="input-group-btn">
+						<div class="input-group-append">
 							<button class="btn btn-brand" type="button">
 								Go!
 							</button>
-						</span>
+						</div>
 					</div>
 					<div class="form-control-feedback">
 						Shucks, check the formatting of that and try again.
@@ -987,17 +993,17 @@
 						Both Buttons
 					</label>
 					<div class="input-group">
-						<span class="input-group-btn">
+						<div class="input-group-prepend">
 							<button class="btn btn-secondary" type="button">
 								Go!
 							</button>
-						</span>
+						</div>
 						<input type="text" class="form-control form-control-danger" placeholder="Search for...">
-						<span class="input-group-btn">
+						<div class="input-group-append">
 							<button class="btn btn-secondary" type="button">
 								Go!
 							</button>
-						</span>
+						</div>
 					</div>
 					<div class="form-control-feedback">
 						Sorry, that username's taken. Try another?
@@ -1042,7 +1048,7 @@
 						Left Dropdown
 					</label>
 					<div class="input-group">
-						<div class="input-group-btn">
+						<div class="input-group-prepend">
 							<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								Action
 							</button>
@@ -1077,7 +1083,7 @@
 					</label>
 					<div class="input-group">
 						<input type="text" class="form-control form-control-warning" aria-label="Text input with dropdown button">
-						<div class="input-group-btn">
+						<div class="input-group-append">
 							<button type="button" class="btn btn-brand dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								Action
 							</button>
@@ -1110,7 +1116,7 @@
 						Both Buttons
 					</label>
 					<div class="input-group">
-						<div class="input-group-btn">
+						<div class="input-group-prepend">
 							<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								Action
 							</button>
@@ -1131,7 +1137,7 @@
 							</div>
 						</div>
 						<input type="text" class="form-control form-control-danger" aria-label="Text input with dropdown button">
-						<div class="input-group-btn">
+						<div class="input-group-append">
 							<button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								Action
 							</button>

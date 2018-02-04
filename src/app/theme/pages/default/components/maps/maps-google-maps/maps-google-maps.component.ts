@@ -4,7 +4,7 @@ import { ScriptLoaderService } from '../../../../../../_services/script-loader.s
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-maps-google-maps",
     templateUrl: "./maps-google-maps.component.html",
     encapsulation: ViewEncapsulation.None,
 })
@@ -18,9 +18,9 @@ export class MapsGoogleMapsComponent implements OnInit, AfterViewInit {
 
     }
     ngAfterViewInit() {
-        this._script.load('.m-grid__item.m-grid__item--fluid.m-wrapper',
-            'assets/vendors/custom/gmaps/gmaps.js',
-            'assets/demo/default/custom/components/maps/google-maps.js');
+        this._script.loadScripts('app-maps-google-maps',
+            ['assets/vendors/custom/gmaps/gmaps.js',
+                'assets/demo/default/custom/components/maps/google-maps.js']);
 
     }
 

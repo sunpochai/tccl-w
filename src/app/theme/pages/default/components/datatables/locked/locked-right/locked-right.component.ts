@@ -4,7 +4,7 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-locked-right",
     templateUrl: "./locked-right.component.html",
     encapsulation: ViewEncapsulation.None,
 })
@@ -18,8 +18,8 @@ export class LockedRightComponent implements OnInit, AfterViewInit {
 
     }
     ngAfterViewInit() {
-        this._script.load('.m-grid__item.m-grid__item--fluid.m-wrapper',
-            'assets/demo/default/custom/components/datatables/locked/right.js');
+        this._script.loadScripts('app-locked-right',
+            ['assets/demo/default/custom/components/datatables/locked/right.js']);
 
     }
 

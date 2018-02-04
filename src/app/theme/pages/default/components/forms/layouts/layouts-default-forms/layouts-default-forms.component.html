@@ -1,5 +1,5 @@
 <!-- BEGIN: Subheader -->
-<div class="m-subheader">
+<div class="m-subheader" appunwraptag="">
 	<div class="d-flex align-items-center">
 		<div class="mr-auto">
 			<h3 class="m-subheader__title m-subheader__title--separator">
@@ -152,9 +152,11 @@
 									Subscription
 								</label>
 								<div class="input-group">
-									<span class="input-group-addon" id="basic-addon2">
-										$
-									</span>
+									<div class="input-group-prepend">
+										<span class="input-group-text" id="basic-addon2">
+											$
+										</span>
+									</div>
 									<input type="text" class="form-control m-input" placeholder="99.9">
 								</div>
 							</div>
@@ -241,9 +243,11 @@
 								</label>
 								<div class="col-lg-6">
 									<div class="input-group">
-										<span class="input-group-addon">
-											<i class="la la-chain"></i>
-										</span>
+										<div class="input-group-prepend">
+											<span class="input-group-text">
+												<i class="la la-chain"></i>
+											</span>
+										</div>
 										<input type="text" class="form-control m-input" placeholder="Phone number">
 									</div>
 								</div>

@@ -4,7 +4,7 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-base-column-rendering",
     templateUrl: "./base-column-rendering.component.html",
     encapsulation: ViewEncapsulation.None,
 })
@@ -18,8 +18,8 @@ export class BaseColumnRenderingComponent implements OnInit, AfterViewInit {
 
     }
     ngAfterViewInit() {
-        this._script.load('.m-grid__item.m-grid__item--fluid.m-wrapper',
-            'assets/demo/default/custom/components/datatables/base/column-rendering.js');
+        this._script.loadScripts('app-base-column-rendering',
+            ['assets/demo/default/custom/components/datatables/base/column-rendering.js']);
 
     }
 

@@ -3,7 +3,7 @@ import { Helpers } from '../../../../../../../helpers';
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-pricing-tables-pricing-table-1",
     templateUrl: "./pricing-tables-pricing-table-1.component.html",
     encapsulation: ViewEncapsulation.None,
 })

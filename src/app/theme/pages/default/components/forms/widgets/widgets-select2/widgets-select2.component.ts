@@ -4,7 +4,7 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-widgets-select2",
     templateUrl: "./widgets-select2.component.html",
     encapsulation: ViewEncapsulation.None,
 })
@@ -18,8 +18,8 @@ export class WidgetsSelect2Component implements OnInit, AfterViewInit {
 
     }
     ngAfterViewInit() {
-        this._script.load('.m-grid__item.m-grid__item--fluid.m-wrapper',
-            'assets/demo/default/custom/components/forms/widgets/select2.js');
+        this._script.loadScripts('app-widgets-select2',
+            ['assets/demo/default/custom/components/forms/widgets/select2.js']);
 
     }
 

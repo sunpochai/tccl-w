@@ -4,7 +4,7 @@ import { ScriptLoaderService } from '../../../../../../_services/script-loader.s
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-portlets-tools",
     templateUrl: "./portlets-tools.component.html",
     encapsulation: ViewEncapsulation.None,
 })
@@ -18,8 +18,8 @@ export class PortletsToolsComponent implements OnInit, AfterViewInit {
 
     }
     ngAfterViewInit() {
-        this._script.load('.m-grid__item.m-grid__item--fluid.m-wrapper',
-            'assets/demo/default/custom/components/portlets/tools.js');
+        this._script.loadScripts('app-portlets-tools',
+            ['assets/demo/default/custom/components/portlets/tools.js']);
 
     }
 

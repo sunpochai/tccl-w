@@ -4,7 +4,7 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-amcharts-maps",
     templateUrl: "./amcharts-maps.component.html",
     encapsulation: ViewEncapsulation.None,
 })
@@ -18,10 +18,10 @@ export class AmchartsMapsComponent implements OnInit, AfterViewInit {
 
     }
     ngAfterViewInit() {
-        this._script.load('.m-grid__item.m-grid__item--fluid.m-wrapper',
-            '//www.amcharts.com/lib/3/plugins/export/export.min.js',
-            'assets/demo/default/custom/components/charts/amcharts/maps.js');
-        Helpers.loadStyles('.m-grid__item.m-grid__item--fluid.m-wrapper', [
+        this._script.loadScripts('app-amcharts-maps',
+            ['//www.amcharts.com/lib/3/plugins/export/export.min.js',
+                'assets/demo/default/custom/components/charts/amcharts/maps.js']);
+        Helpers.loadStyles('app-amcharts-maps', [
             '//www.amcharts.com/lib/3/plugins/export/export.css']);
     }
 

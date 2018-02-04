@@ -4,7 +4,7 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-widgets-clipboard",
     templateUrl: "./widgets-clipboard.component.html",
     encapsulation: ViewEncapsulation.None,
 })
@@ -18,8 +18,8 @@ export class WidgetsClipboardComponent implements OnInit, AfterViewInit {
 
     }
     ngAfterViewInit() {
-        this._script.load('.m-grid__item.m-grid__item--fluid.m-wrapper',
-            'assets/demo/default/custom/components/forms/widgets/clipboard.js');
+        this._script.loadScripts('app-widgets-clipboard',
+            ['assets/demo/default/custom/components/forms/widgets/clipboard.js']);
 
     }
 

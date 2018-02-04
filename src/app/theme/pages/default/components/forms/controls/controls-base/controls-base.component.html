@@ -1,5 +1,5 @@
 <!-- BEGIN: Subheader -->
-<div class="m-subheader">
+<div class="m-subheader" appunwraptag="">
 	<div class="d-flex align-items-center">
 		<div class="mr-auto">
 			<h3 class="m-subheader__title m-subheader__title--separator">
@@ -495,7 +495,7 @@
 						<label for="exampleInputEmail1">
 							Email address
 						</label>
-						<input type="email" class="form-control m-input m-input--air" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+						<input type="email" class="form-control m-input m-input--air m-input--pill" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
 						<span class="m-form__help">
 							We'll never share your email with anyone else.
 						</span>
@@ -504,13 +504,13 @@
 						<label for="exampleInputPassword1">
 							Password
 						</label>
-						<input type="password" class="form-control m-input m-input--air" id="exampleInputPassword1" placeholder="Password">
+						<input type="password" class="form-control m-input m-input--air m-input--pill" id="exampleInputPassword1" placeholder="Password">
 					</div>
 					<div class="form-group m-form__group">
 						<label for="exampleSelect1">
 							Example select
 						</label>
-						<select class="form-control m-input m-input--air" id="exampleSelect1">
+						<select class="form-control m-input m-input--air m-input--pill" id="exampleSelect1">
 							<option>
 								1
 							</option>
@@ -532,7 +532,7 @@
 						<label for="exampleSelect2">
 							Example multiple select
 						</label>
-						<select multiple="" class="form-control m-input m-input--air" id="exampleSelect2">
+						<select multiple="" class="form-control m-input m-input--air m-input--pill" id="exampleSelect2">
 							<option>
 								1
 							</option>
@@ -554,7 +554,7 @@
 						<label for="exampleTextarea">
 							Example textarea
 						</label>
-						<textarea class="form-control m-input m-input--air" id="exampleTextarea" rows="3"></textarea>
+						<textarea class="form-control m-input m-input--air m-input--pill" id="exampleTextarea" rows="3"></textarea>
 					</div>
 				</div>
 				<div class="m-portlet__foot m-portlet__foot--fit">
@@ -966,7 +966,7 @@
 					Custom Select
 				</label>
 				<div></div>
-				<select class="custom-select">
+				<select class="custom-select form-control">
 					<option selected>
 						Open this select menu
 					</option>
@@ -986,10 +986,12 @@
 					File Browser
 				</label>
 				<div></div>
-				<label class="custom-file">
-					<input type="file" id="file2" class="custom-file-input">
-					<span class="custom-file-control"></span>
-				</label>
+				<div class="custom-file">
+					<input type="file" class="custom-file-input" id="customFile">
+					<label class="custom-file-label" for="customFile">
+						Choose file
+					</label>
+				</div>
 			</div>
 		</div>
 		<div class="m-portlet__foot m-portlet__foot--fit">

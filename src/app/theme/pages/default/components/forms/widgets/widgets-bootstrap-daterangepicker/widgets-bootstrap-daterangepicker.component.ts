@@ -4,7 +4,7 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-widgets-bootstrap-daterangepicker",
     templateUrl: "./widgets-bootstrap-daterangepicker.component.html",
     encapsulation: ViewEncapsulation.None,
 })
@@ -18,8 +18,8 @@ export class WidgetsBootstrapDaterangepickerComponent implements OnInit, AfterVi
 
     }
     ngAfterViewInit() {
-        this._script.load('.m-grid__item.m-grid__item--fluid.m-wrapper',
-            'assets/demo/default/custom/components/forms/widgets/bootstrap-daterangepicker.js');
+        this._script.loadScripts('app-widgets-bootstrap-daterangepicker',
+            ['assets/demo/default/custom/components/forms/widgets/bootstrap-daterangepicker.js']);
 
     }
 

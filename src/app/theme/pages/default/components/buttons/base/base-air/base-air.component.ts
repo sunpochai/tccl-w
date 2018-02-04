@@ -3,7 +3,7 @@ import { Helpers } from '../../../../../../../helpers';
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-base-air",
     templateUrl: "./base-air.component.html",
     encapsulation: ViewEncapsulation.None,
 })

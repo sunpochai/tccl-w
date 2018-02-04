@@ -4,7 +4,7 @@ import { ScriptLoaderService } from '../../../../../../_services/script-loader.s
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-base-dropdown",
     templateUrl: "./base-dropdown.component.html",
     encapsulation: ViewEncapsulation.None,
 })
@@ -18,8 +18,8 @@ export class BaseDropdownComponent implements OnInit, AfterViewInit {
 
     }
     ngAfterViewInit() {
-        this._script.load('.m-grid__item.m-grid__item--fluid.m-wrapper',
-            'assets/demo/default/custom/components/base/dropdown.js');
+        this._script.loadScripts('app-base-dropdown',
+            ['assets/demo/default/custom/components/base/dropdown.js']);
 
     }
 

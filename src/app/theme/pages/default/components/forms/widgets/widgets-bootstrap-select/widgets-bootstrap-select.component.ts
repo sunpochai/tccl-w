@@ -4,7 +4,7 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-widgets-bootstrap-select",
     templateUrl: "./widgets-bootstrap-select.component.html",
     encapsulation: ViewEncapsulation.None,
 })
@@ -18,8 +18,8 @@ export class WidgetsBootstrapSelectComponent implements OnInit, AfterViewInit {
 
     }
     ngAfterViewInit() {
-        this._script.load('.m-grid__item.m-grid__item--fluid.m-wrapper',
-            'assets/demo/default/custom/components/forms/widgets/bootstrap-select.js');
+        this._script.loadScripts('app-widgets-bootstrap-select',
+            ['assets/demo/default/custom/components/forms/widgets/bootstrap-select.js']);
 
     }
 

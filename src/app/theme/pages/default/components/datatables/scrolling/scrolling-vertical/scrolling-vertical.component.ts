@@ -4,7 +4,7 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-scrolling-vertical",
     templateUrl: "./scrolling-vertical.component.html",
     encapsulation: ViewEncapsulation.None,
 })
@@ -18,8 +18,8 @@ export class ScrollingVerticalComponent implements OnInit, AfterViewInit {
 
     }
     ngAfterViewInit() {
-        this._script.load('.m-grid__item.m-grid__item--fluid.m-wrapper',
-            'assets/demo/default/custom/components/datatables/scrolling/vertical.js');
+        this._script.loadScripts('app-scrolling-vertical',
+            ['assets/demo/default/custom/components/datatables/scrolling/vertical.js']);
 
     }
 

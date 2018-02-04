@@ -4,7 +4,7 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-child-data-ajax",
     templateUrl: "./child-data-ajax.component.html",
     encapsulation: ViewEncapsulation.None,
 })
@@ -18,8 +18,8 @@ export class ChildDataAjaxComponent implements OnInit, AfterViewInit {
 
     }
     ngAfterViewInit() {
-        this._script.load('.m-grid__item.m-grid__item--fluid.m-wrapper',
-            'assets/demo/default/custom/components/datatables/child/data-ajax.js');
+        this._script.loadScripts('app-child-data-ajax',
+            ['assets/demo/default/custom/components/datatables/child/data-ajax.js']);
 
     }
 

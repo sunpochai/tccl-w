@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
-    selector: '.m-wrapper',
+    selector: 'app-blank',
     templateUrl: './blank.component.html',
     encapsulation: ViewEncapsulation.None,
 })

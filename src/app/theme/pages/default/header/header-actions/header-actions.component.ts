@@ -4,7 +4,7 @@ import { ScriptLoaderService } from '../../../../../_services/script-loader.serv
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-header-actions",
     templateUrl: "./header-actions.component.html",
     encapsulation: ViewEncapsulation.None,
 })
@@ -18,8 +18,8 @@ export class HeaderActionsComponent implements OnInit, AfterViewInit {
 
     }
     ngAfterViewInit() {
-        this._script.load('.m-grid__item.m-grid__item--fluid.m-wrapper',
-            'assets/demo/default/custom/header/actions.js');
+        this._script.loadScripts('app-header-actions',
+            ['assets/demo/default/custom/header/actions.js']);
 
     }
 

@@ -1,18 +1,18 @@
 export class LoginCustom {
 
     static handleSignInFormSubmit() {
-        $('#m_login_signin_submit').click(function(e) {
-            let form = $(this).closest('form');
+        $('#m_login_signin_submit').click((e) => {
+            let form = $(e.target).closest('form');
             form.validate({
                 rules: {
                     email: {
                         required: true,
-                        email: true
+                        email: true,
                     },
                     password: {
-                        required: true
-                    }
-                }
+                        required: true,
+                    },
+                },
             });
             if (!form.valid()) {
                 e.preventDefault();
@@ -49,54 +49,55 @@ export class LoginCustom {
         login.removeClass('m-login--signup');
 
         login.addClass('m-login--forget-password');
-        (<any>login.find('.m-login__forget-password')).animateClass('flipInX animated');
+        (<any>login.find('.m-login__forget-password')).animateClass(
+            'flipInX animated');
     }
 
     static handleFormSwitch() {
-        $('#m_login_forget_password').click(function(e) {
+        $('#m_login_forget_password').click((e) => {
             e.preventDefault();
             LoginCustom.displayForgetPasswordForm();
         });
 
-        $('#m_login_forget_password_cancel').click(function(e) {
+        $('#m_login_forget_password_cancel').click((e) => {
             e.preventDefault();
             LoginCustom.displaySignInForm();
         });
 
-        $('#m_login_signup').click(function(e) {
+        $('#m_login_signup').click((e) => {
             e.preventDefault();
             LoginCustom.displaySignUpForm();
         });
 
-        $('#m_login_signup_cancel').click(function(e) {
+        $('#m_login_signup_cancel').click((e) => {
             e.preventDefault();
             LoginCustom.displaySignInForm();
         });
     }
 
     static handleSignUpFormSubmit() {
-        $('#m_login_signup_submit').click(function(e) {
-            let btn = $(this);
-            let form = $(this).closest('form');
+        $('#m_login_signup_submit').click((e) => {
+            let btn = $(e.target);
+            let form = $(e.target).closest('form');
             form.validate({
                 rules: {
                     fullname: {
-                        required: true
+                        required: true,
                     },
                     email: {
                         required: true,
-                        email: true
+                        email: true,
                     },
                     password: {
-                        required: true
+                        required: true,
                     },
                     rpassword: {
-                        required: true
+                        required: true,
                     },
                     agree: {
-                        required: true
-                    }
-                }
+                        required: true,
+                    },
+                },
             });
             if (!form.valid()) {
                 e.preventDefault();
@@ -106,16 +107,16 @@ export class LoginCustom {
     }
 
     static handleForgetPasswordFormSubmit() {
-        $('#m_login_forget_password_submit').click(function(e) {
-            let btn = $(this);
-            let form = $(this).closest('form');
+        $('#m_login_forget_password_submit').click((e) => {
+            let btn = $(e.target);
+            let form = $(e.target).closest('form');
             form.validate({
                 rules: {
                     email: {
                         required: true,
-                        email: true
-                    }
-                }
+                        email: true,
+                    },
+                },
             });
             if (!form.valid()) {
                 e.preventDefault();

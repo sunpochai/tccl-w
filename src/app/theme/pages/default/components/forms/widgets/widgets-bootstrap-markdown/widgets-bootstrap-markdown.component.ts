@@ -4,7 +4,7 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-widgets-bootstrap-markdown",
     templateUrl: "./widgets-bootstrap-markdown.component.html",
     encapsulation: ViewEncapsulation.None,
 })
@@ -18,8 +18,8 @@ export class WidgetsBootstrapMarkdownComponent implements OnInit, AfterViewInit 
 
     }
     ngAfterViewInit() {
-        this._script.load('.m-grid__item.m-grid__item--fluid.m-wrapper',
-            'assets/demo/default/custom/components/forms/widgets/bootstrap-markdown.js');
+        this._script.loadScripts('app-widgets-bootstrap-markdown',
+            ['assets/demo/default/custom/components/forms/widgets/bootstrap-markdown.js']);
         (<any>$('[data-provide="markdown"]')).markdown();
     }
 

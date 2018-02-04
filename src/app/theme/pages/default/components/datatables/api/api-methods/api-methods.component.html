@@ -1,5 +1,5 @@
 <!-- BEGIN: Subheader -->
-<div class="m-subheader">
+<div class="m-subheader" appunwraptag="">
 	<div class="d-flex align-items-center">
 		<div class="mr-auto">
 			<h3 class="m-subheader__title m-subheader__title--separator">
@@ -117,37 +117,6 @@
 			Static datatable initialized from HTML table element with local column sorting and record pagination features.
 		</div>
 	</div>
-	<!--begin: Search Form -->
-	<div class="m-form m-form--label-align-right m--margin-top-20 m--margin-bottom-30">
-		<div class="row align-items-center">
-			<div class="col-xl-8 order-2 order-xl-1">
-				<div class="form-group m-form__group row align-items-center">
-					<div class="col-md-4">
-						<div class="m-input-icon m-input-icon--left">
-							<input type="text" class="form-control m-input" placeholder="Search..." id="generalSearch">
-							<span class="m-input-icon__icon m-input-icon__icon--left">
-								<span>
-									<i class="la la-search"></i>
-								</span>
-							</span>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="col-xl-4 order-1 order-xl-2 m--align-right">
-				<a href="#" class="btn btn-accent m-btn m-btn--custom m-btn--pill m-btn--icon m-btn--air">
-					<span>
-						<i class="la la-cart-plus"></i>
-						<span>
-							New Order
-						</span>
-					</span>
-				</a>
-				<div class="m-separator m-separator--dashed d-xl-none"></div>
-			</div>
-		</div>
-	</div>
-	<!--end: Search Form -->
 	<div class="m-portlet m-portlet--mobile">
 		<div class="m-portlet__head">
 			<div class="m-portlet__head-caption">
@@ -293,15 +262,17 @@
 				<div class="row">
 					<div class="col-lg-2">
 						<div class="input-group m-input-group">
-							<span class="input-group-addon" id="basic-addon1">
-								ID:
-							</span>
-							<input type="text" class="form-control m-input" id="m_datatable_check_input" value="3">
-							<span class="input-group-btn">
+							<div class="input-group-prepend">
+								<span class="input-group-text" id="basic-addon1">
+									ID:
+								</span>
+							</div>
+							<input type="text" class="form-control m-input" id="m_datatable_check_input" value="263">
+							<div class="input-group-append">
 								<button class="btn btn-secondary" type="button" id="m_datatable_check">
 									Select row
 								</button>
-							</span>
+							</div>
 						</div>
 					</div>
 					<div class="col-lg-10">
@@ -316,6 +287,9 @@
 						</button>
 						<button class="btn btn-secondary" type="button" id="m_datatable_show_column">
 							Show currency
+						</button>
+						<button class="btn btn-secondary" type="button" id="m_datatable_remove_row">
+							Remove active row
 						</button>
 					</div>
 				</div>

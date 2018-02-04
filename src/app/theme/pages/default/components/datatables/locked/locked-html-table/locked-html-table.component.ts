@@ -4,7 +4,7 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-locked-html-table",
     templateUrl: "./locked-html-table.component.html",
     encapsulation: ViewEncapsulation.None,
 })
@@ -18,8 +18,8 @@ export class LockedHtmlTableComponent implements OnInit, AfterViewInit {
 
     }
     ngAfterViewInit() {
-        this._script.load('.m-grid__item.m-grid__item--fluid.m-wrapper',
-            'assets/demo/default/custom/components/datatables/locked/html-table.js');
+        this._script.loadScripts('app-locked-html-table',
+            ['assets/demo/default/custom/components/datatables/locked/html-table.js']);
 
     }
 

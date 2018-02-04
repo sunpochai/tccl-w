@@ -3,7 +3,7 @@ import { Helpers } from '../../../../../../helpers';
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-base-state",
     templateUrl: "./base-state.component.html",
     encapsulation: ViewEncapsulation.None,
 })

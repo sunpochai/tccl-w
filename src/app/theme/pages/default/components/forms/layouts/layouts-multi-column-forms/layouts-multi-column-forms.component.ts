@@ -3,7 +3,7 @@ import { Helpers } from '../../../../../../../helpers';
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-layouts-multi-column-forms",
     templateUrl: "./layouts-multi-column-forms.component.html",
     encapsulation: ViewEncapsulation.None,
 })

@@ -4,7 +4,7 @@ import { ScriptLoaderService } from '../../../../../../_services/script-loader.s
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-charts-flotcharts",
     templateUrl: "./charts-flotcharts.component.html",
     encapsulation: ViewEncapsulation.None,
 })
@@ -18,9 +18,9 @@ export class ChartsFlotchartsComponent implements OnInit, AfterViewInit {
 
     }
     ngAfterViewInit() {
-        this._script.load('.m-grid__item.m-grid__item--fluid.m-wrapper',
-            'assets/vendors/custom/flot/flot.bundle.js',
-            'assets/demo/default/custom/components/charts/flotcharts.js');
+        this._script.loadScripts('app-charts-flotcharts',
+            ['assets/vendors/custom/flot/flot.bundle.js',
+                'assets/demo/default/custom/components/charts/flotcharts.js']);
 
     }
 

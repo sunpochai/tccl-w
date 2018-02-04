@@ -1,5 +1,5 @@
 <!-- BEGIN: Subheader -->
-<div class="m-subheader">
+<div class="m-subheader" appunwraptag="">
 	<div class="d-flex align-items-center">
 		<div class="mr-auto">
 			<h3 class="m-subheader__title m-subheader__title--separator">
@@ -128,7 +128,7 @@
 						Minimum Setup
 					</label>
 					<div class="col-lg-4 col-md-9 col-sm-12">
-						<input type='text' class="form-control" id="m_datetimepicker_1" readonly placeholder="Select date & time"/>
+						<input type="text" class="form-control" id="m_datetimepicker_1" readonly placeholder="Select date & time"/>
 					</div>
 				</div>
 				<div class="form-group m-form__group row">
@@ -136,11 +136,13 @@
 						Input Group Setup
 					</label>
 					<div class="col-lg-4 col-md-9 col-sm-12">
-						<div class='input-group date' id='m_datetimepicker_2'>
-							<input type='text' class="form-control m-input" readonly placeholder="Select date & time"/>
-							<span class="input-group-addon">
-								<i class="la la-calendar-check-o glyphicon-th"></i>
-							</span>
+						<div class="input-group date">
+							<input type="text" class="form-control m-input" readonly placeholder="Select date & time" id="m_datetimepicker_2"/>
+							<div class="input-group-append">
+								<span class="input-group-text">
+									<i class="la la-calendar-check-o glyphicon-th"></i>
+								</span>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -149,11 +151,13 @@
 						Enable Helper Buttons
 					</label>
 					<div class="col-lg-4 col-md-9 col-sm-12">
-						<div class='input-group date' id='m_datetimepicker_3'>
-							<input type='text' class="form-control m-input" readonly value="1899-11-29 00:30"/>
-							<span class="input-group-addon">
-								<i class="la la-calendar glyphicon-th"></i>
-							</span>
+						<div class="input-group date">
+							<input type="text" class="form-control m-input" readonly value="1899-11-29 00:30" id="m_datetimepicker_3"/>
+							<div class="input-group-append">
+								<span class="input-group-text">
+									<i class="la la-calendar glyphicon-th"></i>
+								</span>
+							</div>
 						</div>
 						<span class="m-form__help">
 							Enable clear and today helper buttons
@@ -165,32 +169,40 @@
 						Orientation
 					</label>
 					<div class="col-lg-4 col-md-9 col-sm-12">
-						<div class='input-group date' id='m_datetimepicker_4_1'>
-							<input type='text' class="form-control m-input" placeholder="Top left"/>
-							<span class="input-group-addon">
-								<i class="la la-check-circle-o glyphicon-th"></i>
-							</span>
+						<div class="input-group date" >
+							<input type="text" class="form-control m-input" placeholder="Top left" id="m_datetimepicker_4_1"/>
+							<div class="input-group-append">
+								<span class="input-group-text">
+									<i class="la la-check-circle-o glyphicon-th"></i>
+								</span>
+							</div>
 						</div>
 						<div class="m--space-10"></div>
-						<div class='input-group date' id='m_datetimepicker_4_2'>
-							<input type='text' class="form-control m-input" placeholder="Top right"/>
-							<span class="input-group-addon">
-								<i class="la la-clock-o glyphicon-th"></i>
-							</span>
+						<div class="input-group date" >
+							<input type="text" class="form-control m-input" placeholder="Top right" id="m_datetimepicker_4_2"/>
+							<div class="input-group-append">
+								<span class="input-group-text">
+									<i class="la la-clock-o glyphicon-th"></i>
+								</span>
+							</div>
 						</div>
 						<div class="m--space-10"></div>
-						<div class='input-group date' id='m_datetimepicker_4_3'>
-							<input type='text' class="form-control m-input" placeholder="Bottom left"/>
-							<span class="input-group-addon">
-								<i class="la la-check glyphicon-th"></i>
-							</span>
+						<div class="input-group date" >
+							<input type="text" class="form-control m-input" placeholder="Bottom left" id="m_datetimepicker_4_3"/>
+							<div class="input-group-append">
+								<span class="input-group-text">
+									<i class="la la-check glyphicon-th"></i>
+								</span>
+							</div>
 						</div>
 						<div class="m--space-10"></div>
-						<div class='input-group date' id='m_datetimepicker_4_4'>
-							<input type='text' class="form-control m-input" placeholder="Bottom right"/>
-							<span class="input-group-addon">
-								<i class="la la-download glyphicon-th"></i>
-							</span>
+						<div class="input-group date" >
+							<input type="text" class="form-control m-input" placeholder="Bottom right" id="m_datetimepicker_4_4"/>
+							<div class="input-group-append">
+								<span class="input-group-text">
+									<i class="la la-download glyphicon-th"></i>
+								</span>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -199,11 +211,13 @@
 						Meridian Format
 					</label>
 					<div class="col-lg-4 col-md-9 col-sm-12">
-						<div class='input-group date' id='m_datetimepicker_5'>
-							<input type='text' class="form-control m-input" placeholder="Select date and time" />
-							<span class="input-group-addon">
-								<i class="la la-calendar glyphicon-th"></i>
-							</span>
+						<div class="input-group date" >
+							<input type="text" class="form-control m-input" placeholder="Select date and time" id="m_datetimepicker_5"/>
+							<div class="input-group-append">
+								<span class="input-group-text">
+									<i class="la la-calendar glyphicon-th"></i>
+								</span>
+							</div>
 						</div>
 						<span class="m-form__help">
 							Linked pickers for date range selection
@@ -215,11 +229,13 @@
 						Date Only
 					</label>
 					<div class="col-lg-4 col-md-9 col-sm-12">
-						<div class='input-group date' id='m_datetimepicker_6'>
-							<input type='text' class="form-control m-input" placeholder="Select date" />
-							<span class="input-group-addon">
-								<i class="la la-calendar glyphicon-th"></i>
-							</span>
+						<div class="input-group date" >
+							<input type="text" class="form-control m-input" placeholder="Select date" id="m_datetimepicker_6"/>
+							<div class="input-group-append">
+								<span class="input-group-text">
+									<i class="la la-calendar glyphicon-th"></i>
+								</span>
+							</div>
 						</div>
 						<span class="m-form__help">
 							Only date selection
@@ -231,11 +247,13 @@
 						Time Only
 					</label>
 					<div class="col-lg-4 col-md-9 col-sm-12">
-						<div class='input-group date' id='m_datetimepicker_7'>
-							<input type='text' class="form-control m-input" placeholder="Select time" />
-							<span class="input-group-addon">
-								<i class="la la-calendar glyphicon-th"></i>
-							</span>
+						<div class="input-group date" >
+							<input type="text" class="form-control m-input" placeholder="Select time" id="m_datetimepicker_7"/>
+							<div class="input-group-append">
+								<span class="input-group-text">
+									<i class="la la-calendar glyphicon-th"></i>
+								</span>
+							</div>
 						</div>
 						<span class="m-form__help">
 							Only time selection
@@ -289,7 +307,7 @@
 								Minimum Setup
 							</label>
 							<div class="col-lg-9 col-md-9 col-sm-12">
-								<input type='text' class="form-control" id="m_datetimepicker_1_modal" readonly data-z-index="1100" placeholder="Select date & time"/>
+								<input type="text" class="form-control" id="m_datetimepicker_1_modal" readonly data-z-index="1100" placeholder="Select date & time"/>
 							</div>
 						</div>
 						<div class="form-group m-form__group row">
@@ -297,11 +315,13 @@
 								Input Group Setup
 							</label>
 							<div class="col-lg-9 col-md-9 col-sm-12">
-								<div class='input-group date' id='m_datetimepicker_2_modal' data-z-index="1100">
-									<input type='text' class="form-control m-input" readonly placeholder="Select date & time"/>
-									<span class="input-group-addon">
-										<i class="la la-calendar-check-o glyphicon-th"></i>
-									</span>
+								<div class="input-group date"  data-z-index="1100">
+									<input type="text" class="form-control m-input" readonly placeholder="Select date & time" id="m_datetimepicker_2_modal"/>
+									<div class="input-group-append">
+										<span class="input-group-text">
+											<i class="la la-calendar-check-o glyphicon-th"></i>
+										</span>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -310,11 +330,13 @@
 								Enable Helper Buttons
 							</label>
 							<div class="col-lg-9 col-md-9 col-sm-12">
-								<div class='input-group date' id='m_datetimepicker_3_modal' data-z-index="1100">
-									<input type='text' class="form-control m-input" readonly value="1899-11-29 00:30"/>
-									<span class="input-group-addon">
-										<i class="la la-calendar-plus-o glyphicon-th"></i>
-									</span>
+								<div class="input-group date"  data-z-index="1100">
+									<input type="text" class="form-control m-input" readonly value="1899-11-29 00:30" id="m_datetimepicker_3_modal"/>
+									<div class="input-group-append">
+										<span class="input-group-text">
+											<i class="la la-calendar-plus-o glyphicon-th"></i>
+										</span>
+									</div>
 								</div>
 								<span class="m-form__help">
 									Enable clear and today helper buttons
@@ -353,14 +375,16 @@
 						Success State
 					</label>
 					<div class="col-lg-4 col-md-9 col-sm-12">
-						<div class='input-group date' id='m_datetimepicker_1_validate'>
-							<input type='text' class="form-control m-input" readonly placeholder="Select date & time"/>
-							<span class="input-group-addon">
-								<i class="la la-calendar-check-o glyphicon-th"></i>
-							</span>
+						<div class="input-group date" >
+							<input type="text" class="form-control m-input" readonly placeholder="Select date & time" id="m_datetimepicker_1_validate"/>
+							<div class="input-group-append">
+								<span class="input-group-text">
+									<i class="la la-calendar-check-o glyphicon-th"></i>
+								</span>
+							</div>
 						</div>
 						<div class="form-control-feedback">
-							Success! You've done it.
+							Success! You"ve done it.
 						</div>
 						<span class="m-form__help">
 							Example help text that remains unchanged.
@@ -372,14 +396,16 @@
 						Danger State
 					</label>
 					<div class="col-lg-4 col-md-9 col-sm-12">
-						<div class='input-group date' id='m_datetimepicker_2_validate'>
-							<input type='text' class="form-control m-input" readonly placeholder="Select date & time"/>
-							<span class="input-group-addon">
-								<i class="la la-calendar-check-o glyphicon-th"></i>
-							</span>
+						<div class="input-group date" >
+							<input type="text" class="form-control m-input" readonly placeholder="Select date & time" id="m_datetimepicker_2_validate"/>
+							<div class="input-group-append">
+								<span class="input-group-text">
+									<i class="la la-calendar-check-o glyphicon-th"></i>
+								</span>
+							</div>
 						</div>
 						<div class="form-control-feedback">
-							Sorry, that username's taken. Try another?
+							Sorry, that username"s taken. Try another?
 						</div>
 						<span class="m-form__help">
 							Example help text that remains unchanged.
@@ -391,11 +417,13 @@
 						Warning State
 					</label>
 					<div class="col-lg-4 col-md-9 col-sm-12">
-						<div class='input-group date' id='m_datetimepicker_3_validate'>
-							<input type='text' class="form-control m-input" readonly placeholder="Select date & time"/>
-							<span class="input-group-addon">
-								<i class="la la-calendar-check-o glyphicon-th"></i>
-							</span>
+						<div class="input-group date" >
+							<input type="text" class="form-control m-input" readonly placeholder="Select date & time" id="m_datetimepicker_3_validate"/>
+							<div class="input-group-append">
+								<span class="input-group-text">
+									<i class="la la-calendar-check-o glyphicon-th"></i>
+								</span>
+							</div>
 						</div>
 						<div class="form-control-feedback">
 							Shucks, check the formatting of that and try again.

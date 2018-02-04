@@ -4,7 +4,7 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-widgets-bootstrap-datepicker",
     templateUrl: "./widgets-bootstrap-datepicker.component.html",
     encapsulation: ViewEncapsulation.None,
 })
@@ -18,8 +18,8 @@ export class WidgetsBootstrapDatepickerComponent implements OnInit, AfterViewIni
 
     }
     ngAfterViewInit() {
-        this._script.load('.m-grid__item.m-grid__item--fluid.m-wrapper',
-            'assets/demo/default/custom/components/forms/widgets/bootstrap-datepicker.js');
+        this._script.loadScripts('app-widgets-bootstrap-datepicker',
+            ['assets/demo/default/custom/components/forms/widgets/bootstrap-datepicker.js']);
 
     }
 

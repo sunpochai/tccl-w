@@ -4,7 +4,7 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-validation-form-controls",
     templateUrl: "./validation-form-controls.component.html",
     encapsulation: ViewEncapsulation.None,
 })
@@ -18,8 +18,8 @@ export class ValidationFormControlsComponent implements OnInit, AfterViewInit {
 
     }
     ngAfterViewInit() {
-        this._script.load('.m-grid__item.m-grid__item--fluid.m-wrapper',
-            'assets/demo/default/custom/components/forms/validation/form-controls.js');
+        this._script.loadScripts('app-validation-form-controls',
+            ['assets/demo/default/custom/components/forms/validation/form-controls.js']);
 
     }
 

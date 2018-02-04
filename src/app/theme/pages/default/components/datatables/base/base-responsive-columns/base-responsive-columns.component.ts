@@ -4,7 +4,7 @@ import { ScriptLoaderService } from '../../../../../../../_services/script-loade
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-base-responsive-columns",
     templateUrl: "./base-responsive-columns.component.html",
     encapsulation: ViewEncapsulation.None,
 })
@@ -18,8 +18,8 @@ export class BaseResponsiveColumnsComponent implements OnInit, AfterViewInit {
 
     }
     ngAfterViewInit() {
-        this._script.load('.m-grid__item.m-grid__item--fluid.m-wrapper',
-            'assets/demo/default/custom/components/datatables/base/responsive-columns.js');
+        this._script.loadScripts('app-base-responsive-columns',
+            ['assets/demo/default/custom/components/datatables/base/responsive-columns.js']);
 
     }
 

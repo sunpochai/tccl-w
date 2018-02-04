@@ -1,5 +1,5 @@
 <!-- BEGIN: Subheader -->
-<div class="m-subheader">
+<div class="m-subheader" appunwraptag="">
 	<div class="d-flex align-items-center">
 		<div class="mr-auto">
 			<h3 class="m-subheader__title m-subheader__title--separator">
@@ -155,9 +155,11 @@
 						</label>
 						<div class="col-lg-4">
 							<div class="input-group">
-								<span class="input-group-addon">
-									<i class="la la-chain"></i>
-								</span>
+								<div class="input-group-prepend">
+									<span class="input-group-text">
+										<i class="la la-chain"></i>
+									</span>
+								</div>
 								<input type="text" class="form-control m-input" placeholder="Phone number">
 							</div>
 						</div>
@@ -349,9 +351,11 @@
 								<div class="col-lg-6">
 									<div class="input-group">
 										<input type="text" class="form-control m-input" name="creditcard" placeholder="Enter card number">
-										<span class="input-group-addon">
-											<i class="la la-credit-card"></i>
-										</span>
+										<div class="input-group-append">
+											<span class="input-group-text">
+												<i class="la la-credit-card"></i>
+											</span>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -363,15 +367,17 @@
 									<div data-repeater-list="" class="col-lg-6">
 										<div data-repeater-item class="m--margin-bottom-10">
 											<div class="input-group">
-												<span class="input-group-addon">
-													<i class="la la-phone"></i>
-												</span>
+												<div class="input-group-prepend">
+													<span class="input-group-text">
+														<i class="la la-phone"></i>
+													</span>
+												</div>
 												<input type="text" class="form-control form-control-danger" placeholder="Enter telephone">
-												<span class="input-group-btn">
+												<div class="input-group-append">
 													<a href="#" class="btn btn-danger m-btn m-btn--icon">
 														<i class="la la-close"></i>
 													</a>
-												</span>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -482,9 +488,11 @@
 								<div class="col-lg-6">
 									<div class="input-group">
 										<input type="text" class="form-control m-input" name="creditcard" placeholder="Enter card number">
-										<span class="input-group-addon">
-											<i class="la la-credit-card"></i>
-										</span>
+										<div class="input-group-append">
+											<span class="input-group-text">
+												<i class="la la-credit-card"></i>
+											</span>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -497,17 +505,21 @@
 										<div data-repeater-item class="row m--margin-bottom-10">
 											<div class="col-lg-5">
 												<div class="input-group">
-													<span class="input-group-addon">
-														<i class="la la-phone"></i>
-													</span>
+													<div class="input-group-prepend">
+														<span class="input-group-text">
+															<i class="la la-phone"></i>
+														</span>
+													</div>
 													<input type="text" class="form-control form-control-danger" placeholder="Phone">
 												</div>
 											</div>
 											<div class="col-lg-5">
 												<div class="input-group">
-													<span class="input-group-addon">
-														<i class="la la-envelope"></i>
-													</span>
+													<div class="input-group-prepend">
+														<span class="input-group-text">
+															<i class="la la-envelope"></i>
+														</span>
+													</div>
 													<input type="text" class="form-control form-control-danger" placeholder="Email">
 												</div>
 											</div>

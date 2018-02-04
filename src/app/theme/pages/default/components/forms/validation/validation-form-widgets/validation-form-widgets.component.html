@@ -1,5 +1,5 @@
 <!-- BEGIN: Subheader -->
-<div class="m-subheader">
+<div class="m-subheader" appunwraptag="">
 	<div class="d-flex align-items-center">
 		<div class="mr-auto">
 			<h3 class="m-subheader__title m-subheader__title--separator">
@@ -141,11 +141,13 @@
 						Bootstrap Date Picker *
 					</label>
 					<div class="col-lg-4 col-md-9 col-sm-12">
-						<div class='input-group date' id='m_datepicker'>
-							<input type='text' class="form-control m-input" readonly name="date" placeholder="Select date"/>
-							<span class="input-group-addon">
-								<i class="la la-calendar-check-o"></i>
-							</span>
+						<div class='input-group'>
+							<input type='text' class="form-control m-input" name="date" placeholder="Select date" id='m_datepicker'/>
+							<div class="input-group-append">
+								<span class="input-group-text">
+									<i class="la la-calendar-check-o"></i>
+								</span>
+							</div>
 						</div>
 						<span class="m-form__help">
 							Select a date
@@ -157,11 +159,13 @@
 						Bootstrap Date Time Picker *
 					</label>
 					<div class="col-lg-4 col-md-9 col-sm-12">
-						<div class='input-group date' id='m_datetimepicker'>
-							<input type='text' class="form-control m-input" readonly name="datetime" placeholder="Select date & time"/>
-							<span class="input-group-addon">
-								<i class="la la-calendar-check-o glyphicon-th"></i>
-							</span>
+						<div class='input-group date'>
+							<input type='text' class="form-control m-input" name="datetime" placeholder="Select date & time"  id='m_datetimepicker'/>
+							<div class="input-group-append">
+								<span class="input-group-text">
+									<i class="la la-calendar-check-o glyphicon-th"></i>
+								</span>
+							</div>
 						</div>
 						<span class="m-form__help">
 							Select a date time
@@ -174,10 +178,12 @@
 					</label>
 					<div class="col-lg-4 col-md-9 col-sm-12">
 						<div class='input-group date' >
-							<input type='text' class="form-control m-input" id='m_timepicker' readonly placeholder="Select time" name="time">
-							<span class="input-group-addon">
-								<i class="la la-clock-o"></i>
-							</span>
+							<input type='text' class="form-control m-input" id='m_timepicker'  placeholder="Select time" name="time">
+							<div class="input-group-append">
+								<span class="input-group-text">
+									<i class="la la-clock-o"></i>
+								</span>
+							</div>
 						</div>
 						<span class="m-form__help">
 							Select time
@@ -191,9 +197,11 @@
 					<div class="col-lg-4 col-md-9 col-sm-12">
 						<div class='input-group' id='m_daterangepicker'>
 							<input type='text' class="form-control m-input" readonly name="daterange" placeholder="Select date range"/>
-							<span class="input-group-addon">
-								<i class="la la-calendar-check-o"></i>
-							</span>
+							<div class="input-group-append">
+								<span class="input-group-text">
+									<i class="la la-calendar-check-o"></i>
+								</span>
+							</div>
 						</div>
 						<span class="m-form__help">
 							Select a date range
@@ -440,17 +448,6 @@
 						<textarea name="markdown" class="form-control" data-provide="markdown" rows="10"></textarea>
 						<span class="m-form__help">
 							Enter some markdown content
-						</span>
-					</div>
-				</div>
-				<div class="form-group m-form__group row">
-					<label class="col-form-label col-lg-3 col-sm-12">
-						Summerote *
-					</label>
-					<div class="col-lg-9 col-md-9 col-sm-12">
-						<div class="summernote" id="m_summernote" name="summernote"></div>
-						<span class="m-form__help">
-							Enter some long content
 						</span>
 					</div>
 				</div>

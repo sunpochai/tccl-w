@@ -4,7 +4,7 @@ import { ScriptLoaderService } from '../../../../../../_services/script-loader.s
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-calendar-background-events",
     templateUrl: "./calendar-background-events.component.html",
     encapsulation: ViewEncapsulation.None,
 })
@@ -18,8 +18,8 @@ export class CalendarBackgroundEventsComponent implements OnInit, AfterViewInit 
 
     }
     ngAfterViewInit() {
-        this._script.load('.m-grid__item.m-grid__item--fluid.m-wrapper',
-            'assets/demo/default/custom/components/calendar/background-events.js');
+        this._script.loadScripts('app-calendar-background-events',
+            ['assets/demo/default/custom/components/calendar/background-events.js']);
 
     }
 

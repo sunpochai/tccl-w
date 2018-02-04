@@ -3,7 +3,7 @@ import { Helpers } from '../../../../../../helpers';
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-icons-socicons",
     templateUrl: "./icons-socicons.component.html",
     encapsulation: ViewEncapsulation.None,
 })

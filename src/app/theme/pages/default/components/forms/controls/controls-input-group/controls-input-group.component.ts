@@ -3,7 +3,7 @@ import { Helpers } from '../../../../../../../helpers';
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-controls-input-group",
     templateUrl: "./controls-input-group.component.html",
     encapsulation: ViewEncapsulation.None,
 })

@@ -1,5 +1,5 @@
 <!-- BEGIN: Subheader -->
-<div class="m-subheader">
+<div class="m-subheader" appunwraptag="">
 	<div class="d-flex align-items-center">
 		<div class="mr-auto">
 			<h3 class="m-subheader__title m-subheader__title--separator">
@@ -168,6 +168,16 @@
 					</td>
 					<td>
 						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#m_modal_5">
+							Launch Modal
+						</button>
+					</td>
+				</tr>
+				<tr>
+					<td style="width: 30%">
+						Vertically centered
+					</td>
+					<td>
+						<button type="button" class="btn btn-focus" data-toggle="modal" data-target="#m_modal_6">
 							Launch Modal
 						</button>
 					</td>
@@ -424,5 +434,34 @@
 			</div>
 		</div>
 	</div>
-	<!--end::Modal-->
+	<!--end::Modal-->  <!-- Modal -->
+	<div class="modal fade" id="m_modal_6" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">
+						Modal title
+					</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">
+							&times;
+						</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>
+						Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">
+						Close
+					</button>
+					<button type="button" class="btn btn-primary">
+						Save changes
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

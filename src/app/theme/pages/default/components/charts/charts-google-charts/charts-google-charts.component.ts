@@ -5,7 +5,7 @@ import { ScriptLoaderService } from '../../../../../../_services/script-loader.s
 declare let google: any;
 declare let GoogleChartsDemo: any;
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-charts-google-charts",
     templateUrl: "./charts-google-charts.component.html",
     encapsulation: ViewEncapsulation.None,
 })
@@ -19,8 +19,8 @@ export class ChartsGoogleChartsComponent implements OnInit, AfterViewInit {
 
     }
     ngAfterViewInit() {
-        this._script.load('.m-grid__item.m-grid__item--fluid.m-wrapper',
-            'assets/demo/default/custom/components/charts/google-charts.js');
+        this._script.loadScripts('app-charts-google-charts',
+            ['assets/demo/default/custom/components/charts/google-charts.js']);
         google.load('visualization', '1', { packages: ['corechart', 'bar', 'line'], callback: GoogleChartsDemo.runDemos() });
     }
 

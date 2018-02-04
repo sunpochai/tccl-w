@@ -4,7 +4,7 @@ import { ScriptLoaderService } from '../../../../_services/script-loader.service
 
 
 @Component({
-    selector: ".m-grid__item.m-grid__item--fluid.m-wrapper",
+    selector: "app-index",
     templateUrl: "./index.component.html",
     encapsulation: ViewEncapsulation.None,
 })
@@ -18,8 +18,8 @@ export class IndexComponent implements OnInit, AfterViewInit {
 
     }
     ngAfterViewInit() {
-        this._script.load('.m-grid__item.m-grid__item--fluid.m-wrapper',
-            'assets/app/js/dashboard.js');
+        this._script.loadScripts('app-index',
+            ['assets/app/js/dashboard.js']);
 
     }
 
