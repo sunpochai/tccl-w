@@ -9,6 +9,7 @@ export class UserService {
     }
 
     verify() {
+        
         return this.http.get('/api/verify', this.jwt()).map((response: Response) => response.json());
     }
 
@@ -41,8 +42,14 @@ export class UserService {
     private jwt() {
         // create authorization header with jwt token
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+         
         if (currentUser && currentUser.token) {
-            let headers = new Headers({ 'Authorization': 'Bearer ' + currentUser.token });
+            let  headers = new Headers(
+                 { 'Authorization': 'Bearer ' + currentUser.token }  );
+                
+                  headers.set('Content-Type', 'application/json');
+                  headers.set('Accept', 'application/json');  
+                 
             return new RequestOptions({ headers: headers });
         }
     }

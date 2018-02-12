@@ -7513,7 +7513,8 @@ body {
   height: 100%;
   margin: 0px;
   padding: 0px;
-  font-size: 14px;
+  /*font-size: 14px;default*/
+  font-size: 11px;/*sanchaip add 11/02/2018*/
   font-weight: 300;
   font-family: Poppins;
   -ms-text-size-adjust: 100%;
@@ -10193,7 +10194,8 @@ b, strong {
         .m-datatable.m-datatable--default > .m-datatable__table > .m-datatable__body .m-datatable__row > .m-datatable__cell,
         .m-datatable.m-datatable--default > .m-datatable__table > .m-datatable__foot .m-datatable__row > .m-datatable__cell {
           vertical-align: middle;
-          padding: 11px 10px;
+          /*padding: 11px 10px; SanchaiP change 11/02/2018*/
+           padding: 1px 1px; 
           font-size: 1rem; }
           .m-datatable.m-datatable--default > .m-datatable__table > .m-datatable__head .m-datatable__row > .m-datatable__cell i,
           .m-datatable.m-datatable--default > .m-datatable__table > .m-datatable__body .m-datatable__row > .m-datatable__cell i,
@@ -35023,3 +35025,17 @@ body.m-content--skin-light2 {
       text-align: center;
       float: none;
       margin: 0 auto; } }
+
+
+
+   
+      /*SanchaiP Add  11/02/2018 */
+
+      .ng-valid[required], .ng-valid.required  {
+        border-left: 5px solid #42A948; /* green */
+      }
+      
+      .ng-invalid:not(form)  {
+        border-left: 5px solid #a94442; /* red */
+      }
+      

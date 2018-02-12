@@ -1,11 +1,13 @@
 //== Class definition
+ 
+ 
 
-var DatatableRemoteAjaxDemo = function() {
+var DataTableTracking = function( ) {
   //== Private functions
 
   // basic demo
-  var demo = function() {
-
+  var load = function( apiurl)  {
+ 
     var datatable = $('.m_datatable').mDatatable({
       // datasource definition
       data: {
@@ -14,9 +16,12 @@ var DatatableRemoteAjaxDemo = function() {
           read: {
             // sample GET method
             method: 'GET',
-            url: 'https://keenthemes.com/metronic/preview/inc/api/datatables/demos/default.php',
+            //url: 'https://keenthemes.com/metronic/preview/inc/api/datatables/demos/default.php',
+            url: apiurl,
+            
             map: function(raw) {
               // sample data mapping
+            
               var dataSet = raw;
               if (typeof raw.data !== 'undefined') {
                 dataSet = raw.data;
@@ -171,12 +176,12 @@ var DatatableRemoteAjaxDemo = function() {
 
   return {
     // public functions
-    init: function() {
-      demo();
+    init: function(apiurl) {
+      load(apiurl );
     },
   };
 }();
 
-jQuery(document).ready(function() {
-  DatatableRemoteAjaxDemo.init();
-});
+// jQuery(document).ready(function() {
+//   DatatableRemoteAjaxDemo.init('');
+// });

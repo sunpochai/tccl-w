@@ -1,0 +1,7 @@
+export  const  API_BASE_URL : string = 'http://192.168.1.99:8090' 
+export  const  API_TRACKING_LIST : string = API_BASE_URL + '/metronic/preview/inc/api/datatables/demos/default.php' 
+export  const  API_COMPANY_LIST : string = API_BASE_URL + '/api/company/list2' 
+export  const  API_COMPANY_GET: string = API_BASE_URL + '/api/company' 
+export  const  API_COMPANY_PUT: string = API_BASE_URL + '/api/company' 
+export  const  API_COMPANY_DEL: string = API_BASE_URL + '/api/company' 
+export  const  API_COMPANY_INSERT: string = API_BASE_URL + '/api/company/insert' 

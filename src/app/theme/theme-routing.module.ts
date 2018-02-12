@@ -13,6 +13,10 @@ const routes: Routes = [
                   "path": "masters\/tracking",
                   "loadChildren": ".\/pages\/tccl\/masters\/tracking\/tracking.module#TrackingModule"
               },
+              {
+                "path": "masters\/company",
+                "loadChildren": ".\/pages\/tccl\/masters\/company\/company.module#CompanyModule"
+            },
             // {
             //     "path": "angular\/ng-bootstrap",
             //     "loadChildren": ".\/pages\/default\/angular\/ng-bootstrap\/ng-bootstrap.module#NgBootstrapModule"

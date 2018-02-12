@@ -1,29 +1,52 @@
-import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
+ 
+import { Component, OnInit,   AfterViewInit  ,ViewChild,
+    ViewContainerRef,
+    ViewEncapsulation, } from '@angular/core';
 import { ScriptLoaderService } from '../../../../../../_services/script-loader.service';
 import { Tracking } from '../../_models/tracking';
+import { ActivatedRoute, Router } from '@angular/router';
  
-
-@Component({
+ 
+ 
+ 
+ declare var mApp:any;
+ declare var myBundle :any;
+@Component({     
     selector: "master-tracking-detail",
     templateUrl: "./tracking-detail.component.html",
     encapsulation: ViewEncapsulation.None,
 })
 export class TrackingDetailComponent implements OnInit, AfterViewInit {
 
-    private tracking:Tracking ;
-   
     
-    constructor(private _script: ScriptLoaderService) {
-        this.tracking = {id:0,fullName:''};
+    
+    constructor(private _script: ScriptLoaderService ,private _router: Router ) {
+         
     }
     ngOnInit() {
-            this.tracking.fullName = 'Sanchai Pochai';
-           
+            
+    
+            
     }
     ngAfterViewInit() {
-        this._script.loadScripts('app-validation-form-controls',
-            ['assets/demo/default/custom/components/forms/validation/form-controls.js']);
+        this._script.loadScripts('master-tracking-detail',
+        ['assets/tccl/masters/tracking/tracking-detail.js']);
+
 
     }
 
-}
+    save(){
+    
+         
+    }
+    save2(){
+        myBundle.showSuccess('ssss');
+       // mApp.block('#m_form_1', {});
+      
+     
+        myBundle.showError('ok');
+       // console.log('after ')
+        //mApp.unblock('#m_form_1', {});
+        this._router.navigate(['/masters/tracking/list']);
+    }
+}   
