@@ -8,12 +8,12 @@ const routes: Routes = [
         "path": "",
         "component": ThemeComponent,
         "canActivate": [AuthGuard],
-        "children": [   
-              {
-                  "path": "masters\/tracking",
-                  "loadChildren": ".\/pages\/tccl\/masters\/tracking\/tracking.module#TrackingModule"
-              },
-              {
+        "children": [
+            {
+                "path": "masters\/tracking",
+                "loadChildren": ".\/pages\/tccl\/masters\/tracking\/tracking.module#TrackingModule"
+            },
+            {
                 "path": "masters\/company",
                 "loadChildren": ".\/pages\/tccl\/masters\/company\/company.module#CompanyModule"
             },

@@ -8,9 +8,9 @@ export class TrackingService {
     constructor(private http: Http) {
     }
 
-    public loaddata( ) {
-        return this.http.get('https://keenthemes.com/metronic/preview/inc/api/datatables/demos/default.php') 
-            .map((response: Response) =>  response.json() );
+    public loaddata() {
+        return this.http.get('https://keenthemes.com/metronic/preview/inc/api/datatables/demos/default.php')
+            .map((response: Response) => response.json());
     }
 
     logout() {

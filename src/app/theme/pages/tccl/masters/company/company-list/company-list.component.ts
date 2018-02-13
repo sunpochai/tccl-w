@@ -19,8 +19,8 @@ declare var window: any
     encapsulation: ViewEncapsulation.None,
 })
 export class CompanyListComponent extends PageBaseComponent implements OnInit, AfterViewInit {
- 
-   
+
+
     constructor(private _router: Router,
         private _script: ScriptLoaderService,
         private _companyService: CompanyService) {
@@ -37,14 +37,14 @@ export class CompanyListComponent extends PageBaseComponent implements OnInit, A
 
         this._script.loadScripts('master-company-list',
             ['assets/tccl/masters/company/company-list.js']);
- 
+
         this.load();
 
     }
 
     load() {
         super.blockui('#m-content');
-        jQuery(document).ready(function () {
+        jQuery(document).ready(function() {
             myDatatable.init(API_COMPANY_LIST);
         });
         super.unblockui('#m-content');

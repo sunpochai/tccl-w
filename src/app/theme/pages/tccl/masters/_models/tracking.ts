@@ -1,5 +1,5 @@
-export class   Tracking {
-    id: number ;
-    
+export class Tracking {
+    id: number;
+
     fullName: string;
 }  

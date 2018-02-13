@@ -1,5 +1,5 @@
 import { AlertComponent } from './../../../../../auth/_directives/alert.component';
- 
+
 import { DefaultComponent } from './../../../default/default.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -9,9 +9,9 @@ import { LayoutModule } from '../../../../layouts/layout.module';
 import { TrackingDetailComponent } from './tracking-detail/tracking-detail.component';
 import { TrackingService } from '../_services/tracking.service';
 import { AlertService } from '../../../../../auth/_services/index';
- 
- 
- 
+
+
+
 
 const routes: Routes = [
     {
@@ -21,7 +21,7 @@ const routes: Routes = [
             {
                 "path": "list",
                 "component": TrackingListComponent
-            },{
+            }, {
                 "path": "detail",
                 "component": TrackingDetailComponent
             }
@@ -30,13 +30,13 @@ const routes: Routes = [
 ];
 @NgModule({
     imports: [
-        CommonModule, RouterModule.forChild(routes),  LayoutModule   
+        CommonModule, RouterModule.forChild(routes), LayoutModule
     ], exports: [
         RouterModule
     ], declarations: [
         TrackingListComponent,
-        TrackingDetailComponent 
-    ],providers:[TrackingService,AlertService]
+        TrackingDetailComponent
+    ], providers: [TrackingService, AlertService]
 })
 export class TrackingModule {
 

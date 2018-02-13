@@ -25,7 +25,7 @@ export class ThemeComponent implements OnInit {
                 this._script.loadScripts('head', ['assets/vendors/custom/fullcalendar/fullcalendar.bundle.js'], true);
             });
         this._script.loadScripts('head', ['assets/tccl/scripts.mybundle.js', 'assets/tccl/scripts.mybundle.js'], true)
-            
+
         this._router.events.subscribe((route) => {
             if (route instanceof NavigationStart) {
                 (<any>mLayout).closeMobileAsideMenuOffcanvas();
