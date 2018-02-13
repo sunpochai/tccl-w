@@ -3,7 +3,7 @@ import { ViewEncapsulation } from '@angular/core/src/metadata/view';
 
 declare var myBundle: any;
 
-
+/*test commit adn push*/
 export class PageBaseComponent {
 
     protected currentUser
