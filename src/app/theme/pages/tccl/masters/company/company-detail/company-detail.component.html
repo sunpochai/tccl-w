@@ -87,12 +87,14 @@
 				<div class="form-group m-form__group row first">
 					<div class="col-lg-12">
 						<span class="m-form__help">
-						 <b>Create by:</b>{{company.CreateUser}} | {{company.CreateDatetime  | date:'dd/MM/yyyy HH:mm:ss'}}
+							Created at {{company.CreateDatetime  | date:'dd/MM/yyyy HH:mm:ss'}} by {{company.CreateUser}} 
+					 
 						   </span>
 					</div>
 					<div class="col-lg-12"> 
 				   <span class="m-form__help"> 
-					<b> Last Update by :</b>  {{company.UpdateUser}} | {{company.UpdateDatetime  | date:'dd/MM/yyyy HH:mm:ss'}}
+						Last modified at {{company.UpdateDatetime  | date:'dd/MM/yyyy HH:mm:ss'}} by {{company.UpdateUser}} 
+					
 				   </span>
 				   </div>
 				</div>
