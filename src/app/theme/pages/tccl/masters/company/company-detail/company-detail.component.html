@@ -71,7 +71,7 @@
 						Company Code *
 					</label>
 					<div class="col-lg-4 col-md-9 col-sm-12">
-						<input required minlength="4"  [disabled]='id  != 0 ' [(ngModel)]="company.CompCode" type="text" class="form-control m-input" name="compcode" value="{{company.CompCode}}" placeholder="Enter Tracking Code"  >
+						<input required minlength="4"  [disabled]='id  != 0 ' [(ngModel)]="company.comp_code" type="text" class="form-control m-input" name="compcode" value="{{company.CompCode}}" placeholder="Enter Tracking Code"  >
 						 
 					</div>
 				</div>
@@ -80,7 +80,7 @@
 						Company Name *   
 					</label>
 					<div class="col-lg-4 col-md-9 col-sm-12">
-						<input required minlength="4" [(ngModel)]="company.CompName"     #compname="ngModel" type="text" class="form-control m-input " name="compname" placeholder="Enter Company Name">
+						<input required minlength="4" [(ngModel)]="company.comp_name"     #compname="ngModel" type="text" class="form-control m-input " name="compname" placeholder="Enter Company Name">
 					 
 					</div>
 				</div> 
