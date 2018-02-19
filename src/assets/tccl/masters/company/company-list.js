@@ -66,7 +66,7 @@ var myDatatable = function( ) {
       // columns definition
       columns: [
         {
-          field: 'CompCode',
+          field: 'comp_code',
           title: 'Company Code',
           sortable: false, // disable sort for this column
            width: 150,
@@ -74,7 +74,7 @@ var myDatatable = function( ) {
           textAlign: 'center',
           sortable: 'asc'
         }, {
-          field: 'CompName',
+          field: 'comp_name',
           title: 'Company Name',
           //sortable: 'asc', // default sort
           filterable: false, // disable or enable filtering
@@ -82,12 +82,12 @@ var myDatatable = function( ) {
           // basic templating support for column rendering,
        //   template: '{{OrderID}} - {{ShipCountry}}',
          }   , {
-          field: 'CreateUser',
+          field: 'create_user',
           title: 'Create User' 
          
        }
           , {
-            field: 'CreateDatetime',
+            field: 'create_dateime',
             title: 'Create Date',
             type: 'date',
             format: 'MM/DD/YYYY',
@@ -99,12 +99,12 @@ var myDatatable = function( ) {
             sortable: false,
             overflow: 'visible',
             template: function (row, index, datatable) {
-              console.log(row);
+              
               var dropup = (datatable.getPageSize() - index) <= 4 ? 'dropup' : '';
-              return '\<a   href="javascript:navigate_edit(\''+ row.CompCode +'\')"  class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit details">\
+              return '\<a   href="javascript:navigate_edit(\''+ row.comp_code +'\')"  class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit details">\
           			<i class="la la-edit"></i>\
           		</a>\
-          		<a href="#" onclick="javascript:selectdel(\''+ row.CompCode +'\');return false;" data-toggle="modal" data-target="#m_modal_6" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Delete">\
+          		<a href="#" onclick="javascript:selectdel(\''+ row.comp_code +'\');return false;" data-toggle="modal" data-target="#m_modal_6" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Delete">\
           			<i class="la la-trash"></i>\
           		</a>\
           	';

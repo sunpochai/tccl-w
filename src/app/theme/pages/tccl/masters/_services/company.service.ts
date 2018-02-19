@@ -14,7 +14,7 @@ export class CompanyService extends TokenBaseService {
 
     public loaddata() {
 
-        return this.http.post(API_COMPANY_LIST, JSON.stringify({ compCode: "", compName: "" }), super.jwt())
+        return this.http.post(API_COMPANY_LIST, JSON.stringify({ comp_code: "", comp_name: "" }), super.jwt())
             .map((response: Response) => response.json());
     }
 
@@ -30,7 +30,7 @@ export class CompanyService extends TokenBaseService {
     }
     public put<T>(company: Company) {
 
-        return this.http.put(API_COMPANY_PUT + '/' + company.CompCode, company, super.jwt())
+        return this.http.put(API_COMPANY_PUT + '/' + company.comp_code, company, super.jwt())
             .map((response: Response) => <T>response.json());
     }
     public del(id: string) {

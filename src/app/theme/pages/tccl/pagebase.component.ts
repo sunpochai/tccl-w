@@ -3,7 +3,7 @@ import { ViewEncapsulation } from '@angular/core/src/metadata/view';
 
 declare var myBundle: any;
 
-  
+
 export class PageBaseComponent {
 
     protected currentUser

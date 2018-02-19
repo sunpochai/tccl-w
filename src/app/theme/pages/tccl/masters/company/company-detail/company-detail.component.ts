@@ -60,13 +60,14 @@ export class CompanyDetailComponent extends PageBaseComponent implements OnInit,
     create() {
 
         super.blockui('#m_form_1');
-        this.company.CreateUser = super.getADUserLogin();
-        this.company.CreateDatetime = new Date();
+        this.company.create_user = super.getADUserLogin();
+        this.company.create_username = super.getFullNameUserLogin();
+        this.company.create_datetime = new Date();
         this._companyService.create<Company>(this.company).subscribe(resp => {
             this.company = resp;
-            super.showsuccess(this.company.CompCode + ' create complete');
+            super.showsuccess(this.company.comp_code + ' create complete');
             this._router.navigate(['/masters/company/list']);
-        },
+        },  
             error => {
                 super.showError(error);
                 super.unblockui('#m_form_1');
@@ -91,11 +92,12 @@ export class CompanyDetailComponent extends PageBaseComponent implements OnInit,
     update() {
 
         super.blockui('#m_form_1');
-        this.company.UpdateUser = super.getADUserLogin();
-        this.company.UpdateDatetime = new Date();
+        this.company.update_user = super.getADUserLogin();
+        this.company.update_username = super.getFullNameUserLogin();
+        this.company.update_datetime = new Date();
         this._companyService.put<Company>(this.company).subscribe(resp => {
             this.company = resp;
-            super.showsuccess(this.company.CompCode + ' update complete');
+            super.showsuccess(this.company.comp_code + ' update complete');
             this._router.navigate(['/masters/company/list']);
         },
             error => {
