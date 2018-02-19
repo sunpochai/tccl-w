@@ -31,13 +31,14 @@ export class PageBaseComponent {
         if (this.currentUser && this.currentUser.aduser) {
             return this.currentUser.aduser
         } else {
-            return 'TCC\\TestonFrontEnd';
-        }
+            return 'TCC\\SanchaiP';
+        }  
 
     }
     protected getFullNameUserLogin() {
+        return 'Sanchai Pochai';;
         if (this.currentUser && this.currentUser.fullname) {
-            return this.currentUser.fullname
+            return 'Sanchai Pochai';
         }
     }
 

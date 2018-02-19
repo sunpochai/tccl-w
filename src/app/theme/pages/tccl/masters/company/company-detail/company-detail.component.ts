@@ -31,7 +31,8 @@ export class CompanyDetailComponent extends PageBaseComponent implements OnInit,
         super();
     }
     ngOnInit() {
-
+        super.blockui('#m_form_1');
+       
         this.route.params.subscribe(params => {
             this.id = params['id'];
         });
@@ -47,6 +48,9 @@ export class CompanyDetailComponent extends PageBaseComponent implements OnInit,
             // console.log(this.company);
         }
 
+         
+        super.unblockui('#m_form_1');
+             
     }
     ngAfterViewInit() {
 
@@ -67,20 +71,22 @@ export class CompanyDetailComponent extends PageBaseComponent implements OnInit,
             this.company = resp;
             super.showsuccess(this.company.comp_code + ' create complete');
             this._router.navigate(['/masters/company/list']);
-        },  
-            error => {
-                super.showError(error);
-                super.unblockui('#m_form_1');
-                console.log('error');
-            },
-            () => {
-                super.unblockui('#m_form_1');
-                console.log('done');
-            });
+        },
+        error => {  
+            alert(error);
+            super.showError(error);
+            super.unblockui('#m_form_1');
+            
+        },
+        () => {
+            super.unblockui('#m_form_1');
+           
+        });
 
 
     }
     save() {
+        
         console.log(this.company);
         if (this.id != null && this.id != '0') {
             this.update();
@@ -100,14 +106,14 @@ export class CompanyDetailComponent extends PageBaseComponent implements OnInit,
             super.showsuccess(this.company.comp_code + ' update complete');
             this._router.navigate(['/masters/company/list']);
         },
-            error => {
+            error => {  
                 super.showError(error);
                 super.unblockui('#m_form_1');
-                console.log('error');
+               
             },
             () => {
                 super.unblockui('#m_form_1');
-                console.log('done');
+              
             });
 
 

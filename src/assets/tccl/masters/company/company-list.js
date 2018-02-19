@@ -87,9 +87,9 @@ var myDatatable = function( ) {
          
        }
           , {
-            field: 'create_dateime',
+            field: 'create_datetime',
             title: 'Create Date',
-            type: 'date',
+            type: 'datetime',
             format: 'MM/DD/YYYY',
          },
          {

@@ -17,10 +17,10 @@ const routes: Routes = [
                 "path": "masters\/company",
                 "loadChildren": ".\/pages\/tccl\/masters\/company\/company.module#CompanyModule"
             },
-            // {
-            //     "path": "angular\/ng-bootstrap",
-            //     "loadChildren": ".\/pages\/default\/angular\/ng-bootstrap\/ng-bootstrap.module#NgBootstrapModule"
-            // },
+            {
+                "path": "masters\/doctype",
+                "loadChildren": ".\/pages\/tccl\/masters\/company\/company.module#CompanyModule"
+            },
             // {           
             //     "path": "angular\/primeng",
             //     "loadChildren": ".\/pages\/default\/angular\/primeng\/primeng.module#PrimengModule"
@@ -555,8 +555,9 @@ const routes: Routes = [
             },
             {
                 "path": "",
-                "redirectTo": "index",
-                "pathMatch": "full"
+                "loadChildren": ".\/pages\/tccl\/masters\/tracking\/tracking.module#TrackingModule"
+              //  "redirectTo": "index",
+              //  "pathMatch": "full"
             }
         ]
     },

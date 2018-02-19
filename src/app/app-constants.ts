@@ -8,3 +8,7 @@ export const API_COMPANY_INSERT: string = API_BASE_URL + '/api/company/insert'
 export const API_DOCTYPE_LIST: string = API_BASE_URL + '/api/doctype/list'
 export const API_DOCTYPE_GET_PUT_DEL: string = API_BASE_URL + '/api/doctype'
 export const API_DOCTYPE_INSERT: string = API_BASE_URL + '/api/doctype/insert'  
+
+export const API_TRACKING_LIST: string = API_BASE_URL + '/api/tracking/list'
+export const API_TRACKING_GET_PUT_DEL: string = API_BASE_URL + '/api/tracking'
+export const API_TRACKING_INSERT: string = API_BASE_URL + '/api/tracking/insert'  
