@@ -10,7 +10,7 @@ import { API_COMPANY_LIST } from './../../../../../../app-constants';
 
 
 
-declare var myDatatable: any;
+declare var myDatatable_company: any;
 declare var window: any
 
 @Component({
@@ -45,7 +45,7 @@ export class CompanyListComponent extends PageBaseComponent implements OnInit, A
     load() {
         super.blockui('#m-content');
         jQuery(document).ready(function() {
-            myDatatable.init(API_COMPANY_LIST);
+            myDatatable_company.init(API_COMPANY_LIST);
         });
         super.unblockui('#m-content');
 
@@ -63,7 +63,7 @@ export class CompanyListComponent extends PageBaseComponent implements OnInit, A
         this._companyService.del(compCode.toString()).subscribe(resp => {
 
             super.showsuccess(compCode + ' delete complete');
-            myDatatable.reload();
+            myDatatable_company.reload();
         },
             error => {
                 super.showError(error);
