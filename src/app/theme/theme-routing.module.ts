@@ -19,7 +19,7 @@ const routes: Routes = [
             },
             {
                 "path": "masters\/doctype",
-                "loadChildren": ".\/pages\/tccl\/masters\/company\/company.module#CompanyModule"
+                "loadChildren": ".\/pages\/tccl\/masters\/doctype\/doctype.module#DocTypeModule"
             },
             // {           
             //     "path": "angular\/primeng",

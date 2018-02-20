@@ -36,8 +36,15 @@ export class PageBaseComponent {
 
     }
     protected getFullNameUserLogin() {
+<<<<<<< HEAD
         return 'Sanchai Pochai';;
         
+=======
+        return 'Sanchai Pochai';
+        // if (this.currentUser && this.currentUser.fullname) {
+        //     return 'Sanchai Pochai';
+        // }
+>>>>>>> 31ffc3702fd566c12b0ea63983f3e766d088a95d
     }
 
 
