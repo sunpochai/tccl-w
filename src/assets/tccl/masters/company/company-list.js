@@ -13,7 +13,7 @@ var myDatatable_company = function( ) {
      
       data: {  
         saveState:false,
-        type: 'remote',
+        type: 'remote',   
        
         source: {
           read: {
