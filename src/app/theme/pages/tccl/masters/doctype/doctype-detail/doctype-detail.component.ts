@@ -30,6 +30,7 @@ export class DocTypeDetailComponent extends PageBaseComponent implements OnInit,
         private _docTypeService: DocTypeService, private formBuilder: FormBuilder) {
         super();
     }
+
     ngOnInit() {
         super.blockui('#m_form_1');
        
@@ -45,24 +46,18 @@ export class DocTypeDetailComponent extends PageBaseComponent implements OnInit,
 
         } else {
             this.doctype = new DocType();
-            // console.log(this.company);
+            // console.log(this.doctype);
         }
 
-         
         super.unblockui('#m_form_1');
-             
     }
+
     ngAfterViewInit() {
-
-
-
         this._script.loadScripts('master-doctype-detail',
             ['assets/tccl/masters/doctype/doctype-detail.js']);
-
-
     }
-    create() {
 
+    create() {
         super.blockui('#m_form_1');
         this.doctype.create_user = super.getADUserLogin();
         this.doctype.create_username = super.getFullNameUserLogin();

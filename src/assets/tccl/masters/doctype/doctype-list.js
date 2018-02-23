@@ -1,6 +1,5 @@
 //== Class definition
  
- 
 var myDatatable = function( ) {
   //== Private functions
 
@@ -9,24 +8,21 @@ var myDatatable = function( ) {
     
     var datatable = $('.m_datatable').mDatatable({
       // datasource definition
-   
       data: {  
         saveState:false,
         type: 'remote',
-       
         source: {
           read: {
             // sample GET method
-            
             method: 'POST',
             url: apiurl,
             map: function(raw) {
-          // sample data mapping
-                var dataSet = raw;
+              // sample data mapping
+              var dataSet = raw;
               if (typeof raw.data !== 'undefined') {
                 dataSet = raw.data;
               }
-              return dataSet;
+            return dataSet;
             },
           },
         }
@@ -44,17 +40,12 @@ var myDatatable = function( ) {
         theme: "default"
       },
 
-      // column sorting
       sortable: true,
-
       pagination: true,
-
       toolbar: {
         // toolbar items
         items: {
-          // pagination
           pagination: {
-            // page size select
             pageSizeSelect: [5,10, 20, 30, 50, 100],
           },
         },
@@ -69,31 +60,27 @@ var myDatatable = function( ) {
         {
           field: 'doc_type_code',
           title: 'Doc Type Code',
-          sortable: false, // disable sort for this column
-           width: 150,
+          width: 150,
           selector: false,
           textAlign: 'center',
           sortable: 'asc'
         }, {   
           field: 'doc_type_desc',
           title: 'Description',
-          //sortable: 'asc', // default sort
-          filterable: false, // disable or enable filtering
-         // width: 150,
+          sortable: true,
+          filterable: false,
           // basic templating support for column rendering,
-       //   template: '{{OrderID}} - {{ShipCountry}}',
-         }   , {
+          //   template: '{{OrderID}} - {{ShipCountry}}',
+         } , {
           field: 'create_user',
           title: 'Create User' 
-         
-       }
-          , {
-            field: 'create_datetime',
-            title: 'Create Date',
-            type: 'date',
-            format: 'MM/DD/YYYY',
-         },
-         {
+         } , {
+          field: 'create_datetime',
+          title: 'Create Date',
+          type: 'datetime',
+          format: 'MM/DD/YYYY'
+          //template: "{{update_datetime | date:'dd/MM/yyyy HH:mm:ss'}}"
+         } , {
             field: 'Actions',
             width: 110,
             title: 'Actions',
@@ -111,10 +98,6 @@ var myDatatable = function( ) {
           	';
             }
           }
-         //, {
-        //   field: 'Latitude',
-        //   title: 'Latitude',
-        //   type: 'number',
         // }, {
         //   field: 'Status',
         //   title: 'Status',
@@ -197,15 +180,13 @@ var myDatatable = function( ) {
   };
 }();
 
- //jQuery(document).ready(function() {
- //  DatatableRemoteAjaxDemo.init('');
-  //});
-  function selectdel(docTypeCode){
-    $('#docTypeCodeDeleteSelected').val(docTypeCode);
- } 
+//jQuery(document).ready(function() {
+//  DatatableRemoteAjaxDemo.init('');
+//});
+function selectdel(docTypeCode){
+  $('#docTypeCodeDeleteSelected').val(docTypeCode);
+} 
  
- 
-  function navigate_edit(x){
-    my.namespace.navigate_edit(x);
-  
-  }
+function navigate_edit(x){
+  my.namespace.navigate_edit(x);
+}

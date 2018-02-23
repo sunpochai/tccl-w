@@ -25,13 +25,12 @@
 					-
 				</li>
 				<li class="m-nav__item">
-						<a routerLink="/masters/company/list" class="m-nav__link">
+					<a routerLink="/masters/company/list" class="m-nav__link">
 						<span class="m-nav__link-text">
 							Doc Type
 						</span>
 					</a>
 				</li>
-				 
 			</ul>
 		</div>
 	 
@@ -39,18 +38,15 @@
 </div>
 <!-- END: Subheader -->
 <div class="m-content" id="m-content">
-	 
 	<div class="m-portlet m-portlet--mobile">
 		<div class="m-portlet__head">
 			<div class="m-portlet__head-caption">
 				<div class="m-portlet__head-title">
 					<h3 class="m-portlet__head-text">
 						Doc Type
-					 
 					</h3>
 				</div>
 			</div>
-	 
 		</div>
 		<div class="m-portlet__body">
 			<!--begin: Search Form -->
@@ -58,7 +54,6 @@
 				<div class="row align-items-center">
 					<div class="col-xl-8 order-2 order-xl-1">
 						<div class="form-group m-form__group row align-items-center">
-						 
 							<div class="col-md-4">
 								<div class="m-input-icon m-input-icon--left">
 									<input type="text" class="form-control m-input" placeholder="Search..." id="generalSearch">
@@ -76,7 +71,7 @@
 							<span>
 								<i class="flaticon-plus"></i>
 								<span>
-									New Doc Type
+									New
 								</span>
 							</span>
 						</a>
@@ -84,14 +79,13 @@
 					</div>
 				</div>
 			</div>
-			<!--end: Search Form -->  		<!--begin: Datatable -->
+			<!--end: Search Form -->
+			<!--begin: Datatable -->
 			<div class="m_datatable" id="ajax_data"></div>
 			<!--end: Datatable -->
 			<div>
 				<input  hidden type="text" class="form-control m-input" name="docTypeCodeDeleteSelected"     id='docTypeCodeDeleteSelected'  >
-				 
-		  
-			</div> 
+			</div>
 		</div>
 	</div>
 </div>
@@ -114,10 +108,9 @@
 					Confirm Delete?
 				</p>
 			</div>
-			  
 		   <div class="modal-footer">
 			 <button type="button" (click)="del()" data-dismiss="modal" class="btn btn-danger">
-				   Delete Company  
+					Delete  
 			</button>
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">
 					Close
