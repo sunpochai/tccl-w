@@ -1,0 +1,43 @@
+import { POItem } from "./poitem";
+
+export class PO {
+    po_id: number;
+    workflow_id: number;
+    po_no: string;
+    status: string;
+    doc_type: string;
+    account_category: string;
+    reference_text: string;
+    comp_code: string;
+    comp_name: string;
+    service: string;
+    your_ref: string;
+    purchasing_org: string;
+    vendor_code: string;
+    vendor_name: string;
+    po_date: string;
+    plant_code: string;
+    plant_name: string;
+    tracking_no: string;
+    purchasing_group: string;
+    terms_payment: string;
+    terms_payment_name: string;
+    Inco1: string;
+    Inco2: string;
+    currency: string;
+    exchrate: number;
+    F01_01: string;
+    F01_02: string;
+    F01_03: string;
+    F01_04: string;
+    F02_01: string;
+    F02_02: string;
+    F02_03: string;
+    F02_04: string;
+    F03_01: string;
+    F03_02: string;
+    F03_03: string;
+    F03_04: string;
+    amount: number;
+    po_items: Array<POItem>;
+}  
