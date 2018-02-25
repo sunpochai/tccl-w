@@ -12,3 +12,7 @@ export const API_DOCTYPE_INSERT: string = API_BASE_URL + '/api/doctype/insert'
 export const API_TRACKING_LIST: string = API_BASE_URL + '/api/tracking/list'
 export const API_TRACKING_GET_PUT_DEL: string = API_BASE_URL + '/api/tracking'
 export const API_TRACKING_INSERT: string = API_BASE_URL + '/api/tracking/insert'  
+
+export const API_PAYMENT_LIST: string = API_BASE_URL + '/api/payment/list'
+export const API_PAYMENT_GET_PUT_DEL: string = API_BASE_URL + '/api/payment'
+export const API_PAYMENT_INSERT: string = API_BASE_URL + '/api/payment/insert'
