@@ -14,9 +14,14 @@ export const API_TRACKING_LIST: string = API_BASE_URL + '/api/tracking/list'
 export const API_TRACKING_GET_PUT_DEL: string = API_BASE_URL + '/api/tracking'
 export const API_TRACKING_INSERT: string = API_BASE_URL + '/api/tracking/insert'  
 
+export const API_PR_LIST: string = API_BASE_URL + '/api/pr/list'
+export const API_PR_GET: string = API_BASE_URL + '/api/pr'
+
+export const API_PO_LIST: string = API_BASE_URL + '/api/po/list'
+export const API_PO_GET: string = API_BASE_URL + '/api/po'
+
 export const API_PAYMENT_LIST: string = API_BASE_URL + '/api/payment/list'
-export const API_PAYMENT_GET_PUT_DEL: string = API_BASE_URL + '/api/payment'
-export const API_PAYMENT_INSERT: string = API_BASE_URL + '/api/payment/insert'
+export const API_PAYMENT_GET: string = API_BASE_URL + '/api/payment'
 
 //Model status code
 export const ATTACHMENT_DOC_GROUP_PR: number = 1
