@@ -1,4 +1,6 @@
 import { POItem } from "./poitem";
+import { Attachment } from "./attachment";
+import { WorkflowStage } from "./workflowstage";
 
 export class PO {
     po_id: number;
@@ -40,4 +42,6 @@ export class PO {
     F03_04: string;
     amount: number;
     po_items: Array<POItem>;
+    attachments: Array<Attachment>;
+    workflow_stages: Array<WorkflowStage>;
 }  
