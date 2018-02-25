@@ -5,7 +5,7 @@ import * as app from './../../../../../../app-constants';
 import { ScriptLoaderService } from './../../../../../../_services/script-loader.service';
 import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { constructDependencies } from '@angular/core/src/di/reflective_provider';
-import { PMService } from './../../_services/pm.service';
+import { PMService } from './../../../_services/trns/pm.service';
 import { API_DOCTYPE_LIST, API_PAYMENT_LIST } from './../../../../../../app-constants';
 
 

@@ -5,7 +5,7 @@ import * as app from './../../../../../../app-constants';
 import { ScriptLoaderService } from './../../../../../../_services/script-loader.service';
 import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { constructDependencies } from '@angular/core/src/di/reflective_provider';
-import { DocTypeService } from './../../_services/doctype.service';
+import { DocTypeService } from './../../../_services/masters/doctype.service';
 import { API_DOCTYPE_LIST } from './../../../../../../app-constants';
 
 

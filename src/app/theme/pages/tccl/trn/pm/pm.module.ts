@@ -10,11 +10,10 @@ import { DefaultComponent } from './../../../default/default.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { PaymentListComponent } from './payment-list/payment-list.component';
+import { PMListComponent } from './pm-list/pm-list.component';
 import { LayoutModule } from '../../../../layouts/layout.module';
-//import { DocTypeDetailComponent } from './doctype-detail/doctype-detail.component';
 import { AlertService } from '../../../../../auth/_services/index';
-import { PaymentService } from '../_services/payment.service';
+import { PMService } from '../../_services/trns/pm.service';
 
 const routes: Routes = [
     {
@@ -23,7 +22,7 @@ const routes: Routes = [
         "children": [
             {
                 "path": "list",
-                "component": PaymentListComponent
+                "component": PMListComponent
             }/* , {
                 "path": "detail/:id",
                 "component": DocTypeDetailComponent
@@ -38,10 +37,10 @@ const routes: Routes = [
     ], exports: [
         RouterModule
     ], declarations: [
-        PaymentListComponent/* ,
+        PMListComponent/* ,
         DocTypeDetailComponent */
-    ], providers: [PaymentService, FormBuilder]
+    ], providers: [PMService, FormBuilder]
 })
-export class PaymentModule {
+export class PMModule {
 
 }

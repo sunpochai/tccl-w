@@ -1,9 +1,9 @@
-import { TokenBaseService } from './tokenbase.service';
+import { TokenBaseService } from './../tokenbase.service';
 import { Injectable } from "@angular/core";
 import { Http, Headers, Response, RequestOptions } from "@angular/http";
 import "rxjs/add/operator/map";
 import { API_DOCTYPE_LIST, API_DOCTYPE_GET_PUT_DEL, API_DOCTYPE_INSERT, API_PAYMENT_GET_PUT_DEL, API_PAYMENT_INSERT, API_PAYMENT_LIST } from "../../../../../app-constants";
-import { PM } from '../_models/pm';
+import { PM } from '../../_models/trns/pm';
 
 @Injectable()
 export class PMService extends TokenBaseService {

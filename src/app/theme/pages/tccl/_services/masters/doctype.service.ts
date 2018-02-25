@@ -1,9 +1,9 @@
-import { TokenBaseService } from './tokenbase.service';
+import { TokenBaseService } from './../tokenbase.service';
 import { Injectable } from "@angular/core";
 import { Http, Headers, Response, RequestOptions } from "@angular/http";
 import "rxjs/add/operator/map";
 import { API_DOCTYPE_LIST, API_DOCTYPE_GET_PUT_DEL, API_DOCTYPE_INSERT } from "../../../../../app-constants";
-import { DocType } from '../_models/doctype';
+import { DocType } from '../../_models/masters/doctype';
 
 @Injectable()
 export class DocTypeService extends TokenBaseService {

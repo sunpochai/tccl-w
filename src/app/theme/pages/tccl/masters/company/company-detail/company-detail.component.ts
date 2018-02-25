@@ -1,11 +1,11 @@
 import { PageBaseComponent } from './../../../pagebase.component';
-import { CompanyService } from './../../_services/company.service';
+import { CompanyService } from './../../../_services/masters/company.service';
 import { Helpers } from './../../../../../../helpers';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ScriptLoaderService } from '../../../../../../_services/script-loader.service';
-import { Tracking } from '../../_models/tracking';
+import { Tracking } from '../../../_models/masters/tracking';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Company } from '../../_models/company';
+import { Company } from '../../../_models/masters/company';
 import {
     FormGroup,
     FormBuilder,

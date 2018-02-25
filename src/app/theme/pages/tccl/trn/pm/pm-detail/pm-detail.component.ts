@@ -1,17 +1,17 @@
 import { PageBaseComponent } from './../../../pagebase.component';
-import { PMService } from './../../_services/pm.service';
+import { PMService } from './../../../_services/trns/pm.service';
 import { Helpers } from './../../../../../../helpers';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ScriptLoaderService } from '../../../../../../_services/script-loader.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PM } from '../../_models/pm';
+import { PM } from '../../../_models/trns/pm';
 import {
     FormGroup,
     FormBuilder,
     Validators,
     FormControl
 } from '@angular/forms';
-import { Attachment } from '../../_models/attachment';
+import { Attachment } from '../../../_models/trns/attachment';
 import { ATTACHMENT_DOC_GROUP_PM } from '../../../../../../app-constants';
 
 
