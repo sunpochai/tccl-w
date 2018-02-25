@@ -22,8 +22,12 @@ const routes: Routes = [
                 "loadChildren": ".\/pages\/tccl\/masters\/doctype\/doctype.module#DocTypeModule"
             },
             {
-                "path": "trn\/payment",
-                "loadChildren": ".\/pages\/tccl\/trn\/payment\/payment.module#PaymentModule"
+                "path": "trns\/pr",
+                "loadChildren": ".\/pages\/tccl\/trns\/pr\/pr.module#PRModule"
+            },
+            {
+                "path": "trns\/payment",
+                "loadChildren": ".\/pages\/tccl\/trns\/payment\/pm.module#PMModule"
             },
             // {           
             //     "path": "angular\/primeng",

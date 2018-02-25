@@ -5,8 +5,8 @@ import * as app from './../../../../../../app-constants';
 import { ScriptLoaderService } from './../../../../../../_services/script-loader.service';
 import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { constructDependencies } from '@angular/core/src/di/reflective_provider';
-import { PMService } from './../../../_services/trns/pm.service';
-import { API_DOCTYPE_LIST, API_PAYMENT_LIST, API_PR_LIST } from './../../../../../../app-constants';
+import { PRService } from './../../../_services/trns/pr.service';
+import { API_PR_LIST } from './../../../../../../app-constants';
 
 
 
@@ -14,16 +14,16 @@ declare var myDatatable: any;
 declare var window: any
 
 @Component({
-    selector: "trn-pm-list",
-    templateUrl: "./pm-list.component.html",
+    selector: "trn-pr-list",
+    templateUrl: "./pr-list.component.html",
     encapsulation: ViewEncapsulation.None,
 })
-export class PMListComponent extends PageBaseComponent implements OnInit, AfterViewInit {
+export class PRListComponent extends PageBaseComponent implements OnInit, AfterViewInit {
 
 
     constructor(private _router: Router,
         private _script: ScriptLoaderService,
-        private _pmService: PMService) {
+        private _pRService: PRService) {
         super();
     }
     ngOnInit() {
@@ -35,8 +35,8 @@ export class PMListComponent extends PageBaseComponent implements OnInit, AfterV
     }
     ngAfterViewInit() {
 
-        this._script.loadScripts('trn-pm-list',
-            ['assets/tccl/trn/pm/pm-list.js']);
+        this._script.loadScripts('trn-pr-list',
+            ['assets/tccl/trns/pr/pr-list.js']);
 
         this.load();
 
@@ -77,7 +77,15 @@ export class PMListComponent extends PageBaseComponent implements OnInit, AfterV
     //         });
     // }
 
-    // navigate_edit(docTypeCode) {
-    //     this._router.navigate(['/masters/doctype/detail/' + docTypeCode]);
-    // }
+    navigate_edit(prId) {
+        this._router.navigate(['/trns/pr/detail/' + prId]);
+    }
+
+    navigate_review(prId) {
+        this._router.navigate(['/trns/pr/detail/' + prId]);
+    }
+
+    navigate_approve(prId) {
+        this._router.navigate(['/trns/pr/detail/' + prId]);
+    }
 }   

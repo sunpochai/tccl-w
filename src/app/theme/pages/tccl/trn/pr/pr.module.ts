@@ -10,11 +10,10 @@ import { DefaultComponent } from './../../../default/default.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { DocTypeListComponent } from './doctype-list/doctype-list.component';
+import { PRListComponent } from './pr-list/pr-list.component';
 import { LayoutModule } from '../../../../layouts/layout.module';
-import { DocTypeDetailComponent } from './doctype-detail/doctype-detail.component';
 import { AlertService } from '../../../../../auth/_services/index';
-import { DocTypeService } from '../../_services/masters/doctype.service';
+import { PRService } from '../../_services/trns/pr.service';
 
 const routes: Routes = [
     {
@@ -23,11 +22,11 @@ const routes: Routes = [
         "children": [
             {
                 "path": "list",
-                "component": DocTypeListComponent
-            }, {
+                "component": PRListComponent
+            }/* , {
                 "path": "detail/:id",
-                "component": DocTypeDetailComponent
-            }
+                "component": PRDetailComponent
+            } */
         ]
     }
 ];
@@ -38,10 +37,10 @@ const routes: Routes = [
     ], exports: [
         RouterModule
     ], declarations: [
-        DocTypeListComponent,
-        DocTypeDetailComponent
-    ], providers: [DocTypeService, FormBuilder]
+        PRListComponent/* ,
+        DocTypeDetailComponent */
+    ], providers: [PRService, FormBuilder]
 })
-export class DocTypeModule {
+export class PRModule {
 
 }
