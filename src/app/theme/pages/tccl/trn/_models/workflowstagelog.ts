@@ -7,6 +7,6 @@ export class WorkflowStageLog {
     actor_username: string;
     activity: string;
     activity_description: string;
-    // start_datetime			datetime
-    // finish_datetime			datetime
+    start_datetime: Date;
+    finish_datetime: Date;
 }

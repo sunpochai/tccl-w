@@ -12,9 +12,9 @@ export class WorkflowStage {
     actor_username: string;
     outcome: string;
     outcome_description: string;
-    // start_datetime			datetime
-    // finish_datetime			datetime
-    // due_datetime			datetime
-    // warn_datetime			datetime
+    start_datetime: Date;
+    finish_datetime: Date;
+    due_datetime: Date;
+    warn_datetime: Date;
     workflow_stage_logs: Array<WorkflowStageLog>;
 }

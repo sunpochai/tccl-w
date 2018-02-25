@@ -11,6 +11,8 @@ import {
     Validators,
     FormControl
 } from '@angular/forms';
+import { Attachment } from '../../_models/attachment';
+import { ATTACHMENT_DOC_GROUP_PM } from '../../../../../../app-constants';
 
 
 
@@ -76,16 +78,46 @@ export class PMDetailComponent extends PageBaseComponent implements OnInit, Afte
     //     });
     // }
 
+    createAttachment() {
+        super.blockui('#m_form_1');
+
+        let attachment: Attachment;
+        attachment.create_user = super.getADUserLogin();
+        attachment.create_username = super.getFullNameUserLogin();
+        attachment.create_datetime = new Date();
+
+        attachment.doc_group = ATTACHMENT_DOC_GROUP_PM;
+        // attachment.doc_ref_id;
+        // attachment.file_name;
+        // attachment.file_content;
+
+        this._pmService.put<PM>(this.pm).subscribe(
+            resp => {
+                this.pm = resp;
+                super.showsuccess(this.pm.matdoc_no + '/' + this.pm.doc_year + ' update complete');
+                this.navigate_list();
+            },
+            error => {  
+                super.showError(error);
+                super.unblockui('#m_form_1');
+               
+            },
+            () => {
+                super.unblockui('#m_form_1');
+              
+            }
+        );
+    }
+
     save() {
-        
         console.log(this.pm);
         if (this.id != null && this.id != '0') {
             this.review();
         } else {
-            this.review();
+            this.review();//this.approve();
         }
-
     }
+
     review() {
         super.blockui('#m_form_1');
         // this.pm.update_user = super.getADUserLogin();
@@ -95,7 +127,7 @@ export class PMDetailComponent extends PageBaseComponent implements OnInit, Afte
             resp => {
                 this.pm = resp;
                 super.showsuccess(this.pm.matdoc_no + '/' + this.pm.doc_year + ' update complete');
-                this._router.navigate(['/masters/doctype/list']);
+                this.navigate_list();
             },
             error => {  
                 super.showError(error);
