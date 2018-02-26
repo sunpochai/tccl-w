@@ -82,10 +82,10 @@ var myDatatable = function( ) {
           sortable: true,
           filterable: false,
         } , {
-          field: 'xxx',
+          field: 'amount',
           title: 'Est. Price' 
         } , {
-          field: 'xxx',
+          field: 'comp_name',
           title: 'Company' 
         } , {
           field: 'xxx',
@@ -94,7 +94,7 @@ var myDatatable = function( ) {
           field: 'xxx',
           title: 'Vendor' 
         } , {
-          field: 'xxx',
+          field: 'plant_name',
           title: 'Plant' 
         }, {
           field: 'status',
@@ -109,11 +109,8 @@ var myDatatable = function( ) {
             };
             return '<span class="m-badge ' + status[row.status].class + ' m-badge--wide">' + row.status + '</span>';
           },
-      } , {
-          field: 'xxx',
-          title: 'Status' 
         } , {
-          field: 'xxx',
+          field: 'create_username',
           title: 'Requisitioner' 
         } , {
           field: 'xxx',
@@ -121,12 +118,12 @@ var myDatatable = function( ) {
         } , {
           field: 'xxx',
           title: 'Due Date' 
-        } , {
-          field: 'create_datetime',
-          title: 'Create Date',
-          type: 'datetime',
-          format: 'MM/DD/YYYY'
-          //template: "{{update_datetime | date:'dd/MM/yyyy HH:mm:ss'}}"
+        // } , {
+        //   field: 'create_datetime',
+        //   title: 'Create Date',
+        //   type: 'datetime',
+        //   format: 'MM/DD/YYYY'
+        //   //template: "{{update_datetime | date:'dd/MM/yyyy HH:mm:ss'}}"
         } , {
           field: 'Actions',
           width: 110,

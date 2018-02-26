@@ -32,3 +32,12 @@ export const WORKFLOW_STATUS_ACTIVE: number = 1
 export const WORKFLOW_STATUS_COMPLETED: number = 2
 export const WORKFLOW_STATUS_EXPIRED: number = 3
 
+export const PR_CATEGORY_ASSET: string = 'A';
+export const PR_CATEGORY_EXPENSE: string = 'E';
+export const PR_CATEGORY_STOCK: string = 'S';
+export const PR_CATEGORY_PROJECTTCL: string = 'P';
+
+export const PR_CATEGORY_ASSET_NAME: string = 'Asset';
+export const PR_CATEGORY_EXPENSE_NAME: string = 'Expense';
+export const PR_CATEGORY_STOCK_NAME: string = 'Stock';
+export const PR_CATEGORY_PROJECTTCL_NAME: string = 'Projectcl';
