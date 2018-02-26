@@ -217,9 +217,9 @@ var myDatatable = function( ) {
   return {
     // public functions
     init: function(apiurl) {
-      load(apiurl );
+      // load(apiurl );
     },reload: function(apiurl) {
-      $('.m_datatable').mDatatable('reload');
+      // $('.m_datatable').mDatatable('reload');
     } 
   };
 }();
