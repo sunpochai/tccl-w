@@ -32,6 +32,16 @@ export const WORKFLOW_STATUS_ACTIVE: number = 1
 export const WORKFLOW_STATUS_COMPLETED: number = 2
 export const WORKFLOW_STATUS_EXPIRED: number = 3
 
+export const C_DOC_STATUS_WAIT_REVIEW: number = 1
+export const C_DOC_STATUS_REVIEWED: number = 2
+export const C_DOC_STATUS_APPROVED: number = 3
+export const C_DOC_STATUS_REJECTED: number = 4
+
+export const C_DOC_STATUS_WAIT_REVIEW_NAME: string = 'Wait Review';
+export const C_DOC_STATUS_REVIEWED_NAME: string = 'Reviewed';
+export const C_DOC_STATUS_APPROVED_NAME: string = 'Approved';
+export const C_DOC_STATUS_REJECTED_NAME: string = 'Rejected';
+
 export const PR_CATEGORY_ASSET: string = 'A';
 export const PR_CATEGORY_EXPENSE: string = 'E';
 export const PR_CATEGORY_STOCK: string = 'S';
