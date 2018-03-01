@@ -25,7 +25,7 @@
 					-
 				</li>
 				<li class="m-nav__item">
-					<a routerLink="/masters/company/list" class="m-nav__link">
+					<a routerLink="/trns/pr/list" class="m-nav__link">
 						<span class="m-nav__link-text">
 							Purchase Request
 						</span>
@@ -50,41 +50,140 @@
 		</div>
 		<div class="m-portlet__body">
 			<!--begin: Search Form -->
-			<div class="m-form m-form--label-align-right m--margin-top-5 m--margin-bottom-30">
-				<div class="row align-items-center">
-					<div class="col-xl-8 order-2 order-xl-1">
-						<div class="form-group m-form__group row align-items-center">
-							<div class="col-md-4">
-								<div class="m-input-icon m-input-icon--left">
-									<input type="text" class="form-control m-input" placeholder="Search..." id="generalSearch">
-									<span class="m-input-icon__icon m-input-icon__icon--left">
-										<span>
-											<i class="la la-search"></i>
-										</span>
-									</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-4 order-1 order-xl-2 m--align-right">
-						<a href="#" (click)="add();" class="btn btn-warning m-btn m-btn--custom m-btn--icon m-btn--air m-btn--pill">
+			<div class="form-group m-form__group row">
+				<label class="col-lg-2 col-sm-4 col-form-label">
+					PR No.:
+				</label>
+				<div class="col-lg-3 col-sm-8" >
+					<input type="text" class="form-control m-input">
+				</div>
+				<label class="col-lg-2 col-sm-4 col-form-label">
+					Doc Type:
+				</label>
+				<div class="col-lg-3 col-sm-8 ">
+					<select class="form-control m-input" id="m_form_doc_type">
+						<option value="">
+							All
+						</option>
+						<option value="1">
+							NB
+						</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group m-form__group row">
+				<label class="col-lg-2 col-sm-4 col-form-label">
+					PR Date From:
+				</label>
+				<div class="col-lg-3 col-sm-8">
+					<input class="form-control m-input" type="date" value="" id="example-date-from">
+				</div>
+				<label class="col-lg-2 col-sm-4 col-form-label">
+					PR Date To:
+				</label>
+				<div class="col-lg-3 col-sm-8">
+					<input class="form-control m-input" type="date" value="" id="example-date-to">
+				</div>
+			</div>
+			<div class="form-group m-form__group row">
+				<label class="col-lg-2 col-sm-4 col-form-label">
+					Company:
+				</label>
+				<div class="col-lg-3 col-sm-8">
+					<select class="form-control m-input" id="m_form_company">
+						<option value="">
+							All
+						</option>
+						<option value="1">
+							8216-บจก.แอสเสท เวิร์ด คอร์ป
+						</option>
+						<option value="2">
+							8298-บจก.แลนด์
+						</option>
+					</select>
+				</div>
+				<label class="col-lg-2 col-sm-4 col-form-label">
+					Subject:
+				</label>
+				<div class="col-lg-3 col-sm-8">
+					<input type="text" class="form-control m-input">
+				</div>
+			</div>
+			<div class="form-group m-form__group row">
+				<label class="col-lg-2 col-sm-4 col-form-label">
+					Vendor:
+				</label>
+				<div class="col-lg-3 col-sm-8">
+					<select class="form-control m-input" id="m_form_vendor">
+						<option value="">
+							All
+						</option>
+						<option value="1">
+							1006017-กรุงเทพเครื่องเย็น
+						</option>
+						<option value="2">
+							1007658-บจก.ทีซีซี เทคโนโลยี
+						</option>
+						<option value="3">
+							1007710-สีลมการค้า
+						</option>
+					</select>
+				</div>
+				<label class="col-lg-2 col-sm-4 col-form-label">
+					Plant:
+				</label>
+				<div class="col-lg-3 col-sm-8">
+					<select class="form-control m-input" id="m_form_plant">
+						<option value="">
+							All
+						</option>
+						<option value="1">
+							2160-สำนักงานใหญ่
+						</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group m-form__group row">
+				<label class="col-lg-2 col-sm-4 col-form-label">
+					Status:
+				</label>
+				<div class="col-lg-3 col-sm-8">
+					<select class="form-control m-input" id="m_form_status">
+						<option value="">
+							All
+						</option>
+						<option value="1">
+							Wait for Review
+						</option>
+						<option value="2">
+							Wait for Approve
+						</option>
+						<option value="3">
+							Approved
+						</option>
+					</select>
+				</div>
+				<label class="col-lg-2 col-sm-4 col-form-label">	
+				</label>
+				<div class="col-lg-3 col-sm-8 " >
+					<a href="#" class="btn btn-outline-info m-btn m-btn--icon m-btn--outline-2x m-btn--pill">
+						<span >
+							<i class="fa fa-search"></i>
 							<span>
-								<i class="flaticon-plus"></i>
-								<span>
-									New
-								</span>
+								Search
 							</span>
-						</a>
-						<div class="m-separator m-separator--dashed d-xl-none"></div>
-					</div>
+						</span>
+					</a>
 				</div>
 			</div>
 			<!--end: Search Form -->
+
 			<!--begin: Datatable -->
 			<div class="m_datatable" id="ajax_data"></div>
 			<!--end: Datatable -->
+
 			<div>
-				<input  hidden type="text" class="form-control m-input" name="docTypeCodeDeleteSelected"     id='docTypeCodeDeleteSelected'  >
+				<!-- <input  hidden type="text" class="form-control m-input" name="docTypeCodeDeleteSelected"     id='docTypeCodeDeleteSelected'  > -->
 			</div>
 		</div>
 	</div>
@@ -108,16 +207,15 @@
 					Confirm Delete?
 				</p>
 			</div>
-		   <div class="modal-footer">
-			 <button type="button" (click)="del()" data-dismiss="modal" class="btn btn-danger">
-					Delete  
-			</button>
+		   	<div class="modal-footer">
+				<button type="button" (click)="del()" data-dismiss="modal" class="btn btn-danger">
+						Delete  
+				</button>
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">
 					Close
 				</button>
-				
 			</div>
-		 
+		</div>
 	</div>
 </div>
  

@@ -18,7 +18,7 @@ import { ATTACHMENT_DOC_GROUP_PM } from '../../../../../../app-constants';
 
 
 @Component({
-    selector: "trn-pm-detail",
+    selector: "trns-pm-detail",
     templateUrl: "./pm-detail.component.html"/*,
     styleUrls: ["./pm-detail.component.css"]*/
 })
@@ -54,8 +54,8 @@ export class PMDetailComponent extends PageBaseComponent implements OnInit, Afte
     }
 
     ngAfterViewInit() {
-        this._script.loadScripts('trn-pm-detail',
-            ['assets/tccl/trn/doctype/pm-detail.js']);
+        // this._script.loadScripts('trns-pr-detail',
+        //     ['assets/tccl/trns/pr/pr-detail.js']);
     }
 
     // create() {
@@ -144,7 +144,7 @@ export class PMDetailComponent extends PageBaseComponent implements OnInit, Afte
     }
 
     navigate_list() {
-        this._router.navigate(['/trn/pm/list']);
+        this._router.navigate(['/trns/pm/list']);
     }
 
 }

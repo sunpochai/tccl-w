@@ -18,9 +18,9 @@ import { ATTACHMENT_DOC_GROUP_PR } from '../../../../../../app-constants';
 
 
 @Component({
-    selector: "trn-pr-detail",
-    templateUrl: "./pr-detail.component.html"/*,
-    styleUrls: ["./pr-detail.component.css"]*/
+    selector: "trns-pr-detail",
+    templateUrl: "./pr-detail.component.html",
+    styleUrls: ["./pr-detail.component.css"]
 })
 export class PRDetailComponent extends PageBaseComponent implements OnInit, AfterViewInit {
     private form: FormGroup;
@@ -47,15 +47,15 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
 
         } else {
             this.pr = new PR();
-            // console.log(this.pr);
+            //console.log(this.pr);
         }
 
         super.unblockui('#m_form_1');
     }
 
     ngAfterViewInit() {
-        this._script.loadScripts('trn-pr-detail',
-            ['assets/tccl/trn/doctype/pr-detail.js']);
+        this._script.loadScripts('trns-pr-detail',
+            ['assets/tccl/trns/pr/pr-detail.js']);
     }
 
     createAttachment() {
@@ -120,11 +120,10 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
             }
         );
 
-
     }
 
     navigate_list() {
-        this._router.navigate(['/trn/pr/list']);
+        this._router.navigate(['/trns/pr/list']);
     }
 
 }

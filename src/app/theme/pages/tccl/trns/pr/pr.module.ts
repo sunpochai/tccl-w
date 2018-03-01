@@ -11,6 +11,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { PRListComponent } from './pr-list/pr-list.component';
+import { PRDetailComponent } from './pr-detail/pr-detail.component';
 import { LayoutModule } from '../../../../layouts/layout.module';
 import { AlertService } from '../../../../../auth/_services/index';
 import { PRService } from '../../_services/trns/pr.service';
@@ -23,10 +24,10 @@ const routes: Routes = [
             {
                 "path": "list",
                 "component": PRListComponent
-            }/* , {
+            }, {
                 "path": "detail/:id",
                 "component": PRDetailComponent
-            } */
+            }
         ]
     }
 ];
@@ -37,8 +38,8 @@ const routes: Routes = [
     ], exports: [
         RouterModule
     ], declarations: [
-        PRListComponent/* ,
-        DocTypeDetailComponent */
+        PRListComponent,
+        PRDetailComponent
     ], providers: [PRService, FormBuilder]
 })
 export class PRModule {

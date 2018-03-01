@@ -14,7 +14,7 @@ declare var myDatatable: any;
 declare var window: any
 
 @Component({
-    selector: "trn-pm-list",
+    selector: "trns-pm-list",
     templateUrl: "./pm-list.component.html",
     encapsulation: ViewEncapsulation.None,
 })
@@ -35,8 +35,8 @@ export class PMListComponent extends PageBaseComponent implements OnInit, AfterV
     }
     ngAfterViewInit() {
 
-        this._script.loadScripts('trn-pm-list',
-            ['assets/tccl/trn/pm/pm-list.js']);
+        this._script.loadScripts('trns-pm-list',
+            ['assets/tccl/trns/pm/pm-list.js']);
 
         this.load();
 
@@ -54,7 +54,7 @@ export class PMListComponent extends PageBaseComponent implements OnInit, AfterV
     }
 
     // add() {
-    //     this._router.navigate(['/trn/payment/detail/0']);
+    //     this._router.navigate(['/trns/payment/detail/0']);
 
     // }
 

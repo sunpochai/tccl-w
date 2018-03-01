@@ -11,10 +11,13 @@
 						<i class="m-nav__link-icon la la-home"></i>
 					</a>
 				</li>
+				<li class="m-nav__separator">
+					-
+				</li>
 				<li class="m-nav__item">
 					<a href="" class="m-nav__link">
 						<span class="m-nav__link-text">
-							Transaction
+							My Work List
 						</span>
 					</a>
 				</li>
@@ -35,18 +38,465 @@
 <!-- END: Subheader -->
 
 <div class="m-content">
+	<!--Begin::Main Portlet-->
+	<div class="m-portlet">
+		<div class="m-portlet__body m-portlet__body--no-padding">
+			<div class="row m-row--no-padding m-row--col-separator-xl">
+				<div class="col-md-12 col-lg-6 col-xl-3">
+					<!--begin:: Widgets/Stats2-1 -->
+					<div class="m-widget1">
+						<div class="m-widget1__item">
+							<div class="row m-row--no-padding align-items-center">
+								<div class="col">
+									<h3 class="m-widget1__title">
+										Status
+									</h3>
+								</div>
+								<div class="col m--align-right">
+									<span class="m-widget1__number">
+										<span class="m-badge m-badge--danger m-badge--wide">Wait Review</span>
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="m-widget1__item">
+							<div class="row m-row--no-padding align-items-center">
+								<div class="col">
+									<span class="m-widget1__title">
+										PR Number
+									</span>
+								</div>
+								<div class="col m--align-right">
+									<span class="m-widget1__number m--font-info">
+										{{pr.pr_no}}
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="m-widget1__item">
+							<div class="row m-row--no-padding align-items-center">
+								<div class="col">
+									<span class="m-widget1__title">
+										PR Date
+									</span>
+								</div>
+								<div class="col m--align-right">
+									<span class="m-widget1__number m--font-info">
+										{{ pr.pr_date | date :'dd/MM/yyyy' }}
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12 col-lg-6 col-xl-3">
+					<!--begin:: Widgets/Stats2-2 -->
+					<div class="m-widget1">
+						<div class="m-widget1__item">
+							<div class="row m-row--no-padding align-items-center">
+								<div class="col">
+									<h3 class="m-widget1__desc">
+										Doc Type
+									</h3><br>
+									<span class="m-widget1__title">
+										{{pr.doc_type}}
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="m-widget1__item">
+							<div class="row m-row--no-padding align-items-center">
+								<div class="col">
+									<h3 class="m-widget1__desc">
+										Requisitioner
+									</h3><br>
+									<span class="m-widget1__title">
+										{{pr.create_username}}
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="m-widget1__item">
+							<div class="row m-row--no-padding align-items-center">
+								<div class="col">
+									<h3 class="m-widget1__desc">
+										Tracking
+									</h3><br>
+									<span class="m-widget1__title">
+										{{pr.tracking_no}}
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="m-widget1__item">
+							<div class="row m-row--no-padding align-items-center">
+								<div class="col">
+									<h3 class="m-widget1__desc">
+										Asset
+									</h3><br>
+									<span class="m-widget1__title" *ngIf="pr.account_asign_category=='A'">
+										Account
+									</span>
+									<span class="m-widget1__title" *ngIf="pr.account_asign_category!='A'">
+										Non-Account
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--begin:: Widgets/Stats2-2 -->
+				</div>
+				<div class="col-md-12 col-lg-6 col-xl-3">
+					<!--begin:: Widgets/Stats2-2 -->
+					<div class="m-widget1">
+						<div class="m-widget1__item">
+							<div class="row m-row--no-padding align-items-center">
+								<div class="col">
+									<h3 class="m-widget1__desc">
+										Company
+									</h3><br>
+									<span class="m-widget1__title">
+										{{pr.comp_code}} - {{pr.comp_name}}
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="m-widget1__item">
+							<div class="row m-row--no-padding align-items-center">
+								<div class="col">
+									<h3 class="m-widget1__desc">
+										Subject
+									</h3><br>
+									<span class="m-widget1__title" *ngIf="pr.subject!=null">
+										{{pr.subject}}
+									</span>
+									<span class="m-widget1__title" *ngIf="pr.subject==null">
+										-
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="m-widget1__item">
+							<div class="row m-row--no-padding align-items-center">
+								<div class="col">
+									<h3 class="m-widget1__desc">
+										Plant
+									</h3><br>
+									<span class="m-widget1__title">
+										{{pr.plant_code}} - {{pr.plant_name}}
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--begin:: Widgets/Stats2-2 -->
+				</div>
+				<div class="col-md-12 col-lg-6 col-xl-3">
+					<!--begin:: Widgets/Stats2-2 -->
+					<div class="m-widget1">
+						<div class="m-widget1__item">
+							<div class="row m-row--no-padding align-items-center">
+								<div class="col">
+									<h3 class="m-widget1__desc">
+										Currency
+									</h3><br>
+									<span class="m-widget1__title">
+										{{pr.pr_items[0].currency}}
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="m-widget1__item">
+							<div class="row m-row--no-padding align-items-center">
+								<div class="col">
+									<h3 class="m-widget1__desc">
+										Exchange Rate
+									</h3><br>
+									<span class="m-widget1__title">
+										1
+									</span>
+								</div>
+							</div>
+						</div>
+						<div class="m-widget1__item">
+							<div class="row m-row--no-padding align-items-center">
+								<div class="col">
+									<h3 class="m-widget1__desc">
+										Purchasing Group
+									</h3><br>
+									<span class="m-widget1__title">
+										{{pr.pr_items[0].purchasing_group}}
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--begin:: Widgets/Stats2-2 -->
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--end::Main Portlet-->
+
+
+	<div class="row">
+		<div class="col-xl-12">
+			<!--begin:: Widgets Items-->
+			<div class="m-portlet m-portlet--full-height">
+				<div class="m-portlet__head">
+					<div class="m-portlet__head-caption">
+						<div class="m-portlet__head-title">
+							<h3 class="m-portlet__head-text">
+								Items
+							</h3>
+						</div>
+					</div>
+				</div>
+				<div class="m-portlet__body">
+					<!--begin::m-widget5-->
+					<div class="m-widget5">
+						<!-- <div id="tabItems"></div> -->
+						<table class='table table-bordered m-table m-table--border-info m-table--head-bg-info'>
+							<thead>
+								<tr>
+									<th>No</th>
+									<th>Budget</th>
+									<th>Description</th>
+									<th>Qty</th>
+									<th>Unit</th>
+									<th>Est. Price</th>
+									<th>Currency</th>
+									<th>Delivery Date</th>
+								</tr>
+							</thead>
+							<tr *ngFor="let row of pr.pr_items; let index = index">
+								<td>{{index+1}}</td>
+								<td>{{row.account_no}} - {{row.account_name}}</td>
+								<td>{{row.mat_desc}}</td>
+								<td>{{row.qty}}</td>
+								<td>{{row.unit}}</td>
+								<td align="right">{{row.estimate_price | number:'1.2'}}</td>
+								<td>{{row.currency}}</td>
+								<td>{{row.delivery_date | date :'dd/MM/yyyy'}}</td>
+							</tr>
+							<tr>
+								<td style='text-align:right ' colspan='5'> Total</td>
+								<td style='text-align:right ' >{{pr.amount | number:'1.2'}}</td>
+								<td style='text-align:right ' colspan='2'></td>
+							</tr>
+						</table>
+					</div>
+					<!--end::m-widget5-->
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	
+	<div class="row">
+		<div class="col-xl-6">
+			<!--begin::Form-->
+			<form class="m-form m-form--fit ">
+				<!--begin:: Widgets/Download Files-->
+				<div class="m-portlet m-portlet--full-height">
+					<div class="m-portlet__head">
+						<div class="m-portlet__head-caption">
+							<div class="m-portlet__head-title">
+								<h3 class="m-portlet__head-text">
+									Attach File
+								</h3>
+							</div>
+						</div>
+					</div>
+					<!--begin:: Portlet Body-->
+					<div class="m-portlet__body">
+						<!--begin::m-Widget Attachfile-->
+						<div class="m-widget4">
+							<!--begin::Widget Attachfile Item-->
+							<div class="m-widget4__item">
+								<div class="m-widget4__img m-widget4__img--icon">
+									<img src="./assets/app/media/img/files/doc.svg" alt="">
+								</div>
+								<div class="m-widget4__info">
+									<span class="m-widget4__title">
+										PO08340021.pdf
+									</span>
+									<br>
+									<span class="m-widget4__sub">
+										<i class="la la-user"></i>
+										Navarat Tomsapon
+									</span>
+									<span class="m-widget4__sub">
+										<i class="la la-clock-o"></i>
+										01/01/2017 00:00:00
+									</span>
+								</div>
+								<div class="m-widget4__ext">
+									<a href="#"  class="m-btn m-btn--pill m-btn--hover-info btn btn-sm btn-secondary" title="Download">
+										<i class="la la-download"></i>
+									</a>
+								</div>
+								<div class="m-widget4__ext">
+									<a href="#"  class="m-btn m-btn--pill m-btn--hover-danger btn btn-sm btn-secondary" title="Remove">
+										<i class="la la-trash"></i>
+									</a>
+								</div>
+							</div>
+							<!--end::Widget Attachfile Item-->
+							<!--begin::Widget Attachfile Item-->
+							<div class="m-widget4__item">
+								<div class="m-widget4__img m-widget4__img--icon">
+									<img src="./assets/app/media/img/files/pdf.svg" alt="">
+								</div>
+								<div class="m-widget4__info">
+									<span class="m-widget4__title">
+										PO08340021.pdf
+									</span>
+									<br>
+									<span class="m-widget4__sub">
+										<i class="la la-user"></i>
+										Navarat Tomsapon
+									</span>
+									<span class="m-widget4__sub">
+										<i class="la la-clock-o"></i>
+										01/01/2017 00:00:00
+									</span>
+								</div>
+								<div class="m-widget4__ext">
+									<a href="#"  class="m-btn m-btn--pill m-btn--hover-info btn btn-sm btn-secondary" title="Download">
+										<i class="la la-download"></i>
+									</a>
+								</div>
+								<div class="m-widget4__ext">
+									<a href="#"  class="m-btn m-btn--pill m-btn--hover-danger btn btn-sm btn-secondary" title="Remove">
+										<i class="la la-trash"></i>
+									</a>
+								</div>
+							</div>
+							<!--end::Widget Attachfile Item-->
+						</div>
+						<!--end::Widget Attachfile-->
+						<div class="form-group m-form__group">
+							<label for="exampleInputEmail1">
+								Attach File
+							</label>
+							<div></div>
+							<div class="custom-file">
+								<input type="file" class="custom-file-input" id="customFile" multiple>
+								<label class="custom-file-label" for="customFile">
+									Choose file
+								</label>
+							</div>
+						</div>
+					</div>
+					<!--end:: Portlet Body-->
+					<!--begin::portlet__foot-->
+					<div class="m-portlet__foot m-portlet__foot--fit">
+						<div class="m-form__actions m-form__actions">
+							<div class="row">
+								<div class="col-lg-12 ml-lg-auto ">
+									<button type="button" class="btn btn-success" >
+										Submit File 
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--end::portlet__foot-->
+				</div>
+				<!--end:: Widgets/Download Files-->
+			</form>
+		</div>
+		<div class="col-xl-6">
+			<!--begin:: Widgets Status-->
+			<div class="m-portlet m-portlet--full-height">
+				<div class="m-portlet__head">
+					<div class="m-portlet__head-caption">
+						<div class="m-portlet__head-title">
+							<h3 class="m-portlet__head-text">
+								Approval Status
+							</h3>
+						</div>
+					</div>
+				</div>
+				<div class="m-portlet__body">
+					<!--begin::Widget Status-->
+					<div class="m-widget4">
+						<!--begin::Widget 14 Item-->
+						<div class="m-widget4__item">
+							<div class="m-widget4__info">
+								<span class="m-widget4__title">
+									<i class="la la-user"></i>
+									Nick Bold
+								</span>
+								<br>
+								<span class="m-widget4__sub">
+									<i class="la la-clock-o"></i>
+									01/01/2018 11:12:23
+								</span>
+								<br>
+								<span class="m-widget4__sub">
+									วิธีการหาปริมาณการสั่งซื้อที่ทาให้ต้นทุนสินค้าคงคลังโดยรวมต่อปี ต่าที่สุด โดยมีเงื่อนไขการสั่งซื้อแบบลดปริมาณมี 4 ขั้นตอน ดังนี้ 1.คานวณหาปริมาณการสั่งซื้อที่เหมาะสมที่สุด(Q*)ในแต่ละอัตรา ส่วนลด โดยใช้สมการ สังเกตได้ว่า IP ถูกใช้แทนที่ H เนื่องจากราคาสินค้าเป็น องค์ประกอบของต้นทุนการเก็บรักษาต่อปีซึ่งไม่สามารถกาหนดเป็น ...
+								</span>
+							</div>
+							<div class="m-widget4__ext" style="vertical-align: top">
+								<span class="m-badge m-badge--success m-badge--wide">Approved</span>
+							</div>
+						</div>
+						<!--end::Widget 14 Item-->
+						<!--begin::Widget 14 Item-->
+						<div class="m-widget4__item">
+							<div class="m-widget4__info">
+								<span class="m-widget4__title">
+									<i class="la la-user"></i>
+									Nick Bold
+								</span>
+								<br>
+								<span class="m-widget4__sub">
+									<i class="la la-clock-o"></i>
+									01/01/2018 11:12:23
+								</span>
+							</div>
+							<div class="m-widget4__ext" style="vertical-align: top">
+								<span class="m-badge m-badge--info m-badge--wide">Reviewed</span>
+							</div>
+						</div>
+						<!--end::Widget 14 Item-->
+						<!--begin::Widget 14 Item-->
+						<div class="m-widget4__item">
+							<div class="m-widget4__info">
+								<span class="m-widget4__title">
+									<i class="la la-user"></i>
+									Nick Bold
+								</span>
+								<br>
+								<span class="m-widget4__sub">
+									<i class="la la-clock-o"></i>
+									01/01/2018 11:12:23
+								</span>
+							</div>
+							<div class="m-widget4__ext" style="vertical-align: top">
+								<span class="m-badge m-badge--danger m-badge--wide">Rejected</span>
+							</div>
+						</div>
+						<!--end::Widget 14 Item-->
+					</div>
+					<!--end::Widget 14-->
+				</div>
+			</div>
+			<!--end:: Widgets Status-->
+		</div>
+	</div>
+	<!--End::Main Portlet-->
+
 	<!--begin::Portlet-->
 	<div class="m-portlet">
 		<div class="m-portlet__head">
 			<div class="m-portlet__head-caption">
 				<div class="m-portlet__head-title">
-					<h3 class="m-portlet__head-text" *ngIf='id == 0'>
-						<i class="flaticon-plus"></i>
-						Review
-					</h3>
-					<h3 class="m-portlet__head-text" *ngIf='id != 0'>
-						<i class="flaticon-edit-1"></i>
-						Approve
+					<h3 class="m-portlet__head-text" >
+						<span id="txtActionName">Review</span>
 					</h3>
 				</div>
 			</div>
@@ -54,7 +504,7 @@
 		<!--begin::Form-->
 		<form  #heroForm="ngForm" class="m-form m-form--fit m-form--label-align-right" id="m_form_1">
 			<!--begin::portlet__body-->
-			<div class="m-portlet__body" *ngIf='doctype != null'>
+			<div class="m-portlet__body" >
 				<div class="m-form__content">
 					<div class="m-alert m-alert--icon alert alert-danger m--hide" role="alert" id="m_form_1_msg">
 						<div class="m-alert__icon">
@@ -67,34 +517,12 @@
 							<button type="button" class="close" data-close="alert" aria-label="Close"></button>
 						</div>
 					</div>
-				</div> 
-				<div class="form-group m-form__group row" >
-					<label class="col-form-label col-lg-3 col-sm-12">
-						Doc Type Code *
-					</label>
-					<div class="col-lg-4 col-md-9 col-sm-12">
-						<input required maxlength="4"  [disabled]='id  != 0 ' [(ngModel)]="doctype.doc_type_code" type="text" class="form-control m-input" name="doctypecode" value="{{doctype.DocTypeCode}}" placeholder="Enter Doc Type Code"  >
-					</div>
 				</div>
-				<div class="form-group m-form__group row">
-					<label class="col-form-label col-lg-3 col-sm-12">
-						Doc Type Desc *   
+				<div class="form-group m-form__group">
+					<label for="exampleTextarea">
+						Review comment:
 					</label>
-					<div class="col-lg-4 col-md-9 col-sm-12">
-						<input required maxlength="25" [(ngModel)]="doctype.doc_type_desc"     #doctypedesc="ngModel" type="text" class="form-control m-input " name="doctypedesc" placeholder="Enter Doc Type Description">
-					</div>
-				</div> 
-				<div class="form-group m-form__group row first" *ngIf='id != 0'>
-					<div class="col-lg-12">
-						<span class="m-form__help">
-							Created at {{doctype.create_datetime  | date:'dd/MM/yyyy HH:mm:ss'}} by {{doctype.create_username}} 
-						</span>
-					</div>
-					<div class="col-lg-12"> 
-				   	<span class="m-form__help" *ngIf='doctype.update_datetime != null'> 
-						Last modified at {{doctype.update_datetime  | date:'dd/MM/yyyy HH:mm:ss'}} by {{doctype.update_username}} 
-					</span>
-					</div>
+					<textarea class="form-control m-input" id="txtComment" rows="3" placeholder="Enter comment"></textarea>
 				</div>
 			</div>
 			<!--end::portlet__body-->
@@ -102,7 +530,7 @@
 			<div class="m-portlet__foot m-portlet__foot--fit">
 				<div class="m-form__actions m-form__actions">
 					<div class="row">
-						<div class="col-lg-9 ml-lg-auto">
+						<div class="col-lg-12 ml-lg-auto ">
 							<button type="button" [disabled]="heroForm.invalid" class="btn btn-success" data-toggle="modal" data-target="#m_modal_6" *ngIf='id == 0'>
 								Review 
 							</button>
@@ -121,6 +549,7 @@
 		<!--end::Form-->
 	</div>
 	<!--end::Portlet--> 
+
 
 	<!--begin::Modal-->
 	<div class="modal fade" id="m_modal_6" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
