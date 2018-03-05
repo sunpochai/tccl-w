@@ -1,8 +1,6 @@
 import { Injectable } from "@angular/core";
 import { Http, Headers, Response, RequestOptions } from "@angular/http";
 import "rxjs/add/operator/map";
-import { API_COMPANY_LIST } from "../../../../app-constants";
-
 
 export class TokenBaseService {
 

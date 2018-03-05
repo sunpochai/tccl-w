@@ -54,20 +54,22 @@
 				<label class="col-lg-2 col-sm-4 col-form-label">
 					PR No.:
 				</label>
-				<div class="col-lg-3 col-sm-8" >
-					<input type="text" class="form-control m-input">
+				<div class="col-lg-4 col-sm-8" >
+					<input type="text" maxlength="20" class="form-control m-input" id="m_form_pr_no">
 				</div>
 				<label class="col-lg-2 col-sm-4 col-form-label">
 					Doc Type:
 				</label>
-				<div class="col-lg-3 col-sm-8 ">
+				<div class="col-lg-4 col-sm-8 ">
 					<select class="form-control m-input" id="m_form_doc_type">
-						<option value="">
-							All
-						</option>
-						<option value="1">
-							NB
-						</option>
+						<ng-container *ngFor="let row of doctypeList; let index = index">
+							<option value="">
+								All
+							</option>
+							<option value="{{row.doc_type_code}}">
+								{{row.doc_type_desc}}
+							</option>
+						</ng-container>
 					</select>
 				</div>
 			</div>
@@ -75,102 +77,86 @@
 				<label class="col-lg-2 col-sm-4 col-form-label">
 					PR Date From:
 				</label>
-				<div class="col-lg-3 col-sm-8">
-					<input class="form-control m-input" type="date" value="" id="example-date-from">
+				<div class="col-lg-4 col-sm-8">
+					<input class="form-control m-input" type="date" id="m_form_date_from">
 				</div>
 				<label class="col-lg-2 col-sm-4 col-form-label">
 					PR Date To:
 				</label>
-				<div class="col-lg-3 col-sm-8">
-					<input class="form-control m-input" type="date" value="" id="example-date-to">
+				<div class="col-lg-4 col-sm-8">
+					<input class="form-control m-input" type="date" id="m_form_date_to">
 				</div>
 			</div>
 			<div class="form-group m-form__group row">
 				<label class="col-lg-2 col-sm-4 col-form-label">
 					Company:
 				</label>
-				<div class="col-lg-3 col-sm-8">
+				<div class="col-lg-4 col-sm-8">
 					<select class="form-control m-input" id="m_form_company">
-						<option value="">
-							All
-						</option>
-						<option value="1">
-							8216-บจก.แอสเสท เวิร์ด คอร์ป
-						</option>
-						<option value="2">
-							8298-บจก.แลนด์
-						</option>
+						<ng-container *ngFor="let row of companyList; let index = index">
+							<option value="">
+								All
+							</option>
+							<option value="{{row.comp_code}}">
+								{{row.comp_name}}
+							</option>
+						</ng-container>
 					</select>
 				</div>
 				<label class="col-lg-2 col-sm-4 col-form-label">
 					Subject:
 				</label>
-				<div class="col-lg-3 col-sm-8">
-					<input type="text" class="form-control m-input">
+				<div class="col-lg-4 col-sm-8">
+					<input type="text" maxlength="20" class="form-control m-input" id="m_form_subject">
 				</div>
 			</div>
 			<div class="form-group m-form__group row">
-				<label class="col-lg-2 col-sm-4 col-form-label">
-					Vendor:
-				</label>
-				<div class="col-lg-3 col-sm-8">
-					<select class="form-control m-input" id="m_form_vendor">
-						<option value="">
-							All
-						</option>
-						<option value="1">
-							1006017-กรุงเทพเครื่องเย็น
-						</option>
-						<option value="2">
-							1007658-บจก.ทีซีซี เทคโนโลยี
-						</option>
-						<option value="3">
-							1007710-สีลมการค้า
-						</option>
-					</select>
-				</div>
 				<label class="col-lg-2 col-sm-4 col-form-label">
 					Plant:
 				</label>
-				<div class="col-lg-3 col-sm-8">
+				<div class="col-lg-4 col-sm-8">
 					<select class="form-control m-input" id="m_form_plant">
-						<option value="">
-							All
-						</option>
-						<option value="1">
-							2160-สำนักงานใหญ่
-						</option>
+						<ng-container *ngFor="let row of plantList; let index = index">
+							<option value="">
+								All
+							</option>
+							<option value="{{row.plant_code}}">
+								{{row.plant_name}}
+							</option>
+						</ng-container>
+					</select>
+				</div>
+				<label class="col-lg-2 col-sm-4 col-form-label">
+					Status:
+				</label>
+				<div class="col-lg-4 col-sm-8">
+					<select class="form-control m-input" id="m_form_status">
+						<ng-container *ngFor="let row of cDocStatus; let index = index">
+							<option value="">
+								All
+							</option>
+							<option value="{{row[0]}}">
+								{{row[1]}}
+							</option>
+						</ng-container>
 					</select>
 				</div>
 			</div>
 			<div class="form-group m-form__group row">
-				<label class="col-lg-2 col-sm-4 col-form-label">
-					Status:
-				</label>
-				<div class="col-lg-3 col-sm-8">
-					<select class="form-control m-input" id="m_form_status">
-						<option value="">
-							All
-						</option>
-						<option value="1">
-							Wait for Review
-						</option>
-						<option value="2">
-							Wait for Approve
-						</option>
-						<option value="3">
-							Approved
-						</option>
-					</select>
-				</div>
-				<label class="col-lg-2 col-sm-4 col-form-label">	
-				</label>
-				<div class="col-lg-3 col-sm-8 " >
-					<a href="#" class="btn btn-outline-info m-btn m-btn--icon m-btn--outline-2x m-btn--pill">
+				<div class="col-lg-6 col-sm-6 m--align-right" >
+					<a href="javascript:myDatatable.search()" class="btn btn-outline-info m-btn m-btn--icon m-btn--outline-2x m-btn--pill">
 						<span >
 							<i class="fa fa-search"></i>
 							<span>
 								Search
+							</span>
+						</span>
+					</a>
+					<a href="javascript:myDatatable.clearData()" class="btn btn-outline-info m-btn m-btn--icon m-btn--outline-2x m-btn--pill">
+						<span >
+							<i class="fa fa-refresh"></i>
+							<span>
+								Clear
 							</span>
 						</span>
 					</a>

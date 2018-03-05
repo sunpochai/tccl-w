@@ -188,5 +188,6 @@ function selectdel(docTypeCode){
 } 
  
 function navigate_edit(x){
+ 
   my.namespace.navigate_edit(x);
 }

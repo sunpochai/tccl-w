@@ -2,7 +2,7 @@ import { TokenBaseService } from './../tokenbase.service';
 import { Injectable } from "@angular/core";
 import { Http, Headers, Response, RequestOptions } from "@angular/http";
 import "rxjs/add/operator/map";
-import { API_COMPANY_LIST, API_COMPANY_GET, API_COMPANY_PUT, API_COMPANY_DEL, API_COMPANY_INSERT } from "../../../../../app-constants";
+import { API_COMPANY_LIST, API_COMPANY_GET, API_COMPANY_PUT, API_COMPANY_DEL, API_COMPANY_INSERT, API_COMPANY_GETALL } from "../../../../../app-constants";
 import { Company } from '../../_models/masters/company';
 
 @Injectable()
@@ -10,6 +10,12 @@ export class CompanyService extends TokenBaseService {
 
     constructor(private http: Http) {
         super();
+    }
+
+    public getall() {
+
+        return this.http.get(API_COMPANY_GETALL, super.jwt())
+            .map((response: Response) => response.json());
     }
 
     public loaddata() {

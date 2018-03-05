@@ -14,7 +14,10 @@ import { PRListComponent } from './pr-list/pr-list.component';
 import { PRDetailComponent } from './pr-detail/pr-detail.component';
 import { LayoutModule } from '../../../../layouts/layout.module';
 import { AlertService } from '../../../../../auth/_services/index';
-import { PRService } from '../../_services/trns/pr.service';
+import { DocTypeService } from '../../_services/masters/doctype.service';
+import { CompanyService } from '../../_services/masters/company.service';
+import { PlantService } from '../../_services/masters/plant.service';
+import { AttachmentService } from '../../_services/trns/attachment.service';
 
 const routes: Routes = [
     {
@@ -40,7 +43,7 @@ const routes: Routes = [
     ], declarations: [
         PRListComponent,
         PRDetailComponent
-    ], providers: [PRService, FormBuilder]
+    ], providers: [DocTypeService, CompanyService, PlantService, AttachmentService, FormBuilder]
 })
 export class PRModule {
 

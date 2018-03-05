@@ -16,5 +16,5 @@ export class WorkflowStage {
     finish_datetime: Date;
     due_datetime: Date;
     warn_datetime: Date;
-    workflow_stage_logs: Array<WorkflowStageLog>;
+    stage_logs_list: Array<WorkflowStageLog>;
 }

@@ -1,6 +1,7 @@
 import { PRItem } from "./pritem";
 import { Attachment } from "./attachment";
 import { WorkflowStage } from "./workflowstage";
+import { Workflow } from "./workflow";
 
 export class PR {
     pr_id: number;
@@ -24,6 +25,6 @@ export class PR {
     comp_name: string;
     amount: number;
     pr_items: Array<PRItem>;
-    attachments: Array<Attachment>;
-    workflow_stages: Array<WorkflowStage>;
+    pr_attachment_items: Array<Attachment>;
+    worklist : Workflow;
 }  
