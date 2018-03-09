@@ -5,27 +5,27 @@ import { ScriptLoaderService } from '../../../../../../_services/script-loader.s
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { 
-    ATTACHMENT_DOC_GROUP_PR, 
     API_ATTACHMENT_GET,
     C_DOC_STATUS_REVIEWED_NAME,
     C_DOC_STATUS_APPROVED_NAME,
-    C_DOC_STATUS_REJECTED_NAME
+    C_DOC_STATUS_REJECTED_NAME,
+    ATTACHMENT_DOC_GROUP_PO
 } from '../../../../../../app-constants';
-import { PR } from '../../../_models/trns/pr';
+import { PO } from '../../../_models/trns/po';
 import { Attachment } from '../../../_models/trns/attachment';
 import { WorkflowAction } from '../../../_models/trns/workflowaction';
-import { PRService } from './../../../_services/trns/pr.service';
+import { POService } from './../../../_services/trns/po.service';
 import { AttachmentService } from '../../../_services/trns/attachment.service';
 import { WorkflowService } from '../../../_services/trns/workflow.service';
 
 @Component({
-    selector: "trns-pr-detail",
-    templateUrl: "./pr-detail.component.html",
-    styleUrls: ["./pr-detail.component.css"]
+    selector: "trns-po-detail",
+    templateUrl: "./po-detail.component.html",
+    styleUrls: ["./po-detail.component.css"]
 })
-export class PRDetailComponent extends PageBaseComponent implements OnInit, AfterViewInit {
+export class PODetailComponent extends PageBaseComponent implements OnInit, AfterViewInit {
     private form: FormGroup;
-    private pr: PR;
+    private po: PO;
     private id: any;
     private wf_stage_resp_id: any;
     private urlattachment: String = API_ATTACHMENT_GET;
@@ -33,7 +33,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         private _script: ScriptLoaderService,
         private _router: Router, 
         private route: ActivatedRoute,
-        private _prService: PRService, 
+        private _poService: POService, 
         private _attachmentService: AttachmentService,
         private _workflowService: WorkflowService,
         private formBuilder: FormBuilder) {
@@ -48,9 +48,9 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         });
 
         if (this.id != null && this.id != '0') {
-            this._prService.get<any>(this.id).subscribe(data => {
-                this.pr = data;
-                this.wf_stage_resp_id = this.pr.worklist.current_responsible.wf_stage_resp_id;
+            this._poService.get<any>(this.id).subscribe(data => {
+                this.po = data;
+                this.wf_stage_resp_id = this.po.worklist.current_responsible.wf_stage_resp_id;
                 // console.log(this.pr);
             });
         } else {
@@ -61,8 +61,8 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     }
 
     ngAfterViewInit() {
-        this._script.loadScripts('trns-pr-detail',
-            ['assets/tccl/trns/pr/pr-detail.js']);
+        this._script.loadScripts('trns-po-detail',
+            ['assets/tccl/trns/po/po-detail.js']);
     }
 
     addFile() {
@@ -73,8 +73,8 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         attachment.create_username = super.getFullNameUserLogin();
         attachment.create_datetime = new Date();
 
-        attachment.doc_group = ATTACHMENT_DOC_GROUP_PR;
-        attachment.doc_ref_id = this.pr.pr_id;
+        attachment.doc_group = ATTACHMENT_DOC_GROUP_PO;
+        attachment.doc_ref_id = this.po.po_id;
         // attachment.file_name;
         // attachment.file_content;
 
@@ -85,7 +85,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                 super.showsuccess('Upload file complete');
 
                 //todo:: refresh file list
-                this.pr.pr_attachment_items.push(attachment);
+                this.po.po_attachment_items.push(attachment);
             },
             error => {  
                 super.showError(error);
@@ -108,8 +108,8 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                 super.showsuccess('Remove file complete');
 
                 //todo:: refresh file list
-                this.pr.pr_attachment_items.forEach( (item, index) => {
-                    if(item.attach_id === attachId) this.pr.pr_attachment_items.splice(index,1);
+                this.po.po_attachment_items.forEach( (item, index) => {
+                    if(item.attach_id === attachId) this.po.po_attachment_items.splice(index,1);
                 });
             } else {
                 console.log(resp);
@@ -138,7 +138,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         super.blockui('#m_form_1');
 
         let workflowaction: WorkflowAction = new WorkflowAction;
-        workflowaction.workflow_id = this.pr.workflow_id;
+        workflowaction.workflow_id = this.po.workflow_id;
         workflowaction.wf_stage_resp_id = this.wf_stage_resp_id;
         workflowaction.actor_user = super.getADUserLogin();
         workflowaction.actor_username = super.getFullNameUserLogin();
@@ -174,7 +174,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         super.blockui('#m_form_1');
 
         let workflowaction: WorkflowAction = new WorkflowAction;
-        workflowaction.workflow_id = this.pr.workflow_id;
+        workflowaction.workflow_id = this.po.workflow_id;
         workflowaction.wf_stage_resp_id = this.wf_stage_resp_id;
         workflowaction.actor_user = super.getADUserLogin();
         workflowaction.actor_username = super.getFullNameUserLogin();
@@ -209,7 +209,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         super.blockui('#m_form_1');
 
         let workflowaction: WorkflowAction = new WorkflowAction;
-        workflowaction.workflow_id = this.pr.workflow_id;
+        workflowaction.workflow_id = this.po.workflow_id;
         workflowaction.wf_stage_resp_id = this.wf_stage_resp_id;
         workflowaction.actor_user = super.getADUserLogin();
         workflowaction.actor_username = super.getFullNameUserLogin();
@@ -240,8 +240,8 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         );
     }
 
-    navigate_detail(prId) {
-        this._router.navigate(['/trns/pr/detail/'+prId]);
+    navigate_detail(poId) {
+        this._router.navigate(['/trns/po/detail/'+poId]);
     }
 
 }

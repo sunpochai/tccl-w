@@ -19,9 +19,11 @@ export const API_TRACKING_LIST: string = API_BASE_URL + '/api/tracking/list'
 export const API_TRACKING_GET_PUT_DEL: string = API_BASE_URL + '/api/tracking'
 export const API_TRACKING_INSERT: string = API_BASE_URL + '/api/tracking/insert'  
 
-export const API_WORKFLOW_ACTION_REVIEW: string = API_BASE_URL + '/api/worklist/reject'
+export const API_WORKFLOW_ACTION_REVIEW: string = API_BASE_URL + '/api/worklist/review'
 export const API_WORKFLOW_ACTION_APPROVE: string = API_BASE_URL + '/api/worklist/approve'
-export const API_WORKFLOW_ACTION_REJECT: string = API_BASE_URL + '/api/worklist/review'
+export const API_WORKFLOW_ACTION_REJECT: string = API_BASE_URL + '/api/worklist/reject'
+
+export const API_WORKLIST: string = API_BASE_URL + '/api/worklist/my'
 
 export const API_PR_LIST: string = API_BASE_URL + '/api/pr/list'
 export const API_PR_GET: string = API_BASE_URL + '/api/pr'
@@ -60,10 +62,15 @@ export const C_DOC_STATUS_REVIEWED_COLOR: string = 'info';
 export const C_DOC_STATUS_APPROVED_COLOR: string = 'success';
 export const C_DOC_STATUS_REJECTED_COLOR: string = 'danger';
 
-export const C_DOC_STATUS: Array<Array<any>> = [[C_DOC_STATUS_WAIT_REVIEW,C_DOC_STATUS_WAIT_REVIEW_NAME,C_DOC_STATUS_WAIT_REVIEW_COLOR]
-                                                ,[C_DOC_STATUS_REVIEWED,C_DOC_STATUS_REVIEWED_NAME,C_DOC_STATUS_REVIEWED_COLOR]
-                                                ,[C_DOC_STATUS_APPROVED,C_DOC_STATUS_APPROVED_NAME,C_DOC_STATUS_APPROVED_COLOR]
-                                                ,[C_DOC_STATUS_REJECTED,C_DOC_STATUS_REJECTED_NAME,C_DOC_STATUS_REJECTED_COLOR]
+export const C_DOC_STATUS_WAIT_REVIEW_CLASS: string = 'm-badge m-badge--'+C_DOC_STATUS_WAIT_REVIEW_COLOR+' m-badge--wide';
+export const C_DOC_STATUS_REVIEWED_CLASS: string = 'm-badge m-badge--'+C_DOC_STATUS_REVIEWED_COLOR+' m-badge--wide';
+export const C_DOC_STATUS_APPROVED_CLASS: string = 'm-badge m-badge--'+C_DOC_STATUS_APPROVED_COLOR+' m-badge--wide';
+export const C_DOC_STATUS_REJECTED_CLASS: string = 'm-badge m-badge--'+C_DOC_STATUS_REJECTED_COLOR+' m-badge--wide';
+
+export const C_DOC_STATUS: Array<Array<any>> = [[C_DOC_STATUS_WAIT_REVIEW,C_DOC_STATUS_WAIT_REVIEW_NAME,C_DOC_STATUS_WAIT_REVIEW_COLOR,C_DOC_STATUS_WAIT_REVIEW_CLASS]
+                                                ,[C_DOC_STATUS_REVIEWED,C_DOC_STATUS_REVIEWED_NAME,C_DOC_STATUS_REVIEWED_COLOR,C_DOC_STATUS_REVIEWED_CLASS]
+                                                ,[C_DOC_STATUS_APPROVED,C_DOC_STATUS_APPROVED_NAME,C_DOC_STATUS_APPROVED_COLOR,C_DOC_STATUS_APPROVED_CLASS]
+                                                ,[C_DOC_STATUS_REJECTED,C_DOC_STATUS_REJECTED_NAME,C_DOC_STATUS_REJECTED_COLOR,C_DOC_STATUS_REJECTED_CLASS]
                                                 ];
 
 export const PR_CATEGORY_ASSET: string = 'A';

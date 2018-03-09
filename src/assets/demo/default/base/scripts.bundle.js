@@ -8720,8 +8720,26 @@ var mQuickSidebar = function() {
             initOffcanvas(); 
         }
     };
+
 }();
 
 $(document).ready(function() {
     mQuickSidebar.init();
 });
+
+/* Input: dd/mm/yyyy
+   Output: yyyy-mm-dd  
+   KT 06/03/2018 */
+function toInternalDate(in_date) {
+    if (in_date == null || in_date == '') {
+        return in_date;
+    }
+
+    var d = in_date.split('/');
+
+    if (d.length < 3) {
+        return in_date;
+    }
+    
+    return [d[2],d[1],d[0]].join('-');
+}

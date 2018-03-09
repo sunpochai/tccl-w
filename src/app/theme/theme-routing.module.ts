@@ -22,8 +22,16 @@ const routes: Routes = [
                 "loadChildren": ".\/pages\/tccl\/masters\/doctype\/doctype.module#DocTypeModule"
             },
             {
+                "path": "trns\/worklist",
+                "loadChildren": ".\/pages\/tccl\/trns\/worklist\/worklist.module#WorklistModule"
+            },
+            {
                 "path": "trns\/pr",
                 "loadChildren": ".\/pages\/tccl\/trns\/pr\/pr.module#PRModule"
+            },
+            {
+                "path": "trns\/po",
+                "loadChildren": ".\/pages\/tccl\/trns\/po\/po.module#POModule"
             },
             {
                 "path": "trns\/pm",

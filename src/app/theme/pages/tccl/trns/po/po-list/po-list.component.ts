@@ -5,8 +5,8 @@ import * as app from './../../../../../../app-constants';
 import { ScriptLoaderService } from './../../../../../../_services/script-loader.service';
 import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { constructDependencies } from '@angular/core/src/di/reflective_provider';
-import { PRService } from './../../../_services/trns/pr.service';
-import { API_PR_LIST, C_DOC_STATUS } from './../../../../../../app-constants';
+import { POService } from './../../../_services/trns/po.service';
+import { API_PO_LIST, C_DOC_STATUS } from './../../../../../../app-constants';
 import { DocTypeService } from '../../../_services/masters/doctype.service';
 import { CompanyService } from '../../../_services/masters/company.service';
 import { DocType } from '../../../_models/masters/doctype';
@@ -18,11 +18,11 @@ declare var myDatatable: any;
 declare var window: any;
 
 @Component({
-    selector: "trns-pr-list",
-    templateUrl: "./pr-list.component.html",
+    selector: "trns-po-list",
+    templateUrl: "./po-list.component.html",
     encapsulation: ViewEncapsulation.None
 })
-export class PRListComponent extends PageBaseComponent implements OnInit, AfterViewInit {
+export class POListComponent extends PageBaseComponent implements OnInit, AfterViewInit {
     private doctypeList: Array<DocType>;
     private companyList: Array<Company>;
     private plantList: Array<Plant>;
@@ -63,8 +63,8 @@ export class PRListComponent extends PageBaseComponent implements OnInit, AfterV
 
     ngAfterViewInit() {
 
-        this._script.loadScripts('trns-pr-list',
-            ['assets/tccl/trns/pr/pr-list.js']);
+        this._script.loadScripts('trns-po-list',
+            ['assets/tccl/trns/po/po-list.js']);
 
         this.load();
     }
@@ -72,13 +72,13 @@ export class PRListComponent extends PageBaseComponent implements OnInit, AfterV
     load() {
         super.blockui('#m-content');
         jQuery(document).ready(function() {
-            myDatatable.init(API_PR_LIST);
+            myDatatable.init(API_PO_LIST);
         });
         super.unblockui('#m-content');
     }
 
-    navigate_edit(prId) {
-        this._router.navigate(['/trns/pr/detail/' + prId]);
+    navigate_edit(poId) {
+        this._router.navigate(['/trns/po/detail/' + poId]);
     }
 
 }   

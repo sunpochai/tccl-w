@@ -18,9 +18,9 @@ export class AttachmentService extends TokenBaseService {
             .map((response: Response) => response.json());
     }
 
-    public put<T>(attachment: Attachment) {
+    public insert<T>(attachment: Attachment) {
 
-        return this.http.put(API_ATTACHMENT_INSERT + '/' + attachment.attach_id, attachment, super.jwt())
+        return this.http.put(API_ATTACHMENT_INSERT, attachment, super.jwt())
             .map((response: Response) => <T>response.json());
     }
 

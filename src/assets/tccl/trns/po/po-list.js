@@ -64,21 +64,21 @@ var myDatatable = function( ) {
 
       columns: [
         {
-          field: 'pr_no',
-          title: 'PR No.',
+          field: 'po_no',
+          title: 'PO No.',
           selector: false,
           textAlign: 'center',
           sortable: true,
           template: function (row) {
             return '\
-              <a href="javascript:navigate_edit(' + row.pr_id + ')" class="m-menu__link" title="Purchase Request Detail">\
-                              '+row.pr_no+'\
+              <a href="javascript:navigate_edit(' + row.po_id + ')" class="m-menu__link" title="Purchase Order Detail">\
+                              '+row.po_no+'\
                           </a>\
             ';
           }
         }, {   
-          field: 'pr_date',
-          title: 'PR Date',
+          field: 'po_date',
+          title: 'PO Date',
           type: 'datetime',
           format: 'dd/MM/yyyy'
         }, {   
@@ -87,7 +87,7 @@ var myDatatable = function( ) {
           textAlign: 'center'
         } , {
           field: 'amount',
-          title: 'Est. Price',
+          title: 'Total',
           type: 'number',
           textAlign: 'right',
           sortable: false
@@ -104,6 +104,12 @@ var myDatatable = function( ) {
             return '-';
           }
         } , {
+          field: 'vendor_code',
+          title: 'Vendor',
+          template: function (row) {
+            return row.vendor_code + ' - ' + row.vendor_name;
+          }
+        } , {
           field: 'plant_name',
           title: 'Plant',
           template: function (row) {
@@ -116,13 +122,8 @@ var myDatatable = function( ) {
             return '<span class="m-badge m-badge--' + my.C_DOC_STATUS[row.c_doc_status-1][2] + ' m-badge--wide">' + my.C_DOC_STATUS[row.c_doc_status-1][1] + '</span>';
           }
         } , {
-          field: 'create_username',
-          title: 'Requisitioner'
-        } , {
-          field: 'create_datetime',
-          title: 'Create Date',
-          type: 'date',
-          format: 'dd/MM/yyyy'
+          field: 'purchasing_groupname',
+          title: 'Purchasing'
         }
       ],
     });

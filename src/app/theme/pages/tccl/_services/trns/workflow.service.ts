@@ -14,19 +14,19 @@ export class WorkflowService extends TokenBaseService {
 
     public review<T>(workflow: WorkflowAction) {
 
-        return this.http.put(API_WORKFLOW_ACTION_REVIEW, workflow, super.jwt())
+        return this.http.post(API_WORKFLOW_ACTION_REVIEW, workflow, super.jwt())
             .map((response: Response) => <T>response.json());
     }
 
     public approve<T>(workflow: WorkflowAction) {
 
-        return this.http.put(API_WORKFLOW_ACTION_APPROVE, workflow, super.jwt())
+        return this.http.post(API_WORKFLOW_ACTION_APPROVE, workflow, super.jwt())
             .map((response: Response) => <T>response.json());
     }
 
     public reject<T>(workflow: WorkflowAction) {
 
-        return this.http.put(API_WORKFLOW_ACTION_REJECT, workflow, super.jwt())
+        return this.http.post(API_WORKFLOW_ACTION_REJECT, workflow, super.jwt())
             .map((response: Response) => <T>response.json());
     }
 

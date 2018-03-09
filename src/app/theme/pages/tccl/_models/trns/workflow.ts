@@ -12,7 +12,7 @@ export class Workflow {
     finish_datetime: Date;
     c_doc_status: number;
     stage_list: Array<WorkflowStage>;
-    current_responsible_list: Array<WorkflowStageResponsible>;
     current_stage: WorkflowStage;
-    current_responsible:WorkflowStageResponsible;
+    current_responsible: WorkflowStageResponsible;
+    current_responsible_list: Array<WorkflowStageResponsible>;
 }

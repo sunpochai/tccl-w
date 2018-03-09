@@ -10,11 +10,11 @@ import { DefaultComponent } from './../../../default/default.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { PRListComponent } from './pr-list/pr-list.component';
-import { PRDetailComponent } from './pr-detail/pr-detail.component';
+import { POListComponent } from './po-list/po-list.component';
+import { PODetailComponent } from './po-detail/po-detail.component';
 import { LayoutModule } from '../../../../layouts/layout.module';
 import { AlertService } from '../../../../../auth/_services/index';
-import { PRService } from '../../_services/trns/pr.service';
+import { POService } from '../../_services/trns/po.service';
 import { DocTypeService } from '../../_services/masters/doctype.service';
 import { CompanyService } from '../../_services/masters/company.service';
 import { PlantService } from '../../_services/masters/plant.service';
@@ -28,10 +28,10 @@ const routes: Routes = [
         "children": [
             {
                 "path": "list",
-                "component": PRListComponent
+                "component": POListComponent
             }, {
                 "path": "detail/:id",
-                "component": PRDetailComponent
+                "component": PODetailComponent
             }
         ]
     }
@@ -43,10 +43,10 @@ const routes: Routes = [
     ], exports: [
         RouterModule
     ], declarations: [
-        PRListComponent,
-        PRDetailComponent
+        POListComponent,
+        PODetailComponent
     ], providers: [
-        PRService, 
+        POService, 
         DocTypeService, 
         CompanyService, 
         PlantService, 
@@ -55,6 +55,6 @@ const routes: Routes = [
         FormBuilder
     ]
 })
-export class PRModule {
+export class POModule {
 
 }
