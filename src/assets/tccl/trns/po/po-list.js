@@ -128,36 +128,6 @@ var myDatatable = function( ) {
       ],
     });
 
-    // $('#m_form_doc_type').on('change', function() {
-    //   // shortcode to datatable.getDataSourceParam('query');
-    //   var query = datatable.getDataSourceQuery();
-    //   query.doc_type = $(this).val().toLowerCase();
-    //   // shortcode to datatable.setDataSourceParam('query', query);
-    //   datatable.setDataSourceQuery(query);
-    //   datatable.load();
-    // }).val(typeof query.doc_type !== 'undefined' ? query.Status : '');
-
-    // $('#m_form_doc_type').on('change', function() {
-    //   datatable.search($(this).val().toLowerCase(), 'doc_type');
-    // });
-
-    // $('#m_form_company').on('change', function() {
-    //   datatable.search($(this).val().toLowerCase(), 'comp_code');
-    // });
-
-    // $('#m_form_plant').on('change', function() {
-    //   datatable.search($(this).val().toLowerCase(), 'plant_code');
-    // });
-
-    // $('#m_form_status').on('change', function() {
-    //   datatable.search($(this).val().toLowerCase(), 'c_doc_status');
-    // });
-
-    $('#m_form_doc_type, #m_form_company, #m_form_plant, #m_form_status').select2({
-      placeholder: "All",
-      allowClear: true
-    });
-
     // datepicker
     $('#m_form_date_from').datepicker({
       todayHighlight: true,
@@ -182,51 +152,17 @@ var myDatatable = function( ) {
   var search = function()  {
     var query = datatable.getDataSourceQuery();
     
-    if ($('#m_form_pr_no').val() != '' ) {
-      query.pr_no = $('#m_form_pr_no').val();
-    }
-
-    if ($('#m_form_doc_type').val() != null && $('#m_form_doc_type').val() != '') {
-      query.doc_type = $('#m_form_doc_type').val().toLowerCase();
-    }
-
-    if ($('#m_form_date_from').val() != '') {
-      query.pr_date_from = toInternalDate($('#m_form_date_from').val());
-    }
-
-    if ($('#m_form_date_to').val() != '') {
-      query.pr_date_to = toInternalDate($('#m_form_date_to').val());
-    }
-
-    if ($('#m_form_company').val() != null && $('#m_form_company').val() != '') {
-      query.comp_code = $('#m_form_company').val().toLowerCase();
-    }
-
-    if ($('#m_form_subject').val() != '' ) {
-      query.subject = $('#m_form_subject').val();
-    }
-
-    if ($('#m_form_plant').val() != null && $('#m_form_plant').val() != '') {
-      query.plant_code = $('#m_form_plant').val().toLowerCase();
-    }
-
-    if ($('#m_form_status').val() != null && $('#m_form_status').val() != '') {
-      query.c_doc_status = $('#m_form_status').val().toLowerCase();
-    }
-
+    query.pr_no = $('#m_form_pr_no').val();
+    query.doc_type = $('#m_form_doc_type').val().toLowerCase();
+    query.pr_date_from = toInternalDate($('#m_form_date_from').val());
+    query.pr_date_to = toInternalDate($('#m_form_date_to').val());
+    query.comp_code = $('#m_form_company').val().toLowerCase();
+    query.subject = $('#m_form_subject').val();
+    query.plant_code = $('#m_form_plant').val().toLowerCase();
+    query.c_doc_status = $('#m_form_status').val().toLowerCase();
+    
     datatable.setDataSourceQuery(query);
     datatable.load();
-  };
-
-  var clearData = function()  {
-    $('#m_form_pr_no').val() == '';
-    $('#m_form_doc_type').val() == '';
-    $('#m_form_date_from').val() == '';
-    $('#m_form_date_to').val() == '';
-    $('#m_form_company').val() == '';
-    $('#m_form_subject').val() == '';
-    $('#m_form_plant').val() == '';
-    $('#m_form_status').val() == '';
   };
 
   return {
@@ -236,9 +172,6 @@ var myDatatable = function( ) {
     },
     search: function() {
       search();
-    },
-    clearData: function() {
-      clearData();
     }
   };
 }();

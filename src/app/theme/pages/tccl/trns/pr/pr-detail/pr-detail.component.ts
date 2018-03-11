@@ -9,7 +9,9 @@ import {
     API_ATTACHMENT_GET,
     C_DOC_STATUS_REVIEWED_NAME,
     C_DOC_STATUS_APPROVED_NAME,
-    C_DOC_STATUS_REJECTED_NAME
+    C_DOC_STATUS_REJECTED_NAME,
+    C_DOC_STATUS_WAIT_REVIEW_NAME,
+    C_DOC_STATUS
 } from '../../../../../../app-constants';
 import { PR } from '../../../_models/trns/pr';
 import { Attachment } from '../../../_models/trns/attachment';
@@ -17,6 +19,7 @@ import { WorkflowAction } from '../../../_models/trns/workflowaction';
 import { PRService } from './../../../_services/trns/pr.service';
 import { AttachmentService } from '../../../_services/trns/attachment.service';
 import { WorkflowService } from '../../../_services/trns/workflow.service';
+import { concat } from 'rxjs/observable/concat';
 
 @Component({
     selector: "trns-pr-detail",
@@ -28,7 +31,12 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     private pr: PR;
     private id: any;
     private wf_stage_resp_id: any;
+    private canReview: boolean = false;
+    private canApprove: boolean = false;
+    private canComment: boolean = false;
     private urlattachment: String = API_ATTACHMENT_GET;
+    private statusName: any = {"reviewed":C_DOC_STATUS_REVIEWED_NAME,"approved":C_DOC_STATUS_APPROVED_NAME, "rejected":C_DOC_STATUS_REJECTED_NAME};
+    private cDocStatus: Array<Array<any>> = C_DOC_STATUS;
     constructor(
         private _script: ScriptLoaderService,
         private _router: Router, 
@@ -40,9 +48,9 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         super();
     }
 
-    ngOnInit() {
-        super.blockui('#m_form_1');
-       
+    loadData() {
+        super.blockui('#m-content');
+
         this.route.params.subscribe(params => {
             this.id = params['id'];
         });
@@ -50,14 +58,42 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         if (this.id != null && this.id != '0') {
             this._prService.get<any>(this.id).subscribe(data => {
                 this.pr = data;
-                this.wf_stage_resp_id = this.pr.worklist.current_responsible.wf_stage_resp_id;
-                // console.log(this.pr);
+                if (this.pr.worklist != null && this.pr.worklist.current_responsible != null) {
+                    this.wf_stage_resp_id = this.pr.worklist.current_responsible.wf_stage_resp_id;
+
+                    if (this.pr.worklist.current_responsible.resp_allow_action != null && this.pr.worklist.current_responsible.resp_allow_action.toLowerCase()=='review') {
+                        this.canReview = true;
+                    }
+
+                    if (this.pr.worklist.current_responsible.resp_allow_action != null && this.pr.worklist.current_responsible.resp_allow_action.toLowerCase()=='comment') {
+                        this.canComment = true;
+                    }
+
+                    if (this.pr.worklist.current_responsible.resp_allow_action==null) {
+                        this.canApprove = true;
+                    }
+                }
+                super.unblockui('#m-content');
+                console.log(this.pr);
+            },
+            error => {
+                super.showError(error);
+                console.log('error');
+                super.unblockui('#m-content');
+    
+            },
+            () => {
+                super.unblockui('#m-content');
+                // console.log('done');
             });
         } else {
             //console.log(this.pr);
         }
+        
+    }
 
-        super.unblockui('#m_form_1');
+    ngOnInit() {
+        this.loadData();
     }
 
     ngAfterViewInit() {
@@ -66,7 +102,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     }
 
     addFile() {
-        super.blockui('#m_form_1');
+        super.blockui('#m-content');
 
         let attachment: Attachment = new Attachment;
         attachment.create_user = super.getADUserLogin();
@@ -89,11 +125,11 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
             },
             error => {  
                 super.showError(error);
-                super.unblockui('#m_form_1');
+                super.unblockui('#m-content');
                 console.log('error');
             },
             () => {
-                super.unblockui('#m_form_1');
+                super.unblockui('#m-content');
                 // console.log('done');
             }
         );
@@ -114,7 +150,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
             } else {
                 console.log(resp);
                 super.showError(resp.error_msg);
-                super.unblockui('#m_form_1');
+                super.unblockui('#m-content');
             }
         },
         error => {
@@ -135,7 +171,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     }
     
     review() {
-        super.blockui('#m_form_1');
+        super.blockui('#m-content');
 
         let workflowaction: WorkflowAction = new WorkflowAction;
         workflowaction.workflow_id = this.pr.workflow_id;
@@ -145,33 +181,32 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         workflowaction.outcome = C_DOC_STATUS_REVIEWED_NAME;
         workflowaction.outcome_description = $('#txtComment').val().toString();
 
-        alert(workflowaction.outcome_description);
-
         this._workflowService.review<any>(workflowaction).subscribe(
             resp => {
                 workflowaction = resp;
                 if (resp.is_error == false) {
+                    console.log(resp);
                     super.showsuccess('Review complete');
-                    this.navigate_detail(this.id);
+                    window.location.reload();
                 } else {
                     console.log(resp);
                     super.showError(resp.error_msg);
-                    super.unblockui('#m_form_1');
+                    super.unblockui('#m-content');
                 }
             },
             error => {  
                 super.showError(error);
                 console.log(error);
-                super.unblockui('#m_form_1');
+                super.unblockui('#m-content');
             },
             () => {
-                super.unblockui('#m_form_1');
+                super.unblockui('#m-content');
             }
         );
     }
     
     approve() {
-        super.blockui('#m_form_1');
+        super.blockui('#m-content');
 
         let workflowaction: WorkflowAction = new WorkflowAction;
         workflowaction.workflow_id = this.pr.workflow_id;
@@ -181,32 +216,30 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         workflowaction.outcome = C_DOC_STATUS_APPROVED_NAME;
         workflowaction.outcome_description = $('#txtComment').val().toString();
 
-        // alert(workflowaction.outcome_description);
-
         this._workflowService.approve<any>(workflowaction).subscribe(
             resp => {
                 workflowaction = resp;
                 if (resp.is_error == false) {
                     super.showsuccess('Approve complete');
-                    this.navigate_detail(this.id);
+                    window.location.reload();
                 } else {
                     console.log(resp);
                     super.showError(resp.error_msg);
-                    super.unblockui('#m_form_1');
+                    super.unblockui('#m-content');
                 }
             },
             error => {  
                 super.showError(error);
-                super.unblockui('#m_form_1');
+                super.unblockui('#m-content');
             },
             () => {
-                super.unblockui('#m_form_1');
+                super.unblockui('#m-content');
             }
         );
     }
     
     reject() {
-        super.blockui('#m_form_1');
+        super.blockui('#m-content');
 
         let workflowaction: WorkflowAction = new WorkflowAction;
         workflowaction.workflow_id = this.pr.workflow_id;
@@ -216,32 +249,68 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         workflowaction.outcome = C_DOC_STATUS_REJECTED_NAME;
         workflowaction.outcome_description = $('#txtComment').val().toString();
 
-        // alert(workflowaction.outcome_description);
-
         this._workflowService.reject<any>(workflowaction).subscribe(
             resp => {
                 workflowaction = resp;
                 if (resp.is_error == false) {
+                    console.log(resp);
                     super.showsuccess('Reject complete');
-                    this.navigate_detail(this.id);
+                    window.location.reload();
                 } else {
                     console.log(resp);
                     super.showError(resp.error_msg);
-                    super.unblockui('#m_form_1');
+                    super.unblockui('#m-content');
                 }
             },
             error => {  
                 super.showError(error);
-                super.unblockui('#m_form_1');
+                super.unblockui('#m-content');
             },
             () => {
-                super.unblockui('#m_form_1');
+                super.unblockui('#m-content');
             }
         );
     }
 
-    navigate_detail(prId) {
-        this._router.navigate(['/trns/pr/detail/'+prId]);
+    waiting() {
+        super.blockui('#m-content');
+        super.unblockui('#m-content');
+    }
+
+    comment() {
+        super.blockui('#m-content');
+        super.unblockui('#m-content');
+    }
+
+    performAction() {
+        var pAction =  $('#input_action').val().toString().toLocaleLowerCase();
+
+        switch (pAction) {
+            case 'review':
+                // console.log('doaction review');
+                this.review();
+                break;
+            case 'approve':
+                // console.log('doaction approve');
+                this.approve();
+                break;
+            case 'reject':
+                // console.log('doaction reject');
+                this.reject();
+                break;
+            case 'waiting':
+                // console.log('doaction waiting');
+                this.waiting();
+                break;
+            case 'comment':
+                // console.log('doaction waiting');
+                this.comment();
+                break;
+        }
+    }
+    
+    navigate_list() {
+        this._router.navigate(['/trns/pr/list']);
     }
 
 }

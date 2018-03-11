@@ -19,6 +19,9 @@ export const API_TRACKING_LIST: string = API_BASE_URL + '/api/tracking/list'
 export const API_TRACKING_GET_PUT_DEL: string = API_BASE_URL + '/api/tracking'
 export const API_TRACKING_INSERT: string = API_BASE_URL + '/api/tracking/insert'  
 
+export const API_ROUTE_LIST: string = API_BASE_URL + '/api/route/list'
+export const API_ROUTE_GET: string = API_BASE_URL + '/api/route'
+
 export const API_WORKFLOW_ACTION_REVIEW: string = API_BASE_URL + '/api/worklist/review'
 export const API_WORKFLOW_ACTION_APPROVE: string = API_BASE_URL + '/api/worklist/approve'
 export const API_WORKFLOW_ACTION_REJECT: string = API_BASE_URL + '/api/worklist/reject'
@@ -39,6 +42,13 @@ export const API_ATTACHMENT_INSERT: string = API_BASE_URL + '/api/attachment'
 export const API_ATTACHMENT_DEL: string = API_BASE_URL + '/api/attachment/del'
 
 //Model status code
+export const ROUTE_PR: any = {"name":"pr","doc_group":1}
+export const ROUTE_PO: any = {"name":"po","doc_group":2}
+export const ROUTE_PA: any = {"name":"pa","doc_group":3}
+
+export const C_ACCOUNT_TYPE_ACCOUNT_NAME: string = 'Account';
+export const C_ACCOUNT_TYPE_NON_ACCOUNT_NAME: string = 'Non-Account';
+
 export const ATTACHMENT_DOC_GROUP_PR: number = 1
 export const ATTACHMENT_DOC_GROUP_PO: number = 2
 export const ATTACHMENT_DOC_GROUP_PM: number = 3
@@ -56,6 +66,8 @@ export const C_DOC_STATUS_WAIT_REVIEW_NAME: string = 'Wait Review';
 export const C_DOC_STATUS_REVIEWED_NAME: string = 'Reviewed';
 export const C_DOC_STATUS_APPROVED_NAME: string = 'Approved';
 export const C_DOC_STATUS_REJECTED_NAME: string = 'Rejected';
+export const C_DOC_STATUS_WAITING_NAME: string = 'Waiting';
+export const C_DOC_STATUS_COMMENT_NAME: string = 'Comment';
 
 export const C_DOC_STATUS_WAIT_REVIEW_COLOR: string = 'warning';
 export const C_DOC_STATUS_REVIEWED_COLOR: string = 'info';

@@ -6,16 +6,18 @@ var FormControls = function () {
     var demo1 = function () {
         $( "#m_form_1" ).validate({
             // define validation rules
-            /* rules: {
-                doctypecode: {
+            rules: {
+                trackingcode: {
                     required: true,
-                    maxlength: 4
+                   // minlength: 5 
                 },
-                doctypedesc: {
-                    required: true,
-                    maxlength: 25
-                }
-            }, */
+                trackingname: {
+                    required: true 
+                } ,
+                company: {
+                    required: true 
+                }   
+            },
             
             //display error alert on form submit  
             invalidHandler: function(event, validator) {     
@@ -25,23 +27,24 @@ var FormControls = function () {
             },
 
             submitHandler: function (form) {
-            
-            //form[0].submit(); // submit the form
+                  
+              
+               //form[0].submit(); // submit the form
             }
         });       
     }
 
-
-
-    var  alertSuccess = function () {  
-        alert('yoyo');
-    }; 
+  var  alertSuccess = function () {  
+    alert('yoyo');
+}; 
 
     return {
         // public functions
         init: function() {
             demo1(); 
-        }
+             
+        },
+        
     };
 }();
 
@@ -49,8 +52,3 @@ jQuery(document).ready(function() {
     FormControls.init();
 });
 
-function prepareAction(myAction) {
-    $('input[name=input_action]').val(myAction);
-    document.getElementById('modalTitle').innerHTML='Confirm ' + myAction + '?'; 
-    document.getElementById('modalBody').innerHTML=document.getElementById('txtComment').value;
-}

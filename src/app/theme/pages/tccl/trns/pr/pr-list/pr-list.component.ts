@@ -81,4 +81,10 @@ export class PRListComponent extends PageBaseComponent implements OnInit, AfterV
         this._router.navigate(['/trns/pr/detail/' + prId]);
     }
 
+    search() {
+        super.blockui('#m-content');
+        myDatatable.search();
+        super.unblockui('#m-content');
+    }
+
 }   

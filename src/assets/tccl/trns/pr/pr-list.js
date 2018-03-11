@@ -34,6 +34,7 @@ var myDatatable = function( ) {
         serverFiltering: true,
         serverSorting: true,
       },
+      // render: $.fn.dataTable.render.number( ',', '.', 2 ),
 
       // layout definition
       layout: {
@@ -79,15 +80,19 @@ var myDatatable = function( ) {
         }, {   
           field: 'pr_date',
           title: 'PR Date',
-          type: 'datetime',
-          format: 'dd/MM/yyyy'
+          width: '80px',
+          template: function(row) {
+            return toDisplayDate(row.pr_date);
+          }
         }, {   
           field: 'doc_type',
           title: 'Doc Type',
-          textAlign: 'center'
+          textAlign: 'center',
+          width: '40px'
         } , {
-          field: 'amount',
+          field: 'grand_total',
           title: 'Est. Price',
+          width: '80px',
           type: 'number',
           textAlign: 'right',
           sortable: false
@@ -99,10 +104,7 @@ var myDatatable = function( ) {
           }
         } , {
           field: 'subject',
-          title: 'Subject',
-          template: function (row) {
-            return '-';
-          }
+          title: 'Subject'
         } , {
           field: 'plant_name',
           title: 'Plant',
@@ -112,6 +114,7 @@ var myDatatable = function( ) {
         } , {
           field: 'c_doc_status',
           title: 'Status',
+          sortable: false,
           template: function (row) {
             return '<span class="m-badge m-badge--' + my.C_DOC_STATUS[row.c_doc_status-1][2] + ' m-badge--wide">' + my.C_DOC_STATUS[row.c_doc_status-1][1] + '</span>';
           }
@@ -121,40 +124,11 @@ var myDatatable = function( ) {
         } , {
           field: 'create_datetime',
           title: 'Create Date',
-          type: 'date',
-          format: 'dd/MM/yyyy'
+          template: function(row) {
+            return toDisplayDateTime(row.create_datetime);
+          }
         }
       ],
-    });
-
-    // $('#m_form_doc_type').on('change', function() {
-    //   // shortcode to datatable.getDataSourceParam('query');
-    //   var query = datatable.getDataSourceQuery();
-    //   query.doc_type = $(this).val().toLowerCase();
-    //   // shortcode to datatable.setDataSourceParam('query', query);
-    //   datatable.setDataSourceQuery(query);
-    //   datatable.load();
-    // }).val(typeof query.doc_type !== 'undefined' ? query.Status : '');
-
-    // $('#m_form_doc_type').on('change', function() {
-    //   datatable.search($(this).val().toLowerCase(), 'doc_type');
-    // });
-
-    // $('#m_form_company').on('change', function() {
-    //   datatable.search($(this).val().toLowerCase(), 'comp_code');
-    // });
-
-    // $('#m_form_plant').on('change', function() {
-    //   datatable.search($(this).val().toLowerCase(), 'plant_code');
-    // });
-
-    // $('#m_form_status').on('change', function() {
-    //   datatable.search($(this).val().toLowerCase(), 'c_doc_status');
-    // });
-
-    $('#m_form_doc_type, #m_form_company, #m_form_plant, #m_form_status').select2({
-      placeholder: "All",
-      allowClear: true
     });
 
     // datepicker
@@ -181,51 +155,17 @@ var myDatatable = function( ) {
   var search = function()  {
     var query = datatable.getDataSourceQuery();
     
-    if ($('#m_form_pr_no').val() != '' ) {
-      query.pr_no = $('#m_form_pr_no').val();
-    }
-
-    if ($('#m_form_doc_type').val() != null && $('#m_form_doc_type').val() != '') {
-      query.doc_type = $('#m_form_doc_type').val().toLowerCase();
-    }
-
-    if ($('#m_form_date_from').val() != '') {
-      query.pr_date_from = toInternalDate($('#m_form_date_from').val());
-    }
-
-    if ($('#m_form_date_to').val() != '') {
-      query.pr_date_to = toInternalDate($('#m_form_date_to').val());
-    }
-
-    if ($('#m_form_company').val() != null && $('#m_form_company').val() != '') {
-      query.comp_code = $('#m_form_company').val().toLowerCase();
-    }
-
-    if ($('#m_form_subject').val() != '' ) {
-      query.subject = $('#m_form_subject').val();
-    }
-
-    if ($('#m_form_plant').val() != null && $('#m_form_plant').val() != '') {
-      query.plant_code = $('#m_form_plant').val().toLowerCase();
-    }
-
-    if ($('#m_form_status').val() != null && $('#m_form_status').val() != '') {
-      query.c_doc_status = $('#m_form_status').val().toLowerCase();
-    }
+    query.pr_no = $('#m_form_pr_no').val();
+    query.doc_type = $('#m_form_doc_type').val();
+    query.pr_date_from = toInternalDate($('#m_form_date_from').val());
+    query.pr_date_to = toInternalDate($('#m_form_date_to').val());
+    query.comp_code = $('#m_form_company').val();
+    query.subject = $('#m_form_subject').val();
+    query.plant_code = $('#m_form_plant').val();
+    query.c_doc_status = $('#m_form_status').val();
 
     datatable.setDataSourceQuery(query);
     datatable.load();
-  };
-
-  var clearData = function()  {
-    $('#m_form_pr_no').val() == '';
-    $('#m_form_doc_type').val() == '';
-    $('#m_form_date_from').val() == '';
-    $('#m_form_date_to').val() == '';
-    $('#m_form_company').val() == '';
-    $('#m_form_subject').val() == '';
-    $('#m_form_plant').val() == '';
-    $('#m_form_status').val() == '';
   };
 
   return {
@@ -235,9 +175,6 @@ var myDatatable = function( ) {
     },
     search: function() {
       search();
-    },
-    clearData: function() {
-      clearData();
     }
   };
 }();

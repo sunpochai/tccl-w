@@ -80,5 +80,10 @@ export class POListComponent extends PageBaseComponent implements OnInit, AfterV
     navigate_edit(poId) {
         this._router.navigate(['/trns/po/detail/' + poId]);
     }
-
+    
+    search() {
+        super.blockui('#m-content');
+        myDatatable.search();
+        super.unblockui('#m-content');
+    }
 }   
