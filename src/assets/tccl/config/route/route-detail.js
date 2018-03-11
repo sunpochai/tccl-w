@@ -27,24 +27,16 @@ var FormControls = function () {
             },
 
             submitHandler: function (form) {
-                  
-              
                //form[0].submit(); // submit the form
             }
         });       
     }
 
-  var  alertSuccess = function () {  
-    alert('yoyo');
-}; 
-
     return {
         // public functions
         init: function() {
             demo1(); 
-             
         },
-        
     };
 }();
 

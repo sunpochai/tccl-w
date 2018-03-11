@@ -1,6 +1,5 @@
 import { ActivatedRoute, Router } from '@angular/router';
 
-// import {FormControl} from '@angular/forms';
 import { PageBaseComponent } from './../../../pagebase.component';
 
 import * as app from './../../../../../../app-constants';
@@ -85,7 +84,7 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
     }
 
     add() {
-        this._router.navigate(['/config/route/detail/0']);
+        this._router.navigate(['/config/route/detail/'+this.routetype.name]);
     }
 
     del() {

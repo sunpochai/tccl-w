@@ -15,6 +15,8 @@ import {
 import { RouteApproveService } from '../../../_services/config/routeapprove.service';
 import { RouteApprove } from '../../../_models/config/routeapprove';
 import { ROUTE_PR, ROUTE_PO, ROUTE_PA } from '../../../../../../app-constants';
+import { DocType } from '../../../_models/masters/doctype';
+import { DocTypeService } from '../../../_services/masters/doctype.service';
 
 @Component({
     selector: "config-route-detail",
@@ -26,13 +28,21 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     private routeapprove: RouteApprove;
     private id: any;
     private routetype: any;
+    private doctypeList: Array<DocType>;
     constructor(private _script: ScriptLoaderService,
         private _router: Router, private route: ActivatedRoute,
-        private _routeapproveService: RouteApproveService, private formBuilder: FormBuilder) {
+        private _routeapproveService: RouteApproveService, 
+        private _doctypeService: DocTypeService, 
+        private formBuilder: FormBuilder) {
         super();
     }
     ngOnInit() {
         super.blockui('#m_form_1');
+
+        this._doctypeService.getall().subscribe(data => {
+            this.doctypeList = data;
+            // console.log(data);
+        });
 
         this.route.params.subscribe(params => {
             //id:any ('pr','po','pa' <-- add new record ,id <-- get old record)
@@ -63,6 +73,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
                         break;
                 }
                 console.log(this.routeapprove);
+                console.log(this.routetype);
             });
         } else {
             this.routeapprove = new RouteApprove();
