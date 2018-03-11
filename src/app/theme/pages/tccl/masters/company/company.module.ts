@@ -14,7 +14,7 @@ import { CompanyListComponent } from './company-list/company-list.component';
 import { LayoutModule } from '../../../../layouts/layout.module';
 import { CompanyDetailComponent } from './company-detail/company-detail.component';
 import { AlertService } from '../../../../../auth/_services/index';
-import { CompanyService } from '../_services/company.service';
+import { CompanyService } from '../../_services/masters/company.service';
 
 
 

@@ -7,16 +7,14 @@ var FormControls = function () {
         $( "#m_form_1" ).validate({
             // define validation rules
             rules: {
-                trackingcode: {
+                doctypecode: {
                     required: true,
-                   // minlength: 5 
+                    maxlength: 4
                 },
-                trackingname: {
-                    required: true 
-                } ,
-                company: {
-                    required: true 
-                }   
+                doctypedesc: {
+                    required: true,
+                    maxlength: 25
+                }
             },
             
             //display error alert on form submit  
@@ -27,24 +25,21 @@ var FormControls = function () {
             },
 
             submitHandler: function (form) {
-                  
-              
-               //form[0].submit(); // submit the form
+            
+            //form[0].submit(); // submit the form
             }
         });       
     }
 
-  var  alertSuccess = function () {  
-    alert('yoyo');
-}; 
+    var  alertSuccess = function () {  
+        alert('yoyo');
+    }; 
 
     return {
         // public functions
         init: function() {
             demo1(); 
-             
         },
-        
     };
 }();
 

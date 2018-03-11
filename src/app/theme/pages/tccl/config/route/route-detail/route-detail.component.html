@@ -1,0 +1,257 @@
+<!-- BEGIN: Subheader -->
+ 
+<div class="m-subheader" appunwraptag="">
+	<div class="d-flex align-items-center">
+		<div class="mr-auto">
+			<h3 class="m-subheader__title m-subheader__title--separator">
+				Route Approve Configuration
+			</h3>
+			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+				<li class="m-nav__item m-nav__item--home">
+					<a href="#" class="m-nav__link m-nav__link--icon">
+						<i class="m-nav__link-icon la la-home"></i>
+					</a>
+				</li>
+			 
+				<li class="m-nav__item">
+					<a href="" class="m-nav__link">
+						<span class="m-nav__link-text">
+							Config
+						</span>
+					</a>
+				</li>
+				<li class="m-nav__separator">
+					-
+				</li>
+				<li class="m-nav__item">
+					<a routerLink="/config/route/list" class="m-nav__link">
+						<span class="m-nav__link-text">
+								Route Approve
+						</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+<!-- END: Subheader -->
+<div class="m-content">
+	<!--begin::Portlet-->
+	<div class="m-portlet">
+		<div class="m-portlet__head">
+			<div class="m-portlet__head-caption">
+				<div class="m-portlet__head-title">
+					<h3 class="m-portlet__head-text" *ngIf="id==null || id==''">
+						New Route Approve
+					</h3>
+					<h3 class="m-portlet__head-text" *ngIf="id!=null && id!=''">
+						Edit Route Approve
+					</h3>
+				</div>
+			</div>
+		</div>
+		<!--begin::Form-->
+		<form  #heroForm="ngForm" class="m-form m-form--fit m-form--label-align-right" id="m_form_1">
+			<div class="m-portlet__body" *ngIf='routeapprove != null'>
+				<div class="m-form__content">
+					<div class="m-alert m-alert--icon alert alert-danger m--hide" role="alert" id="m_form_1_msg">
+						<div class="m-alert__icon">
+							<i class="la la-warning"></i>
+						</div>
+						<div class="m-alert__text">
+							Oh snap! Change a few things up and try submitting again.
+						</div>
+						<div class="m-alert__close">
+							<button type="button" class="close" data-close="alert" aria-label="Close"></button>
+						</div>
+					</div>
+				</div>
+				<div class="form-group m-form__group row" >
+					<label class="col-form-label col-lg-2 col-sm-4">
+						Route Name *
+					</label>
+					<div class="col-lg-4 col-sm-8">
+						<input required minlength="4" [(ngModel)]="routeapprove.route_name" type="text" class="form-control m-input" name="route_name" value="{{routeapprove.route_name}}" placeholder="Enter Route Name"  >
+					</div>
+				</div>
+				<div class="form-group m-form__group row">
+					<label class="col-form-label col-lg-2 col-sm-4">
+						Tracking Number *   
+					</label>
+					<!-- <div class="col-lg-4 col-md-9 col-sm-12">
+						<input required minlength="4" [(ngModel)]="company.comp_name"     #compname="ngModel" type="text" class="form-control m-input " name="compname" placeholder="Enter Company Name">
+					</div> -->
+				</div>
+				<div class="form-group m-form__group row" >
+					<label class="col-form-label col-lg-2 col-sm-4">
+						Doc Type *
+					</label>
+					<div class="col-lg-4 col-sm-8">
+						<select class="form-control m-input" [(ngModel)]="routeapprove.doc_type" name="doc_type">
+							<option value="">
+								All
+							</option>
+							<ng-container *ngFor="let row of doctypeList; let index = index">
+								<option value="{{row.doc_type_code}}">
+									{{row.doc_type_desc}}
+								</option>
+							</ng-container>
+						</select>
+					</div>
+				</div>
+				<div class="form-group m-form__group row" >
+					<label class="col-form-label col-lg-2 col-sm-4">
+						Account *
+					</label>
+					<div class="col-lg-4 col-sm-8">
+						<div class="m-radio-inline">
+							<label class="m-radio">
+								<input type="radio" [(ngModel)]="routeapprove.account"  name="account_type" value="A">
+								Account
+								<span></span>
+							</label>
+							<label class="m-radio">
+								<input type="radio" [(ngModel)]="routeapprove.account" name="account_type" value="N">
+								Non-Account
+								<span></span>
+							</label>
+						</div>
+					</div>
+				</div>
+
+
+			</div> 
+			<div class="m-portlet__foot m-portlet__foot--fit">
+				<div class="m-form__actions m-form__actions">
+					<div class="row">
+						<div class="col-lg-9 ml-lg-auto">
+							<button type="button" [disabled]="heroForm.invalid" class="btn btn-success" data-toggle="modal" data-target="#m_modal_6">
+								Save 
+							</button>
+							<button type="reset" (click)="navigate_list()" class="btn btn-secondary">
+								Cancel
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+		<!--end::Form-->
+	</div>
+	<!--end::Portlet--> 
+
+	<!--begin::Form-->
+	<form class="m-form m-form--fit " *ngIf="id!=null && id!=''">
+		<div class="row">
+			<div class="col-xl-12">
+				<!--begin:: Widgets/Download Files-->
+				<div class="m-portlet m-portlet--full-height">
+					<div class="m-portlet__head">
+						<div class="m-portlet__head-caption">
+							<div class="m-portlet__head-title">
+								<span class="m-portlet__head-icon">
+									<i class="fa flaticon-users"></i>
+								</span>
+								<h3 class="m-portlet__head-text">
+									Approver
+								</h3>
+							</div>
+						</div>
+					</div>
+					<!--begin:: Portlet Body-->
+					<div class="m-portlet__body">
+						<!--begin::m-Widget Attachfile-->
+						<div class="m-widget4">
+							<!--begin::Widget Attachfile Item-->
+							<div class="m-widget4__item" *ngFor="let row of routeapprove.cf_route_detail; let index = index">
+								<div class="m-widget4__info">
+									<span class="m-widget4__title">
+										{{row.ad_user}}
+									</span>
+									<br>
+									<span class="m-widget4__sub">
+										<i class="la la-user"></i>
+										{{row.ad_username}}
+									</span>
+									<!-- <span class="m-widget4__sub">
+										<i class="la la-clock-o"></i>
+										{{row.create_datetime | date :'dd/MM/yyyy'}}
+									</span> -->
+								</div>
+								<div class="m-widget4__ext">
+									<a href="#" class="m-btn m-btn--pill m-btn--hover-info btn btn-sm btn-secondary" title="Edit">
+										<i class="la la-edit"></i>
+									</a>
+								</div>
+								<div class="m-widget4__ext" >
+									<a href="#" (click)="removeFile(row.attach_id, index)" class="m-btn m-btn--pill m-btn--hover-danger btn btn-sm btn-secondary" title="Remove">
+										<i class="la la-trash"></i>
+									</a>
+								</div>
+							</div>
+							<!--end::Widget Attachfile Item-->
+						</div>
+						<!--end::Widget Attachfile-->
+						<!-- <div class="form-group m-form__group" >
+							<label for="exampleInputEmail1">
+								Attach File
+							</label>
+							<div></div>
+							<div class="custom-file">
+								<input type="file" class="custom-file-input" id="customFile" multiple>
+								<label class="custom-file-label" for="customFile">
+									Choose file
+								</label>
+							</div>
+						</div>
+						<div class="m-form__actions m-form__actions" *ngIf="canReview">
+							<div class="row">
+								<div class="col-lg-12 ml-lg-auto ">
+									<button type="button" class="btn btn-info" (click)="addFile()">
+										Submit File 
+									</button>
+								</div>
+							</div>
+						</div> -->
+					</div>
+					<!--end:: Portlet Body-->
+				</div>
+				<!--end:: Widgets/Download Files-->
+			</div>
+		</div>
+		<!--End::Main Portlet-->
+	</form>
+
+	
+
+	<!-- Modal -->
+	<div class="modal fade" id="m_modal_6" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">
+						Confirm Save ?
+					</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">
+							&times;
+						</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>
+						Confirm Save ?
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" (click)="save()" data-dismiss="modal" class="btn btn-success">
+						Save 
+					</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">
+						Close
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -5,7 +5,7 @@ import * as app from './../../../../../../app-constants';
 import { ScriptLoaderService } from './../../../../../../_services/script-loader.service';
 import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { constructDependencies } from '@angular/core/src/di/reflective_provider';
-import { CompanyService } from './../../_services/company.service';
+import { CompanyService } from './../../../_services/masters/company.service';
 import { API_COMPANY_LIST } from './../../../../../../app-constants';
 
 
