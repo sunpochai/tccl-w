@@ -67,7 +67,7 @@
 									</span>
 								</div>
 								<div class="col m--align-right">
-									<span class="m-widget1__number m--font-info">
+									<span class="m-widget1__number m--font-brand">
 										{{pr.pr_no}}
 									</span>
 								</div>
@@ -81,7 +81,7 @@
 									</span>
 								</div>
 								<div class="col m--align-right">
-									<span class="m-widget1__number m--font-info">
+									<span class="m-widget1__number m--font-brand">
 										{{ pr.pr_date | date :'dd/MM/yyyy' }}
 									</span>
 								</div>
@@ -95,18 +95,6 @@
 									</h3><br>
 									<span class="m-widget1__title">
 										{{pr.create_username}}
-									</span>
-								</div>
-							</div>
-						</div>
-						<div class="m-widget1__item">
-							<div class="row m-row--no-padding align-items-center">
-								<div class="col">
-									<h3 class="m-widget1__desc">
-										Purchasing Group
-									</h3><br>
-									<span class="m-widget1__title">
-										{{pr.pr_items[0].purchasing_group}} 
 									</span>
 								</div>
 							</div>
@@ -163,18 +151,6 @@
 									</h3><br>
 									<span class="m-widget1__title">
 										{{pr.currency}}
-									</span>
-								</div>
-							</div>
-						</div>
-						<div class="m-widget1__item">
-							<div class="row m-row--no-padding align-items-center">
-								<div class="col">
-									<h3 class="m-widget1__desc">
-										Exchange Rate
-									</h3><br>
-									<span class="m-widget1__title">
-										{{pr.exchrate}}
 									</span>
 								</div>
 							</div>
@@ -250,7 +226,7 @@
 					<!--begin::m-widget5-->
 					<div class="m-widget5">
 						<!-- <div id="tabItems"></div> -->
-						<table class='table table-bordered m-table m-table--border-info m-table--head-bg-info'>
+						<table class='table table-bordered m-table m-table--border-brand m-table--head-bg-brand'>
 							<thead>
 								<tr>
 									<th>No</th>
@@ -368,7 +344,7 @@
 						<div class="m-form__actions m-form__actions" *ngIf="canReview">
 							<div class="row">
 								<div class="col-lg-12 ml-lg-auto ">
-									<button type="button" class="btn btn-info" (click)="addFile()">
+									<button type="button" class="btn btn-brand" (click)="addFile()">
 										Submit File 
 									</button>
 								</div>
