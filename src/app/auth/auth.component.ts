@@ -14,10 +14,11 @@ import { UserService } from './_services/user.service';
 import { AlertComponent } from './_directives/alert.component';
 import { LoginCustom } from './_helpers/login-custom';
 import { Helpers } from '../helpers';
+import { User } from './_models';
 
 @Component({
     selector: '.m-grid.m-grid--hor.m-grid--root.m-page',
-    templateUrl: './templates/login-1.component.html',
+    templateUrl: './templates/login-2.component.html',
     encapsulation: ViewEncapsulation.None,
 })
 
@@ -59,13 +60,36 @@ export class AuthComponent implements OnInit {
 
     signin() {
         this.loading = true;
-        this._authService.login(this.model.email, this.model.password).subscribe(
+        this._authService.login(this.model.ad_user, this.model.password).subscribe(
             data => {
-                this._router.navigate([this.returnUrl]);
+                console.log(data);
+                this._authService.checkin(data.access_token,this.model.ad_user,"","browser").subscribe(resp =>{
+                    console.log(resp);
+                    var  profile: User =   resp ;
+                    profile.token = data.access_token;
+                    localStorage.setItem('currentUser', JSON.stringify(profile) ); 
+                    this.loading = false;
+                    this._router.navigate([this.returnUrl]);
+                } ,error => { 
+                    this.showAlert('alertSignin');
+                    this._alertService.error(error);
+                    this.loading = false;
+                  },() =>{
+                    console.log("sss"); 
+                  });  
+          
             },
             error => {
+                console.log(error)   
+                 let errObj = JSON.parse(error._body);
+               
                 this.showAlert('alertSignin');
-                this._alertService.error(error);
+                if(errObj){
+                    this._alertService.error(errObj.error_description);
+                }else{
+                    this._alertService.error(error);
+                }
+                
                 this.loading = false;
             });
     }

@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { ViewEncapsulation } from '@angular/core/src/metadata/view';
+import { User } from '../../../auth/_models';
 
 declare var myBundle: any;
 
 
 export class PageBaseComponent {
 
-    protected currentUser
+    protected currentUser : User
 
 
     constructor() {
@@ -28,23 +29,16 @@ export class PageBaseComponent {
     }
 
     protected getADUserLogin() {
-        if (this.currentUser && this.currentUser.aduser) {
-            return this.currentUser.aduser
+        if (this.currentUser && this.currentUser.ad_user) {
+            return this.currentUser.ad_user
         } else {
             return 'TCC\\SanchaiP';
         }  
 
     }
     protected getFullNameUserLogin() {
-<<<<<<< HEAD
-        return 'Sanchai Pochai';
-        // if (this.currentUser && this.currentUser.fullname) {
-        //     return 'Sanchai Pochai';
-        // }
-=======
-        return 'Sanchai Pochai';;
+        return   this.currentUser.fullname;
         
->>>>>>> pagebase
     }
 
 
