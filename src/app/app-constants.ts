@@ -23,8 +23,11 @@ export const API_TRACKING_SEARCH: string = API_BASE_URL + '/api/tracking/list2'
 export const API_TRACKING_GET_PUT_DEL: string = API_BASE_URL + '/api/tracking'
 export const API_TRACKING_INSERT: string = API_BASE_URL + '/api/tracking/insert'  
 
-export const API_ROUTE_LIST: string = API_BASE_URL + '/api/route/list'
-export const API_ROUTE_GET: string = API_BASE_URL + '/api/route'
+export const API_ROUTE_PR_LIST: string = API_BASE_URL + '/api/route/prlist'
+export const API_ROUTE_PO_LIST: string = API_BASE_URL + '/api/route/polist'
+export const API_ROUTE_PA_LIST: string = API_BASE_URL + '/api/route/palist'
+export const API_ROUTE_GET_PUT_DEL: string = API_BASE_URL + '/api/route'
+export const API_ROUTE_INSERT: string = API_BASE_URL + '/api/route/insert'
 
 export const API_WORKFLOW_ACTION_REVIEW: string = API_BASE_URL + '/api/worklist/review'
 export const API_WORKFLOW_ACTION_APPROVE: string = API_BASE_URL + '/api/worklist/approve'
