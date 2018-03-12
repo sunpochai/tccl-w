@@ -26,11 +26,11 @@ import { forEach } from '@angular/router/src/utils/collection';
     styleUrls: ["./route-detail.component.css"]
 })
 export class RouteApproveDetailComponent extends PageBaseComponent implements OnInit, AfterViewInit {
-    private form: FormGroup;
-    private routeapprove: RouteApprove;
-    private id: any;
-    private routetype: any;
-    private doctypeList: Array<DocType>;
+    public form: FormGroup;
+    public routeapprove: RouteApprove;
+    public id: any;
+    public routetype: any;
+    public doctypeList: Array<DocType>;
     constructor(private _script: ScriptLoaderService,
         private _router: Router, private route: ActivatedRoute,
         private _routeapproveService: RouteApproveService, 

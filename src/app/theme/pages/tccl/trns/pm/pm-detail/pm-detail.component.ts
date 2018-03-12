@@ -23,9 +23,9 @@ import { ATTACHMENT_DOC_GROUP_PM } from '../../../../../../app-constants';
     styleUrls: ["./pm-detail.component.css"]*/
 })
 export class PMDetailComponent extends PageBaseComponent implements OnInit, AfterViewInit {
-    private form: FormGroup;
-    private pm: PM;
-    private id: any;
+    public form: FormGroup;
+    public pm: PM;
+    public id: any;  
     constructor(private _script: ScriptLoaderService,
         private _router: Router, private route: ActivatedRoute,
         private _pmService: PMService, private formBuilder: FormBuilder) {

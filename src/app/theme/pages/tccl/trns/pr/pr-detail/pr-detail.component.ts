@@ -27,17 +27,17 @@ import { concat } from 'rxjs/observable/concat';
     styleUrls: ["./pr-detail.component.css"]
 })
 export class PRDetailComponent extends PageBaseComponent implements OnInit, AfterViewInit {
-    private form: FormGroup;
-    private pr: PR;
-    private id: any;
-    private wf_stage_resp_id: any;
-    private canReview: boolean = false;
-    private canApprove: boolean = false;
-    private canComment: boolean = false;
-    private urlattachment: String = API_ATTACHMENT_GET;
-    private statusName: any = {"reviewed":C_DOC_STATUS_REVIEWED_NAME,"approved":C_DOC_STATUS_APPROVED_NAME, "rejected":C_DOC_STATUS_REJECTED_NAME};
-    private cDocStatus: Array<Array<any>> = C_DOC_STATUS;
-    constructor(
+    public form: FormGroup;
+    public pr: PR;
+    public id: any;
+    public wf_stage_resp_id: any;
+    public canReview: boolean = false;
+    public canApprove: boolean = false;
+    public canComment: boolean = false;
+    public urlattachment: String = API_ATTACHMENT_GET;
+    public statusName: any = {"reviewed":C_DOC_STATUS_REVIEWED_NAME,"approved":C_DOC_STATUS_APPROVED_NAME, "rejected":C_DOC_STATUS_REJECTED_NAME};
+    public cDocStatus: Array<Array<any>> = C_DOC_STATUS;
+    constructor(  
         private _script: ScriptLoaderService,
         private _router: Router, 
         private route: ActivatedRoute,

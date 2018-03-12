@@ -54,7 +54,7 @@
 		<!--begin::Form-->
 		<form  #heroForm="ngForm" class="m-form m-form--fit m-form--label-align-right" id="m_form_1">
 			<!--begin::portlet__body-->
-			<div class="m-portlet__body" *ngIf='doctype != null'>
+			<div class="m-portlet__body"  >
 				<div class="m-form__content">
 					<div class="m-alert m-alert--icon alert alert-danger m--hide" role="alert" id="m_form_1_msg">
 						<div class="m-alert__icon">
@@ -73,7 +73,7 @@
 						Doc Type Code *
 					</label>
 					<div class="col-lg-4 col-md-9 col-sm-12">
-						<input required maxlength="4"  [disabled]='id  != 0 ' [(ngModel)]="doctype.doc_type_code" type="text" class="form-control m-input" name="doctypecode" value="{{doctype.DocTypeCode}}" placeholder="Enter Doc Type Code"  >
+						<input required maxlength="4"  [disabled]='id  != 0 '   placeholder="Enter Doc Type Code"  >
 					</div>
 				</div>
 				<div class="form-group m-form__group row">
@@ -81,18 +81,18 @@
 						Doc Type Desc *   
 					</label>
 					<div class="col-lg-4 col-md-9 col-sm-12">
-						<input required maxlength="25" [(ngModel)]="doctype.doc_type_desc"     #doctypedesc="ngModel" type="text" class="form-control m-input " name="doctypedesc" placeholder="Enter Doc Type Description">
+						<input required maxlength="25"   >
 					</div>
 				</div> 
 				<div class="form-group m-form__group row first" *ngIf='id != 0'>
 					<div class="col-lg-12">
 						<span class="m-form__help">
-							Created at {{doctype.create_datetime  | date:'dd/MM/yyyy HH:mm:ss'}} by {{doctype.create_username}} 
+							Created at {{pm.create_datetime  | date:'dd/MM/yyyy HH:mm:ss'}} by {{pm.create_username}} 
 						</span>
 					</div>
 					<div class="col-lg-12"> 
 				   	<span class="m-form__help" *ngIf='doctype.update_datetime != null'> 
-						Last modified at {{doctype.update_datetime  | date:'dd/MM/yyyy HH:mm:ss'}} by {{doctype.update_username}} 
+						Last modified at {{pm.update_datetime  | date:'dd/MM/yyyy HH:mm:ss'}} by {{pm.update_username}} 
 					</span>
 					</div>
 				</div>

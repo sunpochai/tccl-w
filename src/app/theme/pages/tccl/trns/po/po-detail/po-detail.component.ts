@@ -24,11 +24,11 @@ import { WorkflowService } from '../../../_services/trns/workflow.service';
     styleUrls: ["./po-detail.component.css"]
 })
 export class PODetailComponent extends PageBaseComponent implements OnInit, AfterViewInit {
-    private form: FormGroup;
-    private po: PO;
-    private id: any;
-    private wf_stage_resp_id: any;
-    private urlattachment: String = API_ATTACHMENT_GET;
+    public form: FormGroup;
+    public po: PO;
+    public id: any;  
+    public wf_stage_resp_id: any;
+    public urlattachment: String = API_ATTACHMENT_GET;
     constructor(
         private _script: ScriptLoaderService,
         private _router: Router, 
@@ -38,7 +38,7 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
         private _workflowService: WorkflowService,
         private formBuilder: FormBuilder) {
         super();
-    }
+    }  
 
     ngOnInit() {
         super.blockui('#m_form_1');

@@ -23,10 +23,10 @@ declare var window: any;
     encapsulation: ViewEncapsulation.None
 })
 export class POListComponent extends PageBaseComponent implements OnInit, AfterViewInit {
-    private doctypeList: Array<DocType>;
-    private companyList: Array<Company>;
-    private plantList: Array<Plant>;
-    private cDocStatus: Array<Array<any>> = C_DOC_STATUS;
+    public doctypeList: Array<DocType>;
+    public companyList: Array<Company>;
+    public plantList: Array<Plant>;
+    public cDocStatus: Array<Array<any>> = C_DOC_STATUS;
     
     constructor(private _router: Router,
         private _script: ScriptLoaderService,
