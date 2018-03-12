@@ -1,6 +1,7 @@
 import { RouteApproveDetail } from "./routeapprovedetail";
 
 export class RouteApprove {
+    ms_doctype?: any;
     route_id: number;
     route_name: string;
     doc_group: number;

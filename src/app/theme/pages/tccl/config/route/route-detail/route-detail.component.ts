@@ -17,6 +17,8 @@ import { RouteApprove } from '../../../_models/config/routeapprove';
 import { ROUTE_PR, ROUTE_PO, ROUTE_PA } from '../../../../../../app-constants';
 import { DocType } from '../../../_models/masters/doctype';
 import { DocTypeService } from '../../../_services/masters/doctype.service';
+import { RouteApproveDetail } from '../../../_models/config/routeapprovedetail';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
     selector: "config-route-detail",
@@ -87,55 +89,143 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
             ['assets/tccl/config/route/route-detail.js']);
     }
 
-    create() {
-        // super.blockui('#m_form_1');
-        // this.routeapprove.create_user = super.getADUserLogin();
-        // this.routeapprove.create_username = super.getFullNameUserLogin();
-        // this.routeapprove.create_datetime = new Date();
-        // this._routeService.create<Company>(this.routeapprove).subscribe(resp => {
-        //     this.company = resp;
-        //     super.showsuccess(this.routeapprove.comp_code + ' create complete');
-        //     this._router.navigate(['/masters/company/list']);
-        // },
-        // error => {  
-        //     alert(error);
-        //     super.showError(error);
-        //     super.unblockui('#m_form_1');
-        // },
-        // () => {
-        //     super.unblockui('#m_form_1');
-           
-        // });
+    save() {
+        console.log(this.routeapprove);
+        if (this.routeapprove.route_id != null && this.routeapprove.route_id != 0) {
+            this.update();
+        } else {
+            this.create();
+        }
     }
 
-    save() {
-        // console.log(this.company);
-        // if (this.id != null && this.id != '0') {
-        //     this.update();
-        // } else {
-        //     this.create();
-        // }
+    create() {
+        super.blockui('#m_form_1');
+
+        this.routeapprove.tracking_no = "3360-IT"; /**todo: autocomplete */
+        this.routeapprove.doc_group = this.routetype.doc_group;
+        this.routeapprove.minimum_value = 0;
+        this.routeapprove.maximum_value = 999999999999;
+        this.routeapprove.route_status = true;
+        this.routeapprove.create_user = super.getADUserLogin();
+        this.routeapprove.create_username = super.getFullNameUserLogin();
+        this.routeapprove.create_datetime = new Date();
+        console.log(this.routeapprove);
+        this._routeapproveService.create<any>(this.routeapprove).subscribe(resp => {
+            console.log(resp);
+            this.routeapprove = resp;
+            super.showsuccess(this.routeapprove.route_name + ' create complete');
+            super.unblockui('#m_form_1');
+            // this.navigate_list();
+        },
+        error => {  
+            alert(error);
+            super.showError(error);
+            super.unblockui('#m_form_1');
+        },
+        () => {
+            super.unblockui('#m_form_1');
+        });
     }
 
     update() {
         super.blockui('#m_form_1');
-        // this.company.update_user = super.getADUserLogin();
-        // this.company.update_username = super.getFullNameUserLogin();
-        // this.company.update_datetime = new Date();
-        // this._companyService.put<Company>(this.company).subscribe(resp => {
-        //     this.company = resp;
-        //     super.showsuccess(this.company.comp_code + ' update complete');
-        //     this._router.navigate(['/masters/company/list']);
-        // },
-        //     error => {  
-        //         super.showError(error);
-        //         super.unblockui('#m_form_1');
-               
-        //     },
-        //     () => {
-        //         super.unblockui('#m_form_1');
-              
-        //     });
+
+        this.routeapprove.tracking_no = "3360-IT"; /**todo: autocomplete */
+
+        this.routeapprove.update_user = super.getADUserLogin();
+        this.routeapprove.update_username = super.getFullNameUserLogin();
+        this.routeapprove.update_datetime = new Date();
+        this._routeapproveService.put<RouteApprove>(this.routeapprove).subscribe(resp => {
+            this.routeapprove = resp;
+            super.showsuccess(this.routeapprove.route_name + ' update complete');
+            // this.navigate_list();
+        },
+            error => {  
+                super.showError(error);
+                super.unblockui('#m_form_1');
+            },
+            () => {
+                super.unblockui('#m_form_1');
+            });
+    }
+
+    prepareAddApprover() {
+        $('#m_select_approver').val('');
+        $('#m_approver_action').val('');
+        $('#m_approver_action_row_index').val('');
+    }
+
+    prepareEditApprover(rowIndex: number) {
+        $('#m_select_approver').val(this.routeapprove.cf_route_detail[rowIndex].ad_user);
+        $('#m_approver_action').val('edit');
+        $('#m_approver_action_row_index').val(rowIndex);
+    }
+
+    approverAction() {
+        if ($('#m_approver_action').val().toString() == "edit") {
+            this.editApprover( parseInt( $('#m_approver_action_row_index').val().toString() ) );
+            console.log(parseInt( $('#m_approver_action_row_index').val().toString() ));
+            console.log('edit approver');
+        } else {
+            this.addApprover();
+            console.log('add approver');
+        }
+    }
+
+    addApprover() {
+        super.blockui('#m-content');
+
+        let approver: RouteApproveDetail = new RouteApproveDetail;
+        approver.route_id = this.routeapprove.route_id;
+        approver.route_d_id = null;
+
+        if (this.routeapprove.cf_route_detail == null) {
+            this.routeapprove.cf_route_detail = new Array<RouteApproveDetail>();
+        }
+
+        approver.route_level = this.routeapprove.cf_route_detail.length + 1;
+        approver.ad_user = $('#m_select_approver').val().toString();
+        approver.ad_username = $("#m_select_approver :selected").text();;
+        approver.create_user = super.getADUserLogin();
+        approver.create_username = super.getFullNameUserLogin();
+        approver.create_datetime = new Date();
+
+        console.log(approver);
+
+        this.routeapprove.cf_route_detail.push(approver);
+    }
+
+    editApprover(rowIndex: number) {
+        super.blockui('#m-content');
+
+        this.routeapprove.cf_route_detail[rowIndex].ad_user = $('#m_select_approver').val().toString();//'tcc\\sanchaip';
+        this.routeapprove.cf_route_detail[rowIndex].ad_username = $("#m_select_approver :selected").text();
+        this.routeapprove.cf_route_detail[rowIndex].create_user = super.getADUserLogin();
+        this.routeapprove.cf_route_detail[rowIndex].create_username = super.getFullNameUserLogin();
+        this.routeapprove.cf_route_detail[rowIndex].create_datetime = new Date();
+
+        super.unblockui('#m-content');
+    }
+
+    removeApprover(rowIndex: number) {
+        super.blockui('#m-content');
+
+        let tempApprovers: Array<RouteApproveDetail> = new Array<RouteApproveDetail>();
+        let index: number = 0;
+
+        if (this.routeapprove.cf_route_detail != null && this.routeapprove.cf_route_detail.length >= rowIndex) {
+            for (let row of this.routeapprove.cf_route_detail) {
+                if (rowIndex==index) {
+                    //do nothing
+                } else {
+                    row.route_level = tempApprovers.length + 1;
+                    tempApprovers.push(row);
+                }
+                console.log(row); // 1, "string", false
+                index++;
+            }
+        }
+        this.routeapprove.cf_route_detail = tempApprovers;
     }
 
     navigate_list() {

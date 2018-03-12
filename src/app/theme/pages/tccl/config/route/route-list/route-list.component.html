@@ -25,7 +25,7 @@
 					-
 				</li>
 				<li class="m-nav__item">
-						<a routerLink="/config/route/list" class="m-nav__link">
+						<a href="#" (click)="navigate_list()" class="m-nav__link">
 						<span class="m-nav__link-text">
 							Route Approve 
 						</span>
@@ -49,7 +49,18 @@
 					</h3>
 				</div>
 			</div>
-	 
+			<div class="m-portlet__head-tools">
+				<ul class="m-portlet__nav">
+					<li class="m-portlet__nav-item">
+						<a href="#" (click)="navigate_edit('')" class="m-portlet__nav-link btn btn-brand m-btn " >
+							<i class="la la-plus"></i>
+							<span>
+								Add
+							</span>
+						</a>
+					</li>
+				</ul>
+			</div>
 		</div>
 		<form>
 			<div class="m-portlet__body">
@@ -93,7 +104,7 @@
 							<i class="fa fa-search"></i>
 							Search
 						</button>
-						<button type="reset" class="btn btn-warning">
+						<button type="reset" class="btn btn-metal">
 							<i class="fa fa-refresh"></i>
 							Clear
 						</button>

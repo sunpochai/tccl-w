@@ -6,7 +6,7 @@ import * as app from './../../../../../../app-constants';
 import { ScriptLoaderService } from './../../../../../../_services/script-loader.service';
 import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { constructDependencies } from '@angular/core/src/di/reflective_provider';
-import { API_ROUTE_LIST, ROUTE_PR, ROUTE_PO, ROUTE_PA } from './../../../../../../app-constants';
+import { API_ROUTE_PR_LIST, API_ROUTE_PO_LIST, API_ROUTE_PA_LIST, ROUTE_PR, ROUTE_PO, ROUTE_PA } from './../../../../../../app-constants';
 import { RouteApproveService } from '../../../_services/config/routeapprove.service';
 import { DocType } from '../../../_models/masters/doctype';
 import { DocTypeService } from '../../../_services/masters/doctype.service';
@@ -21,6 +21,7 @@ declare var window: any
 })
 export class RouteApproveListComponent extends PageBaseComponent implements OnInit, AfterViewInit {
     private routetype: any;
+    private api_list: string;
     private scriptpath: string;
     private doctypeList: Array<DocType>;
     constructor(private _router: Router, private route: ActivatedRoute,
@@ -55,12 +56,15 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
             switch (params['routetype']) {
                 case ROUTE_PR.name:
                     this.routetype = ROUTE_PR;
+                    this.api_list = API_ROUTE_PR_LIST;
                     break;
                 case ROUTE_PO.name:
                     this.routetype = ROUTE_PO;
+                    this.api_list = API_ROUTE_PO_LIST;
                     break;
                 case ROUTE_PA.name:
                     this.routetype = ROUTE_PA;
+                    this.api_list = API_ROUTE_PA_LIST;
                     break;
             }
             this.scriptpath = 'assets/tccl/config/route/route-' + this.routetype.name + '-list.js';
@@ -71,14 +75,14 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
     ngAfterViewInit() {
         this._script.loadScripts('config-route-list',[this.scriptpath]);
 
-        this.load(this.routetype.doc_group);
+        this.load(this.api_list,this.routetype.doc_group);
     }
 
-    load(doc_group) {
+    load(api_list,doc_group) {
         super.blockui('#m-content');
         jQuery(document).ready(function() {
             console.log(doc_group);
-            myDatatable.init(API_ROUTE_LIST, doc_group);
+            myDatatable.init(api_list, doc_group);
         });
         super.unblockui('#m-content');
     }
@@ -107,7 +111,15 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
     }
 
     navigate_edit(routeId) {
-        this._router.navigate(['/config/route/detail/' + routeId]);
+        if (routeId == '') {
+            this._router.navigate(['/config/route/detail/' + this.routetype.name]);
+        } else {
+            this._router.navigate(['/config/route/detail/' + routeId]);
+        }
+    }
+
+    navigate_list() {
+        this._router.navigate(['/config/route/list/' + this.routetype.name]);
     }
 
     search() {
