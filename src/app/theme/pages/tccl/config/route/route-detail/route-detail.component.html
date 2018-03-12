@@ -75,9 +75,19 @@
 					<label class="col-form-label col-lg-2 col-sm-4">
 						Tracking No. *   
 					</label>
-					<!-- <div class="col-lg-4 col-md-9 col-sm-12">
-						<input required minlength="4" [(ngModel)]="company.comp_name"     #compname="ngModel" type="text" class="form-control m-input " name="compname" placeholder="Enter Company Name">
-					</div> -->
+					<div class="col-lg-4 col-sm-8">
+						<select class="form-control m-input" [(ngModel)]="routeapprove.tracking_no" name="tracking_no">
+							<option value="3360-IT" >
+								3360-IT
+							</option>
+							<option value="1010-AC-IN" >
+								1010-AC-IN
+							</option>
+							<option value="1010-AC-LO" >
+								1010-AC-LO
+							</option>
+						</select>
+					</div>
 				</div>
 				<div class="form-group m-form__group row" >
 					<label class="col-form-label col-lg-2 col-sm-4">
