@@ -78,8 +78,10 @@ var myDatatable = function( ) {
           field: 'create_datetime',
           title: 'Create Date',
           type: 'datetime',
-          format: 'MM/DD/YYYY'
-          //template: "{{update_datetime | date:'dd/MM/yyyy HH:mm:ss'}}"
+         
+          template: function(row) {
+            return toDisplayDateTime(row.create_datetime);
+          }
          } , {
             field: 'Actions',
             width: 110,

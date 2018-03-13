@@ -116,7 +116,7 @@ var myDatatable = function( ) {
           title: 'Status',
           sortable: false,
           template: function (row) {
-            return '<span class="m-badge m-badge--' + my.C_DOC_STATUS[row.c_doc_status-1][2] + ' m-badge--wide">' + my.C_DOC_STATUS[row.c_doc_status-1][1] + '</span>';
+            return '<span class="m-badge m-badge-- m-badge--wide"> </span>';
           }
         } , {
           field: 'create_username',
@@ -182,3 +182,4 @@ var myDatatable = function( ) {
 function navigate_edit(prId){
   my.namespace.navigate_edit(prId);
 }
+ 

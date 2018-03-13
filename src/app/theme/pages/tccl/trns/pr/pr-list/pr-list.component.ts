@@ -74,6 +74,7 @@ export class PRListComponent extends PageBaseComponent implements OnInit, AfterV
         jQuery(document).ready(function() {
             myDatatable.init(API_PR_LIST);
         });
+        
         super.unblockui('#m-content');
     }
 

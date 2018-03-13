@@ -3,6 +3,7 @@ import { Helpers } from './../../../../../../helpers';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ScriptLoaderService } from '../../../../../../_services/script-loader.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Http, Headers, Response } from '@angular/http';  
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { 
     ATTACHMENT_DOC_GROUP_PR, 
@@ -11,7 +12,8 @@ import {
     C_DOC_STATUS_APPROVED_NAME,
     C_DOC_STATUS_REJECTED_NAME,
     C_DOC_STATUS_WAIT_REVIEW_NAME,
-    C_DOC_STATUS
+    C_DOC_STATUS,
+    ROUTE_PR
 } from '../../../../../../app-constants';
 import { PR } from '../../../_models/trns/pr';
 import { Attachment } from '../../../_models/trns/attachment';
@@ -20,6 +22,7 @@ import { PRService } from './../../../_services/trns/pr.service';
 import { AttachmentService } from '../../../_services/trns/attachment.service';
 import { WorkflowService } from '../../../_services/trns/workflow.service';
 import { concat } from 'rxjs/observable/concat';
+import { RequestOptions } from '@angular/http';
 
 @Component({
     selector: "trns-pr-detail",
@@ -37,6 +40,8 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     public urlattachment: String = API_ATTACHMENT_GET;
     public statusName: any = {"reviewed":C_DOC_STATUS_REVIEWED_NAME,"approved":C_DOC_STATUS_APPROVED_NAME, "rejected":C_DOC_STATUS_REJECTED_NAME};
     public cDocStatus: Array<Array<any>> = C_DOC_STATUS;
+    public attFile :any ;
+    public formData: FormData = new FormData(); 
     constructor(  
         private _script: ScriptLoaderService,
         private _router: Router, 
@@ -46,6 +51,8 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         private _workflowService: WorkflowService,
         private formBuilder: FormBuilder) {
         super();
+
+      
     }
 
     loadData() {
@@ -101,57 +108,19 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
             ['assets/tccl/trns/pr/pr-detail.js']);
     }
 
-    addFile() {
-        super.blockui('#m-content');
-
-        let attachment: Attachment = new Attachment;
-        attachment.create_user = super.getADUserLogin();
-        attachment.create_username = super.getFullNameUserLogin();
-        attachment.create_datetime = new Date();
-
-        attachment.doc_group = ATTACHMENT_DOC_GROUP_PR;
-        attachment.doc_ref_id = this.pr.pr_id;
-        // attachment.file_name;
-        // attachment.file_content;
-
-        this._attachmentService.insert<Attachment>(attachment).subscribe(
-            resp => {
-                //todo:: check error message and decide what to do ...KT 06/03/2018 */
-                attachment = resp;
-                super.showsuccess('Upload file complete');
-
-                //todo:: refresh file list
-                this.pr.pr_attachment_items.push(attachment);
-            },
-            error => {  
-                super.showError(error);
-                super.unblockui('#m-content');
-                console.log('error');
-            },
-            () => {
-                super.unblockui('#m-content');
-                // console.log('done');
-            }
-        );
-    }
-
+    
     removeFile(attachId, fileIndex) {
         // alert(attachId + ',' + fileIndex);
         super.blockui('#m-content');
 
         this._attachmentService.del(attachId).subscribe(resp => {
-            if (resp.is_error == false) {
+                super.unblockui('#m-content');
                 super.showsuccess('Remove file complete');
-
                 //todo:: refresh file list
                 this.pr.pr_attachment_items.forEach( (item, index) => {
                     if(item.attach_id === attachId) this.pr.pr_attachment_items.splice(index,1);
                 });
-            } else {
-                console.log(resp);
-                super.showError(resp.error_msg);
-                super.unblockui('#m-content');
-            }
+             
         },
         error => {
             super.showError(error);
@@ -313,4 +282,55 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         this._router.navigate(['/trns/pr/list']);
     }
 
+   
+fileChange(event) {  
+    //ebugger;  
+ 
+    let fileList: FileList = event.target.files;  
+    if (fileList.length > 0) { 
+        this.attFile = []; 
+        let headers = new Headers()  
+            //headers.append('Content-Type', 'json');  
+            //headers.append('Accept', 'application/json');  
+            this.formData.append("doc_group",ROUTE_PR.doc_group);   
+            this.formData.append("doc_id",this.pr.pr_id.toString());  
+            this.formData.append("create_user",this.getADUserLogin());  
+            this.formData.append("create_username",this.getFullNameUserLogin());
+         
+            
+        for (let index = 0; index < fileList.length; index++) {
+            let file = fileList[index];
+            this.formData.append("file_" + index.toString(), file, file.name); 
+            this.attFile.push(file.name);
+        } 
+          
+    }else{
+        this.attFile = null;
+    }
+}
+uploadFile(){
+    super.blockui('#m-content');
+    
+        this._attachmentService.upload(this.formData).subscribe(  
+            data => {
+                let att  = data;
+                console.log(data);  
+                this.attFile = null;
+                this.formData = new FormData()  ;
+                super.unblockui('#m-content'); 
+                super.showsuccess('upload complete');
+                this.pr.pr_attachment_items = this.pr.pr_attachment_items || [] ;
+                 for (let index = 0; index < att.length; index++) {
+                        this.pr.pr_attachment_items.push(att[index]);
+                }
+                
+            },  
+            error => {  
+                    
+                super.unblockui('#m-content');
+                super.showError(error);
+            }
+            );    
+        
+}
 }

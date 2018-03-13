@@ -44,12 +44,11 @@ export const API_PO_GET: string = API_BASE_URL + '/api/po'
 export const API_PAYMENT_LIST: string = API_BASE_URL + '/api/payment/list'
 export const API_PAYMENT_GET: string = API_BASE_URL + '/api/payment'
 
-export const API_ATTACHMENT_GET: string = API_BASE_URL + '/api/attachment'
-export const API_ATTACHMENT_INSERT: string = API_BASE_URL + '/api/attachment'
-export const API_ATTACHMENT_DEL: string = API_BASE_URL + '/api/attachment/del'
-
+export const API_ATTACHMENT_GET_DEL :string = API_BASE_URL + '/api/attachment'
+export const API_ATTACHMENT_UPLOAD: string = API_BASE_URL + '/api/attachment/uploadfile'
+ 
 //Model status code
-export const ROUTE_PR: any = {"name":"pr","doc_group":1}
+export const ROUTE_PR: any = {"name":"pr","doc_group":1}  
 export const ROUTE_PO: any = {"name":"po","doc_group":2}
 export const ROUTE_PA: any = {"name":"pa","doc_group":3}
 
@@ -92,7 +91,7 @@ export const C_DOC_STATUS: Array<Array<any>> = [[C_DOC_STATUS_WAIT_REVIEW,C_DOC_
                                                 ,[C_DOC_STATUS_REJECTED,C_DOC_STATUS_REJECTED_NAME,C_DOC_STATUS_REJECTED_COLOR,C_DOC_STATUS_REJECTED_CLASS]
                                                 ];
 
-export const PR_CATEGORY_ASSET: string = 'A';
+export const PR_CATEGORY_ASSET: string = 'A';   
 export const PR_CATEGORY_EXPENSE: string = 'E';
 export const PR_CATEGORY_STOCK: string = 'S';
 export const PR_CATEGORY_PROJECTTCL: string = 'P';

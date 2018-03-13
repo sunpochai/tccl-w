@@ -17,9 +17,11 @@ export class PageBaseComponent {
     protected showsuccess(msg: string) {
         myBundle.showSuccess(msg);
     }
-    protected showError(msg: string) {
-        myBundle.showError(msg);
-    }
+    protected showError(err: any) {
+            console.log(err);
+            myBundle.showError(err);
+         
+    }  
     protected blockui(id: string) {
         myBundle.block(id, {});
 
@@ -35,12 +37,12 @@ export class PageBaseComponent {
             return 'TCC\\SanchaiP';
         }  
 
-    }
+    }  
     protected getFullNameUserLogin() {
         return   this.currentUser.fullname;
         
     }
-
+  
 
 
 }
