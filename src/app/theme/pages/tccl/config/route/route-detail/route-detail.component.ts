@@ -26,7 +26,6 @@ import { forEach } from '@angular/router/src/utils/collection';
     styleUrls: ["./route-detail.component.css"]
 })
 export class RouteApproveDetailComponent extends PageBaseComponent implements OnInit, AfterViewInit {
-<<<<<<< HEAD
     private form: FormGroup;
     private routeapprove: RouteApprove;
     private id: any;
@@ -34,13 +33,6 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     private doctypeList: Array<DocType>;
     private priceoverpr_yes: boolean;
     private priceoverpr_no: boolean;
-=======
-    public form: FormGroup;
-    public routeapprove: RouteApprove;
-    public id: any;
-    public routetype: any;
-    public doctypeList: Array<DocType>;
->>>>>>> 48dc0e02d0985445fd83a7aab97115e20bb6581d
     constructor(private _script: ScriptLoaderService,
         private _router: Router, private route: ActivatedRoute,
         private _routeapproveService: RouteApproveService, 
