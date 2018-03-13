@@ -67,11 +67,13 @@ export const C_DOC_STATUS_WAIT_REVIEW: number = 1
 export const C_DOC_STATUS_REVIEWED: number = 2
 export const C_DOC_STATUS_APPROVED: number = 3
 export const C_DOC_STATUS_REJECTED: number = 4
+export const C_DOC_STATUS_CANCELLED: number = 9
 
 export const C_DOC_STATUS_WAIT_REVIEW_NAME: string = 'Wait Review';
 export const C_DOC_STATUS_REVIEWED_NAME: string = 'Reviewed';
 export const C_DOC_STATUS_APPROVED_NAME: string = 'Approved';
 export const C_DOC_STATUS_REJECTED_NAME: string = 'Rejected';
+export const C_DOC_STATUS_CANCELLED_NAME: string = 'Cancelled';
 export const C_DOC_STATUS_WAITING_NAME: string = 'Waiting';
 export const C_DOC_STATUS_COMMENT_NAME: string = 'Comment';
 
@@ -79,24 +81,44 @@ export const C_DOC_STATUS_WAIT_REVIEW_COLOR: string = 'warning';
 export const C_DOC_STATUS_REVIEWED_COLOR: string = 'info';
 export const C_DOC_STATUS_APPROVED_COLOR: string = 'success';
 export const C_DOC_STATUS_REJECTED_COLOR: string = 'danger';
+export const C_DOC_STATUS_CANCELLED_COLOR: string = 'danger';
 
 export const C_DOC_STATUS_WAIT_REVIEW_CLASS: string = 'm-badge m-badge--'+C_DOC_STATUS_WAIT_REVIEW_COLOR+' m-badge--wide';
 export const C_DOC_STATUS_REVIEWED_CLASS: string = 'm-badge m-badge--'+C_DOC_STATUS_REVIEWED_COLOR+' m-badge--wide';
 export const C_DOC_STATUS_APPROVED_CLASS: string = 'm-badge m-badge--'+C_DOC_STATUS_APPROVED_COLOR+' m-badge--wide';
 export const C_DOC_STATUS_REJECTED_CLASS: string = 'm-badge m-badge--'+C_DOC_STATUS_REJECTED_COLOR+' m-badge--wide';
+export const C_DOC_STATUS_CANCELLED_CLASS: string = 'm-badge m-badge--'+C_DOC_STATUS_CANCELLED_COLOR+' m-badge--wide';
 
-export const C_DOC_STATUS: Array<Array<any>> = [[C_DOC_STATUS_WAIT_REVIEW,C_DOC_STATUS_WAIT_REVIEW_NAME,C_DOC_STATUS_WAIT_REVIEW_COLOR,C_DOC_STATUS_WAIT_REVIEW_CLASS]
-                                                ,[C_DOC_STATUS_REVIEWED,C_DOC_STATUS_REVIEWED_NAME,C_DOC_STATUS_REVIEWED_COLOR,C_DOC_STATUS_REVIEWED_CLASS]
-                                                ,[C_DOC_STATUS_APPROVED,C_DOC_STATUS_APPROVED_NAME,C_DOC_STATUS_APPROVED_COLOR,C_DOC_STATUS_APPROVED_CLASS]
-                                                ,[C_DOC_STATUS_REJECTED,C_DOC_STATUS_REJECTED_NAME,C_DOC_STATUS_REJECTED_COLOR,C_DOC_STATUS_REJECTED_CLASS]
-                                                ];
+export const C_DOC_STATUS_2: Array<any> = [
+    {code:0, active:false, name:"n/a"                         , color:C_DOC_STATUS_CANCELLED_COLOR    , displayclass:C_DOC_STATUS_CANCELLED_CLASS},
+    {code:1, active:true,  name:C_DOC_STATUS_WAIT_REVIEW_NAME , color:C_DOC_STATUS_WAIT_REVIEW_COLOR  , displayclass:C_DOC_STATUS_WAIT_REVIEW_CLASS},
+    {code:2, active:true,  name:C_DOC_STATUS_REVIEWED_NAME    , color:C_DOC_STATUS_REVIEWED_COLOR     , displayclass:C_DOC_STATUS_REVIEWED_CLASS},
+    {code:3, active:true,  name:C_DOC_STATUS_APPROVED_NAME    , color:C_DOC_STATUS_APPROVED_COLOR     , displayclass:C_DOC_STATUS_APPROVED_CLASS},
+    {code:4, active:true,  name:C_DOC_STATUS_REJECTED_NAME    , color:C_DOC_STATUS_REJECTED_COLOR     , displayclass:C_DOC_STATUS_REJECTED_CLASS},
+    {code:5, active:false, name:"n/a"                         , color:C_DOC_STATUS_CANCELLED_COLOR    , displayclass:C_DOC_STATUS_CANCELLED_CLASS},
+    {code:6, active:false, name:"n/a"                         , color:C_DOC_STATUS_CANCELLED_COLOR    , displayclass:C_DOC_STATUS_CANCELLED_CLASS},
+    {code:7, active:false, name:"n/a"                         , color:C_DOC_STATUS_CANCELLED_COLOR    , displayclass:C_DOC_STATUS_CANCELLED_CLASS},
+    {code:8, active:false, name:"n/a"                         , color:C_DOC_STATUS_CANCELLED_COLOR    , displayclass:C_DOC_STATUS_CANCELLED_CLASS},
+    {code:9, active:true,  name:C_DOC_STATUS_CANCELLED_NAME   , color:C_DOC_STATUS_CANCELLED_COLOR    , displayclass:C_DOC_STATUS_CANCELLED_CLASS}
+];
 
-export const PR_CATEGORY_ASSET: string = 'A';   
-export const PR_CATEGORY_EXPENSE: string = 'E';
-export const PR_CATEGORY_STOCK: string = 'S';
-export const PR_CATEGORY_PROJECTTCL: string = 'P';
+export const STATUS_NAME: any = {
+    reviewed:C_DOC_STATUS_REVIEWED_NAME
+    , approved:C_DOC_STATUS_APPROVED_NAME
+    , rejected:C_DOC_STATUS_REJECTED_NAME
+    , cancelled:C_DOC_STATUS_CANCELLED_NAME
+};
 
-export const PR_CATEGORY_ASSET_NAME: string = 'Asset';
-export const PR_CATEGORY_EXPENSE_NAME: string = 'Expense';
-export const PR_CATEGORY_STOCK_NAME: string = 'Stock';
-export const PR_CATEGORY_PROJECTTCL_NAME: string = 'Projectcl';
+export const CATEGORY_CODE: any = {
+    asset: 'A'
+    , expense: 'E'
+    , stock: 'S'
+    , projecttcl: 'P'
+}
+
+export const CATEGORY_NAME: any = {
+    asset: 'Asset'
+    , expense: 'Expense'
+    , stock: 'Stock'
+    , projecttcl: 'Projectcl'
+}

@@ -8,12 +8,9 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { 
     ATTACHMENT_DOC_GROUP_PR, 
     API_ATTACHMENT_GET_DEL,
-    C_DOC_STATUS_REVIEWED_NAME,
-    C_DOC_STATUS_APPROVED_NAME,
-    C_DOC_STATUS_REJECTED_NAME,
-    C_DOC_STATUS_WAIT_REVIEW_NAME,
-    C_DOC_STATUS,
-    ROUTE_PR
+    ROUTE_PR,
+    C_DOC_STATUS_2,
+    STATUS_NAME
 } from '../../../../../../app-constants';
 import { PR } from '../../../_models/trns/pr';
 import { Attachment } from '../../../_models/trns/attachment';
@@ -38,8 +35,8 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     public canApprove: boolean = false;
     public canComment: boolean = false;
     public urlattachment: String = API_ATTACHMENT_GET_DEL;
-    public statusName: any = {"reviewed":C_DOC_STATUS_REVIEWED_NAME,"approved":C_DOC_STATUS_APPROVED_NAME, "rejected":C_DOC_STATUS_REJECTED_NAME};
-    public cDocStatus: Array<Array<any>> = C_DOC_STATUS;
+    public statusName: any = STATUS_NAME;
+    public docStatus: Array<any> = C_DOC_STATUS_2;
     public attFile :any ;
     public formData: FormData = new FormData(); 
     constructor(  
@@ -147,7 +144,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         workflowaction.wf_stage_resp_id = this.wf_stage_resp_id;
         workflowaction.actor_user = super.getADUserLogin();
         workflowaction.actor_username = super.getFullNameUserLogin();
-        workflowaction.outcome = C_DOC_STATUS_REVIEWED_NAME;
+        workflowaction.outcome = STATUS_NAME.reviewed;
         workflowaction.outcome_description = $('#txtComment').val().toString();
 
         this._workflowService.review<any>(workflowaction).subscribe(
@@ -182,8 +179,10 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         workflowaction.wf_stage_resp_id = this.wf_stage_resp_id;
         workflowaction.actor_user = super.getADUserLogin();
         workflowaction.actor_username = super.getFullNameUserLogin();
-        workflowaction.outcome = C_DOC_STATUS_APPROVED_NAME;
+        workflowaction.outcome = STATUS_NAME.approved;// C_DOC_STATUS_APPROVED_NAME;
         workflowaction.outcome_description = $('#txtComment').val().toString();
+
+        console.log(workflowaction);
 
         this._workflowService.approve<any>(workflowaction).subscribe(
             resp => {
@@ -215,7 +214,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         workflowaction.wf_stage_resp_id = this.wf_stage_resp_id;
         workflowaction.actor_user = super.getADUserLogin();
         workflowaction.actor_username = super.getFullNameUserLogin();
-        workflowaction.outcome = C_DOC_STATUS_REJECTED_NAME;
+        workflowaction.outcome = STATUS_NAME.rejected //C_DOC_STATUS_REJECTED_NAME;
         workflowaction.outcome_description = $('#txtComment').val().toString();
 
         this._workflowService.reject<any>(workflowaction).subscribe(

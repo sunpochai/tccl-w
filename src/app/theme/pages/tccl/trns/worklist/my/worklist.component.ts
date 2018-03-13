@@ -5,7 +5,7 @@ import * as app from './../../../../../../app-constants';
 import { ScriptLoaderService } from './../../../../../../_services/script-loader.service';
 import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { constructDependencies } from '@angular/core/src/di/reflective_provider';
-import { API_WORKLIST, C_DOC_STATUS } from './../../../../../../app-constants';
+import { API_WORKLIST, C_DOC_STATUS_2 } from './../../../../../../app-constants';
 import { WorklistService } from '../../../_services/trns/worklist.service';
 import { Worklist } from '../../../_models/trns/worklist';
 
@@ -20,7 +20,7 @@ declare var window: any;
     encapsulation: ViewEncapsulation.None
 })
 export class WorklistComponent extends PageBaseComponent implements OnInit, AfterViewInit {
-    public cDocStatus: Array<Array<any>> = C_DOC_STATUS;
+    public docStatus: Array<any> = C_DOC_STATUS_2;
     public myworklists: Array<Worklist>;
     public myprs: Array<Worklist>;
     public mypos: Array<Worklist>; 

@@ -6,7 +6,7 @@ import { ScriptLoaderService } from './../../../../../../_services/script-loader
 import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { constructDependencies } from '@angular/core/src/di/reflective_provider';
 import { POService } from './../../../_services/trns/po.service';
-import { API_PO_LIST, C_DOC_STATUS } from './../../../../../../app-constants';
+import { API_PO_LIST, C_DOC_STATUS_2 } from './../../../../../../app-constants';
 import { DocTypeService } from '../../../_services/masters/doctype.service';
 import { CompanyService } from '../../../_services/masters/company.service';
 import { DocType } from '../../../_models/masters/doctype';
@@ -26,8 +26,8 @@ export class POListComponent extends PageBaseComponent implements OnInit, AfterV
     public doctypeList: Array<DocType>;
     public companyList: Array<Company>;
     public plantList: Array<Plant>;
-    public cDocStatus: Array<Array<any>> = C_DOC_STATUS;
-    
+    public docStatus: Array<any> = C_DOC_STATUS_2;
+      
     constructor(private _router: Router,
         private _script: ScriptLoaderService,
         private _doctypeService: DocTypeService,
@@ -38,11 +38,11 @@ export class POListComponent extends PageBaseComponent implements OnInit, AfterV
 
     ngOnInit() {
         window.my = window.my || {};
-        window.my.C_DOC_STATUS = C_DOC_STATUS;
+        window.my.docStatus = this.docStatus;
         window.my.namespace = window.my.namespace || {};
         window.my.namespace.navigate_edit = this.navigate_edit.bind(this);
 
-        // console.log(window.my.C_DOC_STATUS);
+        // console.log(window.my.docStatus);
 
         this._doctypeService.getall().subscribe(data => {
             this.doctypeList = data;
@@ -59,14 +59,20 @@ export class POListComponent extends PageBaseComponent implements OnInit, AfterV
             // console.log(data);
         });
 
+        // console.log('ngOnInit');
     }
 
     ngAfterViewInit() {
+        // console.log('ngAfterViewInit:1');
 
         this._script.loadScripts('trns-po-list',
             ['assets/tccl/trns/po/po-list.js']);
 
+        // console.log('ngAfterViewInit:2');
+
         this.load();
+        // console.log('ngAfterViewInit:3');
+
     }
 
     load() {
@@ -74,16 +80,18 @@ export class POListComponent extends PageBaseComponent implements OnInit, AfterV
         jQuery(document).ready(function() {
             myDatatable.init(API_PO_LIST);
         });
+        
         super.unblockui('#m-content');
     }
 
     navigate_edit(poId) {
         this._router.navigate(['/trns/po/detail/' + poId]);
     }
-    
+
     search() {
         super.blockui('#m-content');
         myDatatable.search();
         super.unblockui('#m-content');
     }
+
 }   

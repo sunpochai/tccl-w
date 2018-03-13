@@ -116,7 +116,7 @@ var myDatatable = function( ) {
           title: 'Status',
           sortable: false,
           template: function (row) {
-            return '<span class="m-badge m-badge-- m-badge--wide"> </span>';
+            return '<span class="' + my.docStatus[row.c_doc_status].displayclass + '">' + my.docStatus[row.c_doc_status].name + '</span>';
           }
         } , {
           field: 'create_username',
