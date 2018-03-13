@@ -7,7 +7,7 @@ import { Http, Headers, Response } from '@angular/http';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { 
     ATTACHMENT_DOC_GROUP_PR, 
-    API_ATTACHMENT_GET,
+    API_ATTACHMENT_GET_DEL,
     C_DOC_STATUS_REVIEWED_NAME,
     C_DOC_STATUS_APPROVED_NAME,
     C_DOC_STATUS_REJECTED_NAME,
@@ -37,7 +37,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     public canReview: boolean = false;
     public canApprove: boolean = false;
     public canComment: boolean = false;
-    public urlattachment: String = API_ATTACHMENT_GET;
+    public urlattachment: String = API_ATTACHMENT_GET_DEL;
     public statusName: any = {"reviewed":C_DOC_STATUS_REVIEWED_NAME,"approved":C_DOC_STATUS_APPROVED_NAME, "rejected":C_DOC_STATUS_REJECTED_NAME};
     public cDocStatus: Array<Array<any>> = C_DOC_STATUS;
     public attFile :any ;
@@ -125,7 +125,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         error => {
             super.showError(error);
             console.log('error');
-            super.unblockui('#m-content');
+            super.unblockui('#m-content');  
 
         },
         () => {
@@ -136,7 +136,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     }
 
     openFile(fileId) {
-        window.open(API_ATTACHMENT_GET + '/' + fileId);
+        window.open(API_ATTACHMENT_GET_DEL + '/' + fileId);
     }
     
     review() {
