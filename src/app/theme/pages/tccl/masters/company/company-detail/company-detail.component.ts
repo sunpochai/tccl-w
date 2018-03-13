@@ -22,9 +22,9 @@ import {
     styleUrls: ["./company-detail.component.css"]
 })
 export class CompanyDetailComponent extends PageBaseComponent implements OnInit, AfterViewInit {
-    private form: FormGroup;
-    private company: Company;
-    private id: any;
+    public form: FormGroup;
+    public company: Company;
+    public id: any;
     constructor(private _script: ScriptLoaderService,
         private _router: Router, private route: ActivatedRoute,
         private _companyService: CompanyService, private formBuilder: FormBuilder) {

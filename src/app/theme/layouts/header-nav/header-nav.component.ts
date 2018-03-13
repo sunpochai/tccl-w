@@ -1,25 +1,26 @@
+import { PageBaseComponent } from './../../pages/tccl/pagebase.component';
 import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { Helpers } from '../../../helpers';
 
 declare let mLayout: any;
 @Component({
-    selector: "app-header-nav",
-    templateUrl: "./header-nav.component.html",
-    encapsulation: ViewEncapsulation.None,
+selector: "app-header-nav",
+templateUrl: "./header-nav.component.html",
+encapsulation: ViewEncapsulation.None,
 })
-export class HeaderNavComponent implements OnInit, AfterViewInit {
+export class HeaderNavComponent extends PageBaseComponent implements OnInit, AfterViewInit {
 
 
-    constructor() {
+constructor()  {
+super();
+}  
+ngOnInit()  {
 
-    }
-    ngOnInit() {
+}
+ngAfterViewInit()  {
 
-    }
-    ngAfterViewInit() {
+mLayout.initHeader();
 
-        mLayout.initHeader();
-
-    }
+}
 
 }

@@ -23,11 +23,11 @@ declare var window: any;
     encapsulation: ViewEncapsulation.None
 })
 export class PRListComponent extends PageBaseComponent implements OnInit, AfterViewInit {
-    private doctypeList: Array<DocType>;
-    private companyList: Array<Company>;
-    private plantList: Array<Plant>;
-    private cDocStatus: Array<Array<any>> = C_DOC_STATUS;
-    
+    public doctypeList: Array<DocType>;
+    public companyList: Array<Company>;
+    public plantList: Array<Plant>;
+    public cDocStatus: Array<Array<any>> = C_DOC_STATUS;
+      
     constructor(private _router: Router,
         private _script: ScriptLoaderService,
         private _doctypeService: DocTypeService,
@@ -74,6 +74,7 @@ export class PRListComponent extends PageBaseComponent implements OnInit, AfterV
         jQuery(document).ready(function() {
             myDatatable.init(API_PR_LIST);
         });
+        
         super.unblockui('#m-content');
     }
 

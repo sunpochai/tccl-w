@@ -8,7 +8,16 @@ export class TokenBaseService {
 
     }
 
+    protected getToken() {
+        // create authorization header with jwt token
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
+        if (currentUser && currentUser.token) {
+             
+           return  currentUser.token;
+ 
+        }
+    }
     protected jwt() {
         // create authorization header with jwt token
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));

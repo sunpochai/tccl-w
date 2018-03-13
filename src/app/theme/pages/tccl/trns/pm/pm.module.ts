@@ -1,3 +1,4 @@
+import { PMDetailComponent } from './pm-detail/pm-detail.component';
 import { FormBuilder } from '@angular/forms';
 
 import {
@@ -34,10 +35,13 @@ const routes: Routes = [
     imports: [
         CommonModule, RouterModule.forChild(routes), LayoutModule, HttpModule, FormsModule
 
+
     ], exports: [
         RouterModule
     ], declarations: [
-        PMListComponent/* ,
+        PMListComponent,
+        PMDetailComponent/* ,
+        
         DocTypeDetailComponent */
     ], providers: [PMService, FormBuilder]
 })

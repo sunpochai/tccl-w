@@ -1,6 +1,8 @@
 export class User {
-    id: number;
-    email: string;
-    password: string;
-    fullName: string;
+    public ad_user:string;
+    public fullname:string;
+    public token:string;
+    public playerid:string;
+    public expire:Date;
+    public roles:string[];
 }

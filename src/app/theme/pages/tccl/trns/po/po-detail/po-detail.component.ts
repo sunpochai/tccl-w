@@ -1,3 +1,4 @@
+
 import { PageBaseComponent } from './../../../pagebase.component';
 import { Helpers } from './../../../../../../helpers';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
@@ -5,7 +6,7 @@ import { ScriptLoaderService } from '../../../../../../_services/script-loader.s
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { 
-    API_ATTACHMENT_GET,
+    API_ATTACHMENT_GET_DEL,
     C_DOC_STATUS_REVIEWED_NAME,
     C_DOC_STATUS_APPROVED_NAME,
     C_DOC_STATUS_REJECTED_NAME,
@@ -24,11 +25,11 @@ import { WorkflowService } from '../../../_services/trns/workflow.service';
     styleUrls: ["./po-detail.component.css"]
 })
 export class PODetailComponent extends PageBaseComponent implements OnInit, AfterViewInit {
-    private form: FormGroup;
-    private po: PO;
-    private id: any;
-    private wf_stage_resp_id: any;
-    private urlattachment: String = API_ATTACHMENT_GET;
+    public form: FormGroup;
+    public po: PO;
+    public id: any;  
+    public wf_stage_resp_id: any;
+    public urlattachment: String = API_ATTACHMENT_GET_DEL;
     constructor(
         private _script: ScriptLoaderService,
         private _router: Router, 
@@ -38,7 +39,7 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
         private _workflowService: WorkflowService,
         private formBuilder: FormBuilder) {
         super();
-    }
+    }  
 
     ngOnInit() {
         super.blockui('#m_form_1');
@@ -64,41 +65,7 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
         this._script.loadScripts('trns-po-detail',
             ['assets/tccl/trns/po/po-detail.js']);
     }
-
-    addFile() {
-        super.blockui('#m_form_1');
-
-        let attachment: Attachment = new Attachment;
-        attachment.create_user = super.getADUserLogin();
-        attachment.create_username = super.getFullNameUserLogin();
-        attachment.create_datetime = new Date();
-
-        attachment.doc_group = ATTACHMENT_DOC_GROUP_PO;
-        attachment.doc_ref_id = this.po.po_id;
-        // attachment.file_name;
-        // attachment.file_content;
-
-        this._attachmentService.insert<Attachment>(attachment).subscribe(
-            resp => {
-                //todo:: check error message and decide what to do ...KT 06/03/2018 */
-                attachment = resp;
-                super.showsuccess('Upload file complete');
-
-                //todo:: refresh file list
-                this.po.po_attachment_items.push(attachment);
-            },
-            error => {  
-                super.showError(error);
-                super.unblockui('#m_form_1');
-                console.log('error');
-            },
-            () => {
-                super.unblockui('#m_form_1');
-                // console.log('done');
-            }
-        );
-    }
-
+ 
     removeFile(attachId, fileIndex) {
         // alert(attachId + ',' + fileIndex);
         super.blockui('#m-content');
@@ -131,7 +98,7 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
     }
 
     openFile(fileId) {
-        window.open(API_ATTACHMENT_GET + '/' + fileId);
+        window.open(API_ATTACHMENT_GET_DEL + '/' + fileId);
     }
     
     review() {

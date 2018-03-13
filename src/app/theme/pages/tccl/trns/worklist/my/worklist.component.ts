@@ -20,11 +20,11 @@ declare var window: any;
     encapsulation: ViewEncapsulation.None
 })
 export class WorklistComponent extends PageBaseComponent implements OnInit, AfterViewInit {
-    private cDocStatus: Array<Array<any>> = C_DOC_STATUS;
-    private myworklists: Array<Worklist>;
-    private myprs: Array<Worklist>;
-    private mypos: Array<Worklist>;
-    private mypas: Array<Worklist>;
+    public cDocStatus: Array<Array<any>> = C_DOC_STATUS;
+    public myworklists: Array<Worklist>;
+    public myprs: Array<Worklist>;
+    public mypos: Array<Worklist>; 
+    public mypas: Array<Worklist>;
     
     constructor(private _router: Router,
         private _script: ScriptLoaderService,

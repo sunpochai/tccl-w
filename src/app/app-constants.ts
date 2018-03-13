@@ -1,6 +1,9 @@
 //Service URL
 export const API_BASE_URL: string = 'http://sunpochai.thddns.net:5555'
-
+export const API_AUTHEN_TOKEN: string = API_BASE_URL + '/token'
+export const API_AUTHEN_CHECKIN: string = API_BASE_URL + '/api/authen/checkin'
+export const API_AUTHEN_VERIFY: string = API_BASE_URL + '/api/authen/verify'
+ 
 export const API_COMPANY_GETALL: string = API_BASE_URL + '/api/company/getall' //list all item (use with dropdown)
 export const API_COMPANY_LIST: string = API_BASE_URL + '/api/company/list' //search item (use with search page)
 export const API_COMPANY_GET: string = API_BASE_URL + '/api/company'
@@ -16,6 +19,7 @@ export const API_DOCTYPE_INSERT: string = API_BASE_URL + '/api/doctype/insert'
 export const API_PLANT_GETALL: string = API_BASE_URL + '/api/plant/getall' //list all item (use with dropdown)
 
 export const API_TRACKING_LIST: string = API_BASE_URL + '/api/tracking/list'
+export const API_TRACKING_SEARCH: string = API_BASE_URL + '/api/tracking/list2'
 export const API_TRACKING_GET_PUT_DEL: string = API_BASE_URL + '/api/tracking'
 export const API_TRACKING_INSERT: string = API_BASE_URL + '/api/tracking/insert'  
 
@@ -40,12 +44,11 @@ export const API_PO_GET: string = API_BASE_URL + '/api/po'
 export const API_PAYMENT_LIST: string = API_BASE_URL + '/api/payment/list'
 export const API_PAYMENT_GET: string = API_BASE_URL + '/api/payment'
 
-export const API_ATTACHMENT_GET: string = API_BASE_URL + '/api/attachment'
-export const API_ATTACHMENT_INSERT: string = API_BASE_URL + '/api/attachment'
-export const API_ATTACHMENT_DEL: string = API_BASE_URL + '/api/attachment/del'
-
+export const API_ATTACHMENT_GET_DEL :string = API_BASE_URL + '/api/attachment'
+export const API_ATTACHMENT_UPLOAD: string = API_BASE_URL + '/api/attachment/uploadfile'
+ 
 //Model status code
-export const ROUTE_PR: any = {"name":"pr","doc_group":1}
+export const ROUTE_PR: any = {"name":"pr","doc_group":1}  
 export const ROUTE_PO: any = {"name":"po","doc_group":2}
 export const ROUTE_PA: any = {"name":"pa","doc_group":3}
 
@@ -88,7 +91,7 @@ export const C_DOC_STATUS: Array<Array<any>> = [[C_DOC_STATUS_WAIT_REVIEW,C_DOC_
                                                 ,[C_DOC_STATUS_REJECTED,C_DOC_STATUS_REJECTED_NAME,C_DOC_STATUS_REJECTED_COLOR,C_DOC_STATUS_REJECTED_CLASS]
                                                 ];
 
-export const PR_CATEGORY_ASSET: string = 'A';
+export const PR_CATEGORY_ASSET: string = 'A';   
 export const PR_CATEGORY_EXPENSE: string = 'E';
 export const PR_CATEGORY_STOCK: string = 'S';
 export const PR_CATEGORY_PROJECTTCL: string = 'P';

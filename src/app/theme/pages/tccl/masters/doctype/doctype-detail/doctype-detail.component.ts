@@ -22,9 +22,9 @@ import {
     styleUrls: ["./doctype-detail.component.css"]*/
 })
 export class DocTypeDetailComponent extends PageBaseComponent implements OnInit, AfterViewInit {
-    private form: FormGroup;
-    private doctype: DocType;
-    private id: any;
+    public form: FormGroup;
+    public doctype: DocType;
+    public id: any;
     constructor(private _script: ScriptLoaderService,
         private _router: Router, private route: ActivatedRoute,
         private _docTypeService: DocTypeService, private formBuilder: FormBuilder) {
