@@ -31,6 +31,8 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     private id: any;
     private routetype: any;
     private doctypeList: Array<DocType>;
+    private priceoverpr_yes: boolean;
+    private priceoverpr_no: boolean;
     constructor(private _script: ScriptLoaderService,
         private _router: Router, private route: ActivatedRoute,
         private _routeapproveService: RouteApproveService, 
@@ -74,6 +76,10 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
                         this.routetype = ROUTE_PA;
                         break;
                 }
+
+                this.priceoverpr_yes = (this.routeapprove.price_over_pr_flag=='A' || this.routeapprove.price_over_pr_flag=='Y');
+                this.priceoverpr_no = (this.routeapprove.price_over_pr_flag=='A' || this.routeapprove.price_over_pr_flag=='N');
+
                 console.log(this.routeapprove);
                 console.log(this.routetype);
             });
@@ -101,10 +107,27 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     create() {
         super.blockui('#m_form_1');
 
-        this.routeapprove.tracking_no = "3360-IT"; /**todo: autocomplete */
         this.routeapprove.doc_group = this.routetype.doc_group;
-        this.routeapprove.minimum_value = 0;
-        this.routeapprove.maximum_value = 999999999999;
+        if (this.routetype.doc_group == ROUTE_PR.doc_group) {
+            this.routeapprove.minimum_value = 0;
+            this.routeapprove.maximum_value = 999999999999;
+        } else {
+            this.routeapprove.account = 'A';
+        }
+
+        console.log(this.priceoverpr_yes);
+        console.log(this.priceoverpr_no);
+        if (this.priceoverpr_yes && this.priceoverpr_no) {
+            this.routeapprove.price_over_pr_flag = 'A';
+        } else if (this.priceoverpr_yes) {
+            this.routeapprove.price_over_pr_flag = 'Y';
+        } else if (this.priceoverpr_no) {
+            this.routeapprove.price_over_pr_flag = 'N';
+        } else {
+            //default
+            this.routeapprove.price_over_pr_flag = 'A';
+        }
+
         this.routeapprove.route_status = true;
         this.routeapprove.create_user = super.getADUserLogin();
         this.routeapprove.create_username = super.getFullNameUserLogin();
@@ -130,7 +153,19 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     update() {
         super.blockui('#m_form_1');
 
-        this.routeapprove.tracking_no = "3360-IT"; /**todo: autocomplete */
+        console.log(this.priceoverpr_yes);
+        console.log(this.priceoverpr_no);
+        console.log($('#priceoverpr_yes').val());
+        if (this.priceoverpr_yes && this.priceoverpr_no) {
+            this.routeapprove.price_over_pr_flag = 'A';
+        } else if (this.priceoverpr_yes) {
+            this.routeapprove.price_over_pr_flag = 'Y';
+        } else if (this.priceoverpr_no) {
+            this.routeapprove.price_over_pr_flag = 'N';
+        } else {
+            //default
+            this.routeapprove.price_over_pr_flag = 'A';
+        }
 
         this.routeapprove.update_user = super.getADUserLogin();
         this.routeapprove.update_username = super.getFullNameUserLogin();
