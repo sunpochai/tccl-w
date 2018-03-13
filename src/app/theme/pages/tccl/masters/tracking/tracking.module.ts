@@ -7,7 +7,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { TrackingListComponent } from './tracking-list/tracking-list.component';
 import { LayoutModule } from '../../../../layouts/layout.module';
 import { TrackingDetailComponent } from './tracking-detail/tracking-detail.component';
-import { TrackingService } from '../_services/tracking.service';
+import { TrackingService } from '../../_services/masters/tracking.service';
 import { AlertService } from '../../../../../auth/_services/index';
 
 

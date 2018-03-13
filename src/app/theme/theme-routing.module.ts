@@ -21,6 +21,26 @@ const routes: Routes = [
                 "path": "masters\/doctype",
                 "loadChildren": ".\/pages\/tccl\/masters\/doctype\/doctype.module#DocTypeModule"
             },
+            {
+                "path": "config\/route",
+                "loadChildren": ".\/pages\/tccl\/config\/route\/route.module#RouteApproveModule"
+            },
+            {
+                "path": "trns\/worklist",
+                "loadChildren": ".\/pages\/tccl\/trns\/worklist\/worklist.module#WorklistModule"
+            },
+            {
+                "path": "trns\/pr",
+                "loadChildren": ".\/pages\/tccl\/trns\/pr\/pr.module#PRModule"
+            },
+            {
+                "path": "trns\/po",
+                "loadChildren": ".\/pages\/tccl\/trns\/po\/po.module#POModule"
+            },
+            {
+                "path": "trns\/pm",
+                "loadChildren": ".\/pages\/tccl\/trns\/pm\/pm.module#PMModule"
+            },
             // {           
             //     "path": "angular\/primeng",
             //     "loadChildren": ".\/pages\/default\/angular\/primeng\/primeng.module#PrimengModule"

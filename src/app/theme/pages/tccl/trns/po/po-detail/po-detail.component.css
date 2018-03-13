@@ -1,0 +1,12 @@
+.m-separator {
+    height: 0;
+    margin: 5px 0; }
+    .m-separator.m-separator--lg {
+      margin: 10px 0; }
+    .m-separator.m-separator--xl {
+      margin: 15px 0; }
+    .m-separator.m-separator--sm {
+      margin: 5px 0; }
+    .m-separator.m-separator--fit {
+      margin-left: -2.2rem;
+      margin-right: -2.2rem; }

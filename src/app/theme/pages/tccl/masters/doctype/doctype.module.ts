@@ -14,7 +14,7 @@ import { DocTypeListComponent } from './doctype-list/doctype-list.component';
 import { LayoutModule } from '../../../../layouts/layout.module';
 import { DocTypeDetailComponent } from './doctype-detail/doctype-detail.component';
 import { AlertService } from '../../../../../auth/_services/index';
-import { DocTypeService } from '../_services/doctype.service';
+import { DocTypeService } from '../../_services/masters/doctype.service';
 
 const routes: Routes = [
     {

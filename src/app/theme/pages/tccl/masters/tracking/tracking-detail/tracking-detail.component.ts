@@ -5,7 +5,7 @@ import {
     ViewEncapsulation,
 } from '@angular/core';
 import { ScriptLoaderService } from '../../../../../../_services/script-loader.service';
-import { Tracking } from '../../_models/tracking';
+import { Tracking } from '../../../_models/masters/tracking';
 import { ActivatedRoute, Router } from '@angular/router';
 
 

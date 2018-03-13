@@ -3,7 +3,7 @@ import { ScriptLoaderService } from './../../../../../../_services/script-loader
 import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { constructDependencies } from '@angular/core/src/di/reflective_provider';
 
-import { TrackingService } from '../../_services/tracking.service';
+import { TrackingService } from '../../../_services/masters/tracking.service';
 import { API_TRACKING_LIST } from './../../../../../../app-constants';
 
 
