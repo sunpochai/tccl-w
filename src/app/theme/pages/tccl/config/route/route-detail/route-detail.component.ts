@@ -81,7 +81,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
                 this.priceoverpr_no = (this.routeapprove.price_over_pr_flag=='A' || this.routeapprove.price_over_pr_flag=='N');
 
                 console.log(this.routeapprove);
-                console.log(this.routetype);
+                // console.log(this.routetype);
             });
         } else {
             this.routeapprove = new RouteApprove();
@@ -96,7 +96,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     }
 
     save() {
-        console.log(this.routeapprove);
+        // console.log(this.routeapprove);
         if (this.routeapprove.route_id != null && this.routeapprove.route_id != 0) {
             this.update();
         } else {
@@ -115,8 +115,6 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
             this.routeapprove.account = 'A';
         }
 
-        console.log(this.priceoverpr_yes);
-        console.log(this.priceoverpr_no);
         if (this.priceoverpr_yes && this.priceoverpr_no) {
             this.routeapprove.price_over_pr_flag = 'A';
         } else if (this.priceoverpr_yes) {
@@ -132,7 +130,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
         this.routeapprove.create_user = super.getADUserLogin();
         this.routeapprove.create_username = super.getFullNameUserLogin();
         this.routeapprove.create_datetime = new Date();
-        console.log(this.routeapprove);
+        // console.log(this.routeapprove);
         this._routeapproveService.create<any>(this.routeapprove).subscribe(resp => {
             console.log(resp);
             this.routeapprove = resp;
@@ -153,9 +151,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     update() {
         super.blockui('#m_form_1');
 
-        console.log(this.priceoverpr_yes);
-        console.log(this.priceoverpr_no);
-        console.log($('#priceoverpr_yes').val());
+        // console.log(this.routeapprove.doc_type);
         if (this.priceoverpr_yes && this.priceoverpr_no) {
             this.routeapprove.price_over_pr_flag = 'A';
         } else if (this.priceoverpr_yes) {
@@ -220,14 +216,16 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
 
         approver.route_level = this.routeapprove.cf_route_detail.length + 1;
         approver.ad_user = $('#m_select_approver').val().toString();
-        approver.ad_username = $("#m_select_approver :selected").text();;
+        approver.ad_username = $("#m_select_approver :selected").text();
+        console.log($("#m_select_approver :selected").text());
         approver.create_user = super.getADUserLogin();
         approver.create_username = super.getFullNameUserLogin();
         approver.create_datetime = new Date();
 
-        console.log(approver);
-
+        // console.log(approver);
         this.routeapprove.cf_route_detail.push(approver);
+
+        super.blockui('#m-content');
     }
 
     editApprover(rowIndex: number) {
@@ -251,12 +249,12 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
         if (this.routeapprove.cf_route_detail != null && this.routeapprove.cf_route_detail.length >= rowIndex) {
             for (let row of this.routeapprove.cf_route_detail) {
                 if (rowIndex==index) {
-                    //do nothing
+                    //do nothing: row that want to remove from array
                 } else {
                     row.route_level = tempApprovers.length + 1;
                     tempApprovers.push(row);
                 }
-                console.log(row); // 1, "string", false
+                // console.log(row);
                 index++;
             }
         }

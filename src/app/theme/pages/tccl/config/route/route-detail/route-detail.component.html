@@ -76,7 +76,7 @@
 						Tracking No. *   
 					</label>
 					<div class="col-lg-4 col-sm-8">
-						<select class="form-control m-input" [(ngModel)]="routeapprove.tracking_no" name="tracking_no">
+						<select required class="form-control m-input" [(ngModel)]="routeapprove.tracking_no" name="tracking_no">
 							<option value="3360-IT" >
 								3360-IT
 							</option>
@@ -94,7 +94,7 @@
 						Doc Type *
 					</label>
 					<div class="col-lg-4 col-sm-8">
-						<select class="form-control m-input" [(ngModel)]="routeapprove.doc_type" name="doc_type">
+						<select required class="form-control m-input" [(ngModel)]="routeapprove.doc_type" name="doc_type">
 							<option value="{{row.doc_type_code}}" *ngFor="let row of doctypeList; ">
 								{{row.doc_type_desc}}
 							</option>
@@ -151,6 +151,18 @@
 					</label>
 					<div class="col-lg-4 col-sm-8">
 						<input required [(ngModel)]="routeapprove.maximum_value" type="number" class="form-control m-input" name="maximum_value" value="{{routeapprove.maximum_value}}" placeholder="Enter Maximum Value"  >
+					</div>
+				</div>
+				<div class="form-group m-form__group row" *ngIf="routeapprove!=null && routeapprove.route_id != null">
+					<div class="col-lg-12">
+						<span class="m-form__help">
+							Created at {{routeapprove.create_datetime  | date:'dd/MM/yyyy HH:mm:ss'}} by {{routeapprove.create_username}} 
+						</span>
+					</div>
+					<div class="col-lg-12"> 
+						<span class="m-form__help">
+							Last modified at {{routeapprove.update_datetime  | date:'dd/MM/yyyy HH:mm:ss'}} by {{routeapprove.update_username}} 
+						</span>
 					</div>
 				</div>
 			</div> 
@@ -289,21 +301,11 @@
                             <div class="col-lg-9 col-sm-9">
                                 <select class="form-control m-input" id="m_select_approver" name="param">
                                     <option></option>
-                                    <option value="tcc\\sanchaip">
-										Sanchai Pochai
-									</option>
-									<option value="tcc\\weeraya">
-										Krataiinoi
-									</option>
-									<option value="tcc\\tmp1">
-										Temp Name 1
-									</option>
-									<option value="tcc\\tmp2">
-										Temp Name 2
-									</option>
-									<option value="tcc\\tmp3">
-										Temp Name 3
-									</option>
+                                    <option value="tcc\\sanchaip">Sanchai Pochai</option>
+									<option value="tcc\\weeraya">Krataiinoi</option>
+									<option value="tcc\\tmp1">Temp Name 1</option>
+									<option value="tcc\\tmp2">Temp Name 2</option>
+									<option value="tcc\\tmp3">Temp Name 3</option>
                                 </select>
                             </div>
                         </div>

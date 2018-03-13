@@ -119,12 +119,12 @@
 	</div>
 </div>
 
-<div class="modal fade" id="m_modal_6" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="m_modal_confirm" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLongTitle">
-					Confirm  ?
+					Confirm ?
 				</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">
@@ -134,17 +134,18 @@
 			</div>
 			<div class="modal-body">
 				<p>
-					Confirm Delete?
+					Confirm Delete {{action_route_name}} ?
 				</p>
 			</div>
-		   <div class="modal-footer">
-			 <button type="button" (click)="del()" data-dismiss="modal" class="btn btn-danger">
-				   Delete Company  
-			</button>
+			<div class="modal-footer">
+				<button type="button" (click)="del()" data-dismiss="modal" class="btn btn-danger">
+					Delete
+				</button>
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">
 					Close
 				</button>
 			</div>
+		</div>
 	</div>
 </div>
  

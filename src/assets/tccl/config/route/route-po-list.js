@@ -4,7 +4,7 @@
 var myDatatable = function( ) {
 
   var datatable;
-
+   
   var load = function( apiurl)  {
   	
     datatable = $('.m_datatables').mDatatable({
@@ -70,41 +70,37 @@ var myDatatable = function( ) {
         }, {
           field: 'tracking_no',
           title: 'Tracking Number',
-          sortable: 'asc'
+          sortable: 'asc',
         }, {
           field: 'doc_type',
           title: 'Doc Type',
-          sortable: 'asc'
-        }, {
-          field: 'account',
-          title: 'Account / Non-account',
           sortable: 'asc',
-          //A:Account   N:Non-Account
-          template: function (row) {
-            if (row.account=='A'){
-              return 'Account';
-            } else if (row.account=='N') {
-              return 'Non-Account';
-            } else {
-              return 'N/A';
-            }
-          }
-        },
-        {
+        }, {
+          field: 'minimum_value',
+          title: 'Minimum Value',
+          sortable: 'asc',
+          type: 'number',
+          textAlign: 'right'
+        }, {
+          field: 'maximum_value',
+          title: 'Maximum Value',
+          sortable: 'asc',
+          type: 'number',
+          textAlign: 'right'
+        }, {
           field: 'Actions',
           width: 110,
           title: 'Actions',
           sortable: false,
           overflow: 'visible',
           template: function (row, index, datatable) {
-            var dropup = (datatable.getPageSize() - index) <= 4 ? 'dropup' : '';
             return '\<a   href="javascript:navigate_edit(\''+ row.route_id +'\')"  class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit">\
               <i class="la la-edit"></i>\
-            </a>\
-            <a href="#" onclick="prepare_del(\''+ row.route_id +'\', \'' + row.route_name + '\'); " data-toggle="modal" data-target="#m_modal_confirm" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Delete">\
-              <i class="la la-trash"></i>\
-            </a>\
-          	';
+              </a>\
+              <a href="#" onclick="prepare_del(\''+ row.route_id +'\', \'' + row.route_name + '\'); " data-toggle="modal" data-target="#m_modal_confirm" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Delete">\
+                <i class="la la-trash"></i>\
+              </a>\
+              ';
           }
         }  
       ],
@@ -134,7 +130,7 @@ var myDatatable = function( ) {
     }
   };
 }();
-
+ 
 function navigate_edit(id){
   my.namespace.navigate_edit(id);
 }

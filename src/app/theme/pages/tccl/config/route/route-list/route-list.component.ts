@@ -24,6 +24,8 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
     private api_list: string;
     private scriptpath: string;
     private doctypeList: Array<DocType>;
+    private action_route_id: string;
+    private action_route_name: string;
     constructor(private _router: Router, private route: ActivatedRoute,
         private _script: ScriptLoaderService,
         private _routeapproveService: RouteApproveService,
@@ -31,18 +33,11 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
         super();
     }
 
-    // myControl: FormControl = new FormControl();
-
-    // options = [
-    //     'One',
-    //     'Two',
-    //     'Three'
-    // ];
-
     ngOnInit() {
         window.my = window.my || {};
         window.my.namespace = window.my.namespace || {};
         window.my.namespace.del = this.del.bind(this);
+        window.my.namespace.prepare_del = this.prepare_del.bind(this);
         window.my.namespace.navigate_edit = this.navigate_edit.bind(this);
 
         this._doctypeService.getall().subscribe(data => {
@@ -68,7 +63,8 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
                     break;
             }
             this.scriptpath = 'assets/tccl/config/route/route-' + this.routetype.name + '-list.js';
-            console.log(this.routetype);
+            // console.log(this.routetype);
+            // console.log(this.scriptpath);
         });
     }
     
@@ -81,7 +77,7 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
     load(api_list,doc_group) {
         super.blockui('#m-content');
         jQuery(document).ready(function() {
-            console.log(doc_group);
+            // console.log(doc_group);
             myDatatable.init(api_list, doc_group);
         });
         super.unblockui('#m-content');
@@ -91,23 +87,28 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
         this._router.navigate(['/config/route/detail/'+this.routetype.name]);
     }
 
-    del() {
-        // super.blockui('#m-content');
-        // let compCode = $('#comCodeDeleteSelected').val();
-        // this._companyService.del(compCode.toString()).subscribe(resp => {
+    prepare_del(routeId, routeName) {
+        this.action_route_id = routeId;
+        this.action_route_name = routeName;
+        console.log(this.action_route_id);
+        console.log(this.action_route_name);
+    }
 
-        //     super.showsuccess(compCode + ' delete complete');
-        //     myDatatable_company.reload();
-        // },
-        //     error => {
-        //         super.showError(error);
-        //         super.unblockui('#m-content');
-        //         console.log('error');
-        //     },
-        //     () => {
-        //         super.unblockui('#m-content');
-        //         console.log('done');
-        //     });
+    del() {
+        super.blockui('#m-content');
+        this._routeapproveService.del(this.action_route_id.toString()).subscribe(resp => {
+            super.showsuccess(this.action_route_name + ' delete complete');
+            myDatatable.reload();
+        },
+        error => {
+            super.showError(error);
+            super.unblockui('#m-content');
+            console.log('error');
+        },
+        () => {
+            super.unblockui('#m-content');
+            console.log('done');
+        });
     }
 
     navigate_edit(routeId) {
@@ -123,6 +124,7 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
     }
 
     search() {
+        console.log('do search');
         super.blockui('#m-content');
         myDatatable.search();
         super.unblockui('#m-content');
