@@ -18,7 +18,7 @@ var FormControls = function () {
                     required: true 
                 }   
             },
-            
+                   
             //display error alert on form submit  
             invalidHandler: function(event, validator) {     
                 var alert = $('#m_form_1_msg');
