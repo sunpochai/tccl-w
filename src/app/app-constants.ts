@@ -47,6 +47,8 @@ export const API_PAYMENT_GET: string = API_BASE_URL + '/api/payment'
 export const API_ATTACHMENT_GET_DEL :string = API_BASE_URL + '/api/attachment'
 export const API_ATTACHMENT_UPLOAD: string = API_BASE_URL + '/api/attachment/uploadfile'
  
+export const API_USER_LIST: string = API_BASE_URL + '/api/users/list'
+
 //Model status code
 export const ROUTE_PR: any = {"name":"pr","doc_group":1}  
 export const ROUTE_PO: any = {"name":"po","doc_group":2}

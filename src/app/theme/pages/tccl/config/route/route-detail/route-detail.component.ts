@@ -14,19 +14,21 @@ import {
 } from '@angular/forms';
 import { RouteApproveService } from '../../../_services/config/routeapprove.service';
 import { RouteApprove } from '../../../_models/config/routeapprove';
-import { ROUTE_PR, ROUTE_PO, ROUTE_PA } from '../../../../../../app-constants';
+import { ROUTE_PR, ROUTE_PO, ROUTE_PA, API_USER_LIST } from '../../../../../../app-constants';
 import { DocType } from '../../../_models/masters/doctype';
 import { DocTypeService } from '../../../_services/masters/doctype.service';
 import { RouteApproveDetail } from '../../../_models/config/routeapprovedetail';
 import { forEach } from '@angular/router/src/utils/collection';
+
+ 
 
 @Component({
     selector: "config-route-detail",
     templateUrl: "./route-detail.component.html",
     styleUrls: ["./route-detail.component.css"]
 })
+
 export class RouteApproveDetailComponent extends PageBaseComponent implements OnInit, AfterViewInit {
-<<<<<<< HEAD
     private form: FormGroup;
     private routeapprove: RouteApprove;
     private id: any;
@@ -34,13 +36,6 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     private doctypeList: Array<DocType>;
     private priceoverpr_yes: boolean;
     private priceoverpr_no: boolean;
-=======
-    public form: FormGroup;
-    public routeapprove: RouteApprove;
-    public id: any;
-    public routetype: any;
-    public doctypeList: Array<DocType>;
->>>>>>> 48dc0e02d0985445fd83a7aab97115e20bb6581d
     constructor(private _script: ScriptLoaderService,
         private _router: Router, private route: ActivatedRoute,
         private _routeapproveService: RouteApproveService, 
@@ -48,6 +43,8 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
         private formBuilder: FormBuilder) {
         super();
     }
+
+  
     ngOnInit() {
         super.blockui('#m_form_1');
 
@@ -101,6 +98,8 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     ngAfterViewInit() {
         this._script.loadScripts('config-route-detail',
             ['assets/tccl/config/route/route-detail.js']);
+
+  
     }
 
     save() {

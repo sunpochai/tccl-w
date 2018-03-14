@@ -67,8 +67,9 @@
 				</div>
 				<div class="form-group m-form__group row" >
 					<label class="col-form-label col-lg-2 col-sm-4">
-						Route Name *
-					</label>
+						Route Name *   
+						
+					</label> 
 					<div class="col-lg-4 col-sm-8">
 						<input required minlength="4" [(ngModel)]="routeapprove.route_name" type="text" class="form-control m-input" name="route_name" value="{{routeapprove.route_name}}" placeholder="Enter Route Name"  >
 					</div>
@@ -76,6 +77,9 @@
 						Tracking No. *   
 					</label>
 					<div class="col-lg-4 col-sm-8">
+							<select class="form-control m-select2" id="m_select2_6" name="param">
+							<option>zssss</option>
+						</select>
 						<select required class="form-control m-input" [(ngModel)]="routeapprove.tracking_no" name="tracking_no">
 							<option value="3360-IT" >
 								3360-IT
