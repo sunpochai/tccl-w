@@ -3,10 +3,10 @@ import { Helpers } from './../../../../../../helpers';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ScriptLoaderService } from '../../../../../../_services/script-loader.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Http, Headers, Response } from '@angular/http';  
+import { Http, Headers, Response } from '@angular/http';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { 
-    ATTACHMENT_DOC_GROUP_PR, 
+import {
+    ATTACHMENT_DOC_GROUP_PR,
     API_ATTACHMENT_GET_DEL,
     ROUTE_PR,
     C_DOC_STATUS_2,
@@ -37,19 +37,19 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     public urlattachment: String = API_ATTACHMENT_GET_DEL;
     public statusName: any = STATUS_NAME;
     public docStatus: Array<any> = C_DOC_STATUS_2;
-    public attFile :any ;
-    public formData: FormData = new FormData(); 
-    constructor(  
+    public attFile: any;
+    public formData: FormData = new FormData();
+    constructor(
         private _script: ScriptLoaderService,
-        private _router: Router, 
+        private _router: Router,
         private route: ActivatedRoute,
-        private _prService: PRService, 
+        private _prService: PRService,
         private _attachmentService: AttachmentService,
         private _workflowService: WorkflowService,
         private formBuilder: FormBuilder) {
         super();
 
-      
+
     }
 
     loadData() {
@@ -65,35 +65,35 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                 if (this.pr.worklist != null && this.pr.worklist.current_responsible != null) {
                     this.wf_stage_resp_id = this.pr.worklist.current_responsible.wf_stage_resp_id;
 
-                    if (this.pr.worklist.current_responsible.resp_allow_action != null && this.pr.worklist.current_responsible.resp_allow_action.toLowerCase()=='review') {
+                    if (this.pr.worklist.current_responsible.resp_allow_action != null && this.pr.worklist.current_responsible.resp_allow_action.toLowerCase() == 'review') {
                         this.canReview = true;
                     }
 
-                    if (this.pr.worklist.current_responsible.resp_allow_action != null && this.pr.worklist.current_responsible.resp_allow_action.toLowerCase()=='comment') {
+                    if (this.pr.worklist.current_responsible.resp_allow_action != null && this.pr.worklist.current_responsible.resp_allow_action.toLowerCase() == 'comment') {
                         this.canComment = true;
                     }
 
-                    if (this.pr.worklist.current_responsible.resp_allow_action==null) {
+                    if (this.pr.worklist.current_responsible.resp_allow_action == null) {
                         this.canApprove = true;
                     }
                 }
                 super.unblockui('#m-content');
                 console.log(this.pr);
             },
-            error => {
-                super.showError(error);
-                console.log('error');
-                super.unblockui('#m-content');
-    
-            },
-            () => {
-                super.unblockui('#m-content');
-                // console.log('done');
-            });
+                error => {
+                    super.showError(error);
+                    console.log('error');
+                    super.unblockui('#m-content');
+
+                },
+                () => {
+                    super.unblockui('#m-content');
+                    // console.log('done');
+                });
         } else {
             //console.log(this.pr);
         }
-        
+
     }
 
     ngOnInit() {
@@ -105,37 +105,37 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
             ['assets/tccl/trns/pr/pr-detail.js']);
     }
 
-    
+
     removeFile(attachId, fileIndex) {
         // alert(attachId + ',' + fileIndex);
         super.blockui('#m-content');
 
         this._attachmentService.del(attachId).subscribe(resp => {
-                super.unblockui('#m-content');
-                super.showsuccess('Remove file complete');
-                //todo:: refresh file list
-                this.pr.pr_attachment_items.forEach( (item, index) => {
-                    if(item.attach_id === attachId) this.pr.pr_attachment_items.splice(index,1);
-                });
-             
-        },
-        error => {
-            super.showError(error);
-            console.log('error');
-            super.unblockui('#m-content');  
+            super.unblockui('#m-content');
+            super.showsuccess('Remove file complete');
+            //todo:: refresh file list
+            this.pr.pr_attachment_items.forEach((item, index) => {
+                if (item.attach_id === attachId) this.pr.pr_attachment_items.splice(index, 1);
+            });
 
         },
-        () => {
-            super.unblockui('#m-content');
-            // console.log('done');
-        });
+            error => {
+                super.showError(error);
+                console.log('error');
+                super.unblockui('#m-content');
+
+            },
+            () => {
+                super.unblockui('#m-content');
+                // console.log('done');
+            });
         super.unblockui('#m-content');
     }
 
     openFile(fileId) {
         window.open(API_ATTACHMENT_GET_DEL + '/' + fileId);
     }
-    
+
     review() {
         super.blockui('#m-content');
 
@@ -160,7 +160,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                     super.unblockui('#m-content');
                 }
             },
-            error => {  
+            error => {
                 super.showError(error);
                 console.log(error);
                 super.unblockui('#m-content');
@@ -170,7 +170,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
             }
         );
     }
-    
+
     approve() {
         super.blockui('#m-content');
 
@@ -196,7 +196,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                     super.unblockui('#m-content');
                 }
             },
-            error => {  
+            error => {
                 super.showError(error);
                 super.unblockui('#m-content');
             },
@@ -205,7 +205,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
             }
         );
     }
-    
+
     reject() {
         super.blockui('#m-content');
 
@@ -230,7 +230,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                     super.unblockui('#m-content');
                 }
             },
-            error => {  
+            error => {
                 super.showError(error);
                 super.unblockui('#m-content');
             },
@@ -251,7 +251,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     }
 
     performAction() {
-        var pAction =  $('#input_action').val().toString().toLocaleLowerCase();
+        var pAction = $('#input_action').val().toString().toLocaleLowerCase();
 
         switch (pAction) {
             case 'review':
@@ -276,60 +276,60 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                 break;
         }
     }
-    
+
     navigate_list() {
         this._router.navigate(['/trns/pr/list']);
     }
 
-   
-fileChange(event) {  
-    //ebugger;  
- 
-    let fileList: FileList = event.target.files;  
-    if (fileList.length > 0) { 
-        this.attFile = []; 
-        let headers = new Headers()  
+
+    fileChange(event) {
+        //ebugger;  
+
+        let fileList: FileList = event.target.files;
+        if (fileList.length > 0) {
+            this.attFile = [];
+            let headers = new Headers()
             //headers.append('Content-Type', 'json');  
             //headers.append('Accept', 'application/json');  
-            this.formData.append("doc_group",ROUTE_PR.doc_group);   
-            this.formData.append("doc_id",this.pr.pr_id.toString());  
-            this.formData.append("create_user",this.getADUserLogin());  
-            this.formData.append("create_username",this.getFullNameUserLogin());
-         
-            
-        for (let index = 0; index < fileList.length; index++) {
-            let file = fileList[index];
-            this.formData.append("file_" + index.toString(), file, file.name); 
-            this.attFile.push(file.name);
-        } 
-          
-    }else{
-        this.attFile = null;
+            this.formData.append("doc_group", ROUTE_PR.doc_group);
+            this.formData.append("doc_id", this.pr.pr_id.toString());
+            this.formData.append("create_user", this.getADUserLogin());
+            this.formData.append("create_username", this.getFullNameUserLogin());
+
+
+            for (let index = 0; index < fileList.length; index++) {
+                let file = fileList[index];
+                this.formData.append("file_" + index.toString(), file, file.name);
+                this.attFile.push(file.name);
+            }
+
+        } else {
+            this.attFile = null;
+        }
     }
-}
-uploadFile(){
-    super.blockui('#m-content');
-    
-        this._attachmentService.upload(this.formData).subscribe(  
+    uploadFile() {
+        super.blockui('#m-content');
+
+        this._attachmentService.upload(this.formData).subscribe(
             data => {
-                let att  = data;
-                console.log(data);  
+                let att = data;
+                console.log(data);
                 this.attFile = null;
-                this.formData = new FormData()  ;
-                super.unblockui('#m-content'); 
+                this.formData = new FormData();
+                super.unblockui('#m-content');
                 super.showsuccess('upload complete');
-                this.pr.pr_attachment_items = this.pr.pr_attachment_items || [] ;
-                 for (let index = 0; index < att.length; index++) {
-                        this.pr.pr_attachment_items.push(att[index]);
+                this.pr.pr_attachment_items = this.pr.pr_attachment_items || [];
+                for (let index = 0; index < att.length; index++) {
+                    this.pr.pr_attachment_items.push(att[index]);
                 }
-                
-            },  
-            error => {  
-                    
+
+            },
+            error => {
+
                 super.unblockui('#m-content');
                 super.showError(error);
             }
-            );    
-        
-}
+        );
+
+    }
 }

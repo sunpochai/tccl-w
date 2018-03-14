@@ -67,14 +67,14 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
             // console.log(this.scriptpath);
         });
     }
-    
-    ngAfterViewInit() {
-        this._script.loadScripts('config-route-list',[this.scriptpath]);
 
-        this.load(this.api_list,this.routetype.doc_group);
+    ngAfterViewInit() {
+        this._script.loadScripts('config-route-list', [this.scriptpath]);
+
+        this.load(this.api_list, this.routetype.doc_group);
     }
 
-    load(api_list,doc_group) {
+    load(api_list, doc_group) {
         super.blockui('#m-content');
         jQuery(document).ready(function() {
             // console.log(doc_group);
@@ -84,7 +84,7 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
     }
 
     add() {
-        this._router.navigate(['/config/route/detail/'+this.routetype.name]);
+        this._router.navigate(['/config/route/detail/' + this.routetype.name]);
     }
 
     prepare_del(routeId, routeName) {
@@ -100,15 +100,15 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
             super.showsuccess(this.action_route_name + ' delete complete');
             myDatatable.reload();
         },
-        error => {
-            super.showError(error);
-            super.unblockui('#m-content');
-            console.log('error');
-        },
-        () => {
-            super.unblockui('#m-content');
-            console.log('done');
-        });
+            error => {
+                super.showError(error);
+                super.unblockui('#m-content');
+                console.log('error');
+            },
+            () => {
+                super.unblockui('#m-content');
+                console.log('done');
+            });
     }
 
     navigate_edit(routeId) {
@@ -129,5 +129,5 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
         myDatatable.search();
         super.unblockui('#m-content');
     }
-    
+
 }   

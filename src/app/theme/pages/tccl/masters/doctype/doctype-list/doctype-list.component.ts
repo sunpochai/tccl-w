@@ -64,7 +64,7 @@ export class DocTypeListComponent extends PageBaseComponent implements OnInit, A
             super.showsuccess(docTypeCode + ' delete complete');
             myDatatable.reload();
         },
-            error => {    
+            error => {
                 super.showError(error);
                 super.unblockui('#m-content');
                 console.log('error');

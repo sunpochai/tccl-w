@@ -7,7 +7,7 @@ declare var myBundle: any;
 
 export class PageBaseComponent {
 
-    protected currentUser : User
+    protected currentUser: User
 
 
     constructor() {
@@ -18,10 +18,10 @@ export class PageBaseComponent {
         myBundle.showSuccess(msg);
     }
     protected showError(err: any) {
-            console.log(err);
-            myBundle.showError(err);
-         
-    }  
+        console.log(err);
+        myBundle.showError(err);
+
+    }
     protected blockui(id: string) {
         myBundle.block(id, {});
 
@@ -35,14 +35,14 @@ export class PageBaseComponent {
             return this.currentUser.ad_user
         } else {
             return 'TCC\\SanchaiP';
-        }  
+        }
 
-    }  
-    protected getFullNameUserLogin() {
-        return   this.currentUser.fullname;
-        
     }
-  
+    protected getFullNameUserLogin() {
+        return this.currentUser.fullname;
+
+    }
+
 
 
 }

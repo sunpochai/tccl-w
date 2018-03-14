@@ -33,5 +33,5 @@ export class PR {
     c_doc_status: number;
     pr_items: Array<PRItem>;
     pr_attachment_items: Array<Attachment>;
-    worklist : Workflow;
+    worklist: Workflow;
 }  

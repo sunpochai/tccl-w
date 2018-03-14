@@ -32,12 +32,12 @@ export class RouteApproveService extends TokenBaseService {
         return this.http.post(API_ROUTE_INSERT, routeapprove, super.jwt())
             .map((response: Response) => <T>response.json());
     }
-    
+
     public put<T>(routeapprove: RouteApprove) {
         return this.http.put(API_ROUTE_GET_PUT_DEL + '/' + routeapprove.route_id, routeapprove, super.jwt())
             .map((response: Response) => <T>response.json());
     }
-    
+
     public del(id: string) {
         return this.http.delete(API_ROUTE_GET_PUT_DEL + '/' + id, super.jwt())
             .map((response: Response) => response.json());

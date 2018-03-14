@@ -46,12 +46,12 @@ const routes: Routes = [
         POListComponent,
         PODetailComponent
     ], providers: [
-        POService, 
-        DocTypeService, 
-        CompanyService, 
-        PlantService, 
-        AttachmentService, 
-        WorkflowService, 
+        POService,
+        DocTypeService,
+        CompanyService,
+        PlantService,
+        AttachmentService,
+        WorkflowService,
         FormBuilder
     ]
 })

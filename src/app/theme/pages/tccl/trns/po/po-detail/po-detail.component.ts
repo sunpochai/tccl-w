@@ -3,10 +3,10 @@ import { Helpers } from './../../../../../../helpers';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ScriptLoaderService } from '../../../../../../_services/script-loader.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Http, Headers, Response } from '@angular/http';  
+import { Http, Headers, Response } from '@angular/http';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { 
-    ATTACHMENT_DOC_GROUP_PO, 
+import {
+    ATTACHMENT_DOC_GROUP_PO,
     API_ATTACHMENT_GET_DEL,
     ROUTE_PO,
     C_DOC_STATUS_2,
@@ -44,19 +44,19 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
     public totalVat: number = 0;
     public totalAmount: number = 0;
     public totalDiscount: number = 0;
-    public attFile :any ;
-    public formData: FormData = new FormData(); 
-    constructor(  
+    public attFile: any;
+    public formData: FormData = new FormData();
+    constructor(
         private _script: ScriptLoaderService,
-        private _router: Router, 
+        private _router: Router,
         private route: ActivatedRoute,
-        private _poService: POService, 
+        private _poService: POService,
         private _attachmentService: AttachmentService,
         private _workflowService: WorkflowService,
         private formBuilder: FormBuilder) {
         super();
 
-      
+
     }
 
     loadData() {
@@ -72,16 +72,16 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
                 if (this.po.worklist != null && this.po.worklist.current_responsible != null) {
                     this.wf_stage_resp_id = this.po.worklist.current_responsible.wf_stage_resp_id;
 
-                    if (this.po.worklist.current_responsible.resp_allow_action != null && this.po.worklist.current_responsible.resp_allow_action.toLowerCase()=='review') {
+                    if (this.po.worklist.current_responsible.resp_allow_action != null && this.po.worklist.current_responsible.resp_allow_action.toLowerCase() == 'review') {
                         this.canReview = true;
                         console.log(this.canReview);
                     }
 
-                    if (this.po.worklist.current_responsible.resp_allow_action != null && this.po.worklist.current_responsible.resp_allow_action.toLowerCase()=='comment') {
+                    if (this.po.worklist.current_responsible.resp_allow_action != null && this.po.worklist.current_responsible.resp_allow_action.toLowerCase() == 'comment') {
                         this.canComment = true;
                     }
 
-                    if (this.po.worklist.current_responsible.resp_allow_action==null) {
+                    if (this.po.worklist.current_responsible.resp_allow_action == null) {
                         this.canApprove = true;
                     }
                 }
@@ -95,20 +95,20 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
                 super.unblockui('#m-content');
                 console.log(this.po);
             },
-            error => {
-                super.showError(error);
-                console.log('error');
-                super.unblockui('#m-content');
-    
-            },
-            () => {
-                super.unblockui('#m-content');
-                // console.log('done');
-            });
+                error => {
+                    super.showError(error);
+                    console.log('error');
+                    super.unblockui('#m-content');
+
+                },
+                () => {
+                    super.unblockui('#m-content');
+                    // console.log('done');
+                });
         } else {
             //console.log(this.pr);
         }
-        
+
     }
 
     ngOnInit() {
@@ -120,37 +120,37 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
             ['assets/tccl/trns/po/po-detail.js']);
     }
 
-    
+
     removeFile(attachId, fileIndex) {
         // alert(attachId + ',' + fileIndex);
         super.blockui('#m-content');
 
         this._attachmentService.del(attachId).subscribe(resp => {
-                super.unblockui('#m-content');
-                super.showsuccess('Remove file complete');
-                //todo:: refresh file list
-                this.po.po_attachment_items.forEach( (item, index) => {
-                    if(item.attach_id === attachId) this.po.po_attachment_items.splice(index,1);
-                });
-             
-        },
-        error => {
-            super.showError(error);
-            console.log('error');
-            super.unblockui('#m-content');  
+            super.unblockui('#m-content');
+            super.showsuccess('Remove file complete');
+            //todo:: refresh file list
+            this.po.po_attachment_items.forEach((item, index) => {
+                if (item.attach_id === attachId) this.po.po_attachment_items.splice(index, 1);
+            });
 
         },
-        () => {
-            super.unblockui('#m-content');
-            // console.log('done');
-        });
+            error => {
+                super.showError(error);
+                console.log('error');
+                super.unblockui('#m-content');
+
+            },
+            () => {
+                super.unblockui('#m-content');
+                // console.log('done');
+            });
         super.unblockui('#m-content');
     }
 
     openFile(fileId) {
         window.open(API_ATTACHMENT_GET_DEL + '/' + fileId);
     }
-    
+
     review() {
         super.blockui('#m-content');
 
@@ -175,7 +175,7 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
                     super.unblockui('#m-content');
                 }
             },
-            error => {  
+            error => {
                 super.showError(error);
                 console.log(error);
                 super.unblockui('#m-content');
@@ -185,7 +185,7 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
             }
         );
     }
-    
+
     approve() {
         super.blockui('#m-content');
 
@@ -211,7 +211,7 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
                     super.unblockui('#m-content');
                 }
             },
-            error => {  
+            error => {
                 super.showError(error);
                 super.unblockui('#m-content');
             },
@@ -220,7 +220,7 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
             }
         );
     }
-    
+
     reject() {
         super.blockui('#m-content');
 
@@ -245,7 +245,7 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
                     super.unblockui('#m-content');
                 }
             },
-            error => {  
+            error => {
                 super.showError(error);
                 super.unblockui('#m-content');
             },
@@ -266,7 +266,7 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
     }
 
     performAction() {
-        var pAction =  $('#input_action').val().toString().toLocaleLowerCase();
+        var pAction = $('#input_action').val().toString().toLocaleLowerCase();
 
         switch (pAction) {
             case 'review':
@@ -291,60 +291,60 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
                 break;
         }
     }
-    
+
     navigate_list() {
         this._router.navigate(['/trns/po/list']);
     }
 
-   
-fileChange(event) {  
-    //ebugger;  
- 
-    let fileList: FileList = event.target.files;  
-    if (fileList.length > 0) { 
-        this.attFile = []; 
-        let headers = new Headers()  
+
+    fileChange(event) {
+        //ebugger;  
+
+        let fileList: FileList = event.target.files;
+        if (fileList.length > 0) {
+            this.attFile = [];
+            let headers = new Headers()
             //headers.append('Content-Type', 'json');  
             //headers.append('Accept', 'application/json');  
-            this.formData.append("doc_group",ROUTE_PO.doc_group);   
-            this.formData.append("doc_id",this.po.po_id.toString());  
-            this.formData.append("create_user",this.getADUserLogin());  
-            this.formData.append("create_username",this.getFullNameUserLogin());
-         
-            
-        for (let index = 0; index < fileList.length; index++) {
-            let file = fileList[index];
-            this.formData.append("file_" + index.toString(), file, file.name); 
-            this.attFile.push(file.name);
-        } 
-          
-    }else{
-        this.attFile = null;
+            this.formData.append("doc_group", ROUTE_PO.doc_group);
+            this.formData.append("doc_id", this.po.po_id.toString());
+            this.formData.append("create_user", this.getADUserLogin());
+            this.formData.append("create_username", this.getFullNameUserLogin());
+
+
+            for (let index = 0; index < fileList.length; index++) {
+                let file = fileList[index];
+                this.formData.append("file_" + index.toString(), file, file.name);
+                this.attFile.push(file.name);
+            }
+
+        } else {
+            this.attFile = null;
+        }
     }
-}
-uploadFile(){
-    super.blockui('#m-content');
-    
-        this._attachmentService.upload(this.formData).subscribe(  
+    uploadFile() {
+        super.blockui('#m-content');
+
+        this._attachmentService.upload(this.formData).subscribe(
             data => {
-                let att  = data;
-                console.log(data);  
+                let att = data;
+                console.log(data);
                 this.attFile = null;
-                this.formData = new FormData()  ;
-                super.unblockui('#m-content'); 
+                this.formData = new FormData();
+                super.unblockui('#m-content');
                 super.showsuccess('upload complete');
-                this.po.po_attachment_items = this.po.po_attachment_items || [] ;
-                 for (let index = 0; index < att.length; index++) {
-                        this.po.po_attachment_items.push(att[index]);
+                this.po.po_attachment_items = this.po.po_attachment_items || [];
+                for (let index = 0; index < att.length; index++) {
+                    this.po.po_attachment_items.push(att[index]);
                 }
-                
-            },  
-            error => {  
-                    
+
+            },
+            error => {
+
                 super.unblockui('#m-content');
                 super.showError(error);
             }
-            );    
-        
-}
+        );
+
+    }
 }

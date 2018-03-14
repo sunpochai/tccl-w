@@ -19,6 +19,7 @@ import { DocType } from '../../../_models/masters/doctype';
 import { DocTypeService } from '../../../_services/masters/doctype.service';
 import { RouteApproveDetail } from '../../../_models/config/routeapprovedetail';
 import { forEach } from '@angular/router/src/utils/collection';
+import { TrackingService } from '../../../_services/masters/tracking.service';
 
 @Component({
     selector: "config-route-detail",
@@ -33,11 +34,13 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     private doctypeList: Array<DocType>;
     private priceoverpr_yes: boolean;
     private priceoverpr_no: boolean;
+    private tackingList : any;
     constructor(private _script: ScriptLoaderService,
         private _router: Router, private route: ActivatedRoute,
-        private _routeapproveService: RouteApproveService, 
-        private _doctypeService: DocTypeService, 
-        private formBuilder: FormBuilder) {
+        private _routeapproveService: RouteApproveService,
+        private _doctypeService: DocTypeService,
+        private formBuilder: FormBuilder,
+        private _trackingService:TrackingService) {
         super();
     }
     ngOnInit() {
@@ -51,11 +54,11 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
         this.route.params.subscribe(params => {
             //id:any ('pr','po','pa' <-- add new record ,id <-- get old record)
 
-            if (params['id']+'' == ROUTE_PR.name) {
+            if (params['id'] + '' == ROUTE_PR.name) {
                 this.routetype = ROUTE_PR;
-            } else if (params['id']+'' == ROUTE_PO.name) {
+            } else if (params['id'] + '' == ROUTE_PO.name) {
                 this.routetype = ROUTE_PO;
-            } else if (params['id']+'' == ROUTE_PA.name) {
+            } else if (params['id'] + '' == ROUTE_PA.name) {
                 this.routetype = ROUTE_PA;
             } else {
                 this.id = params['id'];
@@ -77,8 +80,8 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
                         break;
                 }
 
-                this.priceoverpr_yes = (this.routeapprove.price_over_pr_flag=='A' || this.routeapprove.price_over_pr_flag=='Y');
-                this.priceoverpr_no = (this.routeapprove.price_over_pr_flag=='A' || this.routeapprove.price_over_pr_flag=='N');
+                this.priceoverpr_yes = (this.routeapprove.price_over_pr_flag == 'A' || this.routeapprove.price_over_pr_flag == 'Y');
+                this.priceoverpr_no = (this.routeapprove.price_over_pr_flag == 'A' || this.routeapprove.price_over_pr_flag == 'N');
 
                 console.log(this.routeapprove);
                 // console.log(this.routetype);
@@ -138,14 +141,14 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
             super.unblockui('#m_form_1');
             // this.navigate_list();
         },
-        error => {  
-            alert(error);
-            super.showError(error);
-            super.unblockui('#m_form_1');
-        },
-        () => {
-            super.unblockui('#m_form_1');
-        });
+            error => {
+                alert(error);
+                super.showError(error);
+                super.unblockui('#m_form_1');
+            },
+            () => {
+                super.unblockui('#m_form_1');
+            });
     }
 
     update() {
@@ -171,7 +174,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
             super.showsuccess(this.routeapprove.route_name + ' update complete');
             // this.navigate_list();
         },
-            error => {  
+            error => {
                 super.showError(error);
                 super.unblockui('#m_form_1');
             },
@@ -194,8 +197,8 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
 
     approverAction() {
         if ($('#m_approver_action').val().toString() == "edit") {
-            this.editApprover( parseInt( $('#m_approver_action_row_index').val().toString() ) );
-            console.log(parseInt( $('#m_approver_action_row_index').val().toString() ));
+            this.editApprover(parseInt($('#m_approver_action_row_index').val().toString()));
+            console.log(parseInt($('#m_approver_action_row_index').val().toString()));
             console.log('edit approver');
         } else {
             this.addApprover();
@@ -248,7 +251,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
 
         if (this.routeapprove.cf_route_detail != null && this.routeapprove.cf_route_detail.length >= rowIndex) {
             for (let row of this.routeapprove.cf_route_detail) {
-                if (rowIndex==index) {
+                if (rowIndex == index) {
                     //do nothing: row that want to remove from array
                 } else {
                     row.route_level = tempApprovers.length + 1;
@@ -265,4 +268,13 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
         this._router.navigate(['/config/route/list/' + this.routetype.name]);
     }
 
+
+    
+    searchemp(obj) {
+         
+       this._trackingService.search('').subscribe(x=>  {
+        console.log(x);
+        this.tackingList =x
+       });
+    }
 }

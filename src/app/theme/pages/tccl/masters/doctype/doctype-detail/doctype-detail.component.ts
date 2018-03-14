@@ -33,7 +33,7 @@ export class DocTypeDetailComponent extends PageBaseComponent implements OnInit,
 
     ngOnInit() {
         super.blockui('#m_form_1');
-       
+
         this.route.params.subscribe(params => {
             this.id = params['id'];
         });
@@ -67,21 +67,21 @@ export class DocTypeDetailComponent extends PageBaseComponent implements OnInit,
             super.showsuccess(this.doctype.doc_type_code + ' create complete');
             this._router.navigate(['/masters/doctype/list']);
         },
-        error => {  
-            alert(error);
-            super.showError(error);
-            super.unblockui('#m_form_1');
-            
-        },
-        () => {
-            super.unblockui('#m_form_1');
-           
-        });
+            error => {
+                alert(error);
+                super.showError(error);
+                super.unblockui('#m_form_1');
+
+            },
+            () => {
+                super.unblockui('#m_form_1');
+
+            });
 
 
     }
     save() {
-        
+
         console.log(this.doctype);
         if (this.id != null && this.id != '0') {
             this.update();
@@ -101,14 +101,14 @@ export class DocTypeDetailComponent extends PageBaseComponent implements OnInit,
             super.showsuccess(this.doctype.doc_type_code + ' update complete');
             this._router.navigate(['/masters/doctype/list']);
         },
-            error => {  
+            error => {
                 super.showError(error);
                 super.unblockui('#m_form_1');
-               
+
             },
             () => {
                 super.unblockui('#m_form_1');
-              
+
             });
 
 
