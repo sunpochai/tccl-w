@@ -75,12 +75,10 @@
 					<label class="col-form-label col-lg-2 col-sm-4">
 						Tracking No. *   
 					</label>
-					<label for="tags">Tags: </label>
-					<input id="tags"  (change)="searchemp(this)">
-					<div >
-  
-					</div>
 					<div class="col-lg-4 col-sm-8">
+					<select required class="form-control m-input" id="track">
+							<option  ></option>
+						</select>	 
 						<select required class="form-control m-input" [(ngModel)]="routeapprove.tracking_no" name="tracking_no">
 							<option value="3360-IT" >
 								3360-IT

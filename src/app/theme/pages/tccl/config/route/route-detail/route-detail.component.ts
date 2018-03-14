@@ -21,6 +21,8 @@ import { RouteApproveDetail } from '../../../_models/config/routeapprovedetail';
 import { forEach } from '@angular/router/src/utils/collection';
 import { TrackingService } from '../../../_services/masters/tracking.service';
 
+declare var AutoCompleteControl:any;
+
 @Component({
     selector: "config-route-detail",
     templateUrl: "./route-detail.component.html",
@@ -96,7 +98,13 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     ngAfterViewInit() {
         this._script.loadScripts('config-route-detail',
             ['assets/tccl/config/route/route-detail.js']);
-    }
+
+            jQuery(document).ready(function() {
+                 
+                AutoCompleteControl.load('sss');
+            });
+          
+            }
 
     save() {
         // console.log(this.routeapprove);
