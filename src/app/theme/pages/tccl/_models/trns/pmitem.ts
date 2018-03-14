@@ -1,10 +1,10 @@
 export class PMItem {
     payment_itm_id: number;
     payment_id: number;
-    matdoc_no : string;
-    doc_year : string;
-    item_status : string;
-    matdoc_item : string;
+    matdoc_no: string;
+    doc_year: string;
+    item_status: string;
+    matdoc_item: string;
     amount: number;
     movement_type: string;
     mat_no: string;

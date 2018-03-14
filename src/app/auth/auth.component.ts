@@ -63,33 +63,33 @@ export class AuthComponent implements OnInit {
         this._authService.login(this.model.ad_user, this.model.password).subscribe(
             data => {
                 console.log(data);
-                this._authService.checkin(data.access_token,this.model.ad_user,"","browser").subscribe(resp =>{
+                this._authService.checkin(data.access_token, this.model.ad_user, "", "browser").subscribe(resp => {
                     console.log(resp);
-                    var  profile: User =   resp ;
+                    var profile: User = resp;
                     profile.token = data.access_token;
-                    localStorage.setItem('currentUser', JSON.stringify(profile) ); 
+                    localStorage.setItem('currentUser', JSON.stringify(profile));
                     this.loading = false;
                     this._router.navigate([this.returnUrl]);
-                } ,error => { 
+                }, error => {
                     this.showAlert('alertSignin');
                     this._alertService.error(error);
                     this.loading = false;
-                  },() =>{
-                    console.log("sss"); 
-                  });  
-          
+                }, () => {
+                    console.log("sss");
+                });
+
             },
             error => {
-                console.log(error)   
-                 let errObj = JSON.parse(error._body);
-               
+                console.log(error)
+                let errObj = JSON.parse(error._body);
+
                 this.showAlert('alertSignin');
-                if(errObj){
+                if (errObj) {
                     this._alertService.error(errObj.error_description);
-                }else{
+                } else {
                     this._alertService.error(error);
                 }
-                
+
                 this.loading = false;
             });
     }

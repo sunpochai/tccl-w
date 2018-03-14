@@ -3,10 +3,10 @@ import { Helpers } from './../../../../../../helpers';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ScriptLoaderService } from '../../../../../../_services/script-loader.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Http, Headers, Response } from '@angular/http';  
+import { Http, Headers, Response } from '@angular/http';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { 
-    ATTACHMENT_DOC_GROUP_PR, 
+import {
+    ATTACHMENT_DOC_GROUP_PR,
     API_ATTACHMENT_GET_DEL,
     ROUTE_PR,
     C_DOC_STATUS_2,
@@ -46,15 +46,15 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     public action_comment: any;
     constructor(  
         private _script: ScriptLoaderService,
-        private _router: Router, 
+        private _router: Router,
         private route: ActivatedRoute,
-        private _prService: PRService, 
+        private _prService: PRService,
         private _attachmentService: AttachmentService,
         private _workflowService: WorkflowService,
         private formBuilder: FormBuilder) {
         super();
 
-      
+
     }
 
     loadData() {
@@ -70,15 +70,15 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                 if (this.pr.worklist != null && this.pr.worklist.current_responsible != null) {
                     this.wf_stage_resp_id = this.pr.worklist.current_responsible.wf_stage_resp_id;
 
-                    if (this.pr.worklist.current_responsible.resp_allow_action != null && this.pr.worklist.current_responsible.resp_allow_action.toLowerCase()=='review') {
+                    if (this.pr.worklist.current_responsible.resp_allow_action != null && this.pr.worklist.current_responsible.resp_allow_action.toLowerCase() == 'review') {
                         this.canReview = true;
                     }
 
-                    if (this.pr.worklist.current_responsible.resp_allow_action != null && this.pr.worklist.current_responsible.resp_allow_action.toLowerCase()=='comment') {
+                    if (this.pr.worklist.current_responsible.resp_allow_action != null && this.pr.worklist.current_responsible.resp_allow_action.toLowerCase() == 'comment') {
                         this.canComment = true;
                     }
 
-                    if (this.pr.worklist.current_responsible.resp_allow_action==null) {
+                    if (this.pr.worklist.current_responsible.resp_allow_action == null) {
                         this.canApprove = true;
                     }
                 }
@@ -97,7 +97,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         } else {
             //console.log(this.pr);
         }
-        
+
     }
 
     ngOnInit() {
@@ -173,7 +173,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                     super.unblockui('#m-content');
                 }
             },
-            error => {  
+            error => {
                 super.showError(error);
                 console.log(error);
                 super.unblockui('#m-content');
@@ -183,7 +183,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
             }
         );
     }
-    
+
     approve() {
         super.blockui('#m-content');
 
@@ -209,7 +209,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                     super.unblockui('#m-content');
                 }
             },
-            error => {  
+            error => {
                 super.showError(error);
                 super.unblockui('#m-content');
             },
@@ -218,7 +218,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
             }
         );
     }
-    
+
     reject() {
         super.blockui('#m-content');
 
@@ -243,7 +243,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                     super.unblockui('#m-content');
                 }
             },
-            error => {  
+            error => {
                 super.showError(error);
                 super.unblockui('#m-content');
             },
@@ -283,7 +283,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                 break;
         }
     }
-    
+
     navigate_list() {
         this._router.navigate(['/trns/pr/list']);
     }
@@ -329,8 +329,8 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                 let att  = data;
                 console.log(att);  
                 this.attFile = null;
-                this.formData = new FormData()  ;
-                super.unblockui('#m-content'); 
+                this.formData = new FormData();
+                super.unblockui('#m-content');
                 super.showsuccess('upload complete');
                 this.pr.pr_attachment_items = this.pr.pr_attachment_items || [] ;
 

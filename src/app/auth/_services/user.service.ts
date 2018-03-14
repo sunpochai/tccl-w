@@ -11,8 +11,8 @@ export class UserService {
 
     verify() {
         return this.http.get(API_AUTHEN_VERIFY, this.jwt()).map((response: Response) => response.json());
-    } 
-  
+    }
+
     forgotPassword(email: string) {
         return this.http.post('/api/forgot-password', JSON.stringify({ email }), this.jwt()).map((response: Response) => response.json());
     }
@@ -30,7 +30,7 @@ export class UserService {
     }
 
     update(user: User) {
-        return this.http.put('/api/users/'  , user, this.jwt()).map((response: Response) => response.json());
+        return this.http.put('/api/users/', user, this.jwt()).map((response: Response) => response.json());
     }
 
     delete(id: number) {

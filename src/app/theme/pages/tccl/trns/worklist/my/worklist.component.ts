@@ -23,9 +23,9 @@ export class WorklistComponent extends PageBaseComponent implements OnInit, Afte
     public docStatus: Array<any> = C_DOC_STATUS_2;
     public myworklists: Array<Worklist>;
     public myprs: Array<Worklist>;
-    public mypos: Array<Worklist>; 
+    public mypos: Array<Worklist>;
     public mypas: Array<Worklist>;
-    
+
     constructor(private _router: Router,
         private _script: ScriptLoaderService,
         private _worklistService: WorklistService) {
@@ -77,7 +77,7 @@ export class WorklistComponent extends PageBaseComponent implements OnInit, Afte
     }
 
     navigate(trnsType, trnsId) {
-        switch(trnsType) {
+        switch (trnsType) {
             case 'PR':
                 this._router.navigate(['/trns/pr/detail/' + trnsId]);
                 break;

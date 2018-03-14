@@ -43,5 +43,5 @@ export class PO {
     amount: number;
     po_items: Array<POItem>;
     po_attachment_items: Array<Attachment>;
-    worklist : Workflow;
+    worklist: Workflow;
 }  

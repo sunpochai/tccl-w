@@ -9,15 +9,15 @@ const routes: Routes = [
         "component": ThemeComponent,
         "canActivate": [AuthGuard],
         "children": [
-             {
-                 "path": "index",
-                 "redirectTo": "trns\/worklist\/my",
-             },
+            {
+                "path": "index",
+                "redirectTo": "trns\/worklist\/my",
+            },
             {
                 "path": "masters\/tracking",
                 "loadChildren": ".\/pages\/tccl\/masters\/tracking\/tracking.module#TrackingModule"
             },
-            { 
+            {
                 "path": "masters\/company",
                 "loadChildren": ".\/pages\/tccl\/masters\/company\/company.module#CompanyModule"
             },
@@ -580,8 +580,8 @@ const routes: Routes = [
             {
                 "path": "",
                 "loadChildren": ".\/pages\/tccl\/masters\/tracking\/tracking.module#TrackingModule"
-              //  "redirectTo": "index",
-              //  "pathMatch": "full"
+                //  "redirectTo": "index",
+                //  "pathMatch": "full"
             }
         ]
     },
