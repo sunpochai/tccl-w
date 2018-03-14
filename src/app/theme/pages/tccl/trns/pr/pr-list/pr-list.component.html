@@ -149,9 +149,9 @@
 							<option value="">
 								All
 							</option>
-							<ng-container *ngFor="let row of cDocStatus; let index = index">
-								<option value="{{row[0]}}">
-									{{row[1]}}
+							<ng-container *ngFor="let row of docStatus; let index = index" >
+								<option value="{{row.code}}" *ngIf="row.active">
+									{{row.name}}
 								</option>
 							</ng-container>
 						</select>

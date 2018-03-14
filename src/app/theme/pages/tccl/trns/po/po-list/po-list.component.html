@@ -27,7 +27,7 @@
 				<li class="m-nav__item">
 					<a routerLink="/trns/po/list" class="m-nav__link">
 						<span class="m-nav__link-text">
-							Purchase Order
+							Purchase Request
 						</span>
 					</a>
 				</li>
@@ -53,20 +53,20 @@
 				<!--begin: Search Form -->
 				<div class="form-group m-form__group row">
 					<label class="col-lg-2 col-sm-4 col-form-label">
-						PR No.:
+						PO No.:
 					</label>
 					<div class="col-lg-4 col-sm-8" >
-						<input type="text" maxlength="20" class="form-control m-input" id="m_form_pr_no">
+						<input type="text" maxlength="20" class="form-control m-input" id="m_form_po_no">
 					</div>
 					<label class="col-lg-2 col-sm-4 col-form-label">
 						Doc Type:
 					</label>
 					<div class="col-lg-4 col-sm-8 ">
 						<select class="form-control m-input" id="m_form_doc_type">
+							<option value="">
+								All
+							</option>
 							<ng-container *ngFor="let row of doctypeList; let index = index">
-								<option value="">
-									All
-								</option>
 								<option value="{{row.doc_type_code}}">
 									{{row.doc_type_desc}}
 								</option>
@@ -76,7 +76,7 @@
 				</div>
 				<div class="form-group m-form__group row">
 					<label class="col-lg-2 col-sm-4 col-form-label">
-						PR Date From:
+						PO Date From:
 					</label>
 					<div class="col-lg-4 col-sm-8">
 						<div class='input-group'>
@@ -89,7 +89,7 @@
 						</div>
 					</div>
 					<label class="col-lg-2 col-sm-4 col-form-label">
-						PR Date To:
+						PO Date To:
 					</label>
 					<div class="col-lg-4 col-sm-8">
 						<div class='input-group'>
@@ -108,10 +108,10 @@
 					</label>
 					<div class="col-lg-4 col-sm-8">
 						<select class="form-control m-input" id="m_form_company">
+							<option value="">
+								All
+							</option>
 							<ng-container *ngFor="let row of companyList; let index = index">
-								<option value="">
-									All
-								</option>
 								<option value="{{row.comp_code}}">
 									{{row.comp_name}}
 								</option>
@@ -131,10 +131,10 @@
 					</label>
 					<div class="col-lg-4 col-sm-8">
 						<select class="form-control m-input" id="m_form_plant">
+							<option value="">
+								All
+							</option>
 							<ng-container *ngFor="let row of plantList; let index = index">
-								<option value="">
-									All
-								</option>
 								<option value="{{row.plant_code}}">
 									{{row.plant_name}}
 								</option>
@@ -146,12 +146,12 @@
 					</label>
 					<div class="col-lg-4 col-sm-8">
 						<select class="form-control m-input" id="m_form_status">
-							<ng-container *ngFor="let row of cDocStatus; let index = index">
-								<option value="">
-									All
-								</option>
-								<option value="{{row[0]}}">
-									{{row[1]}}
+							<option value="">
+								All
+							</option>
+							<ng-container *ngFor="let row of docStatus; let index = index" >
+								<option value="{{row.code}}" *ngIf="row.active">
+									{{row.name}}
 								</option>
 							</ng-container>
 						</select>
@@ -159,13 +159,13 @@
 				</div>
 				<div class="form-group m-form__group row">
 					<div class="col-lg-12 col-sm-12 " >
-						<button type="button" class="btn btn-info" (click)="search()">
+						<button type="button" class="btn btn-brand" (click)="search()">
 							<i class="fa fa-search"></i>
 							Search
 						</button>
-						<button type="reset" class="btn btn-warning">
+						<button type="reset" class="btn btn-metal">
 							<i class="fa fa-refresh"></i>
-							Reset
+							Clear
 						</button>
 					</div>
 				</div>
@@ -178,34 +178,3 @@
 		</form>
 	</div>
 </div>
-
-<div class="modal fade" id="m_modal_6" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLongTitle">
-					Confirm  ?
-				</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">
-						&times;
-					</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<p>
-					Confirm Delete?
-				</p>
-			</div>
-		   	<div class="modal-footer">
-				<button type="button"   data-dismiss="modal" class="btn btn-danger">
-					Delete  
-				</button>
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">
-					Close
-				</button>
-			</div>
-		</div>
-	</div>
-</div>
- 

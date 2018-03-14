@@ -4,23 +4,23 @@ import { Helpers } from '../../../helpers';
 
 declare let mLayout: any;
 @Component({
-selector: "app-header-nav",
-templateUrl: "./header-nav.component.html",
-encapsulation: ViewEncapsulation.None,
+    selector: "app-header-nav",
+    templateUrl: "./header-nav.component.html",
+    encapsulation: ViewEncapsulation.None,
 })
 export class HeaderNavComponent extends PageBaseComponent implements OnInit, AfterViewInit {
 
 
-constructor()  {
-super();
-}  
-ngOnInit()  {
+    constructor() {
+        super();
+    }
+    ngOnInit() {
 
-}
-ngAfterViewInit()  {
+    }
+    ngAfterViewInit() {
 
-mLayout.initHeader();
+        mLayout.initHeader();
 
-}
+    }
 
 }

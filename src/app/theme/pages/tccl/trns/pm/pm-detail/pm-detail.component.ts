@@ -25,7 +25,7 @@ import { ATTACHMENT_DOC_GROUP_PM } from '../../../../../../app-constants';
 export class PMDetailComponent extends PageBaseComponent implements OnInit, AfterViewInit {
     public form: FormGroup;
     public pm: PM;
-    public id: any;  
+    public id: any;
     constructor(private _script: ScriptLoaderService,
         private _router: Router, private route: ActivatedRoute,
         private _pmService: PMService, private formBuilder: FormBuilder) {
@@ -34,7 +34,7 @@ export class PMDetailComponent extends PageBaseComponent implements OnInit, Afte
 
     ngOnInit() {
         super.blockui('#m_form_1');
-       
+
         this.route.params.subscribe(params => {
             this.id = params['id'];
         });
@@ -97,14 +97,14 @@ export class PMDetailComponent extends PageBaseComponent implements OnInit, Afte
                 super.showsuccess(this.pm.matdoc_no + '/' + this.pm.doc_year + ' update complete');
                 this.navigate_list();
             },
-            error => {  
+            error => {
                 super.showError(error);
                 super.unblockui('#m_form_1');
-               
+
             },
             () => {
                 super.unblockui('#m_form_1');
-              
+
             }
         );
     }
@@ -129,14 +129,14 @@ export class PMDetailComponent extends PageBaseComponent implements OnInit, Afte
                 super.showsuccess(this.pm.matdoc_no + '/' + this.pm.doc_year + ' update complete');
                 this.navigate_list();
             },
-            error => {  
+            error => {
                 super.showError(error);
                 super.unblockui('#m_form_1');
-               
+
             },
             () => {
                 super.unblockui('#m_form_1');
-              
+
             }
         );
 

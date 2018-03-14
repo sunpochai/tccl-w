@@ -13,9 +13,9 @@ export class TokenBaseService {
         let currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
         if (currentUser && currentUser.token) {
-             
-           return  currentUser.token;
- 
+
+            return currentUser.token;
+
         }
     }
     protected jwt() {

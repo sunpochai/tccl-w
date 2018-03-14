@@ -46,12 +46,12 @@ const routes: Routes = [
         PRListComponent,
         PRDetailComponent
     ], providers: [
-        PRService, 
-        DocTypeService, 
-        CompanyService, 
-        PlantService, 
-        AttachmentService, 
-        WorkflowService, 
+        PRService,
+        DocTypeService,
+        CompanyService,
+        PlantService,
+        AttachmentService,
+        WorkflowService,
         FormBuilder
     ]
 })

@@ -6,7 +6,7 @@ import { ScriptLoaderService } from './../../../../../../_services/script-loader
 import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { constructDependencies } from '@angular/core/src/di/reflective_provider';
 import { PRService } from './../../../_services/trns/pr.service';
-import { API_PR_LIST, C_DOC_STATUS } from './../../../../../../app-constants';
+import { API_PR_LIST, C_DOC_STATUS_2 } from './../../../../../../app-constants';
 import { DocTypeService } from '../../../_services/masters/doctype.service';
 import { CompanyService } from '../../../_services/masters/company.service';
 import { DocType } from '../../../_models/masters/doctype';
@@ -26,8 +26,8 @@ export class PRListComponent extends PageBaseComponent implements OnInit, AfterV
     public doctypeList: Array<DocType>;
     public companyList: Array<Company>;
     public plantList: Array<Plant>;
-    public cDocStatus: Array<Array<any>> = C_DOC_STATUS;
-      
+    public docStatus: Array<any> = C_DOC_STATUS_2;
+
     constructor(private _router: Router,
         private _script: ScriptLoaderService,
         private _doctypeService: DocTypeService,
@@ -38,11 +38,11 @@ export class PRListComponent extends PageBaseComponent implements OnInit, AfterV
 
     ngOnInit() {
         window.my = window.my || {};
-        window.my.C_DOC_STATUS = C_DOC_STATUS;
+        window.my.docStatus = this.docStatus;
         window.my.namespace = window.my.namespace || {};
         window.my.namespace.navigate_edit = this.navigate_edit.bind(this);
 
-        // console.log(window.my.C_DOC_STATUS);
+        console.log(window.my.docStatus);
 
         this._doctypeService.getall().subscribe(data => {
             this.doctypeList = data;
@@ -74,7 +74,7 @@ export class PRListComponent extends PageBaseComponent implements OnInit, AfterV
         jQuery(document).ready(function() {
             myDatatable.init(API_PR_LIST);
         });
-        
+
         super.unblockui('#m-content');
     }
 

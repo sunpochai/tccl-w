@@ -16,6 +16,7 @@ import { LayoutModule } from '../../../../layouts/layout.module';
 import { AlertService } from '../../../../../auth/_services/index';
 import { RouteApproveService } from '../../_services/config/routeapprove.service';
 import { DocTypeService } from '../../_services/masters/doctype.service';
+import { TrackingService } from '../../_services/masters/tracking.service';
 
 const routes: Routes = [
     {
@@ -41,8 +42,9 @@ const routes: Routes = [
         RouteApproveListComponent,
         RouteApproveDetailComponent
     ], providers: [
-        RouteApproveService, 
+        RouteApproveService,
         DocTypeService,
+        TrackingService,
         FormBuilder
     ]
 })
