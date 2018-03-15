@@ -82,7 +82,7 @@ export class WorklistComponent extends PageBaseComponent implements OnInit, Afte
                 this._router.navigate(['/trns/pr/detail/' + trnsId]);
                 break;
             case 'PO':
-                //todo:: navigate to PO page;
+                this._router.navigate(['/trns/po/detail/' + trnsId]);
                 break;
             case 'PA':
                 //todo:: navigate to PA page;

@@ -10,7 +10,7 @@ import {
     API_ATTACHMENT_GET_DEL,
     ROUTE_PR,
     C_DOC_STATUS_2,
-    STATUS_NAME
+    ACTION_NAME
 } from '../../../../../../app-constants';
 import { PR } from '../../../_models/trns/pr';
 import { Attachment } from '../../../_models/trns/attachment';
@@ -35,7 +35,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     public canApprove: boolean = false;
     public canComment: boolean = false;
     public urlattachment: String = API_ATTACHMENT_GET_DEL;
-    public statusName: any = STATUS_NAME;
+    public statusName: any = ACTION_NAME;
     public docStatus: Array<any> = C_DOC_STATUS_2;
     public attFile :any ;
     public formData: FormData = new FormData(); 
@@ -82,6 +82,21 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                         this.canApprove = true;
                     }
                 }
+                if (this.pr.pr_attachment_items != null && this.pr.pr_attachment_items.length > 0) {
+                    let index = 0;
+                    for (let row of this.pr.pr_attachment_items) {
+                        // console.log(row);
+                        let s = row.file_name.split('.');
+
+                        if (s.length > 0) {
+                            this.pr.pr_attachment_items[index].file_extension = s[s.length-1].toLowerCase().toString();
+                        }
+
+                        index++;
+                    }
+                    // console.log(this.pr.pr_attachment_items);
+                }
+
                 super.unblockui('#m-content');
                 // console.log(this.pr);
             },
@@ -107,6 +122,69 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     ngAfterViewInit() {
         this._script.loadScripts('trns-pr-detail',
             ['assets/tccl/trns/pr/pr-detail.js']);
+    }
+
+    fileChange(event) {
+        //ebugger;  
+        this.fileList = event.target.files;  
+        // console.log(this.fileList);
+
+        if (this.fileList.length > 0) { 
+            this.attFile = []; 
+            
+            for (let index = 0; index < this.fileList.length; index++) {
+                let file = this.fileList[index];
+                this.attFile.push(file.name);
+            }
+            // console.log(this.attFile);
+        } else {
+            this.attFile = null;
+        }
+    }
+
+    uploadFile() {
+        super.blockui('#m-content');
+
+        if (this.fileList.length > 0) { 
+            this.formData.append("doc_group",ROUTE_PR.doc_group);   
+            this.formData.append("doc_id",this.pr.pr_id.toString());  
+            this.formData.append("create_user",this.getADUserLogin());  
+            this.formData.append("create_username",this.getFullNameUserLogin());
+            
+            for (let index = 0; index < this.fileList.length; index++) {
+                let file = this.fileList[index];
+                this.formData.append("file_" + index.toString(), file, file.name); 
+            }
+            // console.log(this.attFile);
+        } else {
+            // this.attFile = null;
+        }
+
+        this._attachmentService.upload(this.formData).subscribe(  
+            data => {
+                let att  = data;
+                // console.log(att);  
+                this.attFile = null;
+                this.formData = new FormData();
+                super.unblockui('#m-content');
+                super.showsuccess('upload complete');
+                this.pr.pr_attachment_items = this.pr.pr_attachment_items || [] ;
+
+                for (let index = 0; index < att.length; index++) {
+                    let s = att[index].file_name.split('.');
+
+                    if (s.length > 0) {
+                        att[index].file_extension = s[s.length-1].toLowerCase().toString();
+                    }
+                    this.pr.pr_attachment_items.push(att[index]);
+                }
+                // console.log(this.pr.pr_attachment_items);
+            },  
+            error => {
+                super.unblockui('#m-content');
+                super.showError(error);
+            }
+        );
     }
 
     prepareRemoveFile(attachId, fileName) {
@@ -147,15 +225,10 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         this.action_comment = $('#txtComment').val().toString();
     }
     
-    review() {
+    review(workflowaction) {
         super.blockui('#m-content');
 
-        let workflowaction: WorkflowAction = new WorkflowAction;
-        workflowaction.workflow_id = this.pr.workflow_id;
-        workflowaction.wf_stage_resp_id = this.wf_stage_resp_id;
-        workflowaction.actor_user = super.getADUserLogin();
-        workflowaction.actor_username = super.getFullNameUserLogin();
-        workflowaction.outcome = STATUS_NAME.reviewed;
+        workflowaction.outcome = ACTION_NAME.reviewed;
         workflowaction.outcome_description = $('#txtComment').val().toString();
 
         console.log(workflowaction);
@@ -165,7 +238,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                 workflowaction = resp;
                 if (resp.is_error == false) {
                     console.log(resp);
-                    super.showsuccess('Review complete');
+                    super.showsuccess('Review completed');
                     window.location.reload();
                 } else {
                     console.log(resp);
@@ -184,24 +257,19 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         );
     }
 
-    approve() {
+    approve(workflowaction) {
         super.blockui('#m-content');
 
-        let workflowaction: WorkflowAction = new WorkflowAction;
-        workflowaction.workflow_id = this.pr.workflow_id;
-        workflowaction.wf_stage_resp_id = this.wf_stage_resp_id;
-        workflowaction.actor_user = super.getADUserLogin();
-        workflowaction.actor_username = super.getFullNameUserLogin();
-        workflowaction.outcome = STATUS_NAME.approved;
+        workflowaction.outcome = ACTION_NAME.approved;
         workflowaction.outcome_description = $('#txtComment').val().toString();
 
-        console.log(workflowaction);
+        // console.log(workflowaction);
 
         this._workflowService.approve<any>(workflowaction).subscribe(
             resp => {
                 workflowaction = resp;
                 if (resp.is_error == false) {
-                    super.showsuccess('Approve complete');
+                    super.showsuccess('Approve completed');
                     window.location.reload();
                 } else {
                     console.log(resp);
@@ -219,15 +287,10 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         );
     }
 
-    reject() {
+    reject(workflowaction) {
         super.blockui('#m-content');
 
-        let workflowaction: WorkflowAction = new WorkflowAction;
-        workflowaction.workflow_id = this.pr.workflow_id;
-        workflowaction.wf_stage_resp_id = this.wf_stage_resp_id;
-        workflowaction.actor_user = super.getADUserLogin();
-        workflowaction.actor_username = super.getFullNameUserLogin();
-        workflowaction.outcome = STATUS_NAME.rejected
+        workflowaction.outcome = ACTION_NAME.rejected
         workflowaction.outcome_description = $('#txtComment').val().toString();
 
         this._workflowService.reject<any>(workflowaction).subscribe(
@@ -235,7 +298,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                 workflowaction = resp;
                 if (resp.is_error == false) {
                     console.log(resp);
-                    super.showsuccess('Reject complete');
+                    super.showsuccess('Reject completed');
                     window.location.reload();
                 } else {
                     console.log(resp);
@@ -253,96 +316,102 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         );
     }
 
-    waiting() {
+    waiting(workflowaction) {
         super.blockui('#m-content');
-        super.unblockui('#m-content');
-    }
 
-    comment() {
+        workflowaction.outcome = ACTION_NAME.waiting;
+        workflowaction.outcome_description = $('#txtComment').val().toString();
+
+        //todo:: add aduser list to workflowaction
+        //******** */
+        workflowaction.user_list = null; 
+        //******** */
+
+        console.log(workflowaction);
+
+        this._workflowService.comment<any>(workflowaction).subscribe(
+            resp => {
+                workflowaction = resp;
+                if (resp.is_error == false) {
+                    console.log(resp);
+                    super.showsuccess('Update waiting completed');
+                    window.location.reload();
+                } else {
+                    console.log(resp);
+                    super.showError(resp.error_msg);
+                    super.unblockui('#m-content');
+                }
+            },
+            error => {
+                super.showError(error);
+                console.log(error);
+                super.unblockui('#m-content');
+            },
+            () => {
+                super.unblockui('#m-content');
+            }
+        );
+    }
+    
+    comment(workflowaction) {
         super.blockui('#m-content');
-        super.unblockui('#m-content');
+
+        workflowaction.outcome = ACTION_NAME.commented;
+        workflowaction.outcome_description = $('#txtComment').val().toString();
+
+        // console.log(workflowaction);
+
+        this._workflowService.comment<any>(workflowaction).subscribe(
+            resp => {
+                workflowaction = resp;
+                if (resp.is_error == false) {
+                    console.log(resp);
+                    super.showsuccess('Comment completed');
+                    window.location.reload();
+                } else {
+                    console.log(resp);
+                    super.showError(resp.error_msg);
+                    super.unblockui('#m-content');
+                }
+            },
+            error => {
+                super.showError(error);
+                console.log(error);
+                super.unblockui('#m-content');
+            },
+            () => {
+                super.unblockui('#m-content');
+            }
+        );
     }
 
     performAction() {
-// console.log(this.action_type.toLowerCase().toString());
+        let workflowaction: WorkflowAction = new WorkflowAction;
+        workflowaction.workflow_id = this.pr.workflow_id;
+        workflowaction.wf_stage_resp_id = this.wf_stage_resp_id;
+        workflowaction.actor_user = super.getADUserLogin();
+        workflowaction.actor_username = super.getFullNameUserLogin();
+        
         switch (this.action_type.toLowerCase().toString()) {
             case 'review':
-                this.review();
+                this.review(workflowaction);
                 break;
             case 'approve':
-                this.approve();
+                this.approve(workflowaction);
                 break;
             case 'reject':
-                this.reject();
+                this.reject(workflowaction);
                 break;
             case 'waiting':
-                this.waiting();
+                this.waiting(workflowaction);
                 break;
             case 'comment':
-                this.comment();
+                this.comment(workflowaction);
                 break;
         }
     }
 
     navigate_list() {
         this._router.navigate(['/trns/pr/list']);
-    }
-   
-    fileChange(event) {
-        //ebugger;  
-        this.fileList = event.target.files;  
-        // console.log(this.fileList);
-
-        if (this.fileList.length > 0) { 
-            this.attFile = []; 
-            
-            for (let index = 0; index < this.fileList.length; index++) {
-                let file = this.fileList[index];
-                this.attFile.push(file.name);
-            }
-            // console.log(this.attFile);
-        } else {
-            this.attFile = null;
-        }
-    }
-
-    uploadFile() {
-        super.blockui('#m-content');
-
-        if (this.fileList.length > 0) { 
-            this.formData.append("doc_group",ROUTE_PR.doc_group);   
-            this.formData.append("doc_id",this.pr.pr_id.toString());  
-            this.formData.append("create_user",this.getADUserLogin());  
-            this.formData.append("create_username",this.getFullNameUserLogin());
-            
-            for (let index = 0; index < this.fileList.length; index++) {
-                let file = this.fileList[index];
-                this.formData.append("file_" + index.toString(), file, file.name); 
-            }
-            console.log(this.attFile);
-        } else {
-            // this.attFile = null;
-        }
-
-        this._attachmentService.upload(this.formData).subscribe(  
-            data => {
-                let att  = data;
-                console.log(att);  
-                this.attFile = null;
-                this.formData = new FormData();
-                super.unblockui('#m-content');
-                super.showsuccess('upload complete');
-                this.pr.pr_attachment_items = this.pr.pr_attachment_items || [] ;
-
-                for (let index = 0; index < att.length; index++) {
-                    this.pr.pr_attachment_items.push(att[index]);
-                }
-                console.log(this.pr.pr_attachment_items);
-            },  
-            error => {
-                super.unblockui('#m-content');
-                super.showError(error);
-            }
-        );
     }
 }

@@ -365,8 +365,17 @@
 						<div class="m-widget4">
 							<!--begin::Widget Attachfile Item-->
 							<div class="m-widget4__item" *ngFor="let row of po.po_attachment_items; let index = index">
-								<div class="m-widget4__img m-widget4__img--icon">
-									<img src="./assets/app/media/img/files/pdf.svg" alt="">
+								<div class="m-widget4__img m-widget4__img--icon" [ngSwitch]="row.file_extension">
+									<img *ngSwitchCase="'pdf'" src="./assets/app/media/img/files/pdf.svg" alt="">
+									<img *ngSwitchCase="'doc'" src="./assets/app/media/img/files/doc.svg" alt="">
+									<img *ngSwitchCase="'docx'" src="./assets/app/media/img/files/doc.svg" alt="">
+									<img *ngSwitchCase="'xls'" src="./assets/app/media/img/files/xls.svg" alt="">
+									<img *ngSwitchCase="'xlsx'" src="./assets/app/media/img/files/xls.svg" alt="">
+									<img *ngSwitchCase="'csv'" src="./assets/app/media/img/files/csv.svg" alt="">
+									<img *ngSwitchCase="'jpg'" src="./assets/app/media/img/files/jpg.svg" alt="">
+									<img *ngSwitchCase="'png'" src="./assets/app/media/img/files/png.svg" alt="">
+									<img *ngSwitchCase="'zip'" src="./assets/app/media/img/files/zip.svg" alt="">
+									<img *ngSwitchDefault src="./assets/app/media/img/files/file.svg" alt="">
 								</div>
 								<div class="m-widget4__info">
 									<span class="m-widget4__title">
@@ -488,7 +497,7 @@
 	</form>
 
 	<!--begin::Portlet-->
-	<div class="m-portlet" *ngIf="canReview || canApprove">
+	<div class="m-portlet" *ngIf="canReview || canApprove || canComment">
 		<div class="m-portlet__head">
 			<div class="m-portlet__head-caption">
 				<div class="m-portlet__head-title">
@@ -544,7 +553,7 @@
 							<button type="button" [disabled]="heroForm.invalid" class="btn btn-warning" (click)="prepareAction('Waiting')" data-toggle="modal" data-target="#m_modal_waiting" *ngIf="canApprove">
 								Waiting 
 							</button>
-							<button type="button" [disabled]="heroForm.invalid" class="btn btn-info" (click)="prepareAction('Comment')" data-toggle="modal" data-target="#m_modal_waiting" *ngIf="canComment">
+							<button type="button" [disabled]="heroForm.invalid" class="btn btn-info" (click)="prepareAction('Comment')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canComment">
 								Comment 
 							</button>
 							<button type="reset" (click)="navigate_list()" class="btn btn-secondary">
@@ -567,7 +576,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="modalTitle" name="modalTitle">
-						Confirm {{action_type}} PR No. {{pr.pr_no}} ?
+						Confirm {{action_type}} PO No. {{po.po_no}} ?
 					</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">
