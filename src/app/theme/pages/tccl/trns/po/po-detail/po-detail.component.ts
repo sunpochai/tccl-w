@@ -44,8 +44,13 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
     public totalVat: number = 0;
     public totalAmount: number = 0;
     public totalDiscount: number = 0;
-    public attFile: any;
-    public formData: FormData = new FormData();
+    public attFile :any ;
+    public formData: FormData = new FormData(); 
+    public fileList: FileList;
+    public action_attach_file_id: any;
+    public action_file_name: any;
+    public action_type: any;
+    public action_comment: any;
     constructor(
         private _script: ScriptLoaderService,
         private _router: Router,
@@ -120,35 +125,42 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
             ['assets/tccl/trns/po/po-detail.js']);
     }
 
-
-    removeFile(attachId, fileIndex) {
+    prepareRemoveFile(attachId, fileName) {
+        this.action_attach_file_id = attachId;
+        this.action_file_name = fileName;
+    }
+    
+    removeFile() {
         // alert(attachId + ',' + fileIndex);
         super.blockui('#m-content');
 
-        this._attachmentService.del(attachId).subscribe(resp => {
+        this._attachmentService.del(this.action_attach_file_id).subscribe(resp => {
             super.unblockui('#m-content');
             super.showsuccess('Remove file complete');
             //todo:: refresh file list
-            this.po.po_attachment_items.forEach((item, index) => {
-                if (item.attach_id === attachId) this.po.po_attachment_items.splice(index, 1);
-            });
-
+            this.po.po_attachment_items.forEach( (item, index) => {
+                if(item.attach_id === this.action_attach_file_id) this.po.po_attachment_items.splice(index,1);
+            });  
         },
-            error => {
-                super.showError(error);
-                console.log('error');
-                super.unblockui('#m-content');
-
-            },
-            () => {
-                super.unblockui('#m-content');
-                // console.log('done');
-            });
+        error => {
+            super.showError(error);
+            console.log('error');
+            super.unblockui('#m-content');  
+        },
+        () => {
+            super.unblockui('#m-content');
+            // console.log('done');
+        });
         super.unblockui('#m-content');
     }
 
     openFile(fileId) {
         window.open(API_ATTACHMENT_GET_DEL + '/' + fileId);
+    }
+
+    prepareAction(action) {
+        this.action_type = action;
+        this.action_comment = $('#txtComment').val().toString();
     }
 
     review() {
@@ -266,27 +278,20 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
     }
 
     performAction() {
-        var pAction = $('#input_action').val().toString().toLocaleLowerCase();
-
-        switch (pAction) {
+        switch (this.action_type.toLowerCase().toString()) {
             case 'review':
-                // console.log('doaction review');
                 this.review();
                 break;
             case 'approve':
-                // console.log('doaction approve');
                 this.approve();
                 break;
             case 'reject':
-                // console.log('doaction reject');
                 this.reject();
                 break;
             case 'waiting':
-                // console.log('doaction waiting');
                 this.waiting();
                 break;
             case 'comment':
-                // console.log('doaction comment');
                 this.comment();
                 break;
         }
@@ -299,52 +304,59 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
 
     fileChange(event) {
         //ebugger;  
+        this.fileList = event.target.files;  
+        // console.log(this.fileList);
 
-        let fileList: FileList = event.target.files;
-        if (fileList.length > 0) {
-            this.attFile = [];
-            let headers = new Headers()
-            //headers.append('Content-Type', 'json');  
-            //headers.append('Accept', 'application/json');  
-            this.formData.append("doc_group", ROUTE_PO.doc_group);
-            this.formData.append("doc_id", this.po.po_id.toString());
-            this.formData.append("create_user", this.getADUserLogin());
-            this.formData.append("create_username", this.getFullNameUserLogin());
-
-
-            for (let index = 0; index < fileList.length; index++) {
-                let file = fileList[index];
-                this.formData.append("file_" + index.toString(), file, file.name);
+        if (this.fileList.length > 0) { 
+            this.attFile = []; 
+            
+            for (let index = 0; index < this.fileList.length; index++) {
+                let file = this.fileList[index];
                 this.attFile.push(file.name);
             }
-
+            // console.log(this.attFile);
         } else {
             this.attFile = null;
         }
     }
+
     uploadFile() {
         super.blockui('#m-content');
 
-        this._attachmentService.upload(this.formData).subscribe(
+        if (this.fileList.length > 0) { 
+            this.formData.append("doc_group",ROUTE_PO.doc_group);   
+            this.formData.append("doc_id",this.po.po_id.toString());  
+            this.formData.append("create_user",this.getADUserLogin());  
+            this.formData.append("create_username",this.getFullNameUserLogin());
+            
+            for (let index = 0; index < this.fileList.length; index++) {
+                let file = this.fileList[index];
+                this.formData.append("file_" + index.toString(), file, file.name); 
+            }
+            console.log(this.attFile);
+        } else {
+            // this.attFile = null;
+        }
+
+        this._attachmentService.upload(this.formData).subscribe(  
             data => {
-                let att = data;
-                console.log(data);
+                let att  = data;
+                console.log(att);  
                 this.attFile = null;
                 this.formData = new FormData();
                 super.unblockui('#m-content');
                 super.showsuccess('upload complete');
-                this.po.po_attachment_items = this.po.po_attachment_items || [];
+                this.po.po_attachment_items = this.po.po_attachment_items || [] ;
+
                 for (let index = 0; index < att.length; index++) {
                     this.po.po_attachment_items.push(att[index]);
                 }
-
-            },
+                console.log(this.po.po_attachment_items);
+            },  
             error => {
-
                 super.unblockui('#m-content');
                 super.showError(error);
             }
         );
-
     }
 }

@@ -532,19 +532,19 @@
 							<!-- <button type="button" [disabled]="heroForm.invalid" class="btn btn-info" onclick="javascript:doAction('Test'); " data-toggle="modal" data-target="#m_modal_confirm" >
 								Test 
 							</button> -->
-							<button type="button" [disabled]="heroForm.invalid" class="btn btn-info" onclick="javascript:prepareAction('Review'); " data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canReview">
+							<button type="button" [disabled]="heroForm.invalid" class="btn btn-info" (click)="prepareAction('Review')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canReview">
 								Review 
 							</button>
-							<button type="button" [disabled]="heroForm.invalid" class="btn btn-success" onclick="javascript:prepareAction('Approve'); " data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+							<button type="button" [disabled]="heroForm.invalid" class="btn btn-success" (click)="prepareAction('Approve')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
 								Approve 
 							</button>
-							<button type="button" [disabled]="heroForm.invalid" class="btn btn-danger" onclick="javascript:prepareAction('Reject'); " data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+							<button type="button" [disabled]="heroForm.invalid" class="btn btn-danger" (click)="prepareAction('Reject')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
 								Reject 
 							</button>
-							<button type="button" [disabled]="heroForm.invalid" class="btn btn-warning" onclick="javascript:prepareAction('Waiting');" data-toggle="modal" data-target="#m_modal_waiting" *ngIf="canApprove">
+							<button type="button" [disabled]="heroForm.invalid" class="btn btn-warning" (click)="prepareAction('Waiting')" data-toggle="modal" data-target="#m_modal_waiting" *ngIf="canApprove">
 								Waiting 
 							</button>
-							<button type="button" [disabled]="heroForm.invalid" class="btn btn-info" onclick="javascript:prepareAction('Comment');" data-toggle="modal" data-target="#m_modal_waiting" *ngIf="canComment">
+							<button type="button" [disabled]="heroForm.invalid" class="btn btn-info" (click)="prepareAction('Comment')" data-toggle="modal" data-target="#m_modal_waiting" *ngIf="canComment">
 								Comment 
 							</button>
 							<button type="reset" (click)="navigate_list()" class="btn btn-secondary">
@@ -567,7 +567,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="modalTitle" name="modalTitle">
-						Confirm save ?
+						Confirm {{action_type}} PR No. {{pr.pr_no}} ?
 					</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">
@@ -577,11 +577,10 @@
 				</div>
 				<div class="modal-body">
 					<p id="modalBody">
-						Confirm save ?
+						{{action_comment}}
 					</p>
 				</div>
 				<div class="modal-footer">
-					<input type="hidden" name="input_action" id="input_action" />
 					<button type="button" (click)="performAction()" data-dismiss="modal" class="btn btn-success" >
 						Save 
 					</button>
@@ -625,4 +624,38 @@
 		</div>
 	</div>
 	<!--end::Modal-->
+
+	<!--begin::Modal-->
+	<div class="modal fade" id="m_modal_delete" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">
+						Delete file ?
+					</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">
+							&times;
+						</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>
+						Confirm delete file: {{action_file_name}} ?
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" (click)="removeFile()" data-dismiss="modal" class="btn btn-danger">
+						Delete
+					</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">
+						Close
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--end::Modal-->
+
+
 </div>

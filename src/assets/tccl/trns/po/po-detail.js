@@ -48,9 +48,3 @@ var FormControls = function () {
 jQuery(document).ready(function() {    
     FormControls.init();
 });
-
-function prepareAction(myAction) {
-    $('input[name=input_action]').val(myAction);
-    document.getElementById('modalTitle').innerHTML='Confirm ' + myAction + '?'; 
-    document.getElementById('modalBody').innerHTML=document.getElementById('txtComment').value;
-}
