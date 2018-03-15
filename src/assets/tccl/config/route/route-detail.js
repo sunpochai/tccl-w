@@ -5,32 +5,32 @@ var AutoCompleteControl = function () {
 
 
     function formatRepo(repo) {
-       
+      /*   if (repo.loading) return repo.text;
+
+        var markup = "<div class='select2-result-repository clearfix'>" +
+        "<div class='select2-result-repository__meta'>" +
+        "<div class='select2-result-repository__title'>" + repo.tracking_code + ":" + repo.tracking_name + "</div></div></div>"; */
+     
         if (repo.loading) return repo.text;
-         
         var markup = "<div class='select2-result-repository clearfix'>" +
             "<div class='select2-result-repository__meta'>" +
-            "<div class='select2-result-repository__title'>" + repo.tracking_code + "</div>";
-  
-        markup += "<div class='select2-result-repository__statistics'>" +
-            "<div class='select2-result-repository__forks'><i class='fa fa-flash'></i> " + repo.tracking_code + " Forks</div>" +
-            "<div class='select2-result-repository__stargazers'><i class='fa fa-star'></i> " + repo.tracking_code + " Stars</div>" +
-            "<div class='select2-result-repository__watchers'><i class='fa fa-eye'></i> " + repo.tracking_code + " Watchers</div>" +
-            "</div>" +
+            "<div class='select2-result-repository__title'>" + repo.name   + "</div>";
+        
             "</div></div>";
-    
-        return markup;
-    }; 
+       
+    return markup;
+    }  
     function formatRepoSelection(repo) {
-        return repo.tracking_code || repo.tracking_name;
+       
+        return repo.name || repo.text;
     }
     var loadTracking = function (api) { 
-        $('#track').select2({
-            placeholder: "Search tracking",
+        $('#m_select2_6').select2({
+            placeholder: "Enter Tracking No",
             allowClear: true,
-            ajax: {
-                 
-                url:  "https://api.github.com/search/repositories",
+            ajax: {   
+                    
+                url:  api,
                 dataType: 'json',
                 delay: 250,
                 data: function(params) {
@@ -44,8 +44,9 @@ var AutoCompleteControl = function () {
                     // since we are using custom formatting functions we do not need to
                     // alter the remote JSON data, except to indicate that infinite
                     // scrolling can be used
+                    
                     params.page = params.page || 1;
-
+  
                     return {
                         results: data.items,
                         pagination: {
@@ -58,7 +59,7 @@ var AutoCompleteControl = function () {
             escapeMarkup: function(markup) {
                 return markup;
             }, // let our custom formatter work
-            minimumInputLength: 3,
+            minimumInputLength:  2,
             templateResult: formatRepo, // omitted for brevity, see the source of this page
             templateSelection: formatRepoSelection // omitted for brevity, see the source of this page
         });
@@ -67,8 +68,8 @@ var AutoCompleteControl = function () {
  
 return {
     load: function(api) {
-       
-        loadTracking(api);
+         loadTracking(api);
+      
     }
 };
 }();

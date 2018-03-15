@@ -26869,7 +26869,7 @@ select.m-bootstrap-select {
   -ms-border-radius: 0.25rem;
   -o-border-radius: 0.25rem;
   border-radius: 0.25rem;
-  height: auto;
+ height: auto;   
   line-height: 0; }
 
 .select2-container--default .select2-selection--single .select2-selection__arrow,

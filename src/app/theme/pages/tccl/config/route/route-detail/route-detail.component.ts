@@ -1,7 +1,7 @@
 import { PageBaseComponent } from './../../../pagebase.component';
 import { CompanyService } from './../../../_services/masters/company.service';
 import { Helpers } from './../../../../../../helpers';
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { ScriptLoaderService } from '../../../../../../_services/script-loader.service';
 import { Tracking } from '../../../_models/masters/tracking';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -14,7 +14,7 @@ import {
 } from '@angular/forms';
 import { RouteApproveService } from '../../../_services/config/routeapprove.service';
 import { RouteApprove } from '../../../_models/config/routeapprove';
-import { ROUTE_PR, ROUTE_PO, ROUTE_PA, API_USER_LIST } from '../../../../../../app-constants';
+import { ROUTE_PR, ROUTE_PO, ROUTE_PA, API_USER_LIST, API_TRACKING_GET_PUT_DEL } from '../../../../../../app-constants';
 import { DocType } from '../../../_models/masters/doctype';
 import { DocTypeService } from '../../../_services/masters/doctype.service';
 import { RouteApproveDetail } from '../../../_models/config/routeapprovedetail';
@@ -25,10 +25,11 @@ declare var AutoCompleteControl:any;
 
  
 
-@Component({
+@Component({ 
     selector: "config-route-detail",
     templateUrl: "./route-detail.component.html",
     styleUrls: ["./route-detail.component.css"]
+
 })
 
 export class RouteApproveDetailComponent extends PageBaseComponent implements OnInit, AfterViewInit {
@@ -105,8 +106,8 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
             ['assets/tccl/config/route/route-detail.js']);
 
             jQuery(document).ready(function() {
-                 
-                AutoCompleteControl.load('sss');
+                  
+                AutoCompleteControl.load(API_TRACKING_GET_PUT_DEL);
             });
           
             }
