@@ -32,6 +32,8 @@ export const API_ROUTE_INSERT: string = API_BASE_URL + '/api/route/insert'
 export const API_WORKFLOW_ACTION_REVIEW: string = API_BASE_URL + '/api/worklist/review'
 export const API_WORKFLOW_ACTION_APPROVE: string = API_BASE_URL + '/api/worklist/approve'
 export const API_WORKFLOW_ACTION_REJECT: string = API_BASE_URL + '/api/worklist/reject'
+export const API_WORKFLOW_ACTION_COMMENT: string = API_BASE_URL + '/api/worklist/comment'
+export const API_WORKFLOW_ACTION_WAITING: string = API_BASE_URL + '/api/worklist/waiting'
 
 export const API_WORKLIST: string = API_BASE_URL + '/api/worklist/my'
 
@@ -72,21 +74,19 @@ export const C_DOC_STATUS_REJECTED: number = 4
 export const C_DOC_STATUS_CANCELLED: number = 9
 
 export const C_DOC_STATUS_WAIT_REVIEW_NAME: string = 'Wait Review';
-export const C_DOC_STATUS_REVIEWED_NAME: string = 'Reviewed';
+export const C_DOC_STATUS_WAIT_APPROVE_NAME: string = 'Wait Approve';
 export const C_DOC_STATUS_APPROVED_NAME: string = 'Approved';
 export const C_DOC_STATUS_REJECTED_NAME: string = 'Rejected';
 export const C_DOC_STATUS_CANCELLED_NAME: string = 'Cancelled';
-export const C_DOC_STATUS_WAITING_NAME: string = 'Waiting';
-export const C_DOC_STATUS_COMMENT_NAME: string = 'Comment';
 
 export const C_DOC_STATUS_WAIT_REVIEW_COLOR: string = 'warning';
-export const C_DOC_STATUS_REVIEWED_COLOR: string = 'info';
+export const C_DOC_STATUS_WAIT_APPROVE_COLOR: string = 'info';
 export const C_DOC_STATUS_APPROVED_COLOR: string = 'success';
 export const C_DOC_STATUS_REJECTED_COLOR: string = 'danger';
 export const C_DOC_STATUS_CANCELLED_COLOR: string = 'danger';
 
 export const C_DOC_STATUS_WAIT_REVIEW_CLASS: string = 'm-badge m-badge--' + C_DOC_STATUS_WAIT_REVIEW_COLOR + ' m-badge--wide';
-export const C_DOC_STATUS_REVIEWED_CLASS: string = 'm-badge m-badge--' + C_DOC_STATUS_REVIEWED_COLOR + ' m-badge--wide';
+export const C_DOC_STATUS_WAIT_APPROVE_CLASS: string = 'm-badge m-badge--' + C_DOC_STATUS_WAIT_APPROVE_COLOR + ' m-badge--wide';
 export const C_DOC_STATUS_APPROVED_CLASS: string = 'm-badge m-badge--' + C_DOC_STATUS_APPROVED_COLOR + ' m-badge--wide';
 export const C_DOC_STATUS_REJECTED_CLASS: string = 'm-badge m-badge--' + C_DOC_STATUS_REJECTED_COLOR + ' m-badge--wide';
 export const C_DOC_STATUS_CANCELLED_CLASS: string = 'm-badge m-badge--' + C_DOC_STATUS_CANCELLED_COLOR + ' m-badge--wide';
@@ -94,7 +94,7 @@ export const C_DOC_STATUS_CANCELLED_CLASS: string = 'm-badge m-badge--' + C_DOC_
 export const C_DOC_STATUS_2: Array<any> = [
     { code: 0, active: false, name: "n/a", color: C_DOC_STATUS_CANCELLED_COLOR, displayclass: C_DOC_STATUS_CANCELLED_CLASS },
     { code: 1, active: true, name: C_DOC_STATUS_WAIT_REVIEW_NAME, color: C_DOC_STATUS_WAIT_REVIEW_COLOR, displayclass: C_DOC_STATUS_WAIT_REVIEW_CLASS },
-    { code: 2, active: true, name: C_DOC_STATUS_REVIEWED_NAME, color: C_DOC_STATUS_REVIEWED_COLOR, displayclass: C_DOC_STATUS_REVIEWED_CLASS },
+    { code: 2, active: true, name: C_DOC_STATUS_WAIT_APPROVE_NAME, color: C_DOC_STATUS_WAIT_APPROVE_COLOR, displayclass: C_DOC_STATUS_WAIT_APPROVE_CLASS },
     { code: 3, active: true, name: C_DOC_STATUS_APPROVED_NAME, color: C_DOC_STATUS_APPROVED_COLOR, displayclass: C_DOC_STATUS_APPROVED_CLASS },
     { code: 4, active: true, name: C_DOC_STATUS_REJECTED_NAME, color: C_DOC_STATUS_REJECTED_COLOR, displayclass: C_DOC_STATUS_REJECTED_CLASS },
     { code: 5, active: false, name: "n/a", color: C_DOC_STATUS_CANCELLED_COLOR, displayclass: C_DOC_STATUS_CANCELLED_CLASS },
@@ -104,11 +104,14 @@ export const C_DOC_STATUS_2: Array<any> = [
     { code: 9, active: true, name: C_DOC_STATUS_CANCELLED_NAME, color: C_DOC_STATUS_CANCELLED_COLOR, displayclass: C_DOC_STATUS_CANCELLED_CLASS }
 ];
 
-export const STATUS_NAME: any = {
-    reviewed: C_DOC_STATUS_REVIEWED_NAME
+export const ACTION_NAME: any = {
+    reviewed: "Reviewed"
     , approved: C_DOC_STATUS_APPROVED_NAME
     , rejected: C_DOC_STATUS_REJECTED_NAME
     , cancelled: C_DOC_STATUS_CANCELLED_NAME
+    , waiting: "Waiting"
+    , commented: "Commented"
+    , delegated: "Delegated"
 };
 
 export const CATEGORY_CODE: any = {

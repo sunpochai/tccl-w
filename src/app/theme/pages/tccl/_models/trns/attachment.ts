@@ -7,4 +7,5 @@ export class Attachment {
     create_user: string;
     create_username: string;
     create_datetime: Date;
+    file_extension: string;
 }
