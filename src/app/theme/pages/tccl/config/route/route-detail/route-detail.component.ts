@@ -147,7 +147,9 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
         this.routeapprove.create_user = super.getADUserLogin();
         this.routeapprove.create_username = super.getFullNameUserLogin();
         this.routeapprove.create_datetime = new Date();
-        // console.log(this.routeapprove);
+        console.log( $('#m_select2_6').val('') );
+        console.log(this.routeapprove.tracking_no);
+        console.log(this.routeapprove);
         this._routeapproveService.create<any>(this.routeapprove).subscribe(resp => {
             console.log(resp);
             this.routeapprove = resp;
@@ -223,14 +225,24 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     addApprover() {
         super.blockui('#m-content');
 
+        if (this.routeapprove.cf_route_detail == null) {
+            this.routeapprove.cf_route_detail = new Array<RouteApproveDetail>();
+        } else {
+
+            for (let row of this.routeapprove.cf_route_detail) {
+                if (row.ad_user == $('#m_select_approver').val().toString())  {
+                // console.log(row); // 1, "string", false
+                    super.showError('Duplicate approver name');
+                    super.blockui('#m-content');
+                    return;
+                }
+            }
+        }
+
         let approver: RouteApproveDetail = new RouteApproveDetail;
         approver.route_id = this.routeapprove.route_id;
         approver.route_d_id = null;
-
-        if (this.routeapprove.cf_route_detail == null) {
-            this.routeapprove.cf_route_detail = new Array<RouteApproveDetail>();
-        }
-
+        
         approver.route_level = this.routeapprove.cf_route_detail.length + 1;
         approver.ad_user = $('#m_select_approver').val().toString();
         approver.ad_username = $("#m_select_approver :selected").text();
