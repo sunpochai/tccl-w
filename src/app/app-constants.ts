@@ -32,6 +32,11 @@ export const API_ROUTE_PA_LIST: string = API_BASE_URL + '/api/route/palist'
 export const API_ROUTE_GET_PUT_DEL: string = API_BASE_URL + '/api/route'
 export const API_ROUTE_INSERT: string = API_BASE_URL + '/api/route/insert'
 
+export const API_REVIEWER_LIST: string = API_BASE_URL + '/api/reviewer/list'
+export const API_REVIEWER_SEARCH: string = API_BASE_URL + '/api/reviewer/list2'
+export const API_REVIEWER_GET_PUT_DEL: string = API_BASE_URL + '/api/reviewer'
+export const API_REVIEWER_INSERT: string = API_BASE_URL + '/api/reviewer/insert'
+
 export const API_WORKFLOW_ACTION_REVIEW: string = API_BASE_URL + '/api/worklist/review'
 export const API_WORKFLOW_ACTION_APPROVE: string = API_BASE_URL + '/api/worklist/approve'
 export const API_WORKFLOW_ACTION_REJECT: string = API_BASE_URL + '/api/worklist/reject'

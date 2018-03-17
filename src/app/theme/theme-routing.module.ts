@@ -34,6 +34,10 @@ const routes: Routes = [
                 "loadChildren": ".\/pages\/tccl\/config\/route\/route.module#RouteApproveModule"
             },
             {
+                "path": "config\/reviewer",
+                "loadChildren": ".\/pages\/tccl\/config\/reviewer\/reviewer.module#ReviewerModule"
+            },
+            {
                 "path": "trns\/worklist",
                 "loadChildren": ".\/pages\/tccl\/trns\/worklist\/worklist.module#WorklistModule"
             },
