@@ -396,20 +396,20 @@
 											<i class="la la-clock-o"></i>
 											{{row.start_datetime | date :'dd/MM/yyyy HH:mm'}} - {{row.finish_datetime | date :'dd/MM/yyyy HH:mm'}}
 										</span>
-										<!-- <span class="m-widget4__sub">
-											<i class="flaticon-stopwatch"></i>
-											10:12:32
-										</span> -->
 										<br>
 										<span class="m-widget4__sub">
 											{{row.activity_description}}
 										</span>
+										<!-- <span class="m-widget4__sub">
+											<i class="flaticon-stopwatch"></i>
+											10:12:32
+										</span> -->
 									</div>
 									<div class="m-widget4__ext" style="vertical-align: top">
 										<span *ngSwitchCase="statusName.reviewed" class="m-badge m-badge--info m-badge--wide">{{row.activity}}</span>
 										<span *ngSwitchCase="statusName.approved" class="m-badge m-badge--success m-badge--wide">{{row.activity}}</span>
 										<span *ngSwitchCase="statusName.rejected" class="m-badge m-badge--danger m-badge--wide">{{row.activity}}</span>
-										<span *ngSwitchDefault class="m-badge m-badge--metal m-badge--wide">{{row.activity}}</span>
+										<span *ngSwitchDefault class="m-badge-x ">{{row.activity}}</span>
 									</div>
 								</div>
 								<!--end::Widget 14 Item-->
@@ -455,6 +455,28 @@
 						</div>
 					</div>
 				</div>
+				<div class="form-group m-form__group" *ngIf="canApprove">
+					<div class="m-checkbox-inline">
+						<label class="m-checkbox">
+							<input type="checkbox" [(ngModel)]="isWaiting" name="chkWaiting" >
+							Waiting
+							<span></span>
+						</label>
+					</div>
+				</div>
+				<div class="form-group m-form__group" *ngIf="isWaiting">
+					<label for="m_select_waiting">
+						Send request to:
+					</label>
+					<select [required]="isWaiting" class="form-control m-input" id="m_select_waiting" name="param">
+						<option></option>
+						<option value="tcc\sanchaip">Sanchai Pochai</option>
+						<option value="tcc\weeraya">Krataiinoi</option>
+						<option value="tcc\tmp1">Temp Name 1</option>
+						<option value="tcc\tmp2">Temp Name 2</option>
+						<option value="tcc\tmp3">Temp Name 3</option>
+					</select>
+				</div>
 				<div class="form-group m-form__group">
 					<label for="exampleTextarea">
 						Comment:
@@ -474,13 +496,13 @@
 							<button type="button" [disabled]="heroForm.invalid" class="btn btn-info" (click)="prepareAction('Review')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canReview">
 								Review 
 							</button>
-							<button type="button" [disabled]="heroForm.invalid" class="btn btn-success" (click)="prepareAction('Approve')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+							<button type="button" [disabled]="isWaiting || heroForm.invalid" class="btn btn-success" (click)="prepareAction('Approve')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
 								Approve 
 							</button>
-							<button type="button" [disabled]="heroForm.invalid" class="btn btn-danger" (click)="prepareAction('Reject')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+							<button type="button" [disabled]="isWaiting || heroForm.invalid" class="btn btn-danger" (click)="prepareAction('Reject')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
 								Reject 
 							</button>
-							<button type="button" [disabled]="heroForm.invalid" class="btn btn-warning" (click)="prepareAction('Waiting')" data-toggle="modal" data-target="#m_modal_waiting" *ngIf="canApprove">
+							<button type="button" [disabled]="!isWaiting && heroForm.invalid" class="btn btn-warning" (click)="prepareAction('Waiting')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
 								Waiting 
 							</button>
 							<button type="button" [disabled]="heroForm.invalid" class="btn btn-info" (click)="prepareAction('Comment')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canComment">
@@ -521,37 +543,6 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" (click)="performAction()" data-dismiss="modal" class="btn btn-success" >
-						Save 
-					</button>
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">
-						Close
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!--end::Modal-->
-	<!--begin::Modal-->
-	<div class="modal fade" id="m_modal_waiting" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="modalTitle" name="modalTitle">
-						Waiting...
-					</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">
-							&times;
-						</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<p id="modalBody">
-						Confirm save ?
-					</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" (click)="doAction()" data-dismiss="modal" class="btn btn-success" >
 						Save 
 					</button>
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">

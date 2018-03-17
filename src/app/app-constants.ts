@@ -110,8 +110,8 @@ export const ACTION_NAME: any = {
     , rejected: C_DOC_STATUS_REJECTED_NAME
     , cancelled: C_DOC_STATUS_CANCELLED_NAME
     , waiting: "Waiting"
-    , commented: "Commented"
-    , delegated: "Delegated"
+    , commented: "Comment"
+    , delegated: "Delegate"
 };
 
 export const CATEGORY_CODE: any = {

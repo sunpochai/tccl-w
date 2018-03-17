@@ -84,7 +84,12 @@ export class PRListComponent extends PageBaseComponent implements OnInit, AfterV
 
     search() {
         super.blockui('#m-content');
-        myDatatable.search();
+        console.log($('#m_form_date_from').val());
+        // var pr_date_from = new Date($('#m_form_date_from').val());
+        // var pr_date_to = new Date($('#m_form_date_to').val());
+    
+
+        // myDatatable.search();
         super.unblockui('#m-content');
     }
 
