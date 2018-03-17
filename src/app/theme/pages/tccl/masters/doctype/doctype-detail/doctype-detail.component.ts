@@ -25,6 +25,7 @@ export class DocTypeDetailComponent extends PageBaseComponent implements OnInit,
     public form: FormGroup;
     public doctype: DocType;
     public id: any;
+    public action_type: any;
     constructor(private _script: ScriptLoaderService,
         private _router: Router, private route: ActivatedRoute,
         private _docTypeService: DocTypeService, private formBuilder: FormBuilder) {
@@ -38,18 +39,24 @@ export class DocTypeDetailComponent extends PageBaseComponent implements OnInit,
             this.id = params['id'];
         });
 
+        console.log(this.id);
+
         if (this.id != null && this.id != '0') {
             this._docTypeService.get<DocType>(this.id).subscribe(data => {
                 this.doctype = data;
+                this.action_type = 'update';
                 console.log(this.doctype);
+                super.unblockui('#m_form_1');
             });
 
         } else {
             this.doctype = new DocType();
+            this.action_type = 'add';
             // console.log(this.doctype);
+            super.unblockui('#m_form_1');
         }
 
-        super.unblockui('#m_form_1');
+        
     }
 
     ngAfterViewInit() {

@@ -14,9 +14,9 @@
 				</li>
 			 
 				<li class="m-nav__item">
-					<a href="" class="m-nav__link">
+					<a href="#" class="m-nav__link">
 						<span class="m-nav__link-text">
-							Masters
+							Setup
 						</span>
 					</a>
 				</li>
@@ -43,8 +43,13 @@
 		<div class="m-portlet__head">
 			<div class="m-portlet__head-caption">
 				<div class="m-portlet__head-title">
-					<h3 class="m-portlet__head-text">
-						Add/Edit Company
+					<h3 class="m-portlet__head-text" *ngIf="id == 0">
+						<i class="la la-plus"></i>
+						New Company
+					</h3>
+					<h3 class="m-portlet__head-text" *ngIf="id != 0">
+						<i class="la la-pencil"></i>
+						Edit Company
 					</h3>
 				</div>
 			</div>
@@ -64,43 +69,36 @@
 							<button type="button" class="close" data-close="alert" aria-label="Close"></button>
 						</div>
 					</div>
-				</div> 
-			 
+				</div>
 				<div class="form-group m-form__group row" >
 					<label class="col-form-label col-lg-3 col-sm-12">
 						Company Code *
 					</label>
-					<div class="col-lg-4 col-md-9 col-sm-12">
-						<input required minlength="4"  [disabled]='id  != 0 ' [(ngModel)]="company.comp_code" type="text" class="form-control m-input" name="compcode" value="{{company.CompCode}}" placeholder="Enter Tracking Code"  >
-						 
+					<div class="col-lg-6 col-md-9 col-sm-12">
+						<input required minlength="4"  [disabled]='id  != 0 ' [(ngModel)]="company.comp_code" type="text" class="form-control m-input" name="compcode" value="{{company.CompCode}}" placeholder="Enter Company Code"  >
 					</div>
 				</div>
 				<div class="form-group m-form__group row">
 					<label class="col-form-label col-lg-3 col-sm-12">
 						Company Name *   
 					</label>
-					<div class="col-lg-4 col-md-9 col-sm-12">
+					<div class="col-lg-6 col-md-9 col-sm-12">
 						<input required minlength="4" [(ngModel)]="company.comp_name"     #compname="ngModel" type="text" class="form-control m-input " name="compname" placeholder="Enter Company Name">
-					 
 					</div>
 				</div> 
 				<div class="form-group m-form__group row first">
 					<div class="col-lg-12">
 						<span class="m-form__help">
 							Created at {{company.create_datetime  | date:'dd/MM/yyyy HH:mm:ss'}} by {{company.create_username}} 
-					 
-						   </span>
+						</span>
 					</div>
 					<div class="col-lg-12"> 
-				   <span class="m-form__help"> 
+					<span class="m-form__help"> 
 						Last modified at {{company.update_datetime  | date:'dd/MM/yyyy HH:mm:ss'}} by {{company.update_username}} 
-					
-				   </span>
-				   </div>
+					</span>
+					</div>
 				</div>
-				 
 			</div> 
-		
 			<div class="m-portlet__foot m-portlet__foot--fit">
 				<div class="m-form__actions m-form__actions">
 					<div class="row">
@@ -122,12 +120,12 @@
 	<!--end::Portlet--> 
 
 	<!-- Modal -->
-	<div class="modal fade" id="m_modal_6" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal fade" id="m_modal_6" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" *ngIf="company!=null">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLongTitle">
-						Confirm Save ?
+						Confirm {{action_type}} ?
 					</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">
@@ -137,16 +135,16 @@
 				</div>
 				<div class="modal-body">
 					<p>
-						Confirm Save ?
+						Confirm {{action_type}} company : {{company.comp_code}} ?
 					</p>
 				</div>
-				<div class="modal-footer"><button type="button" (click)="save()" data-dismiss="modal" class="btn btn-success">
-					Save 
-				</button>
+				<div class="modal-footer">
+					<button type="button" (click)="save()" data-dismiss="modal" class="btn btn-success">
+						Save 
+					</button>
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">
 						Close
 					</button>
-					
 				</div>
 			</div>
 		</div>

@@ -10,7 +10,7 @@ import { API_COMPANY_LIST } from './../../../../../../app-constants';
 
 
 
-declare var myDatatable_company: any;
+declare var myDatatable: any;
 declare var window: any
 
 @Component({
@@ -19,62 +19,64 @@ declare var window: any
     encapsulation: ViewEncapsulation.None,
 })
 export class CompanyListComponent extends PageBaseComponent implements OnInit, AfterViewInit {
-
+    public action_item: any;
 
     constructor(private _router: Router,
         private _script: ScriptLoaderService,
         private _companyService: CompanyService) {
         super();
     }
+
     ngOnInit() {
 
         window.my = window.my || {};
         window.my.namespace = window.my.namespace || {};
         window.my.namespace.del = this.del.bind(this);
         window.my.namespace.navigate_edit = this.navigate_edit.bind(this);
+        window.my.namespace.prepare_del = this.prepareDel.bind(this);
     }
+
     ngAfterViewInit() {
 
         this._script.loadScripts('master-company-list',
             ['assets/tccl/masters/company/company-list.js']);
 
         this.load();
-
     }
 
     load() {
         super.blockui('#m-content');
         jQuery(document).ready(function() {
-            myDatatable_company.init(API_COMPANY_LIST);
+            myDatatable.init(API_COMPANY_LIST);
         });
         super.unblockui('#m-content');
-
     }
 
     add() {
         this._router.navigate(['/masters/company/detail/0']);
+    }
 
+    prepareDel(p_action_item) {
+        // console.log('preparedel '+p_action_item);
+        this.action_item = p_action_item;
     }
 
     del() {
-
         super.blockui('#m-content');
-        let compCode = $('#comCodeDeleteSelected').val();
-        this._companyService.del(compCode.toString()).subscribe(resp => {
-
-            super.showsuccess(compCode + ' delete complete');
-            myDatatable_company.reload();
+        this._companyService.del(this.action_item).subscribe(resp => {
+            super.showsuccess(this.action_item + ' delete complete');
+            myDatatable.reload();
+            super.unblockui('#m-content');
         },
-            error => {
-                super.showError(error);
-                super.unblockui('#m-content');
-                console.log('error');
-            },
-            () => {
-                super.unblockui('#m-content');
-                console.log('done');
-            });
-
+        error => {
+            super.showError(error);
+            super.unblockui('#m-content');
+            console.log('error');
+        },
+        () => {
+            super.unblockui('#m-content');
+            console.log('done');
+        });
     }
 
     navigate_edit(compCode) {

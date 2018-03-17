@@ -8,8 +8,6 @@ import { constructDependencies } from '@angular/core/src/di/reflective_provider'
 import { DocTypeService } from './../../../_services/masters/doctype.service';
 import { API_DOCTYPE_LIST } from './../../../../../../app-constants';
 
-
-
 declare var myDatatable: any;
 declare var window: any
 
@@ -19,27 +17,29 @@ declare var window: any
     encapsulation: ViewEncapsulation.None,
 })
 export class DocTypeListComponent extends PageBaseComponent implements OnInit, AfterViewInit {
-
+    public action_item: any;
 
     constructor(private _router: Router,
         private _script: ScriptLoaderService,
         private _docTypeService: DocTypeService) {
         super();
     }
+
     ngOnInit() {
 
         window.my = window.my || {};
         window.my.namespace = window.my.namespace || {};
         window.my.namespace.del = this.del.bind(this);
         window.my.namespace.navigate_edit = this.navigate_edit.bind(this);
+        window.my.namespace.prepare_del = this.prepareDel.bind(this);
     }
+
     ngAfterViewInit() {
 
         this._script.loadScripts('master-doctype-list',
             ['assets/tccl/masters/doctype/doctype-list.js']);
 
         this.load();
-
     }
 
     load() {
@@ -48,31 +48,33 @@ export class DocTypeListComponent extends PageBaseComponent implements OnInit, A
             myDatatable.init(API_DOCTYPE_LIST);
         });
         super.unblockui('#m-content');
-
     }
 
     add() {
         this._router.navigate(['/masters/doctype/detail/0']);
+    }
 
+    prepareDel(p_action_item) {
+        this.action_item = p_action_item;
     }
 
     del() {
         super.blockui('#m-content');
-        let docTypeCode = $('#docTypeCodeDeleteSelected').val();
-        this._docTypeService.del(docTypeCode.toString()).subscribe(resp => {
-
-            super.showsuccess(docTypeCode + ' delete complete');
+        
+        this._docTypeService.del(this.action_item).subscribe(resp => {
+            console.log(resp);
+            super.showsuccess(this.action_item + ' delete complete');
             myDatatable.reload();
         },
-            error => {
-                super.showError(error);
-                super.unblockui('#m-content');
-                console.log('error');
-            },
-            () => {
-                super.unblockui('#m-content');
-                console.log('done');
-            });
+        error => {
+            super.showError(error);
+            super.unblockui('#m-content');
+            console.log('error');
+        },
+        () => {
+            super.unblockui('#m-content');
+            console.log('done');
+        });
     }
 
     navigate_edit(docTypeCode) {
