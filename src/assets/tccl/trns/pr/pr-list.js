@@ -7,8 +7,6 @@ var myDatatable = function( ) {
   // basic demo
   var load = function(apiurl)  {
     
-    // var dataJSONArray = JSON.parse('[{"RecordID":1,"po_no":"PO100000528","po_date":"01/12/2017","doc_type":"NB","plant":"2160-สำนักงานใหญ่","po_status":1,"purchasing":"สุรพล","start_date":"02/12/2017 08.00","due_date":"31/01/2018 08.00","total_price":"THB88,500","company":"8139 - บจก.แอสเสท เวิรด์","Vendor":"1001159 บจก.โฟนิกซ์","Subject":"ค่าหมึกพิมพ์ HP สำหรับเครื่องพิมพ์แผนกการเงิน"},{"RecordID":2,"po_no":"PO100000553","po_date":"01/12/2017","doc_type":"NB","plant":"2160-สำนักงานใหญ่","po_status":2,"purchasing":"สุรพล","start_date":"02/12/2017 08.00","due_date":"31/01/2018 08.00","total_price":"THB6,800" ,"company":"8017 - บจก.สินทรัพย์","Vendor":"1001022 สินทรัพย์1","Subject":"ค่าอุปกรณ์เครื่องเขียนสำนักงาน"},{"RecordID":3,"po_no":"PO100000566","po_date":"01/12/2017","doc_type":"NB","plant":"2160-สำนักงานใหญ่","po_status":3,"purchasing":"สุรพล","start_date":"02/12/2017 08.00","due_date":"31/01/2018 08.00","total_price":"THB3,200" ,"company":"8139 - บจก.แอสเสท เวิรด์","Vendor":"1001159 บจก.โฟนิกซ์","Subject":"ค่าซ่อมเครื่องถ่ายเอกสาร"},{"RecordID":4,"po_no":"PO100001416","po_date":"01/12/2017","doc_type":"NB","plant":"2160-สำนักงานใหญ่","po_status":1,"purchasing":"สุรพล","start_date":"02/12/2017 08.00","due_date":"31/01/2018 08.00","total_price":"THB126,500","company":"8211 - บจก.จัดการสินทรัพย์","Vendor":"1000881 บจก.ฟีนิกซ์","Subject":"ค่ากระดาษบันทึกรายการ"}]');
-
     datatable = $('.m_datatable').mDatatable({
       // datasource definition
       data: {  
@@ -138,8 +136,41 @@ var myDatatable = function( ) {
       templates: {
         leftArrow: '<i class="la la-angle-left"></i>',
         rightArrow: '<i class="la la-angle-right"></i>'
-      }
+      },
+      // minDate: new Date(),
+      // onSelect: function(dateStr) 
+      // {         
+          // $("#m_form_date_to").datepicker("destroy");
+          // $("#m_form_date_to").val(dateStr);
+          // $("#m_form_date_to").datepicker({ minDate: new Date(dateStr)});
+      //     alert(dateStr);
+      // }
     });
+
+    // $('m_form_date_from').datepicker({
+    //   onSelect: function(formattedDate, date, inst) {
+    //       $(inst.el).trigger('change');
+    //       alert('d');
+    //   }
+    // });
+
+    // $('#m_form_date_from').datepicker()
+    // .on(picker_event, function(e) {
+    //   alert('c');
+    //     // `e` here contains the extra attributes
+    // });
+
+// alert('b');
+  //   $("#from").datepicker({
+  //     defaultDate: new Date(),
+  //     minDate: new Date(),
+  //     onSelect: function(dateStr) 
+  //     {         
+  //         $("#to").datepicker("destroy");
+  //         $("#to").val(dateStr);
+  //         $("#to").datepicker({ minDate: new Date(dateStr)})
+  //     }
+  // });
 
     $('#m_form_date_to').datepicker({
       todayHighlight: true,
@@ -182,4 +213,5 @@ var myDatatable = function( ) {
 function navigate_edit(prId){
   my.namespace.navigate_edit(prId);
 }
+
  

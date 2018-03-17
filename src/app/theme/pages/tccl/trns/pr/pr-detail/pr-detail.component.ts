@@ -20,6 +20,7 @@ import { AttachmentService } from '../../../_services/trns/attachment.service';
 import { WorkflowService } from '../../../_services/trns/workflow.service';
 import { concat } from 'rxjs/observable/concat';
 import { RequestOptions } from '@angular/http';
+import { ADUser } from '../../../_models/masters/aduser';
 
 @Component({
     selector: "trns-pr-detail",
@@ -34,6 +35,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     public canReview: boolean = false;
     public canApprove: boolean = false;
     public canComment: boolean = false;
+    public isWaiting: boolean = false;
     public urlattachment: String = API_ATTACHMENT_GET_DEL;
     public statusName: any = ACTION_NAME;
     public docStatus: Array<any> = C_DOC_STATUS_2;
@@ -116,7 +118,9 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     }
 
     ngOnInit() {
+        super.blockui('#m-content');
         this.loadData();
+        super.unblockui('#m-content');
     }
 
     ngAfterViewInit() {
@@ -229,7 +233,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         super.blockui('#m-content');
 
         workflowaction.outcome = ACTION_NAME.reviewed;
-        workflowaction.outcome_description = $('#txtComment').val().toString();
+        workflowaction.outcome_description = this.action_comment;
 
         console.log(workflowaction);
 
@@ -261,7 +265,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         super.blockui('#m-content');
 
         workflowaction.outcome = ACTION_NAME.approved;
-        workflowaction.outcome_description = $('#txtComment').val().toString();
+        workflowaction.outcome_description = this.action_comment;
 
         // console.log(workflowaction);
 
@@ -291,7 +295,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         super.blockui('#m-content');
 
         workflowaction.outcome = ACTION_NAME.rejected
-        workflowaction.outcome_description = $('#txtComment').val().toString();
+        workflowaction.outcome_description = this.action_comment;
 
         this._workflowService.reject<any>(workflowaction).subscribe(
             resp => {
@@ -320,18 +324,23 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         super.blockui('#m-content');
 
         workflowaction.outcome = ACTION_NAME.waiting;
-        workflowaction.outcome_description = $('#txtComment').val().toString();
+        workflowaction.outcome_description = this.action_comment;
 
         //todo:: add aduser list to workflowaction
         //******** */
-        workflowaction.user_list = null; 
+        workflowaction.user_list = [];
+        var user = {ad_user: $('#m_select_waiting').val().toString(),
+                    ad_username: $("#m_select_waiting :selected").text()} ;
+        console.log(user);
+        workflowaction.user_list.push(user);
         //******** */
 
         console.log(workflowaction);
 
-        this._workflowService.comment<any>(workflowaction).subscribe(
+        this._workflowService.waiting<any>(workflowaction).subscribe(
             resp => {
                 workflowaction = resp;
+                console.log(resp);
                 if (resp.is_error == false) {
                     console.log(resp);
                     super.showsuccess('Update waiting completed');
@@ -357,9 +366,9 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         super.blockui('#m-content');
 
         workflowaction.outcome = ACTION_NAME.commented;
-        workflowaction.outcome_description = $('#txtComment').val().toString();
+        workflowaction.outcome_description = this.action_comment;
 
-        // console.log(workflowaction);
+        console.log(workflowaction);
 
         this._workflowService.comment<any>(workflowaction).subscribe(
             resp => {
@@ -390,7 +399,9 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         workflowaction.workflow_id = this.pr.workflow_id;
         workflowaction.wf_stage_resp_id = this.wf_stage_resp_id;
         workflowaction.actor_user = super.getADUserLogin();
+        // console.log(super.getADUserLogin());
         workflowaction.actor_username = super.getFullNameUserLogin();
+        // console.log(super.getFullNameUserLogin());
         
         switch (this.action_type.toLowerCase().toString()) {
             case 'review':
