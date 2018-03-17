@@ -11987,6 +11987,38 @@ b, strong {
   background-color: #f4516c;
   color: #ffffff; }
 
+/* .m-badge-border
+    weeraya 17/03/2018
+ */
+.m-badge-border {
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #444;
+  font-size: 0.8rem;
+  line-height: 20px;
+  min-height: 20px;
+  min-width: 20px;
+  vertical-align: middle;
+  text-align: center;
+  display: inline-block;
+  padding: 0px 2px; }
+  .m-badge-border.m-badge--wide {
+    letter-spacing: 0.6px;
+    padding: 1px 10px; }
+
+  .m-badge-border.m-badge--success {
+    border: 1px solid #34bfa3;
+    color: #34bfa3; }
+
+  .m-badge-border.m-badge--info {
+    border: 1px solid #36a3f7;
+    color: #36a3f7; }
+
+
 .m-link {
   text-decoration: none;
   position: relative;
