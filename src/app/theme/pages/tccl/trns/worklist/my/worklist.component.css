@@ -1,0 +1,18 @@
+.m-portlet .m-portlet__body--search {
+    background-color: #f2f2f2;
+    padding: 2.2rem 2.2rem; }
+    .m-portlet .m-portlet__body.m-portlet__body--no-padding {
+      padding: 0; }
+    .m-portlet .m-portlet__body.m-portlet__body--no-top-padding {
+      padding-top: 0; }
+    .m-portlet .m-portlet__body.m-portlet__body--no-left-padding {
+      padding-left: 0; }
+    .m-portlet .m-portlet__body.m-portlet__body--no-right-padding {
+      padding-right: 0; }
+
+.nav.nav-pills.nav-pills--brand .nav-link.search {
+    background: #ffb822;
+    color: #ffffff; }
+.nav.nav-pills.nav-pills--brand .nav-link.search i {
+    color: #f0f0f0; }
+      

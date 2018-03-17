@@ -41,255 +41,153 @@
 						</div>
 					</div>
 					<div class="m-portlet__head-tools">
-						<!-- <ul class="m-portlet__nav">
-							<li class="m-portlet__nav-item">
-								<a href=""  data-portlet-tool="toggle" class="m-portlet__nav-link m-portlet__nav-link--icon">
-									<i class="la la-angle-down"></i>
+						<ul class="nav nav-pills nav-pills--brand m-nav-pills--align-right m-nav-pills--btn-pill m-nav-ills--btn-sm" role="tablist">
+							<li class="nav-item m-tabs__item" [ngSwitch]="showSearch">
+								<a *ngSwitchCase="true" class="nav-link m-tabs__link search" (click)="toggleSearch()" data-toggle="toggle" href="#" >
+									<i class="la la-search"></i>Search
+								</a>
+								<a *ngSwitchCase="false" class="nav-link m-tabs__link" (click)="toggleSearch()" data-toggle="toggle" href="#" >
+									<i class="la la-search"></i>Search
 								</a>
 							</li>
-						</ul> -->
-						<ul class="nav nav-pills nav-pills--brand m-nav-pills--align-right m-nav-pills--btn-pill m-nav-ills--btn-sm" role="tablist">
 							<li class="nav-item m-tabs__item">
-								<a class="nav-link m-tabs__link active" data-toggle="tab" href="#m_widget5_tab1_content" role="tab">
+								<a class="nav-link m-tabs__link active" (click)="filter('all')" data-toggle="tab" href="#m_widget5_tab1_content" role="tab">
 									ALL
 								</a>
 							</li>
 							<li class="nav-item m-tabs__item">
-								<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_widget5_tab2_content" role="tab">
+								<a class="nav-link m-tabs__link" (click)="filter('pr')" data-toggle="tab" href="#m_widget5_tab1_content" role="tab">
 									PR
 								</a>
 							</li>
 							<li class="nav-item m-tabs__item">
-								<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_widget5_tab3_content" role="tab">
+								<a class="nav-link m-tabs__link" (click)="filter('po')" data-toggle="tab" href="#m_widget5_tab1_content" role="tab">
 									PO
 								</a>
 							</li>
 							<li class="nav-item m-tabs__item">
-								<a class="nav-link m-tabs__link" data-toggle="tab" href="#m_widget5_tab4_content" role="tab">
+								<a class="nav-link m-tabs__link" (click)="filter('pa')" data-toggle="tab" href="#m_widget5_tab1_content" role="tab">
 									PA
 								</a>
 							</li>
 						</ul>
-						<!-- <a class="nav-link m-tabs__link" href="#" >
-							<i class="fa fa-search"></i>
-							Advance Search
-						</a> -->
+					</div>
+				</div>
+				<div class="m-portlet__body--search "  *ngIf="showSearch">
+					<!--begin: Search Form -->
+					<div class="form-group m-form__group row">
+						<label class="col-lg-2 col-sm-4 col-form-label">
+							Doc No. / Subject:
+						</label>
+						<div class="col-lg-4 col-sm-8" >
+							<input type="text" maxlength="20" class="form-control m-input" [(ngModel)]="m_text_search" (ngModelChange)="setFilteredItems()" name="m_text_search" id="m_text_search">
+						</div>
+						<label class="col-lg-2 col-sm-4 col-form-label">
+							Doc Type:
+						</label>
+						<div class="col-lg-4 col-sm-8 ">
+							<select class="form-control m-input" [(ngModel)]="m_list_doctype" (change)="setFilteredItems()" name="m_list_doctype" id="m_list_doctype">
+								<option value="">
+									All
+								</option>
+								<ng-container *ngFor="let row of doctypeList; let index = index">
+									<option value="{{row.doc_type_code}}">
+										{{row.doc_type_desc}}
+									</option>
+								</ng-container>
+							</select>
+						</div>
+					</div>
+					<div class="form-group m-form__group row">
+						<label class="col-lg-2 col-sm-4 col-form-label">
+							Company:
+						</label>
+						<div class="col-lg-4 col-sm-8">
+							<select class="form-control m-input" [(ngModel)]="m_list_company" (change)="setFilteredItems()" name="m_list_company" id="m_list_company">
+								<option value="">
+									All
+								</option>
+								<ng-container *ngFor="let row of companyList; let index = index">
+									<option value="{{row.comp_code}}">
+										{{row.comp_name}}
+									</option>
+								</ng-container>
+							</select>
+						</div>
+						<label class="col-lg-2 col-sm-4 col-form-label">
+							Plant:
+						</label>
+						<div class="col-lg-4 col-sm-8">
+							<select class="form-control m-input" [(ngModel)]="m_list_plant" (change)="setFilteredItems()" name="m_list_plant" id="m_list_plant">
+								<option value="">
+									All
+								</option>
+								<ng-container *ngFor="let row of plantList; let index = index">
+									<option value="{{row.plant_code}}">
+										{{row.plant_name}}
+									</option>
+								</ng-container>
+							</select>
+						</div>
 					</div>
 				</div>
 				<div class="m-portlet__body">
-					<!--begin::Advance Search-->
-					<!-- <div id="m_adv_search" style="display: none;">
-					</div> -->
-					<!--end::Advance Search-->
-
 					<!--begin::Content-->
 					<div class="tab-content">
 						<div class="tab-pane active" id="m_widget5_tab1_content" aria-expanded="true">
 							<!--begin::m-widget5-->
 							<div class="m-widget5">
-								<div class="m-widget5__item" *ngFor="let row of myworklists; let index = index" (click)="navigate(row.name,row.doc_id)" onmouseover="/*this.style.fontWeight='bold';*/ this.style.cursor='pointer';" onmouseout="/*this.style.fontWeight='normal'*/">
-									<div class="m-widget5__pic" [ngSwitch]="row.name">
-										<img *ngSwitchCase="'PR'" class="m-widget7__img" src="./assets/app/media/img/logos/pr.png" alt="">
-										<img *ngSwitchCase="'PO'" class="m-widget7__img" src="./assets/app/media/img/logos/po.png" alt="">
-										<img *ngSwitchCase="'PA'" class="m-widget7__img" src="./assets/app/media/img/logos/pa.png" alt="">
-										<img *ngSwitchDefault class="m-widget7__img" src="./assets/app/media/img/logos/pr.png" alt="">
-									</div>
-									<div class="m-widget5__content">
-										<h4 class="m-widget5__title">
-											<a href="#" >{{row.name}}{{row.doc_no}}</a>
-											<span class="m-widget5__info-date m--font-info">
-												{{row.doc_date | date :'dd/MM/yyyy'}}
+								<ng-container *ngFor="let row of myworklists; let index = index" [ngSwitch]="row.name">
+									<div class="m-widget5__item" *ngIf="(row.name=='PR' && showPR) || (row.name=='PO' && showPO) || (row.name=='PA' && showPA) " (click)="navigate(row.name,row.doc_id)" onmouseover="this.style.cursor='pointer'; ">
+										<div class="m-widget5__pic" >
+											<img *ngSwitchCase="'PR'" class="m-widget7__img" src="./assets/app/media/img/logos/pr.png" alt="">
+											<img *ngSwitchCase="'PO'" class="m-widget7__img" src="./assets/app/media/img/logos/po.png" alt="">
+											<img *ngSwitchCase="'PA'" class="m-widget7__img" src="./assets/app/media/img/logos/pa.png" alt="">
+											<img *ngSwitchDefault class="m-widget7__img" src="./assets/app/media/img/logos/pr.png" alt="">
+										</div>
+										<div class="m-widget5__content">
+											<h4 class="m-widget5__title">
+												<a href="#" >{{row.name}}{{row.doc_no}}</a>
+												<span class="m-widget5__info-date m--font-info">
+													{{row.doc_date | date :'dd/MM/yyyy'}}
+												</span>
+											</h4>
+											<div class="m-widget5__info">
+												<span class="m-widget5__author">
+													{{row.comp_code}}-{{row.comp_name}}
+												</span>
+											</div>
+											<div class="m-widget5__info">
+												<span class="m-widget5__author">
+													{{row.plant_code}}-{{row.plant_name}}
+												</span>
+											</div>
+											<span class="m-widget5__desc">
+												Subject: {{row.subject}}
+											</span>	
+										</div>
+										<div class="m-widget5__stats1">
+											<span class="m-widget5__number">
+												{{row.grand_total | number:'1.2'}}
 											</span>
-										</h4>
-										<div class="m-widget5__info">
-											<span class="m-widget5__author">
-												{{row.comp_code}}-{{row.comp_name}}
+											<br>
+											<span class="m-widget5__sales">
+												{{row.currency}}
 											</span>
 										</div>
-										<div class="m-widget5__info">
-											<span class="m-widget5__author">
-												{{row.plant_code}}-{{row.plant_name}}
+										<div class="m-widget5__stats2">
+											<span class="m-widget5__number" >
+												<span class={{docStatus[row.c_doc_status].displayclass}}>{{docStatus[row.c_doc_status].name}}</span>
+											</span>
+											<br>
+											<span class="m-widget5__votes">
 											</span>
 										</div>
-										<span class="m-widget5__desc">
-											Subject: {{row.subject}}
-										</span>	
 									</div>
-									<div class="m-widget5__stats1">
-										<span class="m-widget5__number">
-											{{row.grand_total | number:'1.2'}}
-										</span>
-										<br>
-										<span class="m-widget5__sales">
-											{{row.currency}}
-										</span>
-									</div>
-									<div class="m-widget5__stats2">
-										<span class="m-widget5__number" >
-											<span class={{docStatus[row.c_doc_status].displayclass}}>{{docStatus[row.c_doc_status].name}}</span>
-										</span>
-										<br>
-										<span class="m-widget5__votes">
-										</span>
-									</div>
-								</div>
+								</ng-container>
 							</div>
 							<!--end::m-widget5-->
-						</div>
-						<div class="tab-pane" id="m_widget5_tab2_content" aria-expanded="false">
-							<!--begin::m-widget5-->
-							<div class="m-widget5">
-								<div class="m-widget5__item" *ngFor="let row of myprs; let index = index">
-									<div class="m-widget5__pic" >
-										<img class="m-widget7__img" src="./assets/app/media/img/logos/pr.png" alt="">
-									</div>
-									<div class="m-widget5__content">
-										<h4 class="m-widget5__title">
-											{{row.name}}{{row.doc_no}}
-											<span class="m-widget5__info-date m--font-info">
-												{{row.doc_date | date :'dd/MM/yyyy'}}
-											</span>
-										</h4>
-										<div class="m-widget5__info">
-											<span class="m-widget5__author">
-												{{row.comp_code}}-{{row.comp_name}}
-											</span>
-										</div>
-										<div class="m-widget5__info">
-											<span class="m-widget5__author">
-												{{row.plant_code}}-{{row.plant_name}}
-											</span>
-										</div>
-										<span class="m-widget5__desc">
-											Subject: {{row.subject}}
-										</span>	
-									</div>
-									<div class="m-widget5__stats1">
-										<span class="m-widget5__number">
-											{{row.grand_total | number:'1.2'}}
-										</span>
-										<br>
-										<span class="m-widget5__sales">
-											{{row.currency}}
-										</span>
-									</div>
-									<div class="m-widget5__stats2">
-										<span class="m-widget5__number" >
-											<span class={{docStatus[row.c_doc_status].displayclass}}>{{docStatus[row.c_doc_status].name}}</span>
-										</span>
-										<br>
-										<span class="m-widget5__votes">
-										</span>
-									</div>
-								</div>
-							</div>
-							<!--end::m-widget5-->
-						</div>
-						<div class="tab-pane" id="m_widget5_tab3_content" aria-expanded="false">
-							<!--begin::m-widget5-->
-							<div class="m-widget5">
-								<div class="m-widget5__item" *ngFor="let row of mypos; let index = index">
-									<div class="m-widget5__pic" >												
-										<img class="m-widget7__img" src="./assets/app/media/img/logos/po.png" alt="">
-									</div>
-									<div class="m-widget5__content">
-										<h4 class="m-widget5__title">
-											{{row.name}}{{row.doc_no}}
-											<span class="m-widget5__info-date m--font-info">
-												{{row.doc_date | date :'dd/MM/yyyy'}}
-											</span>
-										</h4>
-										<div class="m-widget5__info">
-											<span class="m-widget5__author">
-												{{row.comp_code}}-{{row.comp_name}}
-											</span>
-										</div>
-										<div class="m-widget5__info">
-											<span class="m-widget5__author">
-												{{row.plant_code}}-{{row.plant_name}}
-											</span>
-										</div>
-										<span class="m-widget5__desc">
-											Subject: {{row.subject}}
-										</span>	
-									</div>
-									<div class="m-widget5__stats1">
-										<span class="m-widget5__number">
-											{{row.grand_total | number:'1.2'}}
-										</span>
-										<br>
-										<span class="m-widget5__sales">
-											{{row.currency}}
-										</span>
-									</div>
-									<div class="m-widget5__stats2">
-										<span class="m-widget5__number" [ngSwitch]="row.c_doc_status">
-											<span *ngSwitchCase="1" class="m-badge m-badge--warning m-badge--wide">Wait Review</span>
-											<span *ngSwitchCase="2" class="m-badge m-badge--info m-badge--wide">Wait Approve</span>
-											<span *ngSwitchCase="3" class="m-badge m-badge--brand m-badge--wide">Approved</span>
-											<span *ngSwitchCase="4" class="m-badge m-badge--danger m-badge--wide">Rejected</span>
-											<span *ngSwitchDefault class="m-badge m-badge--warning m-badge--wide">N/A</span>
-										</span>
-										<br>
-										<span class="m-widget5__votes">
-										</span>
-									</div>
-								</div>
-							</div>
-							<!--end::m-widget5-->
-						</div>
-						<div class="tab-pane" id="m_widget5_tab4_content" aria-expanded="false">
-							<!--begin::m-widget5-->
-							<div class="m-widget5">
-								<div class="m-widget5__item" *ngFor="let row of mypas; let index = index">
-									<div class="m-widget5__pic" >												
-										<img class="m-widget7__img" src="./assets/app/media/img/logos/pa.png" alt="">
-									</div>
-									<div class="m-widget5__content">
-										<h4 class="m-widget5__title">
-											{{row.name}}{{row.doc_no}}
-											<span class="m-widget5__info-date m--font-info">
-												{{row.doc_date | date :'dd/MM/yyyy'}}
-											</span>
-										</h4>
-										<div class="m-widget5__info">
-											<span class="m-widget5__author">
-												{{row.comp_code}}-{{row.comp_name}}
-											</span>
-										</div>
-										<div class="m-widget5__info">
-											<span class="m-widget5__author">
-												{{row.plant_code}}-{{row.plant_name}}
-											</span>
-										</div>
-										<span class="m-widget5__desc">
-											Subject: {{row.subject}}
-										</span>	
-									</div>
-									<div class="m-widget5__stats1">
-										<span class="m-widget5__number">
-											{{row.grand_total | number:'1.2'}}
-										</span>
-										<br>
-										<span class="m-widget5__sales">
-											{{row.currency}}
-										</span>
-									</div>
-									<div class="m-widget5__stats2">
-										<span class="m-widget5__number" >
-											<span class={{docStatus[row.c_doc_status].displayclass}}>{{docStatus[row.c_doc_status].name}}</span>
-										</span>
-										<br>
-										<span class="m-widget5__votes">
-										</span>
-									</div>
-								</div>
-							</div>
-							<!--end::m-widget5-->
-						</div>				
-					
-	
-
+						</div>			
 					</div>
 					<!--end::Content-->
 				</div>

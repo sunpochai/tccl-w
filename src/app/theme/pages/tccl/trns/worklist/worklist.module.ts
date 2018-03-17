@@ -10,6 +10,9 @@ import { LayoutModule } from '../../../../layouts/layout.module';
 import { AlertService } from '../../../../../auth/_services/index';
 import { WorklistComponent } from './my/worklist.component';
 import { WorklistService } from '../../_services/trns/worklist.service';
+import { DocTypeService } from '../../_services/masters/doctype.service';
+import { CompanyService } from '../../_services/masters/company.service';
+import { PlantService } from '../../_services/masters/plant.service';
 
 const routes: Routes = [
     {
@@ -33,6 +36,9 @@ const routes: Routes = [
         WorklistComponent
     ], providers: [
         WorklistService,
+        DocTypeService,
+        CompanyService,
+        PlantService,
         FormBuilder
     ]
 })
