@@ -478,7 +478,7 @@
 								<span *ngSwitchCase="statusName.reviewed" class="m-badge m-badge--info m-badge--wide">{{row.activity}}</span>
 								<span *ngSwitchCase="statusName.approved" class="m-badge m-badge--success m-badge--wide">{{row.activity}}</span>
 								<span *ngSwitchCase="statusName.rejected" class="m-badge m-badge--danger m-badge--wide">{{row.activity}}</span>
-								<span *ngSwitchDefault class="m-badge m-badge--metal m-badge--wide">{{row.activity}}</span>
+								<span *ngSwitchDefault class="m-badge-border m-badge--info m-badge--wide ">{{row.activity}}</span>
 							</div>
 						</div>
 						<!--end::Widget 14 Item-->
@@ -525,6 +525,28 @@
 						</div>
 					</div>
 				</div>
+				<div class="form-group m-form__group" *ngIf="canApprove">
+					<div class="m-checkbox-inline">
+						<label class="m-checkbox">
+							<input type="checkbox" [(ngModel)]="isWaiting" name="chkWaiting" >
+							Waiting
+							<span></span>
+						</label>
+					</div>
+				</div>
+				<div class="form-group m-form__group" *ngIf="isWaiting">
+					<label for="m_select_waiting">
+						Send request to:
+					</label>
+					<select [required]="isWaiting" class="form-control m-input" id="m_select_waiting" name="param">
+						<option></option>
+						<option value="sanchaip">Sanchai P</option>
+						<option value="weeraya">Weeraya L</option>
+						<option value="tmp1">Temp Name 1</option>
+						<option value="tmp2">Temp Name 2</option>
+						<option value="tmp3">Temp Name 3</option>
+					</select>
+				</div>
 				<div class="form-group m-form__group">
 					<label for="exampleTextarea">
 						Comment:
@@ -544,13 +566,13 @@
 							<button type="button" [disabled]="heroForm.invalid" class="btn btn-info" (click)="prepareAction('Review')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canReview">
 								Review 
 							</button>
-							<button type="button" [disabled]="heroForm.invalid" class="btn btn-success" (click)="prepareAction('Approve')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+							<button type="button" [disabled]="isWaiting || heroForm.invalid" class="btn btn-success" (click)="prepareAction('Approve')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
 								Approve 
 							</button>
-							<button type="button" [disabled]="heroForm.invalid" class="btn btn-danger" (click)="prepareAction('Reject')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+							<button type="button" [disabled]="isWaiting || heroForm.invalid" class="btn btn-danger" (click)="prepareAction('Reject')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
 								Reject 
 							</button>
-							<button type="button" [disabled]="heroForm.invalid" class="btn btn-warning" (click)="prepareAction('Waiting')" data-toggle="modal" data-target="#m_modal_waiting" *ngIf="canApprove">
+							<button type="button" [disabled]="isWaiting==false || heroForm.invalid" class="btn btn-warning" (click)="prepareAction('Waiting')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
 								Waiting 
 							</button>
 							<button type="button" [disabled]="heroForm.invalid" class="btn btn-info" (click)="prepareAction('Comment')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canComment">
