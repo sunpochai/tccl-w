@@ -73,6 +73,9 @@ export class CompanyDetailComponent extends PageBaseComponent implements OnInit,
         this.company.create_user = super.getADUserLogin();
         this.company.create_username = super.getFullNameUserLogin();
         this.company.create_datetime = new Date();
+        this.company.update_user = super.getADUserLogin();
+        this.company.update_username = super.getFullNameUserLogin();
+        this.company.update_datetime = this.company.create_datetime;
         this._companyService.create<Company>(this.company).subscribe(resp => {
             this.company = resp;
             super.showsuccess(this.company.comp_code + ' create complete');

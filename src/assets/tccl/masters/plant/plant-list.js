@@ -50,15 +50,15 @@ var myDatatable = function( ) {
 
       columns: [
         {
-          field: 'doc_type_code',
-          title: 'Doc Type Code',
+          field: 'plant_code',
+          title: 'Plant Code',
           width: 150,
           selector: false,
           textAlign: 'center',
           sortable: 'asc'
         }, {   
-          field: 'doc_type_desc',
-          title: 'Description',
+          field: 'plant_name',
+          title: 'Plant Name',
           sortable: true,
           filterable: false,
         } , {
@@ -78,10 +78,10 @@ var myDatatable = function( ) {
           sortable: false,
           overflow: 'visible',
           template: function (row, index, datatable) {
-            return '\<a   href="javascript:navigate_edit(\''+ row.doc_type_code +'\')"  class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit details">\
+            return '\<a   href="javascript:navigate_edit(\''+ row.plant_code +'\')"  class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit details">\
               <i class="la la-edit"></i>\
             </a>\
-            <a href="#" onclick="javascript:selectdel(\''+ row.doc_type_code +'\');return false;" data-toggle="modal" data-target="#m_modal_6" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Delete">\
+            <a href="#" onclick="javascript:selectdel(\''+ row.plant_code +'\');return false;" data-toggle="modal" data-target="#m_modal_6" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Delete">\
               <i class="la la-trash"></i>\
             </a>\
             ';

@@ -17,6 +17,9 @@ export const API_DOCTYPE_GET_PUT_DEL: string = API_BASE_URL + '/api/doctype'
 export const API_DOCTYPE_INSERT: string = API_BASE_URL + '/api/doctype/insert'
 
 export const API_PLANT_GETALL: string = API_BASE_URL + '/api/plant/getall' //list all item (use with dropdown)
+export const API_PLANT_LIST: string = API_BASE_URL + '/api/plant/list'
+export const API_PLANT_GET_PUT_DEL: string = API_BASE_URL + '/api/plant'
+export const API_PLANT_INSERT: string = API_BASE_URL + '/api/plant/insert'
 
 export const API_TRACKING_LIST: string = API_BASE_URL + '/api/tracking/list'
 export const API_TRACKING_SEARCH: string = API_BASE_URL + '/api/tracking/list2'

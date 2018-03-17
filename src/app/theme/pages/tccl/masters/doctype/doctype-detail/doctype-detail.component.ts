@@ -48,15 +48,12 @@ export class DocTypeDetailComponent extends PageBaseComponent implements OnInit,
                 console.log(this.doctype);
                 super.unblockui('#m_form_1');
             });
-
         } else {
             this.doctype = new DocType();
             this.action_type = 'add';
             // console.log(this.doctype);
             super.unblockui('#m_form_1');
         }
-
-        
     }
 
     ngAfterViewInit() {
@@ -69,6 +66,9 @@ export class DocTypeDetailComponent extends PageBaseComponent implements OnInit,
         this.doctype.create_user = super.getADUserLogin();
         this.doctype.create_username = super.getFullNameUserLogin();
         this.doctype.create_datetime = new Date();
+        this.doctype.update_user = super.getADUserLogin();
+        this.doctype.update_username = super.getFullNameUserLogin();
+        this.doctype.update_datetime = this.doctype.create_datetime;
         this._docTypeService.create<DocType>(this.doctype).subscribe(resp => {
             this.doctype = resp;
             super.showsuccess(this.doctype.doc_type_code + ' create complete');

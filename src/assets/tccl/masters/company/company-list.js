@@ -62,14 +62,14 @@ var myDatatable = function( ) {
           sortable: true,
           filterable: false,
         } , {
-          field: 'create_user',
-          title: 'Create User' 
+          field: 'update_user',
+          title: 'Last Update User' 
         } , {
-          field: 'create_datetime',
-          title: 'Create Date',
+          field: 'update_datetime',
+          title: 'Last Update Date',
           type: 'datetime',
           template: function(row) {
-            return toDisplayDateTime(row.create_datetime);
+            return toDisplayDateTime(row.update_datetime);
           }
         } , {
           field: 'Actions',

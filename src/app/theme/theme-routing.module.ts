@@ -22,6 +22,10 @@ const routes: Routes = [
                 "loadChildren": ".\/pages\/tccl\/masters\/company\/company.module#CompanyModule"
             },
             {
+                "path": "masters\/plant",
+                "loadChildren": ".\/pages\/tccl\/masters\/plant\/plant.module#PlantModule"
+            },
+            {
                 "path": "masters\/doctype",
                 "loadChildren": ".\/pages\/tccl\/masters\/doctype\/doctype.module#DocTypeModule"
             },
