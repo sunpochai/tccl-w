@@ -1,4 +1,28 @@
-.xx{
-    height: 115px;
-    width: 20px;
+card-dimensions {
+    height: 162px;
+    width: 23%;
+}
+
+
+.card-container {
+    justify-content: start;
+}
+.search-drop-down {
+    position: absolute;
+    width: 80%;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 10;
+    background-color: #F6F6F6;
+ /*  font-family: sans-serif; */
+    opacity: 0.98;
+}
+
+.search-results {
+    padding: 10px;
+}
+
+.search-results:hover {
+    background: #707070;
+    color: aliceblue;
 }

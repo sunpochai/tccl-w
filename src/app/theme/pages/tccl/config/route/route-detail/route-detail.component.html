@@ -78,51 +78,22 @@
 					</label>
 					      
 					<div class="col-lg-4 col-sm-8">
-<<<<<<< HEAD
-						 
-									<select   class="form-control m-select2"  [(ngModel)]="routeapprove.tracking_no" name="tracking_no"  id="m_select2_6" >
-								<option></option>
-							</select>
-  
+							<div class="width-half">
+									 
+								 
+											<input required id='search' placeholder="Search for a tracking code"   
+											 class=' form-control m-input' [(ngModel)]="textSearchTrackCode" name="tracking_no" type='text' (ngModelChange)="onChangeSearchTracking($event);"  >
+										  <div clickOutside (clickOutside)="closeDropDown()">
+										  <div  *ngIf="showDropDown" class='search-drop-down card'>
+											<div (click)='selectTrackingValue(s)' class='search-results ' *ngFor="let s of this.trackingList ">
+											  				{{s.tracking_code}}:{{s.tracking_name}}
+													 
+											</div>
+										</div>
+									</div>
+								</div>  
 						</div>
-						    
-							 
-						      
-			   			<!-- 		<div class="col-lg-4 col-sm-8">
-					 
-										<select required class="form-control m-input" [(ngModel)]="routeapprove.tracking_no" name="tracking_no">
-											<option value="3360-IT" >
-												3360-IT
-											</option>
-											<option value="1010-AC-IN" >
-												1010-AC-IN
-											</option>
-											<option value="1010-AC-LO" >
-												1010-AC-LO
-											</option>
-										</select>
-									</div> -->
-					 
-=======
-						<select  class="form-control m-input "  [(ngModel)]="routeapprove.tracking_no" name="tracking_no"  id="m_select2_6" >
-							<option></option>
-						</select>
-					</div>
-		<!-- 		<div class="col-lg-4 col-sm-8">
-		
-						<select required class="form-control m-input" [(ngModel)]="routeapprove.tracking_no" name="tracking_no">
-							<option value="3360-IT" >
-								3360-IT
-							</option>
-							<option value="1010-AC-IN" >
-								1010-AC-IN
-							</option>
-							<option value="1010-AC-LO" >
-								1010-AC-LO
-							</option>
-						</select>
-					</div> -->
->>>>>>> 1391b92c0855924dbf9fe13356d8feb1e142fc7c
+						 
 				</div>
 				<div class="form-group m-form__group row" >
 					<label class="col-form-label col-lg-2 col-sm-4">
@@ -334,14 +305,18 @@
                                 Approver name:
                             </label>
                             <div class="col-lg-9 col-sm-9">
-                                <select class="form-control m-input" id="m_select_approver" name="param">
-                                    <option></option>
-                                    <option value="tcc\sanchaip">Sanchai Pochai</option>
-									<option value="tcc\weeraya">Krataiinoi</option>
-									<option value="tcc\tmp1">Temp Name 1</option>
-									<option value="tcc\tmp2">Temp Name 2</option>
-									<option value="tcc\tmp3">Temp Name 3</option>
-                                </select>
+									<div class="width-half">
+									  	<input required id='searchuser' placeholder="Search for a user"   
+											 class=' form-control m-input' [(ngModel)]="textSearchUser" name="user" type='text' (ngModelChange)="onChangeSearchUser($event);"  >
+										  <div clickOutside (clickOutside)="closeDropDown()">
+										  <div  *ngIf="showDropDown" class='search-drop-down card'>
+											<div (click)='selectUserValue(s)' class='search-results ' *ngFor="let s of this.userList ">
+											  				 {{s.fullname}}
+													 
+											</div>
+										</div>
+									</div>
+								</div>  
                             </div>
                         </div>
                     </div>

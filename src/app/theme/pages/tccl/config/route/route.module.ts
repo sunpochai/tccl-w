@@ -1,4 +1,5 @@
-import { FormBuilder } from '@angular/forms';
+import { ClickOutsideDirective } from './../../../../../_directives/dropdown.directive';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 import {
     FormsModule
@@ -17,6 +18,11 @@ import { AlertService } from '../../../../../auth/_services/index';
 import { RouteApproveService } from '../../_services/config/routeapprove.service';
 import { DocTypeService } from '../../_services/masters/doctype.service';
 import { TrackingService } from '../../_services/masters/tracking.service';
+import { SearchFilterPipe } from '../../../../../_pipe/filter-pipe';
+import { LetterBoldPipe } from '../../../../../_pipe/letter-bold.pipe';
+import { UserService } from '../../../../../auth/_services/user.service';
+import { ADUserService } from '../../_services/masters/aduser.service';
+ 
 
 const routes: Routes = [
     {
@@ -35,17 +41,18 @@ const routes: Routes = [
 ];
 @NgModule({
     imports: [
-        CommonModule, RouterModule.forChild(routes), LayoutModule, HttpModule, FormsModule
+        CommonModule, RouterModule.forChild(routes), LayoutModule, HttpModule,ReactiveFormsModule, FormsModule
     ], exports: [
         RouterModule
-    ], declarations: [
+    ], declarations: [  
         RouteApproveListComponent,
-        RouteApproveDetailComponent
+        RouteApproveDetailComponent,ClickOutsideDirective,SearchFilterPipe,LetterBoldPipe
     ], providers: [
-        RouteApproveService,
-        DocTypeService,
+        RouteApproveService,  
+        DocTypeService,  
         TrackingService,
-        FormBuilder
+        ADUserService,
+        FormBuilder 
     ]
 })
 export class RouteApproveModule {

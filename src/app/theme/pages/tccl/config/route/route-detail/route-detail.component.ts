@@ -7,7 +7,7 @@ import { Tracking } from '../../../_models/masters/tracking';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Company } from '../../../_models/masters/company';
 import {
-    FormGroup,
+    FormGroup,  
     FormBuilder,
     Validators,
     FormControl
@@ -20,8 +20,10 @@ import { DocTypeService } from '../../../_services/masters/doctype.service';
 import { RouteApproveDetail } from '../../../_models/config/routeapprovedetail';
 import { forEach } from '@angular/router/src/utils/collection';
 import { TrackingService } from '../../../_services/masters/tracking.service';
+import { UserService } from '../../../../../../auth/_services';
+import { ADUserService } from '../../../_services/masters/aduser.service';
+import { Subject } from 'rxjs';
 
-declare var AutoCompleteControl:any;
 
  
 
@@ -33,24 +35,51 @@ declare var AutoCompleteControl:any;
 })
 
 export class RouteApproveDetailComponent extends PageBaseComponent implements OnInit, AfterViewInit {
-    private form: FormGroup;
+    private stateForm: FormGroup;
     private routeapprove: RouteApprove;
     private id: any;
     private routetype: any;
     private doctypeList: Array<DocType>;
     private priceoverpr_yes: boolean;
     private priceoverpr_no: boolean;
-    private tackingList : any;
+    private trackingList : any;
+    private userList : any;
+    private textSearchTrackCode:string;
+    private textSearchUser:string;
+
+    private action_type: any;
+    private action_item: any;
+    private action_index: any;
+
+    private txtSearchTrackingChanged:Subject<string> = new Subject<string>();
+    private txtAdUserSelected;
+    private txtAdUserNameSelected;
+
+    private txtSearchUserChanged:Subject<string> = new Subject<string>();
+    
+    
+    showDropDown = false;
     constructor(private _script: ScriptLoaderService,
         private _router: Router, private route: ActivatedRoute,
         private _routeapproveService: RouteApproveService,
         private _doctypeService: DocTypeService,
         private formBuilder: FormBuilder,
-        private _trackingService:TrackingService) {
+        private _trackingService:TrackingService,
+        private _adUserService:ADUserService) {
         super();
+       
+        this.txtSearchUserChanged.debounceTime(500).distinctUntilChanged().subscribe(md=>{
+                this.textSearchUser  = md;
+                this.searchUser(md);
+        })
+
+        this.txtSearchTrackingChanged.debounceTime(500).distinctUntilChanged().subscribe(md=>{
+            this.textSearchTrackCode  = md;
+            this.searchTracking(md);
+    })
     }
 
-  
+   
     ngOnInit() {
         super.blockui('#m_form_1');
 
@@ -90,7 +119,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
 
                 this.priceoverpr_yes = (this.routeapprove.price_over_pr_flag == 'A' || this.routeapprove.price_over_pr_flag == 'Y');
                 this.priceoverpr_no = (this.routeapprove.price_over_pr_flag == 'A' || this.routeapprove.price_over_pr_flag == 'N');
-
+                this.textSearchTrackCode = this.routeapprove.tracking_no;
                 console.log(this.routeapprove);
                 // console.log(this.routetype);
             });
@@ -104,12 +133,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     ngAfterViewInit() {
         this._script.loadScripts('config-route-detail',
             ['assets/tccl/config/route/route-detail.js']);
-
-            jQuery(document).ready(function() {
-                  
-                AutoCompleteControl.load(API_TRACKING_GET_PUT_DEL);
-            });
-          
+ 
             }
 
     save() {
@@ -200,26 +224,47 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     }
 
     prepareAddApprover() {
-        $('#m_select_approver').val('');
-        $('#m_approver_action').val('');
-        $('#m_approver_action_row_index').val('');
+        console.log('prepareadd');
+        this.action_type = 'add';
+        this.action_item = '';
+        this.action_index = '';
+        this.textSearchUser = '';
+        // $('#m_select_approver').val('');
+        // $('#m_approver_action').val('');
+        // $('#m_approver_action_row_index').val('');
     }
 
     prepareEditApprover(rowIndex: number) {
-        $('#m_select_approver').val(this.routeapprove.cf_route_detail[rowIndex].ad_user);
-        $('#m_approver_action').val('edit');
-        $('#m_approver_action_row_index').val(rowIndex);
+        console.log(rowIndex);
+        console.log('prepareedit');
+        this.action_type = 'edit';
+        console.log(this.routeapprove.cf_route_detail);
+        this.action_item = this.routeapprove.cf_route_detail[rowIndex].ad_user;
+        this.action_index = rowIndex;
+        // $('#m_select_approver').val(this.routeapprove.cf_route_detail[rowIndex].ad_user);
+        // $('#m_approver_action').val('edit');
+        // $('#m_approver_action_row_index').val(rowIndex);
     }
 
     approverAction() {
-        if ($('#m_approver_action').val().toString() == "edit") {
-            this.editApprover(parseInt($('#m_approver_action_row_index').val().toString()));
-            console.log(parseInt($('#m_approver_action_row_index').val().toString()));
+        console.log('approveraction');
+
+        if (this.action_type == "edit") {
+            this.editApprover(parseInt(this.action_index));
+            console.log(parseInt(this.action_index));
             console.log('edit approver');
         } else {
             this.addApprover();
             console.log('add approver');
         }
+        // if ($('#m_approver_action').val().toString() == "edit") {
+        //     this.editApprover(parseInt($('#m_approver_action_row_index').val().toString()));
+        //     console.log(parseInt($('#m_approver_action_row_index').val().toString()));
+        //     console.log('edit approver');
+        // } else {
+        //     this.addApprover();
+        //     console.log('add approver');
+        // }
     }
 
     addApprover() {
@@ -230,7 +275,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
         } else {
 
             for (let row of this.routeapprove.cf_route_detail) {
-                if (row.ad_user == $('#m_select_approver').val().toString())  {
+                if (row.ad_user == this.action_item)  {
                 // console.log(row); // 1, "string", false
                     super.showError('Duplicate approver name');
                     super.blockui('#m-content');
@@ -244,9 +289,11 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
         approver.route_d_id = null;
         
         approver.route_level = this.routeapprove.cf_route_detail.length + 1;
-        approver.ad_user = $('#m_select_approver').val().toString();
-        approver.ad_username = $("#m_select_approver :selected").text();
-        console.log($("#m_select_approver :selected").text());
+       // approver.ad_user = $('#m_select_approver').val().toString();
+       // approver.ad_username = $("#m_select_approver :selected").text();
+        approver.ad_user = this.txtAdUserSelected;
+        approver.ad_username = this.txtAdUserNameSelected;
+     
         approver.create_user = super.getADUserLogin();
         approver.create_username = super.getFullNameUserLogin();
         approver.create_datetime = new Date();
@@ -260,13 +307,16 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     editApprover(rowIndex: number) {
         super.blockui('#m-content');
 
-        this.routeapprove.cf_route_detail[rowIndex].ad_user = $('#m_select_approver').val().toString();//'tcc\\sanchaip';
-        this.routeapprove.cf_route_detail[rowIndex].ad_username = $("#m_select_approver :selected").text();
+        this.routeapprove.cf_route_detail[rowIndex].ad_user = this.txtAdUserSelected;
+        this.routeapprove.cf_route_detail[rowIndex].ad_username = this.txtAdUserNameSelected;
+     
+       // this.routeapprove.cf_route_detail[rowIndex].ad_user = $('#m_select_approver').val().toString();//'tcc\\sanchaip';
+       // this.routeapprove.cf_route_detail[rowIndex].ad_username = $("#m_select_approver :selected").text();
         this.routeapprove.cf_route_detail[rowIndex].create_user = super.getADUserLogin();
         this.routeapprove.cf_route_detail[rowIndex].create_username = super.getFullNameUserLogin();
         this.routeapprove.cf_route_detail[rowIndex].create_datetime = new Date();
 
-        super.unblockui('#m-content');
+        super.unblockui('#m-content');  
     }
 
     removeApprover(rowIndex: number) {
@@ -296,11 +346,50 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
 
 
     
-    searchemp(obj) {
-         
-       this._trackingService.search('').subscribe(x=>  {
-        console.log(x);
-        this.tackingList =x
-       });
+    searchTracking(search) {
+        if(search.length < 2) return;
+        console.log("search >>" + search);
+         this.showDropDown = true;
+         this._trackingService.search(this.textSearchTrackCode).subscribe(x=>  {
+         this.trackingList = x
+       });  
     }
+   
+    searchUser(search) {
+        if(search.length < 2) return;
+        console.log("search >>" + search);
+        this.showDropDown = true;
+        this._adUserService.search(search).subscribe(x=>  {
+         this.userList = x
+       });  
+    }
+
+    onChangeSearchTracking(event){
+          console.log(event);
+          this.txtSearchTrackingChanged.next(event);
+    }
+    onChangeSearchUser(event){
+          console.log(event);
+          this.txtSearchUserChanged.next(event);
+    }
+
+    selectTrackingValue(value) {
+        this.textSearchTrackCode = value.tracking_code 
+        this.routeapprove.tracking_no = value.tracking_code;
+        
+        this.showDropDown = false;
+    }
+      
+    selectUserValue(value) {
+        this.textSearchUser = value.fullname 
+        this.txtAdUserSelected = value.ad_user;
+        this.txtAdUserNameSelected = value.fullname;
+        this.showDropDown = false;
+    }
+    
+      closeDropDown() {
+        this.showDropDown = false;
+      }
+    
+
 }

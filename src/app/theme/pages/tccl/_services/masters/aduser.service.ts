@@ -1,3 +1,4 @@
+import { API_USER_LIST } from './../../../../../app-constants';
 import { Injectable } from "@angular/core";
 import { Http, Response } from "@angular/http";
 import "rxjs/add/operator/map";
@@ -5,7 +6,7 @@ import { API_COMPANY_LIST, API_TRACKING_SEARCH } from "../../../../../app-consta
 import { TokenBaseService } from "../tokenbase.service";
 
 @Injectable()
-export class TrackingService extends TokenBaseService {
+export class ADUserService extends TokenBaseService {
 
     constructor(private http: Http) {
         super();
@@ -13,7 +14,7 @@ export class TrackingService extends TokenBaseService {
  
     public search(textSearch) {
 
-        return this.http.post(API_TRACKING_SEARCH, JSON.stringify({ textSearch: textSearch, }), super.jwt())
+        return this.http.post(API_USER_LIST, JSON.stringify({ name: textSearch, }), super.jwt())
             .map((response: Response) => response.json());
     }
 }
