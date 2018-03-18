@@ -15,9 +15,7 @@
 							Worklist
 							</span>
 							<span class="m-menu__link-badge">
-							<!-- 	<span class="m-badge m-badge--danger">
-									 
-								</span> -->
+
 							</span>
 						</span>
 					</span>
@@ -42,10 +40,8 @@
 					<i class="m-menu__link-icon flaticon-interface-1"></i>
 					<span class="m-menu__link-text">
 						PO
-					</span>
-					 
+					</span> 
 				</a>
-				 
 			</li>
 			<li class="m-menu__section">
 				<h4 class="m-menu__section-text">
@@ -85,7 +81,7 @@
 							</a>
 						</li>
 						<li class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }"  aria-haspopup="true" >
-							<a  routerLink="/config/review" class="m-menu__link">
+							<a  routerLink="/config/reviewer/list" class="m-menu__link">
 								<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 									<span></span>
 								</i>
@@ -95,7 +91,7 @@
 							</a>
 						</li>
 						<li class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }"  aria-haspopup="true" >
-							<a  routerLink="/components/base/state" class="m-menu__link">
+							<a  routerLink="/config/delegate/list" class="m-menu__link">
 								<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 									<span></span>
 								</i>
@@ -104,13 +100,10 @@
 								</span>
 							</a>
 						</li>
-						 
-						 
-						 
 					</ul>
 				</div>
 			</li>
-		 		<li class="m-menu__item  m-menu__item--submenu" routerLinkActive="m-menu__item--open" routerLinkActiveOptions="{ exact: true }"  aria-haspopup="true"  data-menu-submenu-toggle="hover">
+			<li class="m-menu__item  m-menu__item--submenu" routerLinkActive="m-menu__item--open" routerLinkActiveOptions="{ exact: true }"  aria-haspopup="true"  data-menu-submenu-toggle="hover">
 				<a  href="#" class="m-menu__link m-menu__toggle">
 					<i class="m-menu__link-icon flaticon-layers"></i>
 					<span class="m-menu__link-text">
@@ -121,17 +114,18 @@
 				<div class="m-menu__submenu">
 					<span class="m-menu__arrow"></span>
 					<ul class="m-menu__subnav">
-						<li class="m-menu__item  m-menu__item--parent" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }"  aria-haspopup="true" >
+						<li class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }"  aria-haspopup="true" >
 							<a  routerLink="/masters/company/list" class="m-menu__link"> 
-							<span class="m-menu__link">
+								<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+									<span></span>
+								</i>
 								<span class="m-menu__link-text">
-									Complay
+									Company
 								</span>
-							</span>
-						</a>
+							</a>
 						</li>
 						<li class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }"  aria-haspopup="true" >
-							<a  routerLink="masters/plant/list" class="m-menu__link">
+							<a  routerLink="/masters/plant/list" class="m-menu__link">
 								<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 									<span></span>
 								</i>
@@ -151,7 +145,7 @@
 							</a>
 						</li>
 						<li class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }"  aria-haspopup="true" >
-							<a  routerLink="/masters/tracking" class="m-menu__link">
+							<a  routerLink="/masters/tracking/list" class="m-menu__link">
 								<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 									<span></span>
 								</i>
@@ -160,13 +154,9 @@
 								</span>
 							</a>
 						</li>
-						 
 					</ul>  
 				</div>
 			</li>
-		 
-		 
-		 
 		</ul>
 	</div>
 	<!-- END: Aside Menu -->

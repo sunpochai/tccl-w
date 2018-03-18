@@ -15,8 +15,9 @@ import {
 import { forEach } from '@angular/router/src/utils/collection';
 import { Reviewer } from '../../../_models/config/reviewer';
 import { ReviewerService } from '../../../_services/config/reviewer.service';
-
-declare var AutoCompleteControl:any;
+import { UserService } from '../../../../../../auth/_services';
+import { ADUserService } from '../../../_services/masters/aduser.service';
+import { Subject } from 'rxjs';
 
  
 
@@ -31,11 +32,26 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
     private form: FormGroup;
     private reviewer: Reviewer;
     private id: any;
+
+    private userList : any;
+    private textSearchUser:string;
+    private txtSearchUserChanged:Subject<string> = new Subject<string>();
+    
+    showDropDownUser = false;
+    input_sap_group : string;
+
+
     constructor(private _script: ScriptLoaderService,
         private _router: Router, private route: ActivatedRoute,
         private _reviewerService: ReviewerService,
+        private _adUserService: ADUserService,
         private formBuilder: FormBuilder) {
         super();
+
+        this.txtSearchUserChanged.debounceTime(500).distinctUntilChanged().subscribe(md=>{
+            this.textSearchUser  = md;
+            this.searchUser(md);
+        })
     }
 
     ngOnInit() {
@@ -49,28 +65,29 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
         this.route.params.subscribe(params => {
             this.id = params['id'];
         });
-        console.log(this.id);
+        // console.log(this.id);
 
         if (this.id != null && this.id != '0') {
             this._reviewerService.get<Reviewer>(this.id).subscribe(data => {
                 this.reviewer = data;
-                console.log(this.reviewer);
+                this.input_sap_group = this.reviewer.sap_group+'';
+                this.textSearchUser = this.reviewer.ad_username;
+                
+                // console.log(this.reviewer);
                 // console.log(this.routetype);
+                super.unblockui('#m_form_1');
             });
         } else {
             this.reviewer = new Reviewer();
             // console.log(this.routeapprove);
+            super.unblockui('#m_form_1');
         }
-        super.unblockui('#m_form_1');
+        
     }
 
     ngAfterViewInit() {
         this._script.loadScripts('config-reviewer-detail',
             ['assets/tccl/config/reviewer/reviewer-detail.js']);
-
-            // jQuery(document).ready(function() {
-            //     AutoCompleteControl.load(API_REVIEWER_GET_PUT_DEL);
-            // });
     }
 
     save() {
@@ -85,6 +102,7 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
     create() {
         super.blockui('#m_form_1');
 
+        this.reviewer.sap_group = parseInt(this.input_sap_group);
         this.reviewer.create_user = super.getADUserLogin();
         this.reviewer.create_username = super.getFullNameUserLogin();
         this.reviewer.create_datetime = new Date();
@@ -93,11 +111,16 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
         this.reviewer.update_datetime = this.reviewer.create_datetime
         
         this._reviewerService.create<any>(this.reviewer).subscribe(resp => {
-            console.log(resp);
-            this.reviewer = resp;
-            super.showsuccess('Review id: ' + this.reviewer.sap_code + ' create complete');
-            super.unblockui('#m_form_1');
-            // this.navigate_list();
+            if (resp.is_error == false) {
+                // console.log(resp);
+                this.reviewer = resp.data;
+                this.navigate_list();
+                super.showsuccess('Review id: ' + this.reviewer.sap_code + ' create complete');
+                super.unblockui('#m_form_1');
+            } else {
+                super.showError(resp.error_msg);
+                super.unblockui('#m_form_1');
+            }
         },
         error => {
             alert(error);
@@ -112,13 +135,20 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
     update() {
         super.blockui('#m_form_1');
 
+        this.reviewer.sap_group = parseInt(this.input_sap_group);
         this.reviewer.update_user = super.getADUserLogin();
         this.reviewer.update_username = super.getFullNameUserLogin();
         this.reviewer.update_datetime = new Date();
-        this._reviewerService.put<Reviewer>(this.reviewer).subscribe(resp => {
-            this.reviewer = resp;
-            super.showsuccess('Review id: ' + this.reviewer.sap_code + ' update complete');
-            // this.navigate_list();
+        this._reviewerService.put<any>(this.reviewer).subscribe(resp => {
+            if (resp.is_error == false) {
+                this.reviewer = resp.data;
+                this.navigate_list();
+                super.showsuccess('Review id: ' + this.reviewer.sap_code + ' update complete');
+                super.unblockui('#m_form_1');
+            } else {
+                super.showError(resp.error_msg);
+                super.unblockui('#m_form_1');
+            }
         },
         error => {
             super.showError(error);
@@ -134,11 +164,42 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
         this._router.navigate(['/config/reviewer/list/']);
     }
 
-    // searchemp(obj) {
-         
-    //    this._trackingService.search('').subscribe(x=>  {
-    //     console.log(x);
-    //     this.tackingList =x
-    //    });
-    // }
+
+    searchUser(search) {
+        if(search.length < 2) return;
+        // console.log("search >>" + search);
+        this.showDropDownUser = true;
+        this._adUserService.search(search).subscribe(x=>  {
+         this.userList = x
+       });  
+    }
+
+    onChangeSearchUser(event){
+        // console.log(event);
+        this.txtSearchUserChanged.next(event);
+    }
+
+    selectUserValue(value) {
+        this.reviewer.ad_user = value.ad_user;
+        this.reviewer.ad_username = value.fullname;        
+        
+        this.textSearchUser = value.fullname 
+        this.showDropDownUser = false;
+    }
+    
+    closeDropDown() {
+        this.showDropDownUser = false;
+    }
+
+    isValid() {
+        if (this.input_sap_group != null 
+            && this.reviewer.ad_user != null && this.reviewer.ad_user != ''
+            && this.reviewer.ad_username != null && this.reviewer.ad_username != ''
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
 }

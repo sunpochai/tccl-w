@@ -15,6 +15,7 @@ import { AlertService } from '../../../../../auth/_services/index';
 import { ReviewerService } from '../../_services/config/reviewer.service';
 import { ReviewerListComponent } from './reviewer-list/reviewer-list.component';
 import { ReviewerDetailComponent } from './reviewer-detail/reviewer-detail.component';
+import { ADUserService } from '../../_services/masters/aduser.service';
 
 const routes: Routes = [
     {
@@ -41,6 +42,7 @@ const routes: Routes = [
         ReviewerDetailComponent
     ], providers: [
         ReviewerService,
+        ADUserService,
         FormBuilder
     ]
 })

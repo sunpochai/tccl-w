@@ -63,8 +63,14 @@ export class ReviewerListComponent extends PageBaseComponent implements OnInit, 
     del() {
         super.blockui('#m-content');
         this._reviewerService.del(this.action_review_id.toString()).subscribe(resp => {
-            super.showsuccess(this.action_sap_code + ' delete complete');
-            myDatatable.reload();
+            if (resp.is_error == false) {
+                super.showsuccess(this.action_sap_code + ' delete complete');
+                myDatatable.reload();
+                super.unblockui('#m-content');
+            } else {
+                super.showError(resp.error_msg);
+                super.unblockui('#m-content');
+            }
         },
         error => {
             super.showError(error);

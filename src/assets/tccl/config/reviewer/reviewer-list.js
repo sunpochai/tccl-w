@@ -74,7 +74,7 @@ var myDatatable = function( ) {
           template: function (row) {
             if (row.sap_group=='1'){
               return 'Requisitioner';
-            } else if (row.account=='2') {
+            } else if (row.sap_group=='2') {
               return 'Purchasing Group';
             } else {
               return 'N/A';
