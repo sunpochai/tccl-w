@@ -1,18 +1,22 @@
 import { FormBuilder } from '@angular/forms';
-import { FormControl, FormsModule } from '@angular/forms';
+
+import {
+    FormControl, FormsModule
+} from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AlertComponent } from './../../../../../auth/_directives/alert.component';
+
 import { DefaultComponent } from './../../../default/default.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
+import { PlantListComponent } from './plant-list/plant-list.component';
 import { LayoutModule } from '../../../../layouts/layout.module';
+import { PlantDetailComponent } from './plant-detail/plant-detail.component';
 import { AlertService } from '../../../../../auth/_services/index';
-import { WorklistComponent } from './my/worklist.component';
-import { WorklistService } from '../../_services/trns/worklist.service';
-import { DocTypeService } from '../../_services/masters/doctype.service';
-import { CompanyService } from '../../_services/masters/company.service';
 import { PlantService } from '../../_services/masters/plant.service';
+import { CompanyService } from '../../_services/masters/company.service';
+
 
 const routes: Routes = [
     {
@@ -20,12 +24,16 @@ const routes: Routes = [
         "component": DefaultComponent,
         "children": [
             {
-                "path": "my",
-                "component": WorklistComponent
+                "path": "list",
+                "component": PlantListComponent
+            }, {
+                "path": "detail/:id",
+                "component": PlantDetailComponent
             }
         ]
     }
 ];
+
 @NgModule({
     imports: [
         CommonModule, RouterModule.forChild(routes), LayoutModule, HttpModule, FormsModule
@@ -33,15 +41,11 @@ const routes: Routes = [
     ], exports: [
         RouterModule
     ], declarations: [
-        WorklistComponent
-    ], providers: [
-        WorklistService,
-        DocTypeService,
-        CompanyService,
-        PlantService,
-        FormBuilder
-    ]
+        PlantListComponent,
+        PlantDetailComponent
+    ], providers: [PlantService, CompanyService, FormBuilder]
 })
-export class WorklistModule {
+
+export class PlantModule {
 
 }

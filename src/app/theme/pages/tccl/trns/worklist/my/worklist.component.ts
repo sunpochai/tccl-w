@@ -8,6 +8,12 @@ import { constructDependencies } from '@angular/core/src/di/reflective_provider'
 import { API_WORKLIST, C_DOC_STATUS_2 } from './../../../../../../app-constants';
 import { WorklistService } from '../../../_services/trns/worklist.service';
 import { Worklist } from '../../../_models/trns/worklist';
+import { DocType } from '../../../_models/masters/doctype';
+import { Company } from '../../../_models/masters/company';
+import { Plant } from '../../../_models/masters/plant';
+import { DocTypeService } from '../../../_services/masters/doctype.service';
+import { CompanyService } from '../../../_services/masters/company.service';
+import { PlantService } from '../../../_services/masters/plant.service';
 
 
 declare var myDatatable: any;
@@ -22,13 +28,25 @@ declare var window: any;
 export class WorklistComponent extends PageBaseComponent implements OnInit, AfterViewInit {
     public docStatus: Array<any> = C_DOC_STATUS_2;
     public myworklists: Array<Worklist>;
-    public myprs: Array<Worklist>;
-    public mypos: Array<Worklist>;
-    public mypas: Array<Worklist>;
+    public totalworklists: Array<Worklist>;
+    public doctypeList: Array<DocType>;
+    public companyList: Array<Company>;
+    public plantList: Array<Plant>;
+    public showPR: boolean = true;
+    public showPO: boolean = true;
+    public showPA: boolean = true;
+    public showSearch: boolean = false;
+    public m_text_search: any;
+    public m_list_doctype: any;
+    public m_list_company: any;
+    public m_list_plant: any;
 
     constructor(private _router: Router,
         private _script: ScriptLoaderService,
-        private _worklistService: WorklistService) {
+        private _worklistService: WorklistService,
+        private _doctypeService: DocTypeService,
+        private _companyService: CompanyService,
+        private _plantService: PlantService) {
         super();
     }
 
@@ -40,32 +58,23 @@ export class WorklistComponent extends PageBaseComponent implements OnInit, Afte
         super.blockui('#m_form_1');
 
         this._worklistService.getall(super.getADUserLogin()).subscribe(data => {
+            this.totalworklists = data;
             this.myworklists = data;
+        });
 
-            this.myprs = new Array<Worklist>();
-            this.mypos = new Array<Worklist>();
-            this.mypas = new Array<Worklist>();
+        this._doctypeService.getall().subscribe(data => {
+            this.doctypeList = data;
+            // console.log(data);
+        });
 
-            for (let row of this.myworklists) {
-                switch (row.name) {
-                    case 'PR':
-                        this.myprs.push(row);
-                        // console.log('pr' + row.name);
-                        break;
-                    case 'PO':
-                        this.mypos.push(row);
-                        // console.log('po' + row.name);
-                        break;
-                    case 'PA':
-                        this.mypas.push(row);
-                        // console.log('pa' + row.name);
-                        break;
-                }
-            }
-            // console.log(this.myworklists);
-            // console.log(this.myprs);
-            // console.log(this.mypos);
-            // console.log(this.mypas);
+        this._companyService.getall().subscribe(data => {
+            this.companyList = data;
+            // console.log(data);
+        });
+
+        this._plantService.getall().subscribe(data => {
+            this.plantList = data;
+            // console.log(data);
         });
 
         super.unblockui('#m_form_1');
@@ -90,6 +99,87 @@ export class WorklistComponent extends PageBaseComponent implements OnInit, Afte
             default:
                 //todo:: say something to user;
                 break;
+        }
+    }
+
+    filter(jobtype: string) {
+        switch (jobtype.toLowerCase().toString()) {
+            case 'pr':
+                this.showPR = true;
+                this.showPO = false;
+                this.showPA = false;
+                break;
+            case 'po':
+                this.showPR = false;
+                this.showPO = true;
+                this.showPA = false;
+                break;
+            case 'pa':
+                this.showPR = false;
+                this.showPO = false;
+                this.showPA = true;
+                break;
+            default:
+                this.showPR = true;
+                this.showPO = true;
+                this.showPA = true;
+                break;
+        }
+    }
+
+    toggleSearch() {
+        this.showSearch = !this.showSearch;
+        if (!this.showSearch) {
+            this.m_text_search = '';
+            this.m_list_doctype = '';
+            this.m_list_company = '';
+            this.m_list_plant = '';
+            this.setFilteredItems();
+        }
+    }
+
+
+    setFilteredItems() {
+        this.myworklists = this.totalworklists;
+        if (this.m_text_search != null && this.m_text_search != '') {
+            this.myworklists = this.myworklists.filter(
+                (item) => {
+                    return ( 
+                        (item.doc_no).toLowerCase().indexOf(this.m_text_search.toLowerCase()) > -1 ||
+                        (item.subject).toLowerCase().indexOf(this.m_text_search.toLowerCase()) > -1 
+                    );
+                }
+            )
+        } 
+        
+        if (this.m_list_doctype != null && this.m_list_doctype != '') {
+            this.myworklists = this.myworklists.filter(
+                (item) => {
+                    return ( 
+                        item.doc_type.toLowerCase() == this.m_list_doctype.toLowerCase() 
+                    );
+                }
+            )
+        }
+        
+        if (this.m_list_company != null && this.m_list_company != '') {
+            this.myworklists = this.myworklists.filter(
+                (item) => {
+                    return ( 
+                        item.comp_code.toLowerCase() == this.m_list_company.toLowerCase() 
+                    );
+                }
+            )
+        }
+
+        if (this.m_list_plant != null && this.m_list_plant != '') {
+            this.myworklists = this.myworklists.filter(
+                (item) => {
+                    return ( 
+                        item.plant_code.toLowerCase() == this.m_list_plant.toLowerCase() 
+                    );
+                }
+            )
         }
     }
 

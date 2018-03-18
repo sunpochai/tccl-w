@@ -25,11 +25,13 @@ export class CompanyDetailComponent extends PageBaseComponent implements OnInit,
     public form: FormGroup;
     public company: Company;
     public id: any;
+    public action_type: any;
     constructor(private _script: ScriptLoaderService,
         private _router: Router, private route: ActivatedRoute,
         private _companyService: CompanyService, private formBuilder: FormBuilder) {
         super();
     }
+
     ngOnInit() {
         super.blockui('#m_form_1');
 
@@ -40,63 +42,56 @@ export class CompanyDetailComponent extends PageBaseComponent implements OnInit,
         if (this.id != null && this.id != '0') {
             this._companyService.get<Company>(this.id).subscribe(data => {
                 this.company = data;
-                console.log(this.company);
+                this.action_type = 'update';
+                super.unblockui('#m_form_1');
+                // console.log(this.company);
             });
-
         } else {
             this.company = new Company();
+            this.action_type = 'add';
+            super.unblockui('#m_form_1');
             // console.log(this.company);
         }
-
-
-        super.unblockui('#m_form_1');
-
     }
+
     ngAfterViewInit() {
-
-
-
         this._script.loadScripts('master-company-detail',
             ['assets/tccl/masters/company/company-detail.js']);
-
-
     }
-    create() {
 
-        super.blockui('#m_form_1');
-        this.company.create_user = super.getADUserLogin();
-        this.company.create_username = super.getFullNameUserLogin();
-        this.company.create_datetime = new Date();
-        this._companyService.create<Company>(this.company).subscribe(resp => {
-            this.company = resp;
-            super.showsuccess(this.company.comp_code + ' create complete');
-            this._router.navigate(['/masters/company/list']);
-        },
-            error => {
-                alert(error);
-                super.showError(error);
-                super.unblockui('#m_form_1');
-
-            },
-            () => {
-                super.unblockui('#m_form_1');
-
-            });
-
-
-    }
     save() {
-
-        console.log(this.company);
+        // console.log(this.company);
         if (this.id != null && this.id != '0') {
             this.update();
         } else {
             this.create();
         }
-
     }
-    update() {
 
+    create() {
+        super.blockui('#m_form_1');
+        this.company.create_user = super.getADUserLogin();
+        this.company.create_username = super.getFullNameUserLogin();
+        this.company.create_datetime = new Date();
+        this.company.update_user = super.getADUserLogin();
+        this.company.update_username = super.getFullNameUserLogin();
+        this.company.update_datetime = this.company.create_datetime;
+        this._companyService.create<Company>(this.company).subscribe(resp => {
+            this.company = resp;
+            super.showsuccess(this.company.comp_code + ' create complete');
+            this._router.navigate(['/masters/company/list']);
+        },
+        error => {
+            alert(error);
+            super.showError(error);
+            super.unblockui('#m_form_1');
+        },
+        () => {
+            super.unblockui('#m_form_1');
+        });
+    }
+
+    update() {
         super.blockui('#m_form_1');
         this.company.update_user = super.getADUserLogin();
         this.company.update_username = super.getFullNameUserLogin();
@@ -106,17 +101,13 @@ export class CompanyDetailComponent extends PageBaseComponent implements OnInit,
             super.showsuccess(this.company.comp_code + ' update complete');
             this._router.navigate(['/masters/company/list']);
         },
-            error => {
-                super.showError(error);
-                super.unblockui('#m_form_1');
-
-            },
-            () => {
-                super.unblockui('#m_form_1');
-
-            });
-
-
+        error => {
+            super.showError(error);
+            super.unblockui('#m_form_1');
+        },
+        () => {
+            super.unblockui('#m_form_1');
+        });
     }
 
     navigate_list() {

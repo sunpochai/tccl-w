@@ -4,7 +4,7 @@
 	<div class="d-flex align-items-center">
 		<div class="mr-auto">
 			<h3 class="m-subheader__title m-subheader__title--separator">
-				Company
+				Plant
 			</h3>
 			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
 				<li class="m-nav__item m-nav__item--home">
@@ -24,9 +24,9 @@
 					-
 				</li>
 				<li class="m-nav__item">
-					<a routerLink="/masters/company/list" class="m-nav__link">
+					<a routerLink="/masters/plant/list" class="m-nav__link">
 						<span class="m-nav__link-text">
-							Company
+							Plant
 						</span>
 					</a>
 				</li>
@@ -45,18 +45,18 @@
 				<div class="m-portlet__head-title">
 					<h3 class="m-portlet__head-text" *ngIf="id == 0">
 						<i class="la la-plus"></i>
-						New Company
+						New Plant
 					</h3>
 					<h3 class="m-portlet__head-text" *ngIf="id != 0">
 						<i class="la la-pencil"></i>
-						Edit Company
+						Edit Plant
 					</h3>
 				</div>
 			</div>
 		</div>
 		<!--begin::Form-->
 		<form  #heroForm="ngForm" class="m-form m-form--fit m-form--label-align-right" id="m_form_1">
-			<div class="m-portlet__body" *ngIf='company != null'>
+			<div class="m-portlet__body" *ngIf='plant != null'>
 				<div class="m-form__content">
 					<div class="m-alert m-alert--icon alert alert-danger m--hide" role="alert" id="m_form_1_msg">
 						<div class="m-alert__icon">
@@ -70,31 +70,53 @@
 						</div>
 					</div>
 				</div>
-				<div class="form-group m-form__group row" >
+				<!-- <div class="form-group m-form__group row" >
 					<label class="col-form-label col-lg-3 col-sm-12">
 						Company Code *
 					</label>
 					<div class="col-lg-6 col-md-9 col-sm-12">
-						<input required maxlength="4"  [disabled]='id  != 0 ' [(ngModel)]="company.comp_code" type="text" class="form-control m-input" name="compcode" value="{{company.CompCode}}" placeholder="Enter Company Code"  >
+						<input required [disabled]='id  != 0 ' [(ngModel)]="plant.comp_code" type="text" class="form-control m-input" name="comp_code"  >
+					</div>
+				</div> -->
+				<div class="form-group m-form__group row" >
+						<label class="col-form-label col-lg-3 col-sm-12">
+						Company:
+					</label>
+					<div class="col-lg-6 col-md-9 col-sm-12">
+						<select class="form-control m-input" [(ngModel)]="plant.comp_code" id="comp_code" name="comp_code">
+							<ng-container *ngFor="let row of companyList; let index = index">
+								<option value="{{row.comp_code}}">
+									{{row.comp_name}}
+								</option>
+							</ng-container>
+						</select>
+					</div>
+				</div>
+				<div class="form-group m-form__group row" >
+					<label class="col-form-label col-lg-3 col-sm-12">
+						Plant Code *
+					</label>
+					<div class="col-lg-6 col-md-9 col-sm-12">
+						<input required maxlength="4"  [disabled]='id  != 0 ' [(ngModel)]="plant.plant_code" type="text" class="form-control m-input" name="plant_code" placeholder="Enter Plant Code"  >
 					</div>
 				</div>
 				<div class="form-group m-form__group row">
 					<label class="col-form-label col-lg-3 col-sm-12">
-						Company Name *   
+						Plant Name *   
 					</label>
 					<div class="col-lg-6 col-md-9 col-sm-12">
-						<input required maxlength="25" [(ngModel)]="company.comp_name"     #compname="ngModel" type="text" class="form-control m-input " name="compname" placeholder="Enter Company Name">
+						<input required maxlength="50" [(ngModel)]="plant.plant_name" type="text" class="form-control m-input " name="plant_name" placeholder="Enter Plant Name">
 					</div>
 				</div> 
 				<div class="form-group m-form__group row first">
 					<div class="col-lg-12">
 						<span class="m-form__help">
-							Created at {{company.create_datetime  | date:'dd/MM/yyyy HH:mm:ss'}} by {{company.create_username}} 
+							Created at {{plant.create_datetime  | date:'dd/MM/yyyy HH:mm:ss'}} by {{plant.create_username}} 
 						</span>
 					</div>
 					<div class="col-lg-12"> 
 						<span class="m-form__help"> 
-							Last modified at {{company.update_datetime  | date:'dd/MM/yyyy HH:mm:ss'}} by {{company.update_username}} 
+							Last modified at {{plant.update_datetime  | date:'dd/MM/yyyy HH:mm:ss'}} by {{plant.update_username}} 
 						</span>
 					</div>
 				</div>
@@ -120,7 +142,7 @@
 	<!--end::Portlet--> 
 
 	<!-- Modal -->
-	<div class="modal fade" id="m_modal_6" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" *ngIf="company!=null">
+	<div class="modal fade" id="m_modal_6" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" *ngIf="plant!=null">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -135,7 +157,7 @@
 				</div>
 				<div class="modal-body">
 					<p>
-						Confirm {{action_type}} company : {{company.comp_code}} ?
+						Confirm {{action_type}} plant : {{plant.plant_code}} ?
 					</p>
 				</div>
 				<div class="modal-footer">
