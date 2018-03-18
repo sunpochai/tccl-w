@@ -96,19 +96,25 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
 
     del() {
         super.blockui('#m-content');
-        this._routeapproveService.del(this.action_route_id.toString()).subscribe(resp => {
-            super.showsuccess(this.action_route_name + ' delete complete');
-            myDatatable.reload();
+        this._routeapproveService.del<any>(this.action_route_id.toString()).subscribe(resp => {
+            if (resp.is_error == false) {
+                super.showsuccess(this.action_route_name + ' delete complete');
+                myDatatable.reload();
+                super.unblockui('#m-content');
+            } else {
+                super.showError(resp.error_msg);
+                super.unblockui('#m-content');
+            }
         },
-            error => {
-                super.showError(error);
-                super.unblockui('#m-content');
-                console.log('error');
-            },
-            () => {
-                super.unblockui('#m-content');
-                console.log('done');
-            });
+        error => {
+            super.showError(error);
+            super.unblockui('#m-content');
+            console.log('error');
+        },
+        () => {
+            super.unblockui('#m-content');
+            console.log('done');
+        });
     }
 
     navigate_edit(routeId) {

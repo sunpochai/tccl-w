@@ -38,8 +38,8 @@ export class RouteApproveService extends TokenBaseService {
             .map((response: Response) => <T>response.json());
     }
 
-    public del(id: string) {
+    public del<T>(id: string) {
         return this.http.delete(API_ROUTE_GET_PUT_DEL + '/' + id, super.jwt())
-            .map((response: Response) => response.json());
+            .map((response: Response) => <T>response.json());
     }
 }

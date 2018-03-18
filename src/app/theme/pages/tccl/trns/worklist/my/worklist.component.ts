@@ -57,11 +57,6 @@ export class WorklistComponent extends PageBaseComponent implements OnInit, Afte
 
         super.blockui('#m_form_1');
 
-        this._worklistService.getall(super.getADUserLogin()).subscribe(data => {
-            this.totalworklists = data;
-            this.myworklists = data;
-        });
-
         this._doctypeService.getall().subscribe(data => {
             this.doctypeList = data;
             // console.log(data);
@@ -77,7 +72,12 @@ export class WorklistComponent extends PageBaseComponent implements OnInit, Afte
             // console.log(data);
         });
 
-        super.unblockui('#m_form_1');
+        this._worklistService.getall(super.getADUserLogin()).subscribe(data => {
+            this.totalworklists = data;
+            this.myworklists = data;
+            super.unblockui('#m_form_1');
+        });
+        
     }
 
     ngAfterViewInit() {
