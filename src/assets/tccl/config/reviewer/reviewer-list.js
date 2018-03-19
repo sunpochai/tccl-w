@@ -108,8 +108,8 @@ var myDatatable = function( ) {
   var search = function()  {
     var query = datatable.getDataSourceQuery();
     
-    query.route_name = $('#m_form_route_name').val();
-    query.doc_type = $('#m_form_doc_type').val();
+    query.sap_code = $('#m_form_sap_code').val();
+    query.sap_group = $('#m_form_sap_group').val();
 
     datatable.setDataSourceQuery(query);
     datatable.load();

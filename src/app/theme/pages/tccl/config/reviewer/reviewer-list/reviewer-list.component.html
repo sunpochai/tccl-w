@@ -67,24 +67,25 @@
 				<!--begin: Search Form -->
 				<div class="form-group m-form__group row">
 					<label class="col-lg-2 col-sm-4 col-form-label">
-						Route Name:
+						SAP Code:
 					</label>
 					<div class="col-lg-4 col-sm-8" >
-						<input type="text" maxlength="20" class="form-control m-input" id="m_form_route_name">
+						<input type="text" maxlength="20" class="form-control m-input" id="m_form_sap_code">
 					</div>
 					<label class="col-lg-2 col-sm-4 col-form-label">
-						Doc Type:
+						SAP Group:
 					</label>
 					<div class="col-lg-4 col-sm-8 ">
-						<select class="form-control m-input" id="m_form_doc_type">
+						<select class="form-control m-input" id="m_form_sap_group">
 							<option value="">
 								All
 							</option>
-							<!-- <ng-container *ngFor="let row of doctypeList; let index = index">
-								<option value="{{row.doc_type_code}}">
-									{{row.doc_type_desc}}
-								</option>
-							</ng-container> -->
+							<option value="1">
+								Requisitioner
+							</option>
+							<option value="2">
+								Purchasing Group
+							</option>
 						</select>
 					</div>
 				</div>

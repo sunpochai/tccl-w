@@ -29,16 +29,16 @@ import { Subject } from 'rxjs';
 })
 
 export class ReviewerDetailComponent extends PageBaseComponent implements OnInit, AfterViewInit {
-    private form: FormGroup;
-    private reviewer: Reviewer;
-    private id: any;
+    public form: FormGroup;
+    public reviewer: Reviewer;
+    public id: any;
 
-    private userList : any;
-    private textSearchUser:string;
-    private txtSearchUserChanged:Subject<string> = new Subject<string>();
+    public userList : any;
+    public textSearchUser:string;
+    public txtSearchUserChanged:Subject<string> = new Subject<string>();
     
-    showDropDownUser = false;
-    input_sap_group : string;
+    public showDropDownUser = false;
+    public input_sap_group : string;
 
 
     constructor(private _script: ScriptLoaderService,
