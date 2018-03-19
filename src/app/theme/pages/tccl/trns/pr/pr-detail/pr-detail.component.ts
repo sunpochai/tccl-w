@@ -21,6 +21,9 @@ import { WorkflowService } from '../../../_services/trns/workflow.service';
 import { concat } from 'rxjs/observable/concat';
 import { RequestOptions } from '@angular/http';
 import { ADUser } from '../../../_models/masters/aduser';
+import { UserService } from '../../../../../../auth/_services';
+import { ADUserService } from '../../../_services/masters/aduser.service';
+import { Subject } from 'rxjs';
 
 @Component({
     selector: "trns-pr-detail",
@@ -36,6 +39,8 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     public canApprove: boolean = false;
     public canComment: boolean = false;
     public isWaiting: boolean = false;
+    public isDelegate: boolean = false;
+    
     public urlattachment: String = API_ATTACHMENT_GET_DEL;
     public statusName: any = ACTION_NAME;
     public docStatus: Array<any> = C_DOC_STATUS_2;
@@ -46,6 +51,16 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     public action_file_name: any;
     public action_type: any;
     public action_comment: any;
+
+    public userList : any;
+    public textSearchTrackCode:string;
+    public textSearchUser:string;
+    public txtAdUserSelected;
+    public txtAdUserNameSelected;
+    public txtSearchUserChanged:Subject<string> = new Subject<string>();
+    public showDropDownUser = false;
+    public user_list: any = [];
+
     constructor(  
         private _script: ScriptLoaderService,
         private _router: Router,
@@ -53,9 +68,14 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         private _prService: PRService,
         private _attachmentService: AttachmentService,
         private _workflowService: WorkflowService,
+        private _adUserService:ADUserService,
         private formBuilder: FormBuilder) {
         super();
 
+        this.txtSearchUserChanged.debounceTime(500).distinctUntilChanged().subscribe(md=>{
+            this.textSearchUser  = md;
+            this.searchUser(md);
+        })
 
     }
 
@@ -242,8 +262,9 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                 workflowaction = resp;
                 if (resp.is_error == false) {
                     console.log(resp);
-                    super.showsuccess('Review completed');
+                    super.unblockui('#m-content');
                     window.location.reload();
+                    super.showsuccess('Review completed');
                 } else {
                     console.log(resp);
                     super.showError(resp.error_msg);
@@ -273,8 +294,9 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
             resp => {
                 workflowaction = resp;
                 if (resp.is_error == false) {
-                    super.showsuccess('Approve completed');
+                    super.unblockui('#m-content');
                     window.location.reload();
+                    super.showsuccess('Approve completed');
                 } else {
                     console.log(resp);
                     super.showError(resp.error_msg);
@@ -302,8 +324,9 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                 workflowaction = resp;
                 if (resp.is_error == false) {
                     console.log(resp);
-                    super.showsuccess('Reject completed');
+                    super.unblockui('#m-content');
                     window.location.reload();
+                    super.showsuccess('Reject completed');
                 } else {
                     console.log(resp);
                     super.showError(resp.error_msg);
@@ -326,25 +349,59 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         workflowaction.outcome = ACTION_NAME.waiting;
         workflowaction.outcome_description = this.action_comment;
 
-        //todo:: add aduser list to workflowaction
-        //******** */
         workflowaction.user_list = [];
-        var user = {ad_user: $('#m_select_waiting').val().toString(),
-                    ad_username: $("#m_select_waiting :selected").text()} ;
-        console.log(user);
-        workflowaction.user_list.push(user);
-        //******** */
+        for (let user of this.user_list) {
+            workflowaction.user_list.push(user);
+        }
 
         console.log(workflowaction);
 
         this._workflowService.waiting<any>(workflowaction).subscribe(
             resp => {
-                workflowaction = resp;
-                console.log(resp);
+                // console.log(resp);
                 if (resp.is_error == false) {
                     console.log(resp);
-                    super.showsuccess('Update waiting completed');
+                    super.unblockui('#m-content');
                     window.location.reload();
+                    super.showsuccess('Update waiting completed');
+                } else {
+                    console.log(resp);
+                    super.showError(resp.error_msg);
+                    super.unblockui('#m-content');
+                }
+            },
+            error => {
+                super.showError(error);
+                console.log(error);
+                super.unblockui('#m-content');
+            },
+            () => {
+                super.unblockui('#m-content');
+            }
+        );
+    }
+
+    delegate(workflowaction) {
+        super.blockui('#m-content');
+
+        workflowaction.outcome = ACTION_NAME.delegated;
+        workflowaction.outcome_description = this.action_comment;
+
+        workflowaction.user_list = [];
+        for (let user of this.user_list) {
+            workflowaction.user_list.push(user);
+        }
+
+        console.log(workflowaction);
+
+        this._workflowService.delegate<any>(workflowaction).subscribe(
+            resp => {
+                // console.log(resp);
+                if (resp.is_error == false) {
+                    console.log(resp);
+                    super.unblockui('#m-content');
+                    window.location.reload();
+                    super.showsuccess('Update delegate completed');
                 } else {
                     console.log(resp);
                     super.showError(resp.error_msg);
@@ -375,6 +432,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                 workflowaction = resp;
                 if (resp.is_error == false) {
                     console.log(resp);
+                    super.unblockui('#m-content');
                     super.showsuccess('Comment completed');
                     window.location.reload();
                 } else {
@@ -416,6 +474,9 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
             case 'waiting':
                 this.waiting(workflowaction);
                 break;
+            case 'delegate':
+                this.delegate(workflowaction);
+                break;
             case 'comment':
                 this.comment(workflowaction);
                 break;
@@ -425,4 +486,43 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     navigate_list() {
         this._router.navigate(['/trns/pr/list']);
     }
+
+
+    searchUser(search) {
+        if(search.length < 2) return;
+        // console.log("search >>" + search);
+        this.showDropDownUser = true;
+        this._adUserService.search(search).subscribe(x=>  {
+         this.userList = x
+        //  console.log(x);
+       });  
+    }
+
+    onChangeSearchUser(event){
+        // console.log(event);
+        this.txtSearchUserChanged.next(event);
+    }
+
+    selectUserValue(value) {
+        this.textSearchUser = value.fullname;
+        this.txtAdUserSelected = value.ad_user;
+        this.txtAdUserNameSelected = value.fullname;
+
+        var user = {ad_user: value.ad_user,
+                    ad_username: value.fullname} ;
+        this.user_list.push(user);
+
+        this.showDropDownUser = false;
+        this.textSearchUser = '';
+    }
+
+    removeUser(index: number) {
+        this.user_list.splice(index,1);
+    }
+    
+    closeDropDown() {
+        // console.log('closedropdown');
+        this.showDropDownUser = false;
+    }
+
 }

@@ -42,6 +42,7 @@ export const API_WORKFLOW_ACTION_APPROVE: string = API_BASE_URL + '/api/worklist
 export const API_WORKFLOW_ACTION_REJECT: string = API_BASE_URL + '/api/worklist/reject'
 export const API_WORKFLOW_ACTION_COMMENT: string = API_BASE_URL + '/api/worklist/comment'
 export const API_WORKFLOW_ACTION_WAITING: string = API_BASE_URL + '/api/worklist/waiting'
+export const API_WORKFLOW_ACTION_DELEGATE: string = API_BASE_URL + '/api/worklist/delegate'
 
 export const API_WORKLIST: string = API_BASE_URL + '/api/worklist/my'
 
