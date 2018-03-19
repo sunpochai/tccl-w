@@ -12,6 +12,30 @@
       margin-right: -2.2rem; }
 
 
-      .filen{
-        padding-right:  10px;
-      }
+.filen{
+  padding-right:  10px;
+}
+
+
+.card-container {
+  justify-content: start;
+}
+.search-drop-down {
+  position: absolute;
+  width: 80%;
+  max-height: 300px;
+  overflow-y: auto;
+  z-index: 10;
+  background-color: #F6F6F6;
+/*  font-family: sans-serif; */
+  opacity: 0.98;
+}
+
+.search-results {
+  padding: 10px;
+}
+
+.search-results:hover {
+  background: #707070;
+  color: aliceblue;
+}

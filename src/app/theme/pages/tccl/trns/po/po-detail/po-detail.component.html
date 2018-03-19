@@ -528,24 +528,39 @@
 				<div class="form-group m-form__group" *ngIf="canApprove">
 					<div class="m-checkbox-inline">
 						<label class="m-checkbox">
-							<input type="checkbox" [(ngModel)]="isWaiting" name="chkWaiting" >
+							<input type="checkbox" [disabled]="isDelegate" [(ngModel)]="isWaiting" name="chkWaiting"  >
 							Waiting
+							<span></span>
+						</label>
+						<label class="m-checkbox">
+							<input type="checkbox" [disabled]="isWaiting" [(ngModel)]="isDelegate" name="chkDelegate" >
+							Delegate
 							<span></span>
 						</label>
 					</div>
 				</div>
-				<div class="form-group m-form__group" *ngIf="isWaiting">
-					<label for="m_select_waiting">
+				<div class="form-group m-form__group" *ngIf="isWaiting || isDelegate">
+					<label for="searchuser">
 						Send request to:
 					</label>
-					<select [required]="isWaiting" class="form-control m-input" id="m_select_waiting" name="param">
-						<option></option>
-						<option value="sanchaip">Sanchai P</option>
-						<option value="weeraya">Weeraya L</option>
-						<option value="tmp1">Temp Name 1</option>
-						<option value="tmp2">Temp Name 2</option>
-						<option value="tmp3">Temp Name 3</option>
-					</select>
+					<div class="col-lg-9 col-sm-9">
+						<div class="width-half">
+							<input id='searchuser' placeholder="Search for a user" class=' form-control m-input' [(ngModel)]="textSearchUser" name="user" type='text' (ngModelChange)="onChangeSearchUser($event);"  >
+							<div clickOutside (clickOutside)="closeDropDown()">
+								<div  *ngIf="showDropDownUser" class='search-drop-down card'>
+									<div (click)='selectUserValue(s)' class='search-results ' *ngFor="let s of this.userList ">
+										{{s.fullname}}
+									</div>
+								</div>
+							</div>
+							<div *ngFor="let user of user_list; let i = index">
+								<div class="close-left" (click)="removeUser(i)">
+									<i class="la la-close" ></i>
+								</div>
+								<span>{{user.ad_username}}</span>
+							</div>
+						</div>  
+					</div>
 				</div>
 				<div class="form-group m-form__group">
 					<label for="exampleTextarea">
@@ -560,21 +575,25 @@
 				<div class="m-form__actions m-form__actions">
 					<div class="row">
 						<div class="col-lg-12 ml-lg-auto ">
-							<!-- <button type="button" [disabled]="heroForm.invalid" class="btn btn-info" onclick="javascript:doAction('Test'); " data-toggle="modal" data-target="#m_modal_confirm" >
-								Test 
-							</button> -->
 							<button type="button" [disabled]="heroForm.invalid" class="btn btn-info" (click)="prepareAction('Review')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canReview">
 								Review 
 							</button>
-							<button type="button" [disabled]="isWaiting || heroForm.invalid" class="btn btn-success" (click)="prepareAction('Approve')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+							<button type="button" [disabled]="isWaiting || isDelegate || heroForm.invalid" class="btn btn-success" (click)="prepareAction('Approve')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
 								Approve 
 							</button>
-							<button type="button" [disabled]="isWaiting || heroForm.invalid" class="btn btn-danger" (click)="prepareAction('Reject')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+							<button type="button" [disabled]="isWaiting || isDelegate || heroForm.invalid" class="btn btn-danger" (click)="prepareAction('Reject')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
 								Reject 
 							</button>
-							<button type="button" [disabled]="isWaiting==false || heroForm.invalid" class="btn btn-warning" (click)="prepareAction('Waiting')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
-								Waiting 
-							</button>
+							<ng-container *ngIf="isWaiting">
+								<button type="button" [disabled]="isWaiting==false || heroForm.invalid" class="btn btn-warning" (click)="prepareAction('Waiting')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+									Waiting 
+								</button>
+							</ng-container>
+							<ng-container *ngIf="isDelegate">
+								<button type="button" [disabled]="isDelegate==false || heroForm.invalid" class="btn btn-warning" (click)="prepareAction('Delegate')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+									Delegate 
+								</button>
+							</ng-container>
 							<button type="button" [disabled]="heroForm.invalid" class="btn btn-info" (click)="prepareAction('Comment')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canComment">
 								Comment 
 							</button>
@@ -615,38 +634,6 @@
 					<button type="button" (click)="performAction()" data-dismiss="modal" class="btn btn-success" >
 						Save 
 					</button>
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">
-						Close
-					</button>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!--end::Modal-->
-	<!--begin::Modal-->
-	<div class="modal fade" id="m_modal_waiting" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="modalTitle" name="modalTitle">
-						Waiting...
-					</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">
-							&times;
-						</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<p id="modalBody">
-						Confirm save ?
-					</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" (click)="doAction()" data-dismiss="modal" class="btn btn-success" >
-						Save 
-					</button>
-					<input type="hidden" name="input_action" id="input_action" />
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">
 						Close
 					</button>
