@@ -8778,6 +8778,10 @@ function toDisplayDateTime(in_date) {
     if (d.length <= 1) {
         return toDisplayDate(in_date);
     } else {
+        var t = d[1].split('.');
+        if (t.length > 1) {
+            return toDisplayDate(in_date) + ' ' + t[0];
+        }
         return toDisplayDate(in_date) + ' ' + d[1];
     }
 }

@@ -152,7 +152,7 @@
 													{{row.doc_date | date :'dd/MM/yyyy'}}
 												</span>
 											</h4>
-											<div class="m-widget5__info">
+											<!-- <div class="m-widget5__info">
 												<span class="m-widget5__author">
 													{{row.comp_code}}-{{row.comp_name}}
 												</span>
@@ -161,27 +161,65 @@
 												<span class="m-widget5__author">
 													{{row.plant_code}}-{{row.plant_name}}
 												</span>
+											</div> -->
+											<div class="m-widget5__info">
+												<span class="m-widget5__author">
+													{{row.comp_code}}-{{row.comp_name}} <i class="la la-ellipsis-v"></i> {{row.plant_code}}-{{row.plant_name}}
+												</span>
 											</div>
+											<ng-container *ngIf="row.name=='PR'">
+											<span class="m-widget5__desc">
+												Requisitioner: {{row.requisitionerDesc}}
+											</span>
+											</ng-container>
+											<ng-container *ngIf="row.name=='PO'">
+												<span class="m-widget5__desc">
+													Purchasing group: {{row.purchasingDesc}}
+												</span>
+											</ng-container>
+											<br>
 											<span class="m-widget5__desc">
 												Subject: {{row.subject}}
 											</span>	
 										</div>
+										<!-- <div class="m-widget5__content">
+											<ng-container *ngIf="row.name=='PR'">
+												<span class="m-widget5__sales">
+													Requisitioner
+												</span>
+												<br>
+												<span class="m-widget5__sales">
+													{{row.requisitionerDesc}}
+												</span>
+											</ng-container>
+											<ng-container *ngIf="row.name=='PO'">
+												<span class="m-widget5__sales">
+													Purchasing group
+												</span>
+												<br>
+												<span class="m-widget5__sales">
+													{{row.purchasingDesc}}
+												</span>
+											</ng-container>
+										</div> -->
 										<div class="m-widget5__stats1">
-											<span class="m-widget5__number">
-												{{row.grand_total | number:'1.2'}}
+											<!-- <span class={{docStatus[row.c_doc_status].displayclass}}>{{docStatus[row.c_doc_status].name}}</span> -->
+											<span class="m-widget5__sales">
+												{{row.grand_total | number:'1.2'}}&nbsp;{{row.currency}}
 											</span>
 											<br>
-											<span class="m-widget5__sales">
-												{{row.currency}}
+											<span class="m-badge m-badge--rounded m-badge--metal">
+												{{row.doc_type}}
 											</span>
 										</div>
 										<div class="m-widget5__stats2">
-											<span class="m-widget5__number" >
+											<span class={{docStatus[row.c_doc_status].displayclass}}>{{docStatus[row.c_doc_status].name}}</span>
+											<!-- <span class="m-widget5__number" >
 												<span class={{docStatus[row.c_doc_status].displayclass}}>{{docStatus[row.c_doc_status].name}}</span>
 											</span>
 											<br>
 											<span class="m-widget5__votes">
-											</span>
+											</span> -->
 										</div>
 									</div>
 								</ng-container>
