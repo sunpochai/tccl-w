@@ -224,49 +224,52 @@
 				</div>
 				<div class="m-portlet__body">
 					<!--begin::m-widget5-->
-					<div class="m-widget5">
-						<!-- <div id="tabItems"></div> -->
-						<table class='table table-bordered m-table m-table--border-brand m-table--head-bg-brand'>
-							<thead>
-								<tr>
-									<th>No</th>
-									<th>Budget</th>
-									<th>Description</th>
-									<th>Qty</th>
-									<th>Unit</th>
-									<th>Est. Price</th>
-									<th>Currency</th>
-									<th>Delivery Date</th>
-								</tr>
-							</thead>
-							<tr *ngFor="let row of pr.pr_items; let index = index">
-								<ng-container *ngIf="row.item_status == 'DEL' ">
-									<td class="m--font-deleted">{{index+1}}</td>
-									<td class="m--font-deleted">{{row.account_no}} - {{row.account_name}}</td>
-									<td class="m--font-deleted">{{row.mat_desc}}</td>
-									<td align="right" class="m--font-deleted">{{row.qty}}</td>
-									<td class="m--font-deleted">{{row.unit}}</td>
-									<td align="right" class="m--font-deleted">{{row.estimate_price | number:'1.2'}}</td>
-									<td class="m--font-deleted">{{row.currency}}</td>
-									<td class="m--font-deleted">{{row.delivery_date | date :'dd/MM/yyyy'}}</td>
-								</ng-container>
-								<ng-container *ngIf="row.item_status != 'DEL' ">
-									<td>{{index+1}}</td>
-									<td>{{row.account_no}} - {{row.account_name}}</td>
-									<td>{{row.mat_desc}}</td>
-									<td align="right">{{row.qty}}</td>
-									<td>{{row.unit}}</td>
-									<td align="right">{{row.estimate_price | number:'1.2'}}</td>
-									<td>{{row.currency}}</td>
-									<td>{{row.delivery_date | date :'dd/MM/yyyy'}}</td>
-								</ng-container>
-							</tr>
-							<tr>
-								<td style='text-align:right ' colspan='5'> Total</td>
-								<td style='text-align:right ' >{{pr.amount | number:'1.2'}}</td>
-								<td style='text-align:right ' colspan='2'></td>
-							</tr>
-						</table>
+					<div class="m-section">
+						<div class="m-section__content">
+							<div class="table-responsive">
+								<table class='table table-bordered m-table m-table--border-brand m-table--head-bg-brand'>
+									<thead>
+										<tr>
+											<th>No</th>
+											<th>Budget</th>
+											<th>Description</th>
+											<th>Qty</th>
+											<th>Unit</th>
+											<th>Est. Price</th>
+											<th>Currency</th>
+											<th>Delivery Date</th>
+										</tr>
+									</thead>
+									<tr *ngFor="let row of pr.pr_items; let index = index">
+										<ng-container *ngIf="row.item_status == 'DEL' ">
+											<td class="m--font-deleted">{{index+1}}</td>
+											<td class="m--font-deleted">{{row.account_no}} - {{row.account_name}}</td>
+											<td class="m--font-deleted">{{row.mat_desc}}</td>
+											<td align="right" class="m--font-deleted">{{row.qty}}</td>
+											<td class="m--font-deleted">{{row.unit}}</td>
+											<td align="right" class="m--font-deleted">{{row.estimate_price | number:'1.2'}}</td>
+											<td class="m--font-deleted">{{row.currency}}</td>
+											<td class="m--font-deleted">{{row.delivery_date | date :'dd/MM/yyyy'}}</td>
+										</ng-container>
+										<ng-container *ngIf="row.item_status != 'DEL' ">
+											<td>{{index+1}}</td>
+											<td>{{row.account_no}} - {{row.account_name}}</td>
+											<td>{{row.mat_desc}}</td>
+											<td align="right">{{row.qty}}</td>
+											<td>{{row.unit}}</td>
+											<td align="right">{{row.estimate_price | number:'1.2'}}</td>
+											<td>{{row.currency}}</td>
+											<td>{{row.delivery_date | date :'dd/MM/yyyy'}}</td>
+										</ng-container>
+									</tr>
+									<tr>
+										<td style='text-align:right ' colspan='5'> Total</td>
+										<td style='text-align:right ' >{{pr.amount | number:'1.2'}}</td>
+										<td style='text-align:right ' colspan='2'></td>
+									</tr>
+								</table>
+							</div>
+						</div>
 					</div>
 					<!--end::m-widget5-->
 				</div>
@@ -515,12 +518,12 @@
 								Reject 
 							</button>
 							<ng-container *ngIf="isWaiting">
-								<button type="button" [disabled]="isWaiting==false || heroForm.invalid" class="btn btn-warning" (click)="prepareAction('Waiting')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+								<button type="button" [disabled]="isWaiting==false || heroForm.invalid || user_list==null || user_list.length < 1" class="btn btn-warning" (click)="prepareAction('Waiting')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
 									Waiting 
 								</button>
 							</ng-container>
 							<ng-container *ngIf="isDelegate">
-								<button type="button" [disabled]="isDelegate==false || heroForm.invalid" class="btn btn-warning" (click)="prepareAction('Delegate')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+								<button type="button" [disabled]="isDelegate==false || heroForm.invalid || user_list==null || user_list.length < 1" class="btn btn-warning" (click)="prepareAction('Delegate')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
 									Delegate 
 								</button>
 							</ng-container>

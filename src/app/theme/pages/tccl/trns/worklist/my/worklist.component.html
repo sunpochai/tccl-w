@@ -140,10 +140,17 @@
 								<ng-container *ngFor="let row of myworklists; let index = index" [ngSwitch]="row.name">
 									<div class="m-widget5__item" *ngIf="(row.name=='PR' && showPR) || (row.name=='PO' && showPO) || (row.name=='PA' && showPA) " (click)="navigate(row.name,row.doc_id)" onmouseover="this.style.cursor='pointer'; ">
 										<div class="m-widget5__pic" >
-											<img *ngSwitchCase="'PR'" class="m-widget7__img" src="./assets/app/media/img/logos/pr.png" alt="">
-											<img *ngSwitchCase="'PO'" class="m-widget7__img" src="./assets/app/media/img/logos/po.png" alt="">
+											<div  class=" imageWrapper">
+												<img *ngSwitchCase="'PR'" class=" imageWrapper backgroundimage" src="./assets/app/media/img/logos/pr.png" alt="">
+												<img *ngSwitchCase="'PO'" class=" imageWrapper backgroundimage" src="./assets/app/media/img/logos/po.png" alt="">
+												<img *ngSwitchCase="'PA'" class=" imageWrapper backgroundimage" src="./assets/app/media/img/logos/pa.png" alt="">
+												<img *ngSwitchDefault class="imageWrapper backgroundimage" src="./assets/app/media/img/logos/pr.png" alt="">
+												<i *ngIf="row.resp_allow_action=='comment'" class=" imageWrapper iconontop text-warning fa fa-comment"></i>
+											</div>
+											<!-- <img *ngSwitchCase="'PO'" class="m-widget7__img" src="./assets/app/media/img/logos/po.png" alt="">
 											<img *ngSwitchCase="'PA'" class="m-widget7__img" src="./assets/app/media/img/logos/pa.png" alt="">
-											<img *ngSwitchDefault class="m-widget7__img" src="./assets/app/media/img/logos/pr.png" alt="">
+											<img *ngSwitchCase="'PA'" class="m-widget7__img" src="./assets/app/media/img/logos/pa.png" alt="">
+											<img *ngSwitchDefault class="m-widget7__img" src="./assets/app/media/img/logos/pr.png" alt=""> -->
 										</div>
 										<div class="m-widget5__content">
 											<h4 class="m-widget5__title">

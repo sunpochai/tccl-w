@@ -15,4 +15,13 @@
     color: #ffffff; }
 .nav.nav-pills.nav-pills--brand .nav-link.search i {
     color: #f0f0f0; }
-      
+
+  .imageWrapper {
+    position: relative; width: 100px; height: 100px; 
+    /* width: 2.6rem; */ border-radius: 50%; /* margin-top: 1.14rem; */ }
+    .imageWrapper .backgroundimage {
+      width: 100px; height: 100px; 
+      /* width: 2.6rem; */ border-radius: 50%;
+      position: relative; z-index: 1; }
+    .imageWrapper .iconontop {
+      position: absolute;left:65px; top: 15px;z-index: 10; font-size: 1.3rem; }
