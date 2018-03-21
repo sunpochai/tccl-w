@@ -30,7 +30,10 @@ const routes: Routes = [
         "component": DefaultComponent,
         "children": [
             {
-                "path": "list/:routetype", //routetype:string ('pr','po','pa')
+                "path": "list/pr/:routetype", //routetype:string ('pr','po','pa')
+                "component": RouteApproveListComponent
+            }, {
+                "path": "list/po/:routetype", //routetype:string ('pr','po','pa')
                 "component": RouteApproveListComponent
             }, {
                 "path": "detail/:id", //id:any ('pr','po','pa' <-- add new record ,id <-- get old record)
