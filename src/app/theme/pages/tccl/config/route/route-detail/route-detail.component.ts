@@ -139,11 +139,31 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
 
     save() {
         // console.log(this.routeapprove);
+        if (this.validateData() == false) {
+            return;
+        }
         if (this.routeapprove.route_id != null && this.routeapprove.route_id != 0) {
             this.update();
         } else {
             this.create();
         }
+    }
+
+    validateData(): boolean {
+        if (this.routeapprove.minimum_value > this.routeapprove.maximum_value) {
+            super.showError('Invalid minimum and maximum value');
+            return false;
+        }
+
+        // console.log(this.priceoverpr_yes);
+        // console.log(this.priceoverpr_no);
+
+        if (this.priceoverpr_yes == null && this.priceoverpr_no == null) {
+            super.showError('Please specify Price Over PR');
+            return false;
+        }
+
+        return true;
     }
 
     create() {
@@ -165,7 +185,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
             this.routeapprove.price_over_pr_flag = 'N';
         } else {
             //default
-            this.routeapprove.price_over_pr_flag = 'A';
+            // this.routeapprove.price_over_pr_flag = 'A';
         }
 
         this.routeapprove.route_status = true;
@@ -299,6 +319,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
 
         console.log(approver);
         this.routeapprove.cf_route_detail.push(approver);
+        console.log(this.routeapprove);
     }
 
     editApprover(rowIndex: number) {
@@ -375,6 +396,15 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     closeDropDown() {
         this.showDropDownTracking = false;
         this.showDropDownUser = false;
+    }
+
+    isTrackingCodeValid(): boolean {
+        // console.log(this.routeapprove.tracking_no);
+        if (this.routeapprove.tracking_no != null && this.routeapprove.tracking_no != '') {
+            return true;
+        }
+
+        return false;
     }
     
 

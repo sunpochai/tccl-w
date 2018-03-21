@@ -83,7 +83,7 @@
 						Company:
 					</label>
 					<div class="col-lg-6 col-md-9 col-sm-12">
-						<select class="form-control m-input" [(ngModel)]="plant.comp_code" id="comp_code" name="comp_code">
+						<select required class="form-control m-input" [(ngModel)]="plant.comp_code" id="comp_code" name="comp_code">
 							<ng-container *ngFor="let row of companyList; let index = index">
 								<option value="{{row.comp_code}}">
 									{{row.comp_name}}
@@ -125,7 +125,7 @@
 				<div class="m-form__actions m-form__actions">
 					<div class="row">
 						<div class="col-lg-9 ml-lg-auto">
-							<button type="button" [disabled]="heroForm.invalid" class="btn btn-success" data-toggle="modal" data-target="#m_modal_6">
+							<button type="button" [disabled]="heroForm.invalid  " class="btn btn-success" data-toggle="modal" data-target="#m_modal_6">
 								Save 
 							</button>
 							 

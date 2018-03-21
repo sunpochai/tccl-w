@@ -70,7 +70,7 @@
 						Route Name *   
 					</label> 
 					<div class="col-lg-4 col-sm-8">
-						<input required minlength="4" [(ngModel)]="routeapprove.route_name" type="text" class="form-control m-input" name="route_name" value="{{routeapprove.route_name}}" placeholder="Enter Route Name"  >
+						<input [required]="isTrackingCodeValid()" minlength="4" [(ngModel)]="routeapprove.route_name" type="text" class="form-control m-input" name="route_name" value="{{routeapprove.route_name}}" placeholder="Enter Route Name"  >
 					</div>
 					<label class="col-form-label col-lg-2 col-sm-4">
 						Tracking No. *   
