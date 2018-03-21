@@ -150,7 +150,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     }
 
     validateData(): boolean {
-        if (this.routeapprove.minimum_value > this.routeapprove.maximum_value) {
+        if (this.routetype.doc_group != ROUTE_PR.doc_group && this.routeapprove.minimum_value > this.routeapprove.maximum_value) {
             super.showError('Invalid minimum and maximum value');
             return false;
         }
@@ -158,7 +158,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
         // console.log(this.priceoverpr_yes);
         // console.log(this.priceoverpr_no);
 
-        if (this.priceoverpr_yes == null && this.priceoverpr_no == null) {
+        if (this.routetype.doc_group == ROUTE_PO.doc_group && this.priceoverpr_yes == null && this.priceoverpr_no == null) {
             super.showError('Please specify Price Over PR');
             return false;
         }
@@ -185,7 +185,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
             this.routeapprove.price_over_pr_flag = 'N';
         } else {
             //default
-            // this.routeapprove.price_over_pr_flag = 'A';
+            this.routeapprove.price_over_pr_flag = 'A';
         }
 
         this.routeapprove.route_status = true;
@@ -237,7 +237,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
             this.routeapprove.price_over_pr_flag = 'N';
         } else {
             //default
-            // this.routeapprove.price_over_pr_flag = 'A';
+            this.routeapprove.price_over_pr_flag = 'A';
         }
 
         this.routeapprove.update_user = super.getADUserLogin();
