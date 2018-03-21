@@ -93,7 +93,14 @@ var myDatatable = function( ) {
           width: '80px',
           type: 'number',
           textAlign: 'right',
-          sortable: false
+          sortable: false,
+          template: function (row) {
+            var parts = (row.grand_total).toFixed(2).split(".");
+            // alert(parts);
+            var num = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (parts[1] ? "." + parts[1] : ".00");
+            return num;
+          }
+
         } , {
           field: 'comp_name',
           title: 'Company',

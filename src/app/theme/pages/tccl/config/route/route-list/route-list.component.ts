@@ -44,7 +44,8 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
             this.doctypeList = data;
             // console.log(data);
         });
-
+console.log('ngOnInit');
+console.log(this.route);
         this.route.params.subscribe(params => {
             console.log(params['routetype']);
             //routetype: string ('pr','po','pa')
@@ -70,7 +71,7 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
 
     ngAfterViewInit() {
         this._script.loadScripts('config-route-list', [this.scriptpath]);
-
+console.log('ngAfterViewInit');
         this.load(this.api_list, this.routetype.doc_group);
     }
 
