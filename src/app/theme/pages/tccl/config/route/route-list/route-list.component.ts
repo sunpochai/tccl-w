@@ -127,7 +127,7 @@ console.log('ngAfterViewInit');
     }
 
     navigate_list() {
-        this._router.navigate(['/config/route/list/' + this.routetype.name]);
+        this._router.navigate(['/config/route/list/' + this.routetype.name + this.routetype.name]);
     }
 
     search() {

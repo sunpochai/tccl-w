@@ -348,7 +348,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     }
 
     navigate_list() {
-        this._router.navigate(['/config/route/list/' + this.routetype.name]);
+        this._router.navigate(['/config/route/list/' + this.routetype.name + this.routetype.name]);
     }
 
     
