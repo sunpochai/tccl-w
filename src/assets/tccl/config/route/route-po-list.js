@@ -80,13 +80,25 @@ var myDatatable = function( ) {
           title: 'Minimum Value',
           sortable: 'asc',
           type: 'number',
-          textAlign: 'right'
+          textAlign: 'right',
+          template: function (row) {
+            var parts = (row.minimum_value).toFixed(2).split(".");
+            // alert(parts);
+            var num = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (parts[1] ? "." + parts[1] : ".00");
+            return num;
+          }
         }, {
           field: 'maximum_value',
           title: 'Maximum Value',
           sortable: 'asc',
           type: 'number',
-          textAlign: 'right'
+          textAlign: 'right',
+          template: function (row) {
+            var parts = (row.maximum_value).toFixed(2).split(".");
+            // alert(parts);
+            var num = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (parts[1] ? "." + parts[1] : ".00");
+            return num;
+          }
         }, {
           field: 'Actions',
           width: 110,
