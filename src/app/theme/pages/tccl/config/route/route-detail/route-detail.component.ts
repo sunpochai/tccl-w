@@ -237,7 +237,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
             this.routeapprove.price_over_pr_flag = 'N';
         } else {
             //default
-            this.routeapprove.price_over_pr_flag = 'A';
+            // this.routeapprove.price_over_pr_flag = 'A';
         }
 
         this.routeapprove.update_user = super.getADUserLogin();
