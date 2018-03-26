@@ -13,6 +13,7 @@ import { WorklistService } from '../../_services/trns/worklist.service';
 import { DocTypeService } from '../../_services/masters/doctype.service';
 import { CompanyService } from '../../_services/masters/company.service';
 import { PlantService } from '../../_services/masters/plant.service';
+import { SortPipe } from '../../../../../_pipe/sort';
 
 const routes: Routes = [
     {
@@ -33,13 +34,15 @@ const routes: Routes = [
     ], exports: [
         RouterModule
     ], declarations: [
-        WorklistComponent
+        WorklistComponent,
+        SortPipe
     ], providers: [
         WorklistService,
         DocTypeService,
         CompanyService,
         PlantService,
-        FormBuilder
+        FormBuilder,
+        SortPipe
     ]
 })
 export class WorklistModule {

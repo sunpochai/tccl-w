@@ -1429,7 +1429,9 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
   height: calc(3.875rem + 2px); }
 
 .form-group {
-  margin-bottom: 1rem; }
+  margin-bottom: 0.3rem;
+  /* weeraya 26/03/2018
+  margin-bottom: 1rem; */ }
 
 .form-text {
   display: block;
@@ -16985,7 +16987,9 @@ code {
       position: relative;
       z-index: 1; }
   .m-portlet .m-portlet__body {
-    padding: 2.2rem 2.2rem; }
+    padding: 1.2rem 1.2rem;
+    /* weeraya 26/03/2018
+      padding: 2.2rem 2.2rem; */ }
     .m-portlet .m-portlet__body.m-portlet__body--no-padding {
       padding: 0; }
     .m-portlet .m-portlet__body.m-portlet__body--no-top-padding {
@@ -18717,8 +18721,11 @@ body.m-portlet--fullscreen {
 .m-widget5 .m-widget5__item {
   display: table;
   width: 100%;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  /* weeraya 26/03/2018
   margin-bottom: 1.43rem;
-  padding-bottom: 1.57rem; }
+  padding-bottom: 1.57rem; */ }
   .m-widget5 .m-widget5__item .m-widget5__pic {
     display: table-cell;
     width: 5rem; }
@@ -18727,7 +18734,7 @@ body.m-portlet--fullscreen {
   .m-widget5 .m-widget5__item .m-widget5__content {
     display: table-cell;
     vertical-align: top;
-    padding-left: 1.43rem;
+    padding-left: 0.9rem;
     padding-top: 0.3rem; }
     .m-widget5 .m-widget5__item .m-widget5__content .m-widget5__title {
       font-size: 1.1rem;
@@ -18735,7 +18742,8 @@ body.m-portlet--fullscreen {
     .m-widget5 .m-widget5__item .m-widget5__content .m-widget5__desc {
       font-size: 0.85rem; }
     .m-widget5 .m-widget5__item .m-widget5__content .m-widget5__info {
-      margin-top: 0.71rem;
+      /* weeraya 26/03/2018
+      margin-top: 0.71rem; */
       font-size: 1rem; }
       .m-widget5 .m-widget5__item .m-widget5__content .m-widget5__info .m-widget5__info-author {
         font-weight: 500;
@@ -18746,7 +18754,8 @@ body.m-portlet--fullscreen {
     display: table-cell;
     text-align: right;
     width: 7.1rem;
-    padding-top: 1.07rem;
+    /* weeraya 26/03/2018
+    padding-top: 1.07rem; */
     vertical-align: top; }
     .m-widget5 .m-widget5__item .m-widget5__stats1 .m-widget5__number {
       font-size: 1.5rem;
