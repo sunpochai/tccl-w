@@ -273,8 +273,8 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
                 if (resp.is_error == false) {
                     console.log(resp);
                     super.unblockui('#m-content');
-                    window.location.reload();
                     super.showsuccess('Review completed');
+                    this.navigate_home();
                 } else {
                     console.log(resp);
                     super.showError(resp.error_msg);
@@ -305,8 +305,8 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
                 workflowaction = resp;
                 if (resp.is_error == false) {
                     super.unblockui('#m-content');
-                    window.location.reload();
                     super.showsuccess('Approve completed');
+                    this.navigate_home();
                 } else {
                     console.log(resp);
                     super.showError(resp.error_msg);
@@ -335,8 +335,8 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
                 if (resp.is_error == false) {
                     console.log(resp);
                     super.unblockui('#m-content');
-                    window.location.reload();
                     super.showsuccess('Reject completed');
+                    this.navigate_home();
                 } else {
                     console.log(resp);
                     super.showError(resp.error_msg);
@@ -372,8 +372,8 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
                 if (resp.is_error == false) {
                     console.log(resp);
                     super.unblockui('#m-content');
-                    window.location.reload();
                     super.showsuccess('Update waiting completed');
+                    this.navigate_home();
                 } else {
                     console.log(resp);
                     super.showError(resp.error_msg);
@@ -410,8 +410,8 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
                 if (resp.is_error == false) {
                     console.log(resp);
                     super.unblockui('#m-content');
-                    window.location.reload();
                     super.showsuccess('Update delegate completed');
+                    this.navigate_home();
                 } else {
                     console.log(resp);
                     super.showError(resp.error_msg);
@@ -444,7 +444,7 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
                     console.log(resp);
                     super.unblockui('#m-content');
                     super.showsuccess('Comment completed');
-                    window.location.reload();
+                    this.navigate_home();
                 } else {
                     console.log(resp);
                     super.showError(resp.error_msg);
@@ -495,6 +495,9 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
         this._router.navigate(['/trns/po/list']);
     }
 
+    navigate_home() {
+        this._router.navigate(['/trns/worklist/my']);
+    }
 
     searchUser(search) {
         if(search.length < 2) return;
