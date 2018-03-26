@@ -1080,7 +1080,9 @@ pre {
   background-color: transparent; }
   .table th,
   .table td {
-    padding: 0.75rem;
+    padding: 0.25rem;
+    /* weeraya 26/03/2018
+    padding: 0.75rem; */
     vertical-align: top;
     border-top: 1px solid #f4f5f8; }
   .table thead th {
@@ -1281,6 +1283,35 @@ pre {
   -ms-overflow-style: -ms-autohiding-scrollbar; }
   .table-responsive > .table-bordered {
     border: 0; }
+
+/* weeraya 26/03/2018
+*/
+.table-display {
+  width: 100%;
+  max-width: 100%;
+  font-size: 0.9rem;
+  border: 5px;
+  text-align: left;
+  background-color: transparent; }
+  .table-display-thead {
+    background-color: #eeeeee;
+    border-top: 1px #888888 solid;
+    border-bottom: 1px #888888 solid;
+  }
+  .table-display-lastrow {
+    border-bottom: 1px #dddddd solid;
+  }
+  .table-display-caption {
+    color: #888888;
+    padding: 5px;
+    text-align: right;
+    vertical-align: top; }
+  .table-display-value {
+    width: 70%;
+    padding: 5px;
+    text-align: left;
+    vertical-align: top; }
+    
 
 .form-control {
   display: block;
@@ -8489,6 +8520,12 @@ b, strong {
   background-color: #f4516c !important;
   color: #ffffff !important; }
 
+/* weeraya 26/03/2018
+*/
+.m--font-pale {
+  color: #888888 !important; }
+  
+  
 .m--visible-desktop,
 .m--visible-desktop-inline-block,
 .m--visible-desktop-inline,
@@ -12189,7 +12226,9 @@ b, strong {
     font-size: 1rem; }
   .m-section .m-section__content {
     margin: 0 0 10px 0;
-    font-size: 1rem; }
+    font-size: 0.9rem;
+    /* weeraya 26/03/2018
+    font-size: 1rem; */ }
   .m-section .m-section__seperator {
     margin: 5px 0;
     height: 1px;
@@ -16829,7 +16868,10 @@ code {
     padding: 0;
     width: 100%;
     padding: 0 2.2rem;
-    height: 5.1rem; }
+    height: 3.6rem;
+    /* weeraya 26/03/2018
+    padding: 0 2.2rem;
+    height: 5.1rem; */ }
     .m-portlet .m-portlet__head .m-portlet__head-caption {
       display: table-cell;
       vertical-align: middle;
@@ -23151,8 +23193,11 @@ body.m-portlet--fullscreen {
 
 .m-form .m-form__group {
   margin-bottom: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  /* weeraya 26/03/2018
   padding-top: 15px;
-  padding-bottom: 15px; }
+  padding-bottom: 15px; */ }
   .m-form .m-form__group .form-control-label,
   .m-form .m-form__group label {
     font-weight: 400;

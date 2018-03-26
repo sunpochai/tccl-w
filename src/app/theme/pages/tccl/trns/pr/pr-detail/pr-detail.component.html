@@ -46,6 +46,7 @@
 			<div class="m-portlet__head-caption">
 				<div class="m-portlet__head-title">
 					<h3 class="m-portlet__head-text" >
+						<i class="flaticon-edit"></i>
 						<span id="txtActionName" *ngIf="canReview">Review</span>
 						<span id="txtActionName" *ngIf="canApprove">Approve</span>
 						<span id="txtActionName" *ngIf="canComment">Comment</span>
@@ -116,30 +117,30 @@
 			</div>
 			<!--end::portlet__body-->
 			<!--begin::portlet__foot-->
-			<div class="m-portlet__foot m-portlet__foot--fit">
-				<div class="m-form__actions m-form__actions">
+			<div class="m-portlet__foot m-portlet__foot">
+				<!-- <div class="m-form__actions m-form__actions"> -->
 					<div class="row">
 						<div class="col-lg-12 ml-lg-auto ">
-							<button type="button" [disabled]="heroForm.invalid" class="btn btn-info" (click)="prepareAction('Review')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canReview">
+							<button type="button" class="btn btn-info" (click)="prepareAction('Review')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canReview">
 								Review 
 							</button>
-							<button type="button" [disabled]="isWaiting || isDelegate || heroForm.invalid" class="btn btn-success" (click)="prepareAction('Approve')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+							<button type="button" [disabled]="isWaiting || isDelegate" class="btn btn-success" (click)="prepareAction('Approve')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
 								Approve 
 							</button>
-							<button type="button" [disabled]="isWaiting || isDelegate || heroForm.invalid" class="btn btn-danger" (click)="prepareAction('Reject')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+							<button type="button" [disabled]="isWaiting || isDelegate" class="btn btn-danger" (click)="prepareAction('Reject')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
 								Reject 
 							</button>
 							<ng-container *ngIf="isWaiting">
-								<button type="button" [disabled]="isWaiting==false || heroForm.invalid || user_list==null || user_list.length < 1" class="btn btn-warning" (click)="prepareAction('Waiting')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+								<button type="button" [disabled]="isWaiting==false || user_list==null || user_list.length < 1" class="btn btn-warning" (click)="prepareAction('Waiting')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
 									Waiting 
 								</button>
 							</ng-container>
 							<ng-container *ngIf="isDelegate">
-								<button type="button" [disabled]="isDelegate==false || heroForm.invalid || user_list==null || user_list.length < 1" class="btn btn-warning" (click)="prepareAction('Delegate')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+								<button type="button" [disabled]="isDelegate==false || user_list==null || user_list.length < 1" class="btn btn-warning" (click)="prepareAction('Delegate')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
 									Delegate 
 								</button>
 							</ng-container>
-							<button type="button" [disabled]="heroForm.invalid" class="btn btn-info" (click)="prepareAction('Comment')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canComment">
+							<button type="button" class="btn btn-info" (click)="prepareAction('Comment')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canComment">
 								Comment 
 							</button>
 							<button type="reset" (click)="navigate_list()" class="btn btn-secondary">
@@ -147,7 +148,7 @@
 							</button>
 						</div>
 					</div>
-				</div>
+				<!-- </div> -->
 			</div>
 			<!--end::portlet__foot-->
 		</form>
@@ -177,15 +178,13 @@
 									<a href="#" (click)="openFile(row.attach_id)" title="Download">
 										<i class="flaticon-tool-1"></i>
 									</a>
-									<span class="my-font-sub">{{row.file_name}}</span>
+									<span class="m--font-pale">{{row.file_name}}</span>
 								</td>
 								<td>
 									<i class="la la-user"></i>
-									<span class="my-font-sub">{{row.create_username}}</span>
-								<!-- </td>
-								<td> -->
+									<span class="m--font-pale">{{row.create_username}}</span>
 									<i class="la la-clock-o"></i>
-									<span class="my-font-sub">{{row.create_datetime | date :'dd/MM/yyyy HH:mm:ss'}}</span>
+									<span class="m--font-pale">{{row.create_datetime | date :'dd/MM/yyyy HH:mm:ss'}}</span>
 								</td>
 								<td>
 									<span *ngIf="canReview">
@@ -194,6 +193,9 @@
 										</a>
 									</span>
 								</td>
+							</tr>
+							<tr *ngIf="pr.pr_attachment_items == null || pr.pr_attachment_items.length <= 0">
+								<td span="3" style="text-align: center;">-----No Attachment-----</td>
 							</tr>
 						</table>
 
@@ -208,12 +210,12 @@
 									Choose file
 								</label>
 							</div>
-								<div *ngFor="let f of attFile let i = index">
+							<div *ngFor="let f of attFile let i = index">
 								<div><span class="filen">{{f}}</span></div>	 
-							</div> 
+							</div>
 						</div>
-						<div class="m-form__actions m-form__actions" *ngIf="canReview">
-							<div class="row">
+						<div class="m-form__actions m-form__actions" *ngIf="canReview && this.attFile!=null">
+							<div class="row" >
 								<div class="col-lg-12 ml-lg-auto ">
 									<button type="button" class="btn btn-brand" (click)="uploadFile()" *ngIf="this.attFile!=null"  >
 										Submit File 
@@ -235,7 +237,7 @@
 					<div class="m-portlet__head-caption">
 						<div class="m-portlet__head-title">
 							<h3 class="m-portlet__head-text">
-								<i class="flaticon-edit"></i>
+								<i class="flaticon-list-3"></i>
 								Approve Status
 							</h3>
 						</div>
@@ -243,11 +245,11 @@
 				</div>
 				<div class="m-portlet__body-lil">
 					<div class="row">
-						<div class="col-xl-12 col-sm-12">
+						<div class="col-xl-12 col-sm-12" *ngIf="pr.worklist.stage_list!=null && pr.worklist.stage_list.length > 0">
 							<div class="table-responsive">
 								<table class="table-display">
 									<thead>
-										<tr class="table-display-lastrow  m--font-bolder">
+										<tr class="table-display-thead  m--font-bolder">
 											<td>User Name</td>
 											<td>Start - Finish</td>
 											<td>Duration</td>
@@ -259,17 +261,17 @@
 											<ng-container *ngIf="row.activity_description==null || row.activity_description==''">
 												<tr class="table-display-lastrow">
 													<td>
-														<i class="la la-user m--font-bolder"></i>
-														<span class="my-font-sub">{{row.actor_username}}</span>
+														<!-- <i class="la la-user m--font-bolder"></i> -->
+														<span>{{row.actor_username}}</span>
 													</td>
 													<td>
-														<i class="la la-clock-o"></i>
-														<span class="my-font-sub">{{row.start_datetime | date :'dd/MM/yyyy HH:mm'}} - {{row.finish_datetime | date :'dd/MM/yyyy HH:mm'}}</span>
+														<!-- <i class="la la-clock-o"></i> -->
+														<span>{{row.start_datetime | date :'dd/MM/yyyy HH:mm'}} - {{row.finish_datetime | date :'dd/MM/yyyy HH:mm'}}</span>
 													</td>
 													<td>
 														<span *ngIf="row.duration!=''">
-															<i class="flaticon-stopwatch"></i>
-															<span class="my-font-sub">{{row.duration}}</span>
+															<!-- <i class="flaticon-stopwatch"></i> -->
+															<span>{{row.duration}}</span>
 														</span>
 													</td>
 													<td style="text-align: center;" [ngSwitch]="row.activity">
@@ -283,17 +285,14 @@
 											<ng-container *ngIf="row.activity_description!=null && row.activity_description!=''">
 												<tr >
 													<td>
-														<i class="la la-user m--font-bolder"></i>
-														<span class="my-font-sub">{{row.actor_username}}</span>
+														<span>{{row.actor_username}}</span>
 													</td>
 													<td>
-														<i class="la la-clock-o"></i>
-														<span class="my-font-sub">{{row.start_datetime | date :'dd/MM/yyyy HH:mm'}} - {{row.finish_datetime | date :'dd/MM/yyyy HH:mm'}}</span>
+														<span>{{row.start_datetime | date :'dd/MM/yyyy HH:mm'}} - {{row.finish_datetime | date :'dd/MM/yyyy HH:mm'}}</span>
 													</td>
 													<td>
 														<span *ngIf="row.duration!=''">
-															<i class="flaticon-stopwatch"></i>
-															<span class="my-font-sub">{{row.duration}}</span>
+															<span>{{row.duration}}</span>
 														</span>
 													</td>
 													<td style="text-align: center;" [ngSwitch]="row.activity">
@@ -305,6 +304,7 @@
 												</tr>
 												<tr class="table-display-lastrow">
 													<td colspan="4">
+														&nbsp;&nbsp;&nbsp;
 														<i class="flaticon-chat-1"></i>
 														{{row.activity_description}}
 													</td>
@@ -409,7 +409,7 @@
 									</thead>
 									<tr *ngFor="let row of pr.pr_items; let index = index">
 										<ng-container *ngIf="row.item_status == 'DEL' ">
-											<td align="right" class="m--font-deleted">{{row.pr_item_no}}</td>
+											<td align="center" class="m--font-deleted">{{row.pr_item_no}}</td>
 											<td class="m--font-deleted">{{row.account_no}} - {{row.account_name}}</td>
 											<td class="m--font-deleted">{{row.mat_desc}}</td>
 											<td align="right" class="m--font-deleted">{{row.qty}}</td>
@@ -419,7 +419,7 @@
 											<td class="m--font-deleted">{{row.delivery_date | date :'dd/MM/yyyy'}}</td>
 										</ng-container>
 										<ng-container *ngIf="row.item_status != 'DEL' ">
-											<td align="right">{{row.pr_item_no}}</td>
+											<td align="center">{{row.pr_item_no}}</td>
 											<td>{{row.account_no}} - {{row.account_name}}</td>
 											<td>{{row.mat_desc}}</td>
 											<td align="right">{{row.qty}}</td>
