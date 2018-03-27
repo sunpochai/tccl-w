@@ -121,7 +121,11 @@ var myDatatable = function( ) {
           title: 'Status',
           sortable: false,
           template: function (row) {
-            return '<span class="' + my.docStatus[row.c_doc_status].displayclass + '">' + my.docStatus[row.c_doc_status].name + '</span>';
+            if (row.c_doc_status != null && row.c_doc_status!='') {
+              return '<span class="' + my.docStatus[row.c_doc_status].displayclass + '">' + my.docStatus[row.c_doc_status].name + '</span>';
+            } else {
+              return '<span class="' + my.docStatus[0].displayclass + '">' + my.docStatus[0].name + '</span>';
+            }
           }
         } , {
           field: 'create_username',
