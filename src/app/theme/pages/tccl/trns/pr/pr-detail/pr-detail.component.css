@@ -44,28 +44,3 @@
   background: #707070;
   color: aliceblue;
 }
-
-.table-display {
-  width: 100%;
-  max-width: 100%;
-  border: 5px;
-  text-align: left;
-  /* 
-  margin-bottom: 1rem; */
-  background-color: transparent; }
-  .table-display-lastrow {
-    border-bottom: 1px #b6b5b5 dashed;
-  }
-  .table-display-caption {
-    color: #888888;
-    padding: 5px;
-    text-align: right;
-    vertical-align: top; }
-  .table-display-value {
-    width: 70%;
-    padding: 5px;
-    text-align: left;
-    vertical-align: top; }
-
-.my-font-sub {
-  color: #888888; }

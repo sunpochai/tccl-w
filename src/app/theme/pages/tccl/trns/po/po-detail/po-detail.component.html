@@ -38,12 +38,462 @@
 <!-- END: Subheader -->
 
 <div class="m-content" id="m-content" *ngIf="po!=null">
-	<!--Begin::Main Portlet-->
-	<div class="m-portlet">
+
+
+	<!--begin::Portlet-->
+	<div class="m-portlet" *ngIf="canReview || canApprove || canComment">
+		<div class="m-portlet__head">
+			<div class="m-portlet__head-caption">
+				<div class="m-portlet__head-title">
+					<h3 class="m-portlet__head-text" >
+							<i class="flaticon-edit"></i>
+						<span id="txtActionName" *ngIf="canReview">Review</span>
+						<span id="txtActionName" *ngIf="canApprove">Approve</span>
+						<span id="txtActionName" *ngIf="canComment">Comment</span>
+					</h3>
+				</div>
+			</div>
+		</div>
+		<!--begin::Form-->
+		<form  #heroForm="ngForm" class="m-form m-form--fit m-form--label-align-right" id="m_form_1">
+			<!--begin::portlet__body-->
+			<div class="m-portlet__body m-portlet__body--no-top-padding" >
+				<div class="m-form__content">
+					<div class="m-alert m-alert--icon alert alert-danger m--hide" role="alert" id="m_form_1_msg">
+						<div class="m-alert__icon">
+							<i class="la la-warning"></i>
+						</div>
+						<div class="m-alert__text">
+							Oh snap! Change a few things up and try submitting again.
+						</div>
+						<div class="m-alert__close">
+							<button type="button" class="close" data-close="alert" aria-label="Close"></button>
+						</div>
+					</div>
+				</div>
+				<div class="form-group m-form__group" *ngIf="canApprove">
+					<div class="m-checkbox-inline">
+						<label class="m-checkbox">
+							<input type="checkbox" [disabled]="isDelegate" [(ngModel)]="isWaiting" name="chkWaiting"  >
+							Waiting
+							<span></span>
+						</label>
+						<label class="m-checkbox">
+							<input type="checkbox" [disabled]="isWaiting" [(ngModel)]="isDelegate" name="chkDelegate" >
+							Delegate
+							<span></span>
+						</label>
+					</div>
+				</div>
+				<div class="form-group m-form__group" *ngIf="isWaiting || isDelegate">
+					<label for="searchuser">
+						Send request to:
+					</label>
+					<div class="col-lg-9 col-sm-9">
+						<div class="width-half">
+							<input id='searchuser' placeholder="Search for a user" class=' form-control m-input' [(ngModel)]="textSearchUser" name="user" type='text' (ngModelChange)="onChangeSearchUser($event);"  >
+							<div clickOutside (clickOutside)="closeDropDown()">
+								<div  *ngIf="showDropDownUser" class='search-drop-down card'>
+									<div (click)='selectUserValue(s)' class='search-results ' *ngFor="let s of this.userList ">
+										{{s.fullname}}
+									</div>
+								</div>
+							</div>
+							<div *ngFor="let user of user_list; let i = index">
+								<div class="close-left" (click)="removeUser(i)">
+									<i class="la la-close" ></i>
+								</div>
+								<span>{{user.ad_username}}</span>
+							</div>
+						</div>  
+					</div>
+				</div>
+				<div class="form-group m-form__group">
+					<label for="exampleTextarea">
+						Comment:
+					</label>
+					<textarea class="form-control m-input" id="txtComment" rows="3" placeholder="Enter comment"></textarea>
+				</div>
+			</div>
+			<!--end::portlet__body-->
+			<!--begin::portlet__foot-->
+			<div class="m-portlet__foot m-portlet__foot">
+				<!-- <div class="m-form__actions m-form__actions"> -->
+					<div class="row">
+						<div class="col-lg-12 ml-lg-auto ">
+							<button type="button" [disabled]="heroForm.invalid" class="btn btn-info" (click)="prepareAction('Review')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canReview">
+								Review 
+							</button>
+							<button type="button" [disabled]="isWaiting || isDelegate || heroForm.invalid" class="btn btn-success" (click)="prepareAction('Approve')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+								Approve 
+							</button>
+							<button type="button" [disabled]="isWaiting || isDelegate || heroForm.invalid" class="btn btn-danger" (click)="prepareAction('Reject')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+								Reject 
+							</button>
+							<ng-container *ngIf="isWaiting">
+								<button type="button" [disabled]="isWaiting==false || heroForm.invalid  || user_list==null || user_list.length < 1" class="btn btn-warning" (click)="prepareAction('Waiting')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+									Waiting 
+								</button>
+							</ng-container>
+							<ng-container *ngIf="isDelegate">
+								<button type="button" [disabled]="isDelegate==false || heroForm.invalid  || user_list==null || user_list.length < 1" class="btn btn-warning" (click)="prepareAction('Delegate')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+									Delegate 
+								</button>
+							</ng-container>
+							<button type="button" [disabled]="heroForm.invalid" class="btn btn-info" (click)="prepareAction('Comment')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canComment">
+								Comment 
+							</button>
+							<button type="reset" (click)="navigate_home()" class="btn btn-secondary">
+								Cancel
+							</button>
+						</div>
+					</div>
+				<!-- </div> -->
+			</div>
+			<!--end::portlet__foot-->
+		</form>
+		<!--end::Form-->
+	</div>
+	<!--end::Portlet--> 
+
+
+	<form class="m-form m-form--fit " >
+		<div class="row">
+			<div class="col-xl-12">
+				<div class="m-portlet m-portlet--full-height">
+					<div class="m-portlet__head">
+						<div class="m-portlet__head-caption">
+							<div class="m-portlet__head-title">
+								<h3 class="m-portlet__head-text">
+									<i class="flaticon-tool-1"></i>
+									Attach File
+								</h3>
+							</div>
+						</div>
+					</div>
+					<div class="m-portlet__body-lil m--regular-font-size-sm1">
+						<table class="table-display">
+							<tr *ngFor="let row of po.po_attachment_items; let index = index">
+								<td>
+									<a href="#" (click)="openFile(row.attach_id)" title="Download">
+										<i class="flaticon-tool-1"></i>
+									</a>
+									<span class="m--font-pale">{{row.file_name}}</span>
+								</td>
+								<td>
+									<i class="la la-user"></i>
+									<span class="m--font-pale">{{row.create_username}}</span>
+									<i class="la la-clock-o"></i>
+									<span class="m--font-pale">{{row.create_datetime | date :'dd/MM/yyyy HH:mm:ss'}}</span>
+								</td>
+								<td>
+									<span *ngIf="canReview">
+										<a href="#" (click)="prepareRemoveFile(row.attach_id, row.file_name)" data-toggle="modal" data-target="#m_modal_delete" class="m-btn m-btn--pill m-btn--hover-danger btn btn-sm btn-secondary" title="Remove">
+											<i class="la la-trash"></i>
+										</a>
+									</span>
+								</td>
+							</tr>
+							<tr *ngIf="po.po_attachment_items == null || po.po_attachment_items.length <= 0">
+								<td span="3" style="text-align: center;">-----No Attachment-----</td>
+							</tr>
+						</table>
+
+						<div class="form-group m-form__group" *ngIf="canReview">
+							<label for="exampleInputEmail1">
+								Attach File
+							</label>
+							<div></div>
+							<div class="custom-file">
+								<input type="file" (change)="fileChange($event)" class="custom-file-input" id="customFile" data-max-size="2048" multiple>
+								<label class="custom-file-label" for="customFile"  >
+									Choose file
+								</label>
+							</div>
+							<div *ngFor="let f of attFile let i = index">
+								<div><span class="filen">{{f}}</span></div>	 
+							</div>
+						</div>
+						<div class="m-form__actions m-form__actions" *ngIf="canReview && this.attFile!=null">
+							<div class="row" >
+								<div class="col-lg-12 ml-lg-auto ">
+									<button type="button" class="btn btn-brand" (click)="uploadFile()" *ngIf="this.attFile!=null"  >
+										Submit File 
+									</button> 
+								</div>
+							</div>
+						</div>
+					</div> 
+				</div>
+			</div>
+		</div>
+	</form>
+
+	<div class="row">
+		<div class="col-12">
+			<div class="m-portlet m-portlet--full-height">
+				<div class="m-portlet__head">
+					<div class="m-portlet__head-caption">
+						<div class="m-portlet__head-title">
+							<h3 class="m-portlet__head-text">
+								<i class="flaticon-list-3"></i>
+								Approval Status
+							</h3>
+						</div>
+					</div>
+				</div>
+				<div class="m-portlet__body-lil">
+					<div class="row">
+						<div class="col-xl-12 col-sm-12" *ngIf="po.worklist.stage_list!=null && po.worklist.stage_list.length > 0">
+							<div class="table-responsive">
+								<table class="table-display">
+									<thead>
+										<tr class="table-display-thead  m--font-bolder">
+											<td>User Name</td>
+											<td>Start - Finish</td>
+											<td>Duration</td>
+											<td style="text-align:center;">Action</td>
+										</tr>
+									</thead>
+									<ng-template ngFor let-item [ngForOf]="po.worklist.stage_list" let-i="index" [ngForTrackBy]="trackByFn">
+										<ng-template ngFor let-row [ngForOf]="item.stage_logs_list" let-j="index" >
+											<ng-container *ngIf="row.activity_description==null || row.activity_description==''">
+												<tr class="table-display-lastrow">
+													<td>
+														<!-- <i class="la la-user m--font-bolder"></i> -->
+														<span>{{row.actor_username}}</span>
+													</td>
+													<td>
+														<!-- <i class="la la-clock-o"></i> -->
+														<span>{{row.start_datetime | date :'dd/MM/yyyy HH:mm'}} - {{row.finish_datetime | date :'dd/MM/yyyy HH:mm'}}</span>
+													</td>
+													<td>
+														<span *ngIf="row.duration!=''">
+															<!-- <i class="flaticon-stopwatch"></i> -->
+															<span>{{row.duration}}</span>
+														</span>
+													</td>
+													<td style="text-align: center;" [ngSwitch]="row.activity">
+														<span *ngSwitchCase="statusName.reviewed" class="m-badge m-badge--info m-badge--wide">{{row.activity}}</span>
+														<span *ngSwitchCase="statusName.approved" class="m-badge m-badge--success m-badge--wide">{{row.activity}}</span>
+														<span *ngSwitchCase="statusName.rejected" class="m-badge m-badge--danger m-badge--wide">{{row.activity}}</span>
+														<span *ngSwitchDefault class="m-badge-border m-badge--info m-badge--wide ">{{row.activity}}</span>
+													</td>
+												</tr>
+											</ng-container>
+											<ng-container *ngIf="row.activity_description!=null && row.activity_description!=''">
+												<tr >
+													<td>
+														<span>{{row.actor_username}}</span>
+													</td>
+													<td>
+														<span>{{row.start_datetime | date :'dd/MM/yyyy HH:mm'}} - {{row.finish_datetime | date :'dd/MM/yyyy HH:mm'}}</span>
+													</td>
+													<td>
+														<span *ngIf="row.duration!=''">
+															<span>{{row.duration}}</span>
+														</span>
+													</td>
+													<td style="text-align: center;" [ngSwitch]="row.activity">
+														<span *ngSwitchCase="statusName.reviewed" class="m-badge m-badge--info m-badge--wide">{{row.activity}}</span>
+														<span *ngSwitchCase="statusName.approved" class="m-badge m-badge--success m-badge--wide">{{row.activity}}</span>
+														<span *ngSwitchCase="statusName.rejected" class="m-badge m-badge--danger m-badge--wide">{{row.activity}}</span>
+														<span *ngSwitchDefault class="m-badge-border m-badge--info m-badge--wide ">{{row.activity}}</span>
+													</td>
+												</tr>
+												<tr class="table-display-lastrow">
+													<td colspan="4">
+														&nbsp;&nbsp;&nbsp;
+														<i class="flaticon-chat-1"></i>
+														{{row.activity_description}}
+													</td>
+												</tr>											
+											</ng-container>
+										</ng-template>
+									</ng-template>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>		
+	</div>
+	
+
+	<div class="row">
+		<div class="col-xl-12">
+			<div class="m-portlet m-portlet--full-height">
+				<div class="m-portlet__head">
+					<div class="m-portlet__head-caption">
+						<div class="m-portlet__head-title">
+							<h3 class="m-portlet__head-text">
+								<i class="flaticon-folder-2"></i>
+								PO#{{po.po_no}}
+							</h3>
+						</div>
+					</div>
+				</div>
+				<div class="m-portlet__body-lil">
+					<div class="row">
+						<div class="col-xl-5 col-sm-12">
+							<div class="table-responsive">
+								<table class="table-display">
+									<tr>
+										<td class="table-display-caption">Status</td>
+										<td class="table-display-value"><span class={{docStatus[po.c_doc_status].displayclass}}>{{docStatus[po.c_doc_status].name}}</span></td>
+									</tr>
+									<tr>
+										<td class="table-display-caption">PO Date</td>
+										<td class="table-display-value">{{ po.po_date | date :'dd/MM/yyyy' }}</td>
+									</tr>
+									<!-- <tr>
+										<td class="table-display-caption">Price over PR</td>
+										<td class="table-display-value"></td>
+									</tr> -->
+									<tr>
+										<td class="table-display-caption">Doc Type</td>
+										<td class="table-display-value">{{po.doc_type}}</td>
+									</tr>
+									<tr>
+										<td class="table-display-caption">PO Category</td>
+										<td class="table-display-value">
+											<ng-container [ngSwitch]="po.account_category">
+												<span *ngSwitchCase="categoryCode.asset">{{categoryName.asset}}</span>
+												<span *ngSwitchCase="categoryCode.expense">{{categoryName.expense}}</span>
+												<span *ngSwitchCase="categoryCode.stock">{{categoryName.stock}}</span>
+												<span *ngSwitchCase="categoryCode.projecttcl">{{categoryName.projecttcl}}</span>
+											</ng-container>
+										</td>
+									</tr>
+									<tr>
+										<td class="table-display-caption">Purchase Org</td>
+										<td class="table-display-value">{{po.purchasing_org}}</td>
+									</tr>
+									<tr>
+										<td class="table-display-caption">Vendor</td>
+										<td class="table-display-value">{{po.vendor_code}}-{{po.vendor_name}}</td>
+									</tr>
+									<tr>
+										<td class="table-display-caption">Plant</td>
+										<td class="table-display-value">{{po.plant_code}}-{{po.plant_name}}</td>
+									</tr>
+									<tr>
+										<td class="table-display-caption">Tracking</td>
+										<td class="table-display-value">{{po.tracking_no}}</td>
+									</tr>
+									<tr>
+										<td class="table-display-caption">Purchasing Grp.</td>
+										<td class="table-display-value">{{po.purchasing_group}}</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+						<div class="col-xl-7 col-sm-12">
+							<table class="table-display">
+								<tr>
+									<td class="table-display-caption">Subject</td>
+									<td class="table-display-value">{{po.subject}}</td>
+								</tr>
+								<tr>
+									<td class="table-display-caption">Terms of Payment</td>
+									<td class="table-display-value">{{po.terms_payment}}-{{po.terms_payment_name}}</td>
+								</tr>
+								<tr>
+									<td class="table-display-caption">Currency</td>
+									<td class="table-display-value">{{po.currency}}</td>
+								</tr>
+								<tr>
+									<td class="table-display-caption">Exchange Rate</td>
+									<td class="table-display-value">{{po.exchrate}}</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+					<!--begin::m-widget5-->
+					<div class="m-section">
+						<div class="m-section__content">
+							<div class="table-responsive">
+								<!-- <table class='table table-bordered m-table m-table--border-brand m-table--head-bg-brand'> -->
+								<table class="table table-bordered table-hover ">
+									<thead>
+										<tr style="background-color:#d9c1e9;">
+												<th>No</th>
+												<th>Budget Name</th>
+												<th>Description</th>
+												<th>Qty</th>
+												<th>Unit</th>
+												<th>Unit Price</th>
+												<th>Disc.</th>
+												<th>VAT</th>
+												<th>Amount</th>
+												<th>Delivery Date</th>
+												<th>PR</th>
+												<th>Item</th>
+										</tr>
+									</thead>
+									<tr *ngFor="let row of po.po_items; let index = index">
+										<ng-container *ngIf="row.item_status == 'DEL' ">
+											<td class="m--font-deleted">{{index+1}}</td>
+											<td class="m--font-deleted">{{row.account_no}} - {{row.account_name}}</td>
+											<td class="m--font-deleted">{{row.mat_desc}}</td>
+											<td align="right" class="m--font-deleted">{{row.qty}}</td>
+											<td class="m--font-deleted">{{row.unit}}</td>
+											<td align="right" class="m--font-deleted">{{row.price | number:'1.2'}}</td>
+											<td align="right" class="m--font-deleted">{{row.discount | number:'1.2'}}</td>
+											<td align="right" class="m--font-deleted">{{row.vat | number:'1.2'}}</td>
+											<td align="right" class="m--font-deleted">{{row.total_amount | number:'1.2'}}</td>
+											<td class="m--font-deleted">{{row.delivery_date | date :'dd/MM/yyyy'}}</td>
+											<td class="m--font-deleted">{{row.pr_no}}</td>
+											<td class="m--font-deleted">{{row.pr_item_no}}</td>
+										</ng-container>
+										<ng-container *ngIf="row.item_status != 'DEL' ">
+											<td >{{index+1}}</td>
+											<td >{{row.account_no}} - {{row.account_name}}</td>
+											<td >{{row.mat_desc}}</td>
+											<td align="right" >{{row.qty}}</td>
+											<td >{{row.unit}}</td>
+											<td align="right" >{{row.price | number:'1.2'}}</td>
+											<td align="right" >{{row.discount | number:'1.2'}}</td>
+											<td align="right" >{{row.vat | number:'1.2'}}</td>
+											<td align="right" >{{row.total_amount | number:'1.2'}}</td>
+											<td >{{row.delivery_date | date :'dd/MM/yyyy'}}</td>
+											<td >{{row.pr_no}}</td>
+											<td >{{row.pr_item_no}}</td>
+										</ng-container>
+									</tr>
+									<tr>
+										<td style='text-align:right ' colspan='7'> Total</td>
+										<td style='text-align:right ' >{{totalVat | number:'1.2'}}</td>
+										<td style='text-align:right ' >{{totalAmount | number:'1.2'}}</td>
+										<td style='text-align:right ' colspan='3'></td>
+									</tr>
+									<tr>
+										<td style='text-align:right ' colspan='7'> Discount</td>
+										<td style='text-align:right ' colspan='2'>-{{totalDiscount | number:'1.2'}}</td>
+										<td style='text-align:right ' colspan='3'></td>
+									</tr>
+									<tr>
+										<td style='text-align:right ' colspan='7'> Grand Total</td>
+										<td style='text-align:right ' colspan='2'>{{po.grand_total | number:'1.2'}}</td>
+										<td style='text-align:right ' colspan='3'></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+					<!--end::m-widget5-->
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<!-- <div class="m-portlet">
 		<div class="m-portlet__body m-portlet__body--no-padding">
 			<div class="row m-row--no-padding m-row--col-separator-xl">
 				<div class="col-md-12 col-lg-6 col-xl-3">
-					<!--begin:: Widgets/Stats2-1 -->
 					<div class="m-widget1">
 						<div class="m-widget1__item">
 							<div class="row m-row--no-padding align-items-center">
@@ -249,13 +699,10 @@
 				</div>
 			</div>
 		</div>
-	</div>
-	<!--end::Main Portlet-->
+	</div> -->
 
-
-	<div class="row">
+	<!-- <div class="row">
 		<div class="col-xl-12">
-			<!--begin:: Widgets Items-->
 			<div class="m-portlet m-portlet--full-height">
 				<div class="m-portlet__head">
 					<div class="m-portlet__head-caption">
@@ -267,7 +714,6 @@
 					</div>
 				</div>
 				<div class="m-portlet__body">
-					<!--begin::m-widget5-->
 					<div class="m-section">
 						<div class="m-section__content">
 							<div class="table-responsive">
@@ -338,108 +784,15 @@
 							</div>
 						</div>
 					</div>
-					<!--end::m-widget5-->
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
-	<!--begin::Form-->
-	<form class="m-form m-form--fit " >
-
-	<div class="row">
-		<div class="col-xl-6">
-			
-			
-				<!--begin:: Widgets/Download Files-->
-				<div class="m-portlet m-portlet--full-height">
-					<div class="m-portlet__head">
-						<div class="m-portlet__head-caption">
-							<div class="m-portlet__head-title">
-								<h3 class="m-portlet__head-text">
-									Attach File
-								</h3>
-							</div>
-						</div>
-					</div>
-					<!--begin:: Portlet Body-->
-					<div class="m-portlet__body">
-						<!--begin::m-Widget Attachfile-->
-						<div class="m-widget4">
-							<!--begin::Widget Attachfile Item-->
-							<div class="m-widget4__item" *ngFor="let row of po.po_attachment_items; let index = index">
-								<div class="m-widget4__img m-widget4__img--icon" [ngSwitch]="row.file_extension">
-									<img *ngSwitchCase="'pdf'" src="./assets/app/media/img/files/pdf.svg" alt="">
-									<img *ngSwitchCase="'doc'" src="./assets/app/media/img/files/doc.svg" alt="">
-									<img *ngSwitchCase="'docx'" src="./assets/app/media/img/files/doc.svg" alt="">
-									<img *ngSwitchCase="'xls'" src="./assets/app/media/img/files/xls.svg" alt="">
-									<img *ngSwitchCase="'xlsx'" src="./assets/app/media/img/files/xls.svg" alt="">
-									<img *ngSwitchCase="'csv'" src="./assets/app/media/img/files/csv.svg" alt="">
-									<img *ngSwitchCase="'jpg'" src="./assets/app/media/img/files/jpg.svg" alt="">
-									<img *ngSwitchCase="'png'" src="./assets/app/media/img/files/png.svg" alt="">
-									<img *ngSwitchCase="'zip'" src="./assets/app/media/img/files/zip.svg" alt="">
-									<img *ngSwitchDefault src="./assets/app/media/img/files/file.svg" alt="">
-								</div>
-								<div class="m-widget4__info">
-									<span class="m-widget4__title">
-										{{row.file_name}}
-									</span>
-									<br>
-									<span class="m-widget4__sub">
-										<i class="la la-user"></i>
-										{{row.create_username}}
-									</span>
-									<span class="m-widget4__sub">
-										<i class="la la-clock-o"></i>
-										{{row.create_datetime | date :'dd/MM/yyyy'}}
-									</span>
-								</div>
-								<div class="m-widget4__ext">
-									<a href="#" (click)="openFile(row.attach_id)" class="m-btn m-btn--pill m-btn--hover-info btn btn-sm btn-secondary" title="Download">
-										<i class="la la-download"></i>
-									</a>
-								</div>
-								<div class="m-widget4__ext" *ngIf="canReview">
-									<a href="#" (click)="removeFile(row.attach_id, index)" class="m-btn m-btn--pill m-btn--hover-danger btn btn-sm btn-secondary" title="Remove">
-										<i class="la la-trash"></i>
-									</a>
-								</div>
-							</div>
-							<!--end::Widget Attachfile Item-->
-						</div>
-						<!--end::Widget Attachfile-->
-						<div class="form-group m-form__group" *ngIf="canReview">
-							<label for="exampleInputEmail1">
-								Attach File
-							</label>
-							<div></div>
-							<div class="custom-file">
-								<input type="file" (change)="fileChange($event)" class="custom-file-input" id="customFile" data-max-size="2048" multiple>
-								<label class="custom-file-label" for="customFile"  >
-									Choose file
-								</label>
-							</div>
-						 	<div   *ngFor="let f of attFile let i = index"  >
-								<div><span class="filen">{{f}}</span>   </div>	 
-							</div> 
-						</div>
-						<div class="m-form__actions m-form__actions" *ngIf="canReview">
-							<div class="row">
-								<div class="col-lg-12 ml-lg-auto ">
-									<button type="button" class="btn btn-brand" (click)="uploadFile()" *ngIf="this.attFile!=null"  >
-										Submit File 
-									</button> 
-								</div>
-							</div>
-						</div>
-					</div>   
-					<!--end:: Portlet Body-->
-				</div>
-				<!--end:: Widgets/Download Files-->
-			
-		</div>
-		<div class="col-xl-6">
-			<!--begin:: Widgets Status-->
+	
+	<!-- <form class="m-form m-form--fit " >
+		<div class="row">
+		<div class="col-12">
 			<div class="m-portlet m-portlet--full-height">
 				<div class="m-portlet__head">
 					<div class="m-portlet__head-caption">
@@ -451,12 +804,10 @@
 					</div>
 				</div>
 				<div class="m-portlet__body">
-					<!--begin::Widget Status-->
 					<div class="m-widget4">
 
 						<ng-template ngFor let-item [ngForOf]="po.worklist.stage_list" let-i="index" [ngForTrackBy]="trackByFn">
 								
-						<!--begin::Widget 14 Item-->
 						<div class="m-widget4__item" *ngFor="let row of item.stage_logs_list" [ngSwitch]="row.activity">
 							<div class="m-widget4__info">
 								<span class="m-widget4__title">
@@ -468,10 +819,6 @@
 									<i class="la la-clock-o"></i>
 									{{row.start_datetime | date :'dd/MM/yyyy HH:mm'}} - {{row.finish_datetime | date :'dd/MM/yyyy HH:mm'}}
 								</span>
-								<!-- <span class="m-widget4__sub">
-									<i class="flaticon-stopwatch"></i>
-									10:12:32
-								</span> -->
 								<br>
 								<span class="m-widget4__sub">
 									{{row.activity_description}}
@@ -484,134 +831,18 @@
 								<span *ngSwitchDefault class="m-badge-border m-badge--info m-badge--wide ">{{row.activity}}</span>
 							</div>
 						</div>
-						<!--end::Widget 14 Item-->
 
 						</ng-template>
 
 					</div>
-					<!--end::Widget 14-->
-				</div>
-			</div>
-			<!--end:: Widgets Status-->
-		</div>
-	</div>
-	<!--End::Main Portlet-->
-
-	</form>
-
-	<!--begin::Portlet-->
-	<div class="m-portlet" *ngIf="canReview || canApprove || canComment">
-		<div class="m-portlet__head">
-			<div class="m-portlet__head-caption">
-				<div class="m-portlet__head-title">
-					<h3 class="m-portlet__head-text" >
-						<span id="txtActionName" *ngIf="canReview">Review</span>
-						<span id="txtActionName" *ngIf="canApprove">Approve</span>
-					</h3>
 				</div>
 			</div>
 		</div>
-		<!--begin::Form-->
-		<form  #heroForm="ngForm" class="m-form m-form--fit m-form--label-align-right" id="m_form_1">
-			<!--begin::portlet__body-->
-			<div class="m-portlet__body m-portlet__body--no-top-padding" >
-				<div class="m-form__content">
-					<div class="m-alert m-alert--icon alert alert-danger m--hide" role="alert" id="m_form_1_msg">
-						<div class="m-alert__icon">
-							<i class="la la-warning"></i>
-						</div>
-						<div class="m-alert__text">
-							Oh snap! Change a few things up and try submitting again.
-						</div>
-						<div class="m-alert__close">
-							<button type="button" class="close" data-close="alert" aria-label="Close"></button>
-						</div>
-					</div>
-				</div>
-				<div class="form-group m-form__group" *ngIf="canApprove">
-					<div class="m-checkbox-inline">
-						<label class="m-checkbox">
-							<input type="checkbox" [disabled]="isDelegate" [(ngModel)]="isWaiting" name="chkWaiting"  >
-							Waiting
-							<span></span>
-						</label>
-						<label class="m-checkbox">
-							<input type="checkbox" [disabled]="isWaiting" [(ngModel)]="isDelegate" name="chkDelegate" >
-							Delegate
-							<span></span>
-						</label>
-					</div>
-				</div>
-				<div class="form-group m-form__group" *ngIf="isWaiting || isDelegate">
-					<label for="searchuser">
-						Send request to:
-					</label>
-					<div class="col-lg-9 col-sm-9">
-						<div class="width-half">
-							<input id='searchuser' placeholder="Search for a user" class=' form-control m-input' [(ngModel)]="textSearchUser" name="user" type='text' (ngModelChange)="onChangeSearchUser($event);"  >
-							<div clickOutside (clickOutside)="closeDropDown()">
-								<div  *ngIf="showDropDownUser" class='search-drop-down card'>
-									<div (click)='selectUserValue(s)' class='search-results ' *ngFor="let s of this.userList ">
-										{{s.fullname}}
-									</div>
-								</div>
-							</div>
-							<div *ngFor="let user of user_list; let i = index">
-								<div class="close-left" (click)="removeUser(i)">
-									<i class="la la-close" ></i>
-								</div>
-								<span>{{user.ad_username}}</span>
-							</div>
-						</div>  
-					</div>
-				</div>
-				<div class="form-group m-form__group">
-					<label for="exampleTextarea">
-						Comment:
-					</label>
-					<textarea class="form-control m-input" id="txtComment" rows="3" placeholder="Enter comment"></textarea>
-				</div>
-			</div>
-			<!--end::portlet__body-->
-			<!--begin::portlet__foot-->
-			<div class="m-portlet__foot m-portlet__foot--fit">
-				<div class="m-form__actions m-form__actions">
-					<div class="row">
-						<div class="col-lg-12 ml-lg-auto ">
-							<button type="button" [disabled]="heroForm.invalid" class="btn btn-info" (click)="prepareAction('Review')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canReview">
-								Review 
-							</button>
-							<button type="button" [disabled]="isWaiting || isDelegate || heroForm.invalid" class="btn btn-success" (click)="prepareAction('Approve')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
-								Approve 
-							</button>
-							<button type="button" [disabled]="isWaiting || isDelegate || heroForm.invalid" class="btn btn-danger" (click)="prepareAction('Reject')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
-								Reject 
-							</button>
-							<ng-container *ngIf="isWaiting">
-								<button type="button" [disabled]="isWaiting==false || heroForm.invalid  || user_list==null || user_list.length < 1" class="btn btn-warning" (click)="prepareAction('Waiting')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
-									Waiting 
-								</button>
-							</ng-container>
-							<ng-container *ngIf="isDelegate">
-								<button type="button" [disabled]="isDelegate==false || heroForm.invalid  || user_list==null || user_list.length < 1" class="btn btn-warning" (click)="prepareAction('Delegate')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
-									Delegate 
-								</button>
-							</ng-container>
-							<button type="button" [disabled]="heroForm.invalid" class="btn btn-info" (click)="prepareAction('Comment')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canComment">
-								Comment 
-							</button>
-							<button type="reset" (click)="navigate_list()" class="btn btn-secondary">
-								Cancel
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!--end::portlet__foot-->
-		</form>
-		<!--end::Form-->
 	</div>
-	<!--end::Portlet--> 
+
+	</form> -->
+
+	
 
 
 	<!--begin::Modal-->

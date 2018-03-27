@@ -14,6 +14,7 @@ import { Plant } from '../../../_models/masters/plant';
 import { DocTypeService } from '../../../_services/masters/doctype.service';
 import { CompanyService } from '../../../_services/masters/company.service';
 import { PlantService } from '../../../_services/masters/plant.service';
+import { SortPipe } from '../../../../../../_pipe/sort';
 
 
 declare var myDatatable: any;
@@ -40,6 +41,8 @@ export class WorklistComponent extends PageBaseComponent implements OnInit, Afte
     public m_list_doctype: any;
     public m_list_company: any;
     public m_list_plant: any;
+    public sortBy: string = 'doc_date';
+    public sortType: number = 1;
 
     constructor(private _router: Router,
         private _script: ScriptLoaderService,
@@ -181,6 +184,28 @@ export class WorklistComponent extends PageBaseComponent implements OnInit, Afte
                 }
             )
         }
+    }
+
+    sort(pSortBy: string) {
+        if (pSortBy == this.sortBy) {
+            this.toggleSortType();
+        } else {
+            this.sortBy = pSortBy;
+            this.resetSortType();
+        }
+    }
+
+    clearSort() {
+        this.sortBy = 'doc_date';
+        this.resetSortType();
+    }
+
+    toggleSortType() {
+        this.sortType = this.sortType * -1;
+    }
+
+    resetSortType() {
+        this.sortType = -1;
     }
 
 }   
