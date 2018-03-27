@@ -1295,9 +1295,9 @@ pre {
   text-align: left;
   background-color: transparent; }
   .table-display-thead {
-    background-color: #eeeeee;
-    border-top: 1px #888888 solid;
-    border-bottom: 1px #888888 solid;
+    background-color: #f8f8f8;
+    border-top: 1px #dddddd solid;
+    border-bottom: 1px #dddddd solid;
   }
   .table-display-lastrow {
     border-bottom: 1px #dddddd solid;
@@ -16911,7 +16911,9 @@ code {
         .m-portlet .m-portlet__head .m-portlet__head-caption .m-portlet__head-title .m-portlet__head-text {
           display: table-cell;
           vertical-align: middle;
-          font-size: 1.3rem;
+          font-size: 1.2rem;
+          /* weeraya 27/03/2018
+          font-size: 1.3rem; */
           font-weight: 500;
           font-family: Roboto; }
           .m-portlet .m-portlet__head .m-portlet__head-caption .m-portlet__head-title .m-portlet__head-text small {
@@ -17164,6 +17166,7 @@ code {
         padding-top: 0.45rem;
         padding-bottom: 0.9rem; } }
   .m-portlet .m-form.m-form--fit > .m-portlet__body {
+    font-size: 0.9rem; /* weeraya 27/03/2018 */
     padding-left: 0px;
     padding-right: 0px; }
   .m-portlet.m-portlet--sortable .m-portlet__head {

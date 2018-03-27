@@ -5,23 +5,6 @@
 			<h3 class="m-subheader__title m-subheader__title--separator">
 				My Worklist
 			</h3>
-			<!-- <ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
-				<li class="m-nav__item m-nav__item--home">
-					<a href="#" class="m-nav__link m-nav__link--icon">
-						<i class="m-nav__link-icon la la-home"></i>
-					</a>
-				</li>
-				<li class="m-nav__separator">
-					-
-				</li>
-				<li class="m-nav__item">
-					<a href="" class="m-nav__link">
-						<span class="m-nav__link-text">
-							My Worklist
-						</span>
-					</a>
-				</li>
-			</ul> -->
 		</div>
 	 
 	</div>
@@ -33,13 +16,6 @@
 			<!--begin:: Widgets/Best Sellers-->
 			<div class="m-portlet m-portlet--full-height">
 				<div class="m-portlet__head">
-					<!-- <div class="m-portlet__head-caption">
-						<div class="m-portlet__head-title">
-							<h3 class="m-portlet__head-text">
-								My Worklist
-							</h3>
-						</div>
-					</div> -->
 					<div class="m-portlet__head-tools">
 						<ul class="nav nav-pills nav-pills--brand m-nav-pills--align-right m-nav-pills--btn-pill m-nav-ills--btn-sm" role="tablist">
 							
@@ -88,9 +64,7 @@
 													</li>
 													<li class="m-nav__item">
 														<a href="#" (click)="sort('doc_no')" class="m-nav__link">
-															<i *ngIf="sortBy!='doc_no'" class="m-nav__link-icon la la-genderless"></i>
-															<i *ngIf="sortBy=='doc_no' && sortType==1" class="m-nav__link-icon la la-caret-down"></i>
-															<i *ngIf="sortBy=='doc_no' && sortType==-1" class="m-nav__link-icon la la-caret-up"></i>
+															<i [class]="getSortingDisplayClass('doc_no')"></i>
 															<span class="m-nav__link-text">
 																Document Number
 															</span>
@@ -98,9 +72,7 @@
 													</li>
 													<li class="m-nav__item">
 														<a href="#" (click)="sort('doc_date')" class="m-nav__link">
-															<i *ngIf="sortBy!='doc_date'" class="m-nav__link-icon la la-genderless"></i>
-															<i *ngIf="sortBy=='doc_date' && sortType==1" class="m-nav__link-icon la la-caret-down"></i>
-															<i *ngIf="sortBy=='doc_date' && sortType==-1" class="m-nav__link-icon la la-caret-up"></i>
+															<i [class]="getSortingDisplayClass('doc_date')"></i>
 															<span class="m-nav__link-text">
 																Document Date
 															</span>
@@ -108,9 +80,7 @@
 													</li>
 													<li class="m-nav__item">
 														<a href="#" (click)="sort('plant_name')" class="m-nav__link">
-															<i *ngIf="sortBy!='plant_name'" class="m-nav__link-icon la la-genderless"></i>
-															<i *ngIf="sortBy=='plant_name' && sortType==1" class="m-nav__link-icon la la-caret-down"></i>
-															<i *ngIf="sortBy=='plant_name' && sortType==-1" class="m-nav__link-icon la la-caret-up"></i>
+															<i [class]="getSortingDisplayClass('plant_name')"></i>
 															<span class="m-nav__link-text">
 																Plant
 															</span>
@@ -118,9 +88,7 @@
 													</li>
 													<li class="m-nav__item">
 														<a href="#" (click)="sort('grand_total')" class="m-nav__link">
-															<i *ngIf="sortBy!='grand_total'" class="m-nav__link-icon la la-genderless"></i>
-															<i *ngIf="sortBy=='grand_total' && sortType==1" class="m-nav__link-icon la la-caret-down"></i>
-															<i *ngIf="sortBy=='grand_total' && sortType==-1" class="m-nav__link-icon la la-caret-up"></i>
+															<i [class]="getSortingDisplayClass('grand_total')"></i>
 															<span class="m-nav__link-text">
 																Amount
 															</span>
@@ -203,9 +171,9 @@
 									<div class="m-widget5__item" *ngIf="(row.name=='PR' && showPR) || (row.name=='PO' && showPO) || (row.name=='PA' && showPA) " (click)="navigate(row.name,row.doc_id)" onmouseover="this.style.cursor='pointer'; ">
 										<div class="m-widget5__pic" >
 											<div  class=" imageWrapper">
-												<img *ngSwitchCase="'PR'" class=" imageWrapper backgroundimage" src="./assets/app/media/img/logos/pr.png" alt="">
-												<img *ngSwitchCase="'PO'" class=" imageWrapper backgroundimage" src="./assets/app/media/img/logos/po.png" alt="">
-												<img *ngSwitchCase="'PA'" class=" imageWrapper backgroundimage" src="./assets/app/media/img/logos/pa.png" alt="">
+												<img *ngSwitchCase="'PR'" class=" imageWrapper backgroundimage" src="./assets/app/media/img/logos/pr.png" alt="" [title]="docStatus[row.c_doc_status].name">
+												<img *ngSwitchCase="'PO'" class=" imageWrapper backgroundimage" src="./assets/app/media/img/logos/po.png" alt="" [title]="docStatus[row.c_doc_status].name">
+												<img *ngSwitchCase="'PA'" class=" imageWrapper backgroundimage" src="./assets/app/media/img/logos/pa.png" alt="" [title]="docStatus[row.c_doc_status].name">
 												<img *ngSwitchDefault class="imageWrapper backgroundimage" src="./assets/app/media/img/logos/pr.png" alt="">
 												<i *ngIf="row.resp_allow_action=='comment'" class=" imageWrapper iconontop text-warning fa fa-comment"></i>
 											</div>

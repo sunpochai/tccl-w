@@ -536,4 +536,17 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
         this.showDropDownUser = false;
     }
 
+    getTemplateClass(pBlock): string {
+        if (pBlock == 'action') {
+            return 'col-lg-6 col-sm-12';
+        } else if (pBlock == 'attachment') {
+            if (this.canReview || this.canApprove || this.canComment) {
+                return 'col-lg-6 col-sm-12';
+            } else {
+                return 'col-12';
+            }
+        }
+        return 'col-12';
+    }
+
 }
