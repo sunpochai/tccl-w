@@ -6,14 +6,6 @@
 				Purchase Order Detail
 			</h3>
 			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
-				<!-- <li class="m-nav__item m-nav__item--home">
-					<a href="#" class="m-nav__link m-nav__link--icon">
-						<i class="m-nav__link-icon la la-home"></i>
-					</a>
-				</li>
-				<li class="m-nav__separator">
-					-
-				</li> -->
 				<li class="m-nav__item">
 					<a routerLink="/trns/worklist/my" class="m-nav__link">
 						<span class="m-nav__link-text">
@@ -39,127 +31,125 @@
 
 <div class="m-content" id="m-content" *ngIf="po!=null">
 
+	<form class="m-form m-form--fit " >
+		<div class="row">
 
-	<!--begin::Portlet-->
-	<div class="m-portlet" *ngIf="canReview || canApprove || canComment">
-		<div class="m-portlet__head">
-			<div class="m-portlet__head-caption">
-				<div class="m-portlet__head-title">
-					<h3 class="m-portlet__head-text" >
-							<i class="flaticon-edit"></i>
-						<span id="txtActionName" *ngIf="canReview">Review</span>
-						<span id="txtActionName" *ngIf="canApprove">Approve</span>
-						<span id="txtActionName" *ngIf="canComment">Comment</span>
-					</h3>
-				</div>
-			</div>
-		</div>
-		<!--begin::Form-->
-		<form  #heroForm="ngForm" class="m-form m-form--fit m-form--label-align-right" id="m_form_1">
-			<!--begin::portlet__body-->
-			<div class="m-portlet__body m-portlet__body--no-top-padding" >
-				<div class="m-form__content">
-					<div class="m-alert m-alert--icon alert alert-danger m--hide" role="alert" id="m_form_1_msg">
-						<div class="m-alert__icon">
-							<i class="la la-warning"></i>
-						</div>
-						<div class="m-alert__text">
-							Oh snap! Change a few things up and try submitting again.
-						</div>
-						<div class="m-alert__close">
-							<button type="button" class="close" data-close="alert" aria-label="Close"></button>
+			<!-- Begin::Action Block -->
+			<div [class]="getTemplateClass('action')">
+
+				
+				<div class="m-portlet m-portlet--full-height" *ngIf="canReview || canApprove || canComment">
+					<div class="m-portlet__head">
+						<div class="m-portlet__head-caption">
+							<div class="m-portlet__head-title">
+								<h3 class="m-portlet__head-text" >
+										<i class="flaticon-edit"></i>
+									<span id="txtActionName" *ngIf="canReview">Review</span>
+									<span id="txtActionName" *ngIf="canApprove">Approve</span>
+									<span id="txtActionName" *ngIf="canComment">Comment</span>
+								</h3>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="form-group m-form__group" *ngIf="canApprove">
-					<div class="m-checkbox-inline">
-						<label class="m-checkbox">
-							<input type="checkbox" [disabled]="isDelegate" [(ngModel)]="isWaiting" name="chkWaiting"  >
-							Waiting
-							<span></span>
-						</label>
-						<label class="m-checkbox">
-							<input type="checkbox" [disabled]="isWaiting" [(ngModel)]="isDelegate" name="chkDelegate" >
-							Delegate
-							<span></span>
-						</label>
-					</div>
-				</div>
-				<div class="form-group m-form__group" *ngIf="isWaiting || isDelegate">
-					<label for="searchuser">
-						Send request to:
-					</label>
-					<div class="col-lg-9 col-sm-9">
-						<div class="width-half">
-							<input id='searchuser' placeholder="Search for a user" class=' form-control m-input' [(ngModel)]="textSearchUser" name="user" type='text' (ngModelChange)="onChangeSearchUser($event);"  >
-							<div clickOutside (clickOutside)="closeDropDown()">
-								<div  *ngIf="showDropDownUser" class='search-drop-down card'>
-									<div (click)='selectUserValue(s)' class='search-results ' *ngFor="let s of this.userList ">
-										{{s.fullname}}
+					<form  #heroForm="ngForm" class="m-form m-form--fit m-form--label-align-right" id="m_form_1">
+						<div class="m-portlet__body m-portlet__body--no-top-padding" >
+							<div class="m-form__content">
+								<div class="m-alert m-alert--icon alert alert-danger m--hide" role="alert" id="m_form_1_msg">
+									<div class="m-alert__icon">
+										<i class="la la-warning"></i>
+									</div>
+									<div class="m-alert__text">
+										Oh snap! Change a few things up and try submitting again.
+									</div>
+									<div class="m-alert__close">
+										<button type="button" class="close" data-close="alert" aria-label="Close"></button>
 									</div>
 								</div>
 							</div>
-							<div *ngFor="let user of user_list; let i = index">
-								<div class="close-left" (click)="removeUser(i)">
-									<i class="la la-close" ></i>
+							<div class="form-group m-form__group" *ngIf="canApprove">
+								<div class="m-checkbox-inline">
+									<label class="m-checkbox">
+										<input type="checkbox" [disabled]="isDelegate" [(ngModel)]="isWaiting" name="chkWaiting"  >
+										Waiting
+										<span></span>
+									</label>
+									<label class="m-checkbox">
+										<input type="checkbox" [disabled]="isWaiting" [(ngModel)]="isDelegate" name="chkDelegate" >
+										Delegate
+										<span></span>
+									</label>
 								</div>
-								<span>{{user.ad_username}}</span>
 							</div>
-						</div>  
-					</div>
-				</div>
-				<div class="form-group m-form__group">
-					<label for="exampleTextarea">
-						Comment:
-					</label>
-					<textarea class="form-control m-input" id="txtComment" rows="3" placeholder="Enter comment"></textarea>
-				</div>
-			</div>
-			<!--end::portlet__body-->
-			<!--begin::portlet__foot-->
-			<div class="m-portlet__foot m-portlet__foot">
-				<!-- <div class="m-form__actions m-form__actions"> -->
-					<div class="row">
-						<div class="col-lg-12 ml-lg-auto ">
-							<button type="button" [disabled]="heroForm.invalid" class="btn btn-info" (click)="prepareAction('Review')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canReview">
-								Review 
-							</button>
-							<button type="button" [disabled]="isWaiting || isDelegate || heroForm.invalid" class="btn btn-success" (click)="prepareAction('Approve')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
-								Approve 
-							</button>
-							<button type="button" [disabled]="isWaiting || isDelegate || heroForm.invalid" class="btn btn-danger" (click)="prepareAction('Reject')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
-								Reject 
-							</button>
-							<ng-container *ngIf="isWaiting">
-								<button type="button" [disabled]="isWaiting==false || heroForm.invalid  || user_list==null || user_list.length < 1" class="btn btn-warning" (click)="prepareAction('Waiting')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
-									Waiting 
-								</button>
-							</ng-container>
-							<ng-container *ngIf="isDelegate">
-								<button type="button" [disabled]="isDelegate==false || heroForm.invalid  || user_list==null || user_list.length < 1" class="btn btn-warning" (click)="prepareAction('Delegate')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
-									Delegate 
-								</button>
-							</ng-container>
-							<button type="button" [disabled]="heroForm.invalid" class="btn btn-info" (click)="prepareAction('Comment')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canComment">
-								Comment 
-							</button>
-							<button type="reset" (click)="navigate_home()" class="btn btn-secondary">
-								Cancel
-							</button>
+							<div class="form-group m-form__group" *ngIf="isWaiting || isDelegate">
+								<label for="searchuser">
+									Send request to:
+								</label>
+								<div class="col-lg-9 col-sm-9">
+									<div class="width-half">
+										<input id='searchuser' placeholder="Search for a user" class=' form-control m-input' [(ngModel)]="textSearchUser" name="user" type='text' (ngModelChange)="onChangeSearchUser($event);"  >
+										<div clickOutside (clickOutside)="closeDropDown()">
+											<div  *ngIf="showDropDownUser" class='search-drop-down card'>
+												<div (click)='selectUserValue(s)' class='search-results ' *ngFor="let s of this.userList ">
+													{{s.fullname}}
+												</div>
+											</div>
+										</div>
+										<div *ngFor="let user of user_list; let i = index">
+											<div class="close-left" (click)="removeUser(i)">
+												<i class="la la-close" ></i>
+											</div>
+											<span>{{user.ad_username}}</span>
+										</div>
+									</div>  
+								</div>
+							</div>
+							<div class="form-group m-form__group">
+								<label for="exampleTextarea">
+									Comment:
+								</label>
+								<textarea class="form-control m-input" id="txtComment" rows="3" placeholder="Enter comment"></textarea>
+							</div>
 						</div>
-					</div>
-				<!-- </div> -->
+						<div class="m-portlet__foot m-portlet__foot">
+							<div class="row">
+								<div class="col-lg-12 ml-lg-auto ">
+									<button type="button" [disabled]="heroForm.invalid" class="btn btn-info" (click)="prepareAction('Review')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canReview">
+										Review 
+									</button>
+									<button type="button" [disabled]="isWaiting || isDelegate || heroForm.invalid" class="btn btn-success" (click)="prepareAction('Approve')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+										Approve 
+									</button>
+									<button type="button" [disabled]="isWaiting || isDelegate || heroForm.invalid" class="btn btn-danger" (click)="prepareAction('Reject')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+										Reject 
+									</button>
+									<ng-container *ngIf="isWaiting">
+										<button type="button" [disabled]="isWaiting==false || heroForm.invalid  || user_list==null || user_list.length < 1" class="btn btn-warning" (click)="prepareAction('Waiting')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+											Waiting 
+										</button>
+									</ng-container>
+									<ng-container *ngIf="isDelegate">
+										<button type="button" [disabled]="isDelegate==false || heroForm.invalid  || user_list==null || user_list.length < 1" class="btn btn-warning" (click)="prepareAction('Delegate')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+											Delegate 
+										</button>
+									</ng-container>
+									<button type="button" [disabled]="heroForm.invalid" class="btn btn-info" (click)="prepareAction('Comment')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canComment">
+										Comment 
+									</button>
+									<button type="reset" (click)="navigate_home()" class="btn btn-secondary">
+										Cancel
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
 			</div>
-			<!--end::portlet__foot-->
-		</form>
-		<!--end::Form-->
-	</div>
-	<!--end::Portlet--> 
+			<!-- End::Action Block -->
 
 
-	<form class="m-form m-form--fit " >
-		<div class="row">
-			<div class="col-xl-12">
+
+			<!-- Begin::Attachment Block -->
+			<div [class]="getTemplateClass('attachment')">
 				<div class="m-portlet m-portlet--full-height">
 					<div class="m-portlet__head">
 						<div class="m-portlet__head-caption">
@@ -176,9 +166,8 @@
 							<tr *ngFor="let row of po.po_attachment_items; let index = index">
 								<td>
 									<a href="#" (click)="openFile(row.attach_id)" title="Download">
-										<i class="flaticon-tool-1"></i>
+										<span class="m--font-pale"></span>{{row.file_name}}
 									</a>
-									<span class="m--font-pale">{{row.file_name}}</span>
 								</td>
 								<td>
 									<i class="la la-user"></i>
@@ -217,17 +206,21 @@
 						<div class="m-form__actions m-form__actions" *ngIf="canReview && this.attFile!=null">
 							<div class="row" >
 								<div class="col-lg-12 ml-lg-auto ">
-									<button type="button" class="btn btn-brand" (click)="uploadFile()" *ngIf="this.attFile!=null"  >
+									<button type="reset" class="btn btn-brand" (click)="uploadFile()" *ngIf="this.attFile!=null"  >
 										Submit File 
 									</button> 
 								</div>
 							</div>
 						</div>
-					</div> 
+					</div>
 				</div>
 			</div>
+			<!-- End::Attachment Block -->
+
+
 		</div>
 	</form>
+
 
 	<div class="row">
 		<div class="col-12">
@@ -249,27 +242,81 @@
 								<table class="table-display">
 									<thead>
 										<tr class="table-display-thead  m--font-bolder">
-											<td>User Name</td>
+											<td colspan="2">User Name</td>
 											<td>Start - Finish</td>
 											<td>Duration</td>
 											<td style="text-align:center;">Action</td>
 										</tr>
 									</thead>
 									<ng-template ngFor let-item [ngForOf]="po.worklist.stage_list" let-i="index" [ngForTrackBy]="trackByFn">
+										<ng-container *ngIf="item.outcome != null && item.outcome != ''">
+											<tr [class]="getDisplayTRHead(item.outcome_description,item.stage_logs_list)">
+												<td>
+													<span>
+														<a href="#" (click)="toggleSwitch(i)"><span><i [class]="getDisplayIcon(i)"></i></span></a>
+													</span>
+												</td>
+												<td>
+													<span>{{item.actor_username}}</span>
+												</td>
+												<td>
+													<span>{{item.start_datetime | date :'dd/MM/yyyy HH:mm'}} - {{item.finish_datetime | date :'dd/MM/yyyy HH:mm'}}</span>
+												</td>
+												<td>
+													<span *ngIf="item.duration!=''">{{item.duration}}</span>
+												</td>
+												<td style="text-align: center;" >
+													<span [class]="getStatusDisplayClass(item.outcome)">{{item.outcome}}</span>
+												</td>
+											</tr>
+											<tr class="table-display-lastrow " *ngIf="item.stage_logs_list!=null && item.stage_logs_list.length <= 1 && item.outcome_description != ''">
+												<td></td>
+												<td colspan="4">
+													&nbsp;&nbsp;&nbsp;
+													<i class="flaticon-chat-1"></i>
+													{{item.outcome_description}}
+												</td>
+											</tr>
+											<ng-template ngFor let-row [ngForOf]="item.stage_logs_list" let-j="index" *ngIf="isToggleOn(i)" >
+												<tr [class]="getDisplayTR(row.activity_description)">
+													<td>&nbsp;</td>
+													<td>
+														<i class="fa fa-caret-right"></i>
+														<span>{{row.actor_username}}</span>
+													</td>
+													<td>
+														<span>{{row.start_datetime | date :'dd/MM/yyyy HH:mm'}} - {{row.finish_datetime | date :'dd/MM/yyyy HH:mm'}}</span>
+													</td>
+													<td>
+														<span *ngIf="row.duration!=''">{{row.duration}}</span>
+													</td>
+													<td style="text-align: center;">
+														<span [class]="getStatusDisplayClass(row.activity)">{{row.activity}}</span>
+													</td>
+												</tr>
+												<tr class="table-display-lastrow" *ngIf="row.activity_description!=null && row.activity_description!=''">
+													<td>&nbsp;</td>
+													<td colspan="4">
+														&nbsp;&nbsp;&nbsp;
+														<i class="flaticon-chat-1"></i>
+														{{row.activity_description}}
+													</td>
+												</tr>
+											</ng-template>
+										</ng-container>
+									</ng-template>
+									<!-- <ng-template ngFor let-item [ngForOf]="po.worklist.stage_list" let-i="index" [ngForTrackBy]="trackByFn">
 										<ng-template ngFor let-row [ngForOf]="item.stage_logs_list" let-j="index" >
 											<ng-container *ngIf="row.activity_description==null || row.activity_description==''">
 												<tr class="table-display-lastrow">
 													<td>
-														<!-- <i class="la la-user m--font-bolder"></i> -->
 														<span>{{row.actor_username}}</span>
 													</td>
 													<td>
-														<!-- <i class="la la-clock-o"></i> -->
 														<span>{{row.start_datetime | date :'dd/MM/yyyy HH:mm'}} - {{row.finish_datetime | date :'dd/MM/yyyy HH:mm'}}</span>
 													</td>
 													<td>
 														<span *ngIf="row.duration!=''">
-															<!-- <i class="flaticon-stopwatch"></i> -->
 															<span>{{row.duration}}</span>
 														</span>
 													</td>
@@ -310,7 +357,7 @@
 												</tr>											
 											</ng-container>
 										</ng-template>
-									</ng-template>
+									</ng-template> -->
 								</table>
 							</div>
 						</div>

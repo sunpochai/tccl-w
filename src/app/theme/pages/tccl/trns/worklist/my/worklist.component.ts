@@ -208,4 +208,25 @@ export class WorklistComponent extends PageBaseComponent implements OnInit, Afte
         this.sortType = -1;
     }
 
+    getSortingDisplayClass(pSortBy: string): string {
+        if (pSortBy == this.sortBy) {
+            if (this.sortType == 1) {
+                return 'm-nav__link-icon la la-caret-down';
+            } else {
+                return 'm-nav__link-icon la la-caret-up';
+            }
+            
+        } else {
+            return 'm-nav__link-icon la la-genderless';
+        }
+    }
+
+    getSortingDisplayColor(pSortBy: string): string {
+        if (pSortBy == this.sortBy) { 
+            return 'm-nav__link m--font-brand';
+        } else {
+            return 'm-nav__link';
+        }
+    }
+
 }   
