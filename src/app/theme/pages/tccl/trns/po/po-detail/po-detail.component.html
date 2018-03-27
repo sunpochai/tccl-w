@@ -222,80 +222,6 @@
 	</form>
 
 
-	<!-- <form class="m-form m-form--fit " >
-		<div class="row">
-			<div class="col-xl-12">
-				<div class="m-portlet m-portlet--full-height">
-
-
-					<div class="m-portlet__head">
-						<div class="m-portlet__head-caption">
-							<div class="m-portlet__head-title">
-								<h3 class="m-portlet__head-text">
-									<i class="flaticon-tool-1"></i>
-									Attach File
-								</h3>
-							</div>
-						</div>
-					</div>
-					<div class="m-portlet__body-lil m--regular-font-size-sm1">
-						<table class="table-display">
-							<tr *ngFor="let row of po.po_attachment_items; let index = index">
-								<td>
-									<a href="#" (click)="openFile(row.attach_id)" title="Download">
-										<i class="flaticon-tool-1"></i>
-									</a>
-									<span class="m--font-pale">{{row.file_name}}</span>
-								</td>
-								<td>
-									<i class="la la-user"></i>
-									<span class="m--font-pale">{{row.create_username}}</span>
-									<i class="la la-clock-o"></i>
-									<span class="m--font-pale">{{row.create_datetime | date :'dd/MM/yyyy HH:mm:ss'}}</span>
-								</td>
-								<td>
-									<span *ngIf="canReview">
-										<a href="#" (click)="prepareRemoveFile(row.attach_id, row.file_name)" data-toggle="modal" data-target="#m_modal_delete" class="m-btn m-btn--pill m-btn--hover-danger btn btn-sm btn-secondary" title="Remove">
-											<i class="la la-trash"></i>
-										</a>
-									</span>
-								</td>
-							</tr>
-							<tr *ngIf="po.po_attachment_items == null || po.po_attachment_items.length <= 0">
-								<td span="3" style="text-align: center;">-----No Attachment-----</td>
-							</tr>
-						</table>
-
-						<div class="form-group m-form__group" *ngIf="canReview">
-							<label for="exampleInputEmail1">
-								Attach File
-							</label>
-							<div></div>
-							<div class="custom-file">
-								<input type="file" (change)="fileChange($event)" class="custom-file-input" id="customFile" data-max-size="2048" multiple>
-								<label class="custom-file-label" for="customFile"  >
-									Choose file
-								</label>
-							</div>
-							<div *ngFor="let f of attFile let i = index">
-								<div><span class="filen">{{f}}</span></div>	 
-							</div>
-						</div>
-						<div class="m-form__actions m-form__actions" *ngIf="canReview && this.attFile!=null">
-							<div class="row" >
-								<div class="col-lg-12 ml-lg-auto ">
-									<button type="button" class="btn btn-brand" (click)="uploadFile()" *ngIf="this.attFile!=null"  >
-										Submit File 
-									</button> 
-								</div>
-							</div>
-						</div>
-					</div> 
-				</div>
-			</div>
-		</div>
-	</form> -->
-
 	<div class="row">
 		<div class="col-12">
 			<div class="m-portlet m-portlet--full-height">
@@ -316,27 +242,81 @@
 								<table class="table-display">
 									<thead>
 										<tr class="table-display-thead  m--font-bolder">
-											<td>User Name</td>
+											<td colspan="2">User Name</td>
 											<td>Start - Finish</td>
 											<td>Duration</td>
 											<td style="text-align:center;">Action</td>
 										</tr>
 									</thead>
 									<ng-template ngFor let-item [ngForOf]="po.worklist.stage_list" let-i="index" [ngForTrackBy]="trackByFn">
+										<ng-container *ngIf="item.outcome != null && item.outcome != ''">
+											<tr [class]="getDisplayTRHead(item.outcome_description,item.stage_logs_list)">
+												<td>
+													<span>
+														<a href="#" (click)="toggleSwitch(i)"><span><i [class]="getDisplayIcon(i)"></i></span></a>
+													</span>
+												</td>
+												<td>
+													<span>{{item.actor_username}}</span>
+												</td>
+												<td>
+													<span>{{item.start_datetime | date :'dd/MM/yyyy HH:mm'}} - {{item.finish_datetime | date :'dd/MM/yyyy HH:mm'}}</span>
+												</td>
+												<td>
+													<span *ngIf="item.duration!=''">{{item.duration}}</span>
+												</td>
+												<td style="text-align: center;" >
+													<span [class]="getStatusDisplayClass(item.outcome)">{{item.outcome}}</span>
+												</td>
+											</tr>
+											<tr class="table-display-lastrow " *ngIf="item.stage_logs_list!=null && item.stage_logs_list.length <= 1 && item.outcome_description != ''">
+												<td></td>
+												<td colspan="4">
+													&nbsp;&nbsp;&nbsp;
+													<i class="flaticon-chat-1"></i>
+													{{item.outcome_description}}
+												</td>
+											</tr>
+											<ng-template ngFor let-row [ngForOf]="item.stage_logs_list" let-j="index" *ngIf="isToggleOn(i)" >
+												<tr [class]="getDisplayTR(row.activity_description)">
+													<td>&nbsp;</td>
+													<td>
+														<i class="fa fa-caret-right"></i>
+														<span>{{row.actor_username}}</span>
+													</td>
+													<td>
+														<span>{{row.start_datetime | date :'dd/MM/yyyy HH:mm'}} - {{row.finish_datetime | date :'dd/MM/yyyy HH:mm'}}</span>
+													</td>
+													<td>
+														<span *ngIf="row.duration!=''">{{row.duration}}</span>
+													</td>
+													<td style="text-align: center;">
+														<span [class]="getStatusDisplayClass(row.activity)">{{row.activity}}</span>
+													</td>
+												</tr>
+												<tr class="table-display-lastrow" *ngIf="row.activity_description!=null && row.activity_description!=''">
+													<td>&nbsp;</td>
+													<td colspan="4">
+														&nbsp;&nbsp;&nbsp;
+														<i class="flaticon-chat-1"></i>
+														{{row.activity_description}}
+													</td>
+												</tr>
+											</ng-template>
+										</ng-container>
+									</ng-template>
+									<!-- <ng-template ngFor let-item [ngForOf]="po.worklist.stage_list" let-i="index" [ngForTrackBy]="trackByFn">
 										<ng-template ngFor let-row [ngForOf]="item.stage_logs_list" let-j="index" >
 											<ng-container *ngIf="row.activity_description==null || row.activity_description==''">
 												<tr class="table-display-lastrow">
 													<td>
-														<!-- <i class="la la-user m--font-bolder"></i> -->
 														<span>{{row.actor_username}}</span>
 													</td>
 													<td>
-														<!-- <i class="la la-clock-o"></i> -->
 														<span>{{row.start_datetime | date :'dd/MM/yyyy HH:mm'}} - {{row.finish_datetime | date :'dd/MM/yyyy HH:mm'}}</span>
 													</td>
 													<td>
 														<span *ngIf="row.duration!=''">
-															<!-- <i class="flaticon-stopwatch"></i> -->
 															<span>{{row.duration}}</span>
 														</span>
 													</td>
@@ -377,7 +357,7 @@
 												</tr>											
 											</ng-container>
 										</ng-template>
-									</ng-template>
+									</ng-template> -->
 								</table>
 							</div>
 						</div>

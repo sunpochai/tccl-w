@@ -66,6 +66,8 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
     public showDropDownUser = false;
     public user_list: any = [];
 
+    public dtSwitch: boolean[] = [];
+    
     constructor(
         private _script: ScriptLoaderService,
         private _router: Router,
@@ -549,4 +551,64 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
         return 'col-12';
     }
 
+    getStatusDisplayClass(pStatus: string): string {
+        switch (pStatus) {
+            case ACTION_NAME.reviewed: 
+                return 'm-badge m-badge--info m-badge--wide';
+            case ACTION_NAME.approved: 
+                return 'm-badge m-badge--success m-badge--wide';
+            case ACTION_NAME.rejected: 
+                return 'm-badge m-badge--danger m-badge--wide';
+            default:
+                return 'm-badge-border m-badge--info m-badge--wide';
+        }
+
+    }
+
+    getDisplayTR(pDescription): string {
+        if (pDescription==null || pDescription=='') {
+            return 'table-display-lastrow';
+        } else {
+            return '';/* no display class */
+        }
+    }
+
+    getDisplayTRHead(pDescription,pStageLogsList): string {
+        if (pStageLogsList!=null && pStageLogsList.length > 1) {
+            return this.getDisplayTR('') + ' m--font-bolder';
+        } else {
+            return this.getDisplayTR(pDescription) + ' m--font-bolder';
+        }
+    }
+
+    toggleSwitch(index: number) {
+        this.dtSwitch[index] = !this.dtSwitch[index];
+    }
+
+    toggleAll(pToggle) {
+        for (let index in this.dtSwitch) {
+            this.dtSwitch[index] = pToggle;
+        }
+    }
+
+    setInitial(index: number) {
+        if (this.dtSwitch == null || typeof this.dtSwitch[index] === 'undefined') {
+            this.dtSwitch[index] = false;
+        }
+    }
+
+    isToggleOn(index: number): boolean {
+        this.setInitial(index);
+        return this.dtSwitch[index];
+    }
+
+    getDisplayIcon(index: number): string {
+        this.setInitial(index);
+
+        if (this.po.worklist.stage_list[index].stage_logs_list.length > 1) {
+            return this.dtSwitch[index] ? 'fa fa-minus' : 'fa fa-plus' ;
+        } else {
+            return '' ;
+        }
+    }
 }
