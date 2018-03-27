@@ -30570,7 +30570,9 @@ body.m-page--boxed {
     margin-right: auto; } }
 
 .m-body .m-content {
-  padding: 30px 30px; }
+  padding: 20px 20px;
+  /* weeraya 27/03/2018
+  padding: 30px 30px; */ }
 
 .m-content--skin-light .m-body {
   background-color: #ffffff; }
@@ -34992,7 +34994,9 @@ body.m-content--skin-light2 {
         color: #777c9d; } }
 
 .m-subheader {
-  padding: 30px 30px 0 30px; }
+    padding: 20px 20px 0 20px;
+  /* weeraya 27/03/2018
+    padding: 30px 30px 0 30px; */ }
   .m-subheader .m-subheader__title {
     display: inline-block;
     padding: 7px 25px 7px 0;
