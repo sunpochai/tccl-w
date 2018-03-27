@@ -3,6 +3,7 @@ export class User {
     public fullname: string;
     public token: string;
     public playerid: string;
+    public imgURL: string;
     public expire: Date;
     public roles: string[];
 }
