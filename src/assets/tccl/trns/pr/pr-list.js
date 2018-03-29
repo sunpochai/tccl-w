@@ -7,9 +7,7 @@ var myDatatable = function( ) {
   // basic demo
   var load = function(apiurl)  {
     
-    datatable = $('.m_datatable').mDatatable({
-      
-      // datasource definition
+    datatable = $('.m_datatable').mDatatable({ 
       data: {  
         saveState:false,
         type: 'remote',
@@ -69,29 +67,32 @@ var myDatatable = function( ) {
           selector: false,
           textAlign: 'center',
           sortable: true,
+          
+          
           template: function (row) {
             return '\
-              <a href="javascript:navigate_edit(' + row.pr_id + ')" class="m-menu__link" title="Purchase Request Detail">\
+              <a href="javascript:navigate_edit(' + row.pr_id + ')" title="Purchase Request Detail">\
                               '+row.pr_no+'\
                           </a>\
-            ';
+            '; 
           }
         }, {   
           field: 'pr_date',
           title: 'PR Date',
-          width: '80px',
+          textAlign: 'center',
           template: function(row) {
             return toDisplayDate(row.pr_date);
-          }
+          }  
         }, {   
           field: 'doc_type',
           title: 'Doc Type',
+          
           textAlign: 'center',
-          width: '40px'
+          
         } , {
           field: 'grand_total',
           title: 'Est. Price',
-          width: '80px',
+         
           type: 'number',
           textAlign: 'right',
           sortable: false,
@@ -109,7 +110,8 @@ var myDatatable = function( ) {
           }
         } , {
           field: 'subject',
-          title: 'Subject'
+          title: 'Subject',
+         
         } , {
           field: 'plant_name',
           title: 'Plant',
@@ -134,7 +136,7 @@ var myDatatable = function( ) {
           field: 'create_datetime',
           title: 'Create Date',
           template: function(row) {
-            return toDisplayDateTime(row.create_datetime);
+            return      (row.create_datetime);
           }
         }
       ],

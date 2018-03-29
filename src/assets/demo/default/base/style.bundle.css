@@ -74,8 +74,19 @@ $table-inverse-color:           $body-bg !default;
 *::after {
   box-sizing: border-box; }
 
+
+  /* sanchai pochai add */
+  @font-face {
+    font-family: 'Sukhumvit';
+    /*src: url('fonts/sukhumvit-set/SukhumvitSet-Bold.ttf');
+    src: url('fonts/sukhumvit-set/SukhumvitSet-Light.ttf');*/
+    src: url('../../../fonts/SukhumvitSet-Medium.ttf') format('truetype');
+    /*src: url('fonts/sukhumvit-set/SukhumvitSet-SemiBold.ttf');
+    src: url('fonts/sukhumvit-set/SukhumvitSet-Text.ttf');
+    src: url('fonts/sukhumvit-set/SukhumvitSet-Thin.ttf');*/
+  }
 html {
-  font-family: sans-serif;
+  font-family: 'Sukhumvit';
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -90,9 +101,9 @@ article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, s
 
 body {
   margin: 0;
-  font-family: "Poppins";
+  font-family: "Sukhumvit";
   font-size: 1rem;
-  font-weight: 400;
+  
   /* weeraya 27/03/2018
   line-height: 1.5; */
   color: #212529;
@@ -7565,11 +7576,11 @@ body {
   height: 100%;
   margin: 0px;
   padding: 0px;
-  font-size: 14px;
+  font-size: 13px;
   /* weeraya 27/03/2018
   font-size: 14px; */
   font-weight: 300;
-  font-family: Poppins;
+  font-family: Sukhumvit;
   -ms-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
@@ -10257,10 +10268,10 @@ b, strong {
         .m-datatable.m-datatable--default > .m-datatable__table > .m-datatable__body .m-datatable__row > .m-datatable__cell,
         .m-datatable.m-datatable--default > .m-datatable__table > .m-datatable__foot .m-datatable__row > .m-datatable__cell {
           vertical-align: middle;
-          padding: 4px 10px;
+          padding: 2px 10px;
           /* weeraya 27/03/2018
           padding: 11px 10px; */
-          font-size: 1rem; }
+          font-size: 0.9rem; }
           .m-datatable.m-datatable--default > .m-datatable__table > .m-datatable__head .m-datatable__row > .m-datatable__cell i,
           .m-datatable.m-datatable--default > .m-datatable__table > .m-datatable__body .m-datatable__row > .m-datatable__cell i,
           .m-datatable.m-datatable--default > .m-datatable__table > .m-datatable__foot .m-datatable__row > .m-datatable__cell i {
@@ -16915,19 +16926,19 @@ code {
           /* weeraya 27/03/2018
           font-size: 1.3rem; */
           font-weight: 500;
-          font-family: Roboto; }
+          font-family: 'Sukhumvit', Roboto; }
           .m-portlet .m-portlet__head .m-portlet__head-caption .m-portlet__head-title .m-portlet__head-text small {
             display: inline-block;
             padding-left: 5px;
             font-size: 1rem;
             font-weight: 300;
-            font-family: Roboto; }
+            font-family: 'Sukhumvit', Roboto; }
           .m-portlet .m-portlet__head .m-portlet__head-caption .m-portlet__head-title .m-portlet__head-text .m-portlet__head-desc {
             margin-top: 0.4rem;
             display: block;
             font-size: 0.85rem;
             font-weight: 300;
-            font-family: Roboto; }
+            font-family: 'Sukhumvit', Roboto; }
     .m-portlet .m-portlet__head .m-portlet__head-tools {
       text-align: right;
       display: table-cell;
@@ -35011,7 +35022,7 @@ body.m-content--skin-light2 {
   .m-subheader .m-subheader__title {
     display: inline-block;
     padding: 7px 25px 7px 0;
-    font-family: Roboto;
+    font-family: 'Sukhumvit', Roboto;
     font-weight: 300;
     font-size: 1.55rem;
     font-weight: 500;
