@@ -14696,7 +14696,7 @@ and dependencies (minified).
 							removeLiveTimers(liveSelector);
 						}
 					},500);
-				}else{
+				}else{  
 					removeLiveTimers(liveSelector);
 				}
 				
