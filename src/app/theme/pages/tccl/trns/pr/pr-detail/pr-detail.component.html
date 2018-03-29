@@ -313,62 +313,6 @@
 										</ng-container>
 									</ng-template>
 									
-
-									<!-- <ng-template ngFor let-item [ngForOf]="pr.worklist.stage_list" let-i="index" [ngForTrackBy]="trackByFn">
-										<ng-template ngFor let-row [ngForOf]="item.stage_logs_list" let-j="index" >
-											<ng-container *ngIf="row.activity_description==null || row.activity_description==''">
-												<tr class="table-display-lastrow">
-													<td>
-														<a><span><i class="fa fa-plus"></i></span></a>
-														<span>{{row.actor_username}}</span>
-													</td>
-													<td>
-														<span>{{row.start_datetime | date :'dd/MM/yyyy HH:mm'}} - {{row.finish_datetime | date :'dd/MM/yyyy HH:mm'}}</span>
-													</td>
-													<td>
-														<span *ngIf="row.duration!=''">
-															<span>{{row.duration}}</span>
-														</span>
-													</td>
-													<td style="text-align: center;" [ngSwitch]="row.activity">
-														<span *ngSwitchCase="statusName.reviewed" class="m-badge m-badge--info m-badge--wide">{{row.activity}}</span>
-														<span *ngSwitchCase="statusName.approved" class="m-badge m-badge--success m-badge--wide">{{row.activity}}</span>
-														<span *ngSwitchCase="statusName.rejected" class="m-badge m-badge--danger m-badge--wide">{{row.activity}}</span>
-														<span *ngSwitchDefault class="m-badge-border m-badge--info m-badge--wide ">{{row.activity}}</span>
-													</td>
-												</tr>
-											</ng-container>
-											<ng-container *ngIf="row.activity_description!=null && row.activity_description!=''">
-												<tr >
-													<td>
-														<a href="#" ><span><i class="fa fa-plus"></i></span></a>
-														<span>{{row.actor_username}}</span>
-													</td>
-													<td>
-														<span>{{row.start_datetime | date :'dd/MM/yyyy HH:mm'}} - {{row.finish_datetime | date :'dd/MM/yyyy HH:mm'}}</span>
-													</td>
-													<td>
-														<span *ngIf="row.duration!=''">
-															<span>{{row.duration}}</span>
-														</span>
-													</td>
-													<td style="text-align: center;" [ngSwitch]="row.activity">
-														<span *ngSwitchCase="statusName.reviewed" class="m-badge m-badge--info m-badge--wide">{{row.activity}}</span>
-														<span *ngSwitchCase="statusName.approved" class="m-badge m-badge--success m-badge--wide">{{row.activity}}</span>
-														<span *ngSwitchCase="statusName.rejected" class="m-badge m-badge--danger m-badge--wide">{{row.activity}}</span>
-														<span *ngSwitchDefault class="m-badge-border m-badge--info m-badge--wide ">{{row.activity}}</span>
-													</td>
-												</tr>
-												<tr class="table-display-lastrow">
-													<td colspan="4">
-														&nbsp;&nbsp;&nbsp;
-														<i class="flaticon-chat-1"></i>
-														{{row.activity_description}}
-													</td>
-												</tr>											
-											</ng-container>
-										</ng-template>
-									</ng-template> -->
 								</table>
 							</div>
 						</div>
@@ -462,6 +406,7 @@
 											<th>Est. Price</th>
 											<th>Currency</th>
 											<th>Delivery Date</th>
+											<th>Item Detail</th>
 										</tr>
 									</thead>
 									<tr *ngFor="let row of pr.pr_items; let index = index">
@@ -474,6 +419,11 @@
 											<td align="right" class="m--font-deleted">{{row.estimate_price | number:'1.2'}}</td>
 											<td class="m--font-deleted">{{row.currency}}</td>
 											<td class="m--font-deleted">{{row.delivery_date | date :'dd/MM/yyyy'}}</td>
+											<td align="center">
+												<a href="#" (click)="showDetail(row)" data-toggle="modal" data-target="#m_modal_item_detail" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary" title="Item Detail">
+													<i class="fa fa-search-plus"></i>
+												</a>
+											</td>
 										</ng-container>
 										<ng-container *ngIf="row.item_status != 'DEL' ">
 											<td align="center">{{row.pr_item_no}}</td>
@@ -484,6 +434,11 @@
 											<td align="right">{{row.estimate_price | number:'1.2'}}</td>
 											<td>{{row.currency}}</td>
 											<td>{{row.delivery_date | date :'dd/MM/yyyy'}}</td>
+											<td align="center">
+												<a href="#" (click)="showDetail(row)" data-toggle="modal" data-target="#m_modal_item_detail" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary" title="Item Detail">
+													<i class="fa fa-search-plus"></i>
+												</a>
+											</td>
 										</ng-container>
 									</tr>
 									<tr>
@@ -562,6 +517,77 @@
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">
 						Close
 					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--end::Modal-->
+
+	<!--begin::Modal-->
+	<div class="modal fade" id="m_modal_item_detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document" *ngIf="currentItem!=null">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalTitle" name="modalTitle">
+						<i class="fa fa-search-plus"></i>
+						Item Detail
+					</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">
+							&times;
+						</span>
+					</button>
+				</div>
+				<div class="modal-body">
+						<table class="table-display">
+							<tr class="table-display-thead-top-bottom  m--font-bolder">
+								<th colspan="2">Acc. & Budget</th>
+							</tr>
+							<tr>
+								<th>Budget's Name</th>
+								<td>{{currentItem.account_no}}</td>
+							</tr>
+							<tr>
+								<th>Currency</th>
+								<td>{{currentItem.currency}}</td>
+							</tr>
+							<tr>
+								<th>Budget</th>
+								<td>{{currentItem.budget_amount}}</td>
+							</tr>
+							<tr>
+								<th>Commit</th>
+								<td>{{currentItem.budget_commit}}</td>
+							</tr>
+							<tr>
+								<th>Actual</th>
+								<td>{{currentItem.budget_actual}}</td>
+							</tr>
+							<tr>
+								<th>Remaining</th>
+								<td>{{currentItem.budget_remaining}}</td>
+							</tr>
+							<tr class="table-display-thead-top-bottom  m--font-bolder">
+								<th colspan="2">Item Text</th>
+							</tr>
+							<tr>
+								<th>Item Text</th>
+								<td>{{currentItem.item_text1}}</td>
+							</tr>
+							<tr>
+								<th>Item Note</th>
+								<td>{{currentItem.item_note1}}</td>
+							</tr>
+							<tr>
+								<th>Delevery Note</th>
+								<td>{{currentItem.delivery_note1}}</td>
+							</tr>
+							<tr>
+								<th>Material PO Text</th>
+								<td></td>
+							</tr>
+
+						</table>
 				</div>
 			</div>
 		</div>

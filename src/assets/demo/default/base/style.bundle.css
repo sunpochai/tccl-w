@@ -1307,6 +1307,11 @@ pre {
   background-color: transparent; }
   .table-display-thead {
     background-color: #f8f8f8;
+    /* border-top: 1px #dddddd solid; */
+    border-bottom: 1px #dddddd solid;
+  }
+  .table-display-thead-top-bottom {
+    background-color: #f8f8f8;
     border-top: 1px #dddddd solid;
     border-bottom: 1px #dddddd solid;
   }

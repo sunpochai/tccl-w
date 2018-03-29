@@ -44,6 +44,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     public urlattachment: String = API_ATTACHMENT_GET_DEL;
     public statusName: any = ACTION_NAME;
     public docStatus: Array<any> = C_DOC_STATUS_2;
+    public currentItem: any;
     public attFile :any ;
     public formData: FormData = new FormData(); 
     public fileList: FileList;
@@ -94,7 +95,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
 
                 if (resp.is_error == false) {
                     this.pr = resp.data;
-                    
+
                     if (this.pr.worklist != null && this.pr.worklist.current_responsible != null) {
                         this.wf_stage_resp_id = this.pr.worklist.current_responsible.wf_stage_resp_id;
 
@@ -614,6 +615,10 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         } else {
             return '' ;
         }
+    }
+
+    showDetail(pItem) {
+        this.currentItem = pItem;
     }
 
 }
