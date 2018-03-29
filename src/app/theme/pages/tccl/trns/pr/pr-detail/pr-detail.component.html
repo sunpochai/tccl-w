@@ -276,7 +276,7 @@
 													<span [class]="getStatusDisplayClass(item.outcome)">{{item.outcome}}</span>
 												</td>
 											</tr>
-											<tr class="table-display-lastrow " *ngIf="item.stage_logs_list!=null && item.stage_logs_list.length <= 1 && item.outcome_description != ''">
+											<tr class="table-display-lastrow " *ngIf="item.stage_logs_list!=null && item.stage_logs_list.length <= 1 && item.outcome_description != null && item.outcome_description != ''">
 												<td></td>
 												<td colspan="4">
 													&nbsp;&nbsp;&nbsp;

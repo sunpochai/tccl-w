@@ -93,47 +93,58 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
         });
 
         if (this.id != null && this.id != '0') {
-            this._poService.get<any>(this.id).subscribe(data => {
-                this.po = data;
-                if (this.po.worklist != null && this.po.worklist.current_responsible != null) {
-                    this.wf_stage_resp_id = this.po.worklist.current_responsible.wf_stage_resp_id;
+            this._poService.get<any>(this.id).subscribe(resp => {
+                console.log(resp);
 
-                    if (this.po.worklist.current_responsible.resp_allow_action != null && this.po.worklist.current_responsible.resp_allow_action.toLowerCase() == 'review') {
-                        this.canReview = true;
-                        // console.log(this.canReview);
-                    }
+                if (resp.is_error == false) {
+                    this.po = resp.data;
+                    
+                    if (this.po.worklist != null && this.po.worklist.current_responsible != null) {
+                        this.wf_stage_resp_id = this.po.worklist.current_responsible.wf_stage_resp_id;
 
-                    if (this.po.worklist.current_responsible.resp_allow_action != null && this.po.worklist.current_responsible.resp_allow_action.toLowerCase() == 'comment') {
-                        this.canComment = true;
-                    }
-
-                    if (this.po.worklist.current_responsible.resp_allow_action == null) {
-                        this.canApprove = true;
-                    }
-                }
-                if (this.po.po_attachment_items != null && this.po.po_attachment_items.length > 0) {
-                    let index = 0;
-                    for (let row of this.po.po_attachment_items) {
-                        // console.log(row);
-                        let s = row.file_name.split('.');
-
-                        if (s.length > 0) {
-                            this.po.po_attachment_items[index].file_extension = s[s.length-1].toLowerCase().toString();
+                        if (this.po.worklist.current_responsible.resp_allow_action != null && this.po.worklist.current_responsible.resp_allow_action.toLowerCase() == 'review') {
+                            this.canReview = true;
+                            // console.log(this.canReview);
                         }
 
-                        index++;
+                        if (this.po.worklist.current_responsible.resp_allow_action != null && this.po.worklist.current_responsible.resp_allow_action.toLowerCase() == 'comment') {
+                            this.canComment = true;
+                        }
+
+                        if (this.po.worklist.current_responsible.resp_allow_action == null) {
+                            this.canApprove = true;
+                        }
                     }
-                    // console.log(this.po.po_attachment_items);
+                    if (this.po.po_attachment_items != null && this.po.po_attachment_items.length > 0) {
+                        let index = 0;
+                        for (let row of this.po.po_attachment_items) {
+                            // console.log(row);
+                            let s = row.file_name.split('.');
+
+                            if (s.length > 0) {
+                                this.po.po_attachment_items[index].file_extension = s[s.length-1].toLowerCase().toString();
+                            }
+
+                            index++;
+                        }
+                        // console.log(this.po.po_attachment_items);
+                    }
+
+                    for (let item of this.po.po_items) {
+                        this.totalVat += item.vat;
+                        this.totalAmount += item.total_amount;
+                        this.totalDiscount += item.discount;
+                    }
+
+                    super.unblockui('#m-content');
+                    // console.log(this.po);
+                } else {
+                    console.log(resp);
+                    super.showError(resp.error_msg);
+                    super.unblockui('#m-content');
                 }
 
-                for (let item of this.po.po_items) {
-                    this.totalVat += item.vat;
-                    this.totalAmount += item.total_amount;
-                    this.totalDiscount += item.discount;
-                }
-
-                super.unblockui('#m-content');
-                // console.log(this.po);
+                
             },
                 error => {
                     super.showError(error);
