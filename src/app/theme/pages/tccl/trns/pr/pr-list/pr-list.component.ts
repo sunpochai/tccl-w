@@ -42,7 +42,7 @@ export class PRListComponent extends PageBaseComponent implements OnInit, AfterV
         window.my.namespace = window.my.namespace || {};
         window.my.namespace.navigate_edit = this.navigate_edit.bind(this);
 
-        console.log(window.my.docStatus);
+        // console.log(window.my.docStatus);
 
         this._doctypeService.getall().subscribe(data => {
             this.doctypeList = data;

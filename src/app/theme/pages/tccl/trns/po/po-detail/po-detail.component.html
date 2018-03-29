@@ -269,7 +269,7 @@
 													<span [class]="getStatusDisplayClass(item.outcome)">{{item.outcome}}</span>
 												</td>
 											</tr>
-											<tr class="table-display-lastrow " *ngIf="item.stage_logs_list!=null && item.stage_logs_list.length <= 1 && item.outcome_description != ''">
+											<tr class="table-display-lastrow " *ngIf="item.stage_logs_list!=null && item.stage_logs_list.length <= 1 && item.outcome_description != null && item.outcome_description != ''">
 												<td></td>
 												<td colspan="4">
 													&nbsp;&nbsp;&nbsp;
@@ -305,59 +305,6 @@
 											</ng-template>
 										</ng-container>
 									</ng-template>
-									<!-- <ng-template ngFor let-item [ngForOf]="po.worklist.stage_list" let-i="index" [ngForTrackBy]="trackByFn">
-										<ng-template ngFor let-row [ngForOf]="item.stage_logs_list" let-j="index" >
-											<ng-container *ngIf="row.activity_description==null || row.activity_description==''">
-												<tr class="table-display-lastrow">
-													<td>
-														<span>{{row.actor_username}}</span>
-													</td>
-													<td>
-														<span>{{row.start_datetime | date :'dd/MM/yyyy HH:mm'}} - {{row.finish_datetime | date :'dd/MM/yyyy HH:mm'}}</span>
-													</td>
-													<td>
-														<span *ngIf="row.duration!=''">
-															<span>{{row.duration}}</span>
-														</span>
-													</td>
-													<td style="text-align: center;" [ngSwitch]="row.activity">
-														<span *ngSwitchCase="statusName.reviewed" class="m-badge m-badge--info m-badge--wide">{{row.activity}}</span>
-														<span *ngSwitchCase="statusName.approved" class="m-badge m-badge--success m-badge--wide">{{row.activity}}</span>
-														<span *ngSwitchCase="statusName.rejected" class="m-badge m-badge--danger m-badge--wide">{{row.activity}}</span>
-														<span *ngSwitchDefault class="m-badge-border m-badge--info m-badge--wide ">{{row.activity}}</span>
-													</td>
-												</tr>
-											</ng-container>
-											<ng-container *ngIf="row.activity_description!=null && row.activity_description!=''">
-												<tr >
-													<td>
-														<span>{{row.actor_username}}</span>
-													</td>
-													<td>
-														<span>{{row.start_datetime | date :'dd/MM/yyyy HH:mm'}} - {{row.finish_datetime | date :'dd/MM/yyyy HH:mm'}}</span>
-													</td>
-													<td>
-														<span *ngIf="row.duration!=''">
-															<span>{{row.duration}}</span>
-														</span>
-													</td>
-													<td style="text-align: center;" [ngSwitch]="row.activity">
-														<span *ngSwitchCase="statusName.reviewed" class="m-badge m-badge--info m-badge--wide">{{row.activity}}</span>
-														<span *ngSwitchCase="statusName.approved" class="m-badge m-badge--success m-badge--wide">{{row.activity}}</span>
-														<span *ngSwitchCase="statusName.rejected" class="m-badge m-badge--danger m-badge--wide">{{row.activity}}</span>
-														<span *ngSwitchDefault class="m-badge-border m-badge--info m-badge--wide ">{{row.activity}}</span>
-													</td>
-												</tr>
-												<tr class="table-display-lastrow">
-													<td colspan="4">
-														&nbsp;&nbsp;&nbsp;
-														<i class="flaticon-chat-1"></i>
-														{{row.activity_description}}
-													</td>
-												</tr>											
-											</ng-container>
-										</ng-template>
-									</ng-template> -->
 								</table>
 							</div>
 						</div>

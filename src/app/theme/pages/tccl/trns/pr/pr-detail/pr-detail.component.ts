@@ -89,40 +89,49 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         });
 
         if (this.id != null && this.id != '0') {
-            this._prService.get<any>(this.id).subscribe(data => {
-                this.pr = data;
-                if (this.pr.worklist != null && this.pr.worklist.current_responsible != null) {
-                    this.wf_stage_resp_id = this.pr.worklist.current_responsible.wf_stage_resp_id;
+            this._prService.get<any>(this.id).subscribe(resp => {
+                console.log(resp);
 
-                    if (this.pr.worklist.current_responsible.resp_allow_action != null && this.pr.worklist.current_responsible.resp_allow_action.toLowerCase() == 'review') {
-                        this.canReview = true;
-                    }
+                if (resp.is_error == false) {
+                    this.pr = resp.data;
+                    
+                    if (this.pr.worklist != null && this.pr.worklist.current_responsible != null) {
+                        this.wf_stage_resp_id = this.pr.worklist.current_responsible.wf_stage_resp_id;
 
-                    if (this.pr.worklist.current_responsible.resp_allow_action != null && this.pr.worklist.current_responsible.resp_allow_action.toLowerCase() == 'comment') {
-                        this.canComment = true;
-                    }
-
-                    if (this.pr.worklist.current_responsible.resp_allow_action == null) {
-                        this.canApprove = true;
-                    }
-                }
-                if (this.pr.pr_attachment_items != null && this.pr.pr_attachment_items.length > 0) {
-                    let index = 0;
-                    for (let row of this.pr.pr_attachment_items) {
-                        // console.log(row);
-                        let s = row.file_name.split('.');
-
-                        if (s.length > 0) {
-                            this.pr.pr_attachment_items[index].file_extension = s[s.length-1].toLowerCase().toString();
+                        if (this.pr.worklist.current_responsible.resp_allow_action != null && this.pr.worklist.current_responsible.resp_allow_action.toLowerCase() == 'review') {
+                            this.canReview = true;
                         }
 
-                        index++;
-                    }
-                    // console.log(this.pr.pr_attachment_items);
-                }
+                        if (this.pr.worklist.current_responsible.resp_allow_action != null && this.pr.worklist.current_responsible.resp_allow_action.toLowerCase() == 'comment') {
+                            this.canComment = true;
+                        }
 
-                super.unblockui('#m-content');
-                // console.log(this.pr);
+                        if (this.pr.worklist.current_responsible.resp_allow_action == null) {
+                            this.canApprove = true;
+                        }
+                    }
+                    if (this.pr.pr_attachment_items != null && this.pr.pr_attachment_items.length > 0) {
+                        let index = 0;
+                        for (let row of this.pr.pr_attachment_items) {
+                            // console.log(row);
+                            let s = row.file_name.split('.');
+
+                            if (s.length > 0) {
+                                this.pr.pr_attachment_items[index].file_extension = s[s.length-1].toLowerCase().toString();
+                            }
+
+                            index++;
+                        }
+                        // console.log(this.pr.pr_attachment_items);
+                    }
+
+                    super.unblockui('#m-content');
+                    console.log(this.pr.worklist);
+                } else {
+                    console.log(resp);
+                    super.showError(resp.error_msg);
+                    super.unblockui('#m-content');
+                }
             },
             error => {
                 super.showError(error);
@@ -567,6 +576,8 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     }
 
     getDisplayTRHead(pDescription,pStageLogsList): string {
+        // console.log(pDescription);
+        // console.log(pStageLogsList);
         if (pStageLogsList!=null && pStageLogsList.length > 1) {
             return this.getDisplayTR('') + ' m--font-bolder';
         } else {
