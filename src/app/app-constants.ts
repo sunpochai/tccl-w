@@ -49,6 +49,7 @@ export const API_WORKLIST: string = API_BASE_URL + '/api/worklist/my'
 
 export const API_PR_LIST: string = API_BASE_URL + '/api/pr/list'
 export const API_PR_GET: string = API_BASE_URL + '/api/pr'
+export const API_PR_GET_PR_ITEM: string = API_BASE_URL + '/api/pr/getpritem'
 
 export const API_PO_LIST: string = API_BASE_URL + '/api/po/list'
 export const API_PO_GET: string = API_BASE_URL + '/api/po'
