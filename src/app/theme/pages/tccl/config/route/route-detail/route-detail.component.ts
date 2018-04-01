@@ -23,7 +23,7 @@ import { TrackingService } from '../../../_services/masters/tracking.service';
 import { UserService } from '../../../../../../auth/_services';
 import { ADUserService } from '../../../_services/masters/aduser.service';
 import { Subject } from 'rxjs';
-
+import { SortPipe } from '../../../../../../_pipe/sort';
 
  
 
@@ -35,30 +35,32 @@ import { Subject } from 'rxjs';
 })
 
 export class RouteApproveDetailComponent extends PageBaseComponent implements OnInit, AfterViewInit {
-    private stateForm: FormGroup;
-    private routeapprove: RouteApprove;
-    private id: any;
-    private routetype: any;
-    private doctypeList: Array<DocType>;
-    private priceoverpr_yes: boolean;
-    private priceoverpr_no: boolean;
-    private trackingList : any;
-    private userList : any;
-    private textSearchTrackCode:string;
-    private textSearchUser:string;
+    public stateForm: FormGroup;
+    public routeapprove: RouteApprove;
+    public id: any;
+    public routetype: any;
+    public doctypeList: Array<DocType>;
+    public trackingNumberList: Array<Tracking>;
+    public priceoverpr_yes: boolean;
+    public priceoverpr_no: boolean;
 
-    private action_type: any;
-    private action_index: number;
+    public action_type: any;
+    public action_index: number;
+/* 
+    public trackingList : any;
+    public textSearchTrackCode:string;
+    public txtSearchTrackingChanged:Subject<string> = new Subject<string>();
+    public showDropDownTracking = false; */
 
-    private txtSearchTrackingChanged:Subject<string> = new Subject<string>();
-    private txtAdUserSelected;
-    private txtAdUserNameSelected;
+    public userList : any;
+    public txtAdUserSelected;
+    public txtAdUserNameSelected;
+    public textSearchUser:string;
+    public txtSearchUserChanged:Subject<string> = new Subject<string>();    
+    public showDropDownUser = false;
 
-    private txtSearchUserChanged:Subject<string> = new Subject<string>();
-    
-    
-    showDropDownTracking = false;
-    showDropDownUser = false;
+    public sortBy = 'tracking_code';
+    public sortType = -1;
     
     constructor(private _script: ScriptLoaderService,
         private _router: Router, private route: ActivatedRoute,
@@ -73,11 +75,11 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
                 this.textSearchUser  = md;
                 this.searchUser(md);
         })
-
+/* 
         this.txtSearchTrackingChanged.debounceTime(500).distinctUntilChanged().subscribe(md=>{
             this.textSearchTrackCode  = md;
             this.searchTracking(md);
-        })
+        }) */
     }
 
    
@@ -87,6 +89,13 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
         this._doctypeService.getall().subscribe(data => {
             this.doctypeList = data;
             // console.log(data);
+        });
+
+        this._trackingService.getall().subscribe(resp => {
+            this.trackingNumberList = resp;
+            
+            // console.log(resp);
+            // console.log(this.trackingNumberList);
         });
 
         this.route.params.subscribe(params => {
@@ -120,8 +129,8 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
 
                 this.priceoverpr_yes = (this.routeapprove.price_over_pr_flag == 'A' || this.routeapprove.price_over_pr_flag == 'Y');
                 this.priceoverpr_no = (this.routeapprove.price_over_pr_flag == 'A' || this.routeapprove.price_over_pr_flag == 'N');
-                this.textSearchTrackCode = this.routeapprove.tracking_no;
-                console.log(this.routeapprove);
+                /* this.textSearchTrackCode = this.routeapprove.tracking_no; */
+                // console.log(this.routeapprove);
                 // console.log(this.routetype);
                 super.unblockui('#m_form_1');
             });
@@ -204,7 +213,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
         }
 
         this._routeapproveService.create<any>(this.routeapprove).subscribe(resp => {
-            console.log(resp);
+            // console.log(resp);
             if (resp.is_error == false) {
                 this.routeapprove = resp.data;
                 super.showsuccess(this.routeapprove.route_name + ' create complete');
@@ -290,7 +299,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     approverAction() {
         if (this.action_type == "edit") {
             this.editApprover(this.action_index);
-            console.log(this.action_index);
+            // console.log(this.action_index);
         } else {
             this.addApprover();
         }
@@ -317,9 +326,9 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
         approver.ad_user = this.txtAdUserSelected;
         approver.ad_username = this.txtAdUserNameSelected;
 
-        console.log(approver);
+        // console.log(approver);
         this.routeapprove.cf_route_detail.push(approver);
-        console.log(this.routeapprove);
+        // console.log(this.routeapprove);
     }
 
     editApprover(rowIndex: number) {
@@ -343,7 +352,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
                 index++;
             }
         }
-        console.log(tempApprovers);
+        // console.log(tempApprovers);
         this.routeapprove.cf_route_detail = tempApprovers;
     }
 
@@ -352,14 +361,14 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     }
 
     
-    searchTracking(search) {
+    /* searchTracking(search) {
         if(search.length < 2) return;
         // console.log("search >>" + search);
         this.showDropDownTracking = true;
         this._trackingService.search(this.textSearchTrackCode).subscribe(x=>  {
             this.trackingList = x
         });  
-    }
+    } */
    
     searchUser(search) {
         if(search.length < 2) return;
@@ -370,21 +379,21 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
        });  
     }
 
-    onChangeSearchTracking(event){
+    /* onChangeSearchTracking(event){
         // console.log(event);
         this.txtSearchTrackingChanged.next(event);
-    }
+    } */
     onChangeSearchUser(event){
         // console.log(event);
         this.txtSearchUserChanged.next(event);
     }
 
-    selectTrackingValue(value) {
+    /* selectTrackingValue(value) {
         this.textSearchTrackCode = value.tracking_code 
         this.routeapprove.tracking_no = value.tracking_code;
         
         this.showDropDownTracking = false;
-    }
+    } */
       
     selectUserValue(value) {
         this.textSearchUser = value.fullname 
@@ -394,18 +403,18 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     }
     
     closeDropDown() {
-        this.showDropDownTracking = false;
+        /* this.showDropDownTracking = false; */
         this.showDropDownUser = false;
     }
 
-    isTrackingCodeValid(): boolean {
+    /* isTrackingCodeValid(): boolean {
         // console.log(this.routeapprove.tracking_no);
         if (this.routeapprove.tracking_no != null && this.routeapprove.tracking_no != '') {
             return true;
         }
 
         return false;
-    }
+    } */
     
 
 }

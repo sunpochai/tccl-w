@@ -22,6 +22,7 @@ import { SearchFilterPipe } from '../../../../../_pipe/filter-pipe';
 import { LetterBoldPipe } from '../../../../../_pipe/letter-bold.pipe';
 import { UserService } from '../../../../../auth/_services/user.service';
 import { ADUserService } from '../../_services/masters/aduser.service';
+import { PipesModule } from '../../../../../_pipe/pipes.module';
  
 
 const routes: Routes = [
@@ -44,7 +45,8 @@ const routes: Routes = [
 ];
 @NgModule({
     imports: [
-        CommonModule, RouterModule.forChild(routes), LayoutModule, HttpModule,ReactiveFormsModule, FormsModule
+        CommonModule, RouterModule.forChild(routes), LayoutModule, HttpModule,ReactiveFormsModule, FormsModule,
+        PipesModule
     ], exports: [
         RouterModule
     ], declarations: [  
@@ -55,7 +57,7 @@ const routes: Routes = [
         DocTypeService,  
         TrackingService,
         ADUserService,
-        FormBuilder 
+        FormBuilder
     ]
 })
 export class RouteApproveModule {

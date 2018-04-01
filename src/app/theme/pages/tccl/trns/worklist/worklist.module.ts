@@ -13,7 +13,7 @@ import { WorklistService } from '../../_services/trns/worklist.service';
 import { DocTypeService } from '../../_services/masters/doctype.service';
 import { CompanyService } from '../../_services/masters/company.service';
 import { PlantService } from '../../_services/masters/plant.service';
-import { SortPipe } from '../../../../../_pipe/sort';
+import { PipesModule } from '../../../../../_pipe/pipes.module';
 
 const routes: Routes = [
     {
@@ -29,20 +29,19 @@ const routes: Routes = [
 ];
 @NgModule({
     imports: [
-        CommonModule, RouterModule.forChild(routes), LayoutModule, HttpModule, FormsModule
+        CommonModule, RouterModule.forChild(routes), LayoutModule, HttpModule, FormsModule,
+        PipesModule
 
     ], exports: [
         RouterModule
     ], declarations: [
-        WorklistComponent,
-        SortPipe
+        WorklistComponent
     ], providers: [
         WorklistService,
         DocTypeService,
         CompanyService,
         PlantService,
-        FormBuilder,
-        SortPipe
+        FormBuilder
     ]
 })
 export class WorklistModule {
