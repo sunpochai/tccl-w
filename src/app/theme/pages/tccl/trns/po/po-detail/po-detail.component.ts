@@ -651,7 +651,7 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
                     Need to be removed!!!
                 */
                 if (this.currentItem.pr_item == null) {
-                    this.currentItem.pr_item = this.getFakePRItem();
+                    // this.currentItem.pr_item = this.getFakePRItem();
                 }
                 console.log(this.currentItem);
 

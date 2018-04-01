@@ -429,7 +429,7 @@
 									</thead>
 									<tr *ngFor="let row of po.po_items; let index = index">
 										<ng-container *ngIf="row.item_status == 'DEL' ">
-											<td class="m--font-deleted">{{index+1}}</td>
+											<td class="m--font-deleted">{{row.po_itm_no}}</td>
 											<td class="m--font-deleted">{{row.account_no}} - {{row.account_name}}</td>
 											<td class="m--font-deleted">{{row.mat_desc}}</td>
 											<td align="right" class="m--font-deleted">{{row.qty}}</td>
@@ -448,7 +448,7 @@
 											</td>
 										</ng-container>
 										<ng-container *ngIf="row.item_status != 'DEL' ">
-											<td >{{index+1}}</td>
+											<td >{{row.po_itm_no}}</td>
 											<td >{{row.account_no}} - {{row.account_name}}</td>
 											<td >{{row.mat_desc}}</td>
 											<td align="right" >{{row.qty}}</td>
@@ -572,7 +572,7 @@
 				<div class="modal-header">
 					<h5 class="modal-title" id="modalTitle" name="modalTitle">
 						<i class="fa fa-search-plus"></i>
-						Item Detail
+						Item Detail : PO {{this.po.po_no}} Item {{currentItem.po_itm_no}}
 					</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">
