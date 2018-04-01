@@ -80,22 +80,22 @@ var myDatatable = function( ) {
           field: 'pr_date',
           title: 'PR Date',
           textAlign: 'center',
+          sortable: 'desc',
           template: function(row) {
             return toDisplayDate(row.pr_date);
           }  
         }, {   
           field: 'doc_type',
           title: 'Doc Type',
-          
+          sortable: true,
           textAlign: 'center',
           
         } , {
           field: 'grand_total',
           title: 'Est. Price',
-         
           type: 'number',
           textAlign: 'right',
-          sortable: false,
+          sortable: true,
           template: function (row) {
             var parts = (row.grand_total).toFixed(2).split(".");
             // alert(parts);
@@ -105,23 +105,26 @@ var myDatatable = function( ) {
         } , {
           field: 'comp_name',
           title: 'Company',
+          sortable: true,
           template: function (row) {
             return row.comp_code + ' - ' + row.comp_name;
           }
         } , {
           field: 'subject',
           title: 'Subject',
+          sortable: true,
          
         } , {
           field: 'plant_name',
           title: 'Plant',
+          sortable: true,
           template: function (row) {
             return row.plant_code + ' - ' + row.plant_name;
           }
         } , {
           field: 'c_doc_status',
           title: 'Status',
-          sortable: false,
+          sortable: true,
           template: function (row) {
             if (row.c_doc_status != null && row.c_doc_status!='') {
               return '<span class="' + my.docStatus[row.c_doc_status].displayclass + '">' + my.docStatus[row.c_doc_status].name + '</span>';
@@ -131,7 +134,8 @@ var myDatatable = function( ) {
           }
         } , {
           field: 'create_username',
-          title: 'Requisitioner'
+          title: 'Requisitioner',
+          sortable: true,
         } , {
           field: 'create_datetime',
           title: 'Create Date',

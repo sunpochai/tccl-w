@@ -78,19 +78,18 @@ var myDatatable = function( ) {
         }, {   
           field: 'po_date',
           title: 'PO Date',
-          width: '80px',
+          sortable: 'desc',
           template: function(row) {
             return toDisplayDate(row.po_date);
           }
         }, {   
           field: 'doc_type',
           title: 'Doc Type',
+          sortable: true,
           textAlign: 'center',
-          width: '40px'
         } , {
           field: 'grand_total',
           title: 'Total',
-          width: '80px',
           type: 'number',
           textAlign: 'right',
           sortable: true,
@@ -104,28 +103,32 @@ var myDatatable = function( ) {
         } , {
           field: 'comp_name',
           title: 'Company',
+          sortable: true,
           template: function (row) {
             return row.comp_code + ' - ' + row.comp_name;
           }
         } , {
           field: 'subject',
-          title: 'Subject'
+          title: 'Subject',
+          sortable: true,
         } , {
           field: 'vendor_code',
           title: 'Vendor',
+          sortable: true,
           template: function (row) {
             return row.vendor_code + ' - ' + row.vendor_name;
           }
         } , {
           field: 'plant_name',
           title: 'Plant',
+          sortable: true,
           template: function (row) {
             return row.plant_code + ' - ' + row.plant_name;
           }
         } , {
           field: 'c_doc_status',
           title: 'Status',
-          sortable: false,
+          sortable: true,
           template: function (row) {
             if (row.c_doc_status != null && row.c_doc_status!='') {
               return '<span class="' + my.docStatus[row.c_doc_status].displayclass + '">' + my.docStatus[row.c_doc_status].name + '</span>';
@@ -135,7 +138,8 @@ var myDatatable = function( ) {
           }
         } , {
           field: 'purchasing_group',
-          title: 'Purchasing Group'
+          title: 'Purchasing Group',
+          sortable: true,
         }
       ],
     });

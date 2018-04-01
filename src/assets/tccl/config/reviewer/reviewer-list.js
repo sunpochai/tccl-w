@@ -76,6 +76,8 @@ var myDatatable = function( ) {
               return 'Requisitioner';
             } else if (row.sap_group=='2') {
               return 'Purchasing Group';
+            } else if (row.sap_group=='3') {
+              return 'User ID';
             } else {
               return 'N/A';
             }

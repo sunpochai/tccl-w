@@ -60,18 +60,18 @@
 					</div>
 				</div>
 				<div class="form-group m-form__group row" >
-					<label class="col-form-label col-lg-2 col-sm-4">
+					<label class="col-form-label col-lg-2 col-sm-3">
 						SAP Code *   
 					</label> 
-					<div class="col-lg-4 col-sm-8">
+					<div class="col-lg-4 col-sm-4">
 						<input required maxlength="100" [(ngModel)]="reviewer.sap_code" type="text" class="form-control m-input" name="sap_code" value="{{reviewer.sap_code}}" placeholder="Enter SAP Code"  >
 					</div>
 				</div>
 				<div class="form-group m-form__group row" >
-					<label class="col-form-label col-lg-2 col-sm-4">
+					<label class="col-form-label col-lg-2 col-sm-3">
 						SAP Group *   
 					</label>
-					<div class="col-lg-4 col-sm-8">
+					<div class="col-lg-10 col-sm-9">
 						<div class="m-radio-inline">
 							<label class="m-radio">
 								<input type="radio" [(ngModel)]="input_sap_group"  name="sap_group" value="1">
@@ -83,14 +83,19 @@
 								Purchasing Group
 								<span></span>
 							</label>
+							<label class="m-radio">
+								<input type="radio" [(ngModel)]="input_sap_group" name="sap_group" value="3">
+								User ID
+								<span></span>
+							</label>
 						</div>
 					</div>
 				</div>
 				<div class="form-group m-form__group row" >
-					<label class="col-form-label col-lg-2 col-sm-4">
+					<label class="col-form-label col-lg-2 col-sm-3">
 						Reviewer *
 					</label>
-					<div class="col-lg-9 col-sm-9">
+					<div class="col-lg-8 col-sm-8">
 						<div class="width-half">
 							<input required id='searchuser' placeholder="Search for a user" class=' form-control m-input' [(ngModel)]="textSearchUser" name="user" type='text' (ngModelChange)="onChangeSearchUser($event);"  >
 							<div clickOutside (clickOutside)="closeDropDown()">

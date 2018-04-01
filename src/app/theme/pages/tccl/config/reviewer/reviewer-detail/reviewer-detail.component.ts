@@ -99,16 +99,30 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
         }
     }
 
+    fillData(isInsert: boolean) {
+        this.reviewer.sap_group = parseInt(this.input_sap_group);
+        this.reviewer.update_user = super.getADUserLogin();
+        this.reviewer.update_username = super.getFullNameUserLogin();
+        this.reviewer.update_datetime = new Date();
+
+        if (isInsert) {
+            this.reviewer.create_user = this.reviewer.update_user;
+            this.reviewer.create_username = this.reviewer.update_username;
+            this.reviewer.create_datetime = this.reviewer.update_datetime;
+        }
+    }
+
     create() {
         super.blockui('#m_form_1');
 
-        this.reviewer.sap_group = parseInt(this.input_sap_group);
+        /* this.reviewer.sap_group = parseInt(this.input_sap_group);
         this.reviewer.create_user = super.getADUserLogin();
         this.reviewer.create_username = super.getFullNameUserLogin();
         this.reviewer.create_datetime = new Date();
         this.reviewer.update_user = super.getADUserLogin();
         this.reviewer.update_username = super.getFullNameUserLogin();
-        this.reviewer.update_datetime = this.reviewer.create_datetime
+        this.reviewer.update_datetime = this.reviewer.create_datetime; */
+        this.fillData(true);
         
         this._reviewerService.create<any>(this.reviewer).subscribe(resp => {
             if (resp.is_error == false) {
@@ -135,10 +149,12 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
     update() {
         super.blockui('#m_form_1');
 
-        this.reviewer.sap_group = parseInt(this.input_sap_group);
+        /* this.reviewer.sap_group = parseInt(this.input_sap_group);
         this.reviewer.update_user = super.getADUserLogin();
         this.reviewer.update_username = super.getFullNameUserLogin();
-        this.reviewer.update_datetime = new Date();
+        this.reviewer.update_datetime = new Date(); */
+        this.fillData(false);
+
         this._reviewerService.put<any>(this.reviewer).subscribe(resp => {
             if (resp.is_error == false) {
                 this.reviewer = resp.data;
