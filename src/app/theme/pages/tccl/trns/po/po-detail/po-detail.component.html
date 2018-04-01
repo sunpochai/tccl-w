@@ -424,6 +424,7 @@
 												<th>Delivery Date</th>
 												<th>PR</th>
 												<th>Item</th>
+												<th>Item Detail</th>
 										</tr>
 									</thead>
 									<tr *ngFor="let row of po.po_items; let index = index">
@@ -440,6 +441,11 @@
 											<td class="m--font-deleted">{{row.delivery_date | date :'dd/MM/yyyy'}}</td>
 											<td class="m--font-deleted">{{row.pr_no}}</td>
 											<td class="m--font-deleted">{{row.pr_item_no}}</td>
+											<td align="center">
+												<a href="#" (click)="showDetail(row)" data-toggle="modal" data-target="#m_modal_item_detail" class="m-btn m-btn--pill m-btn--hover-metal btn btn-sm btn-secondary" title="Item Detail">
+													<i class="fa fa-search-plus"></i>
+												</a>
+											</td>
 										</ng-container>
 										<ng-container *ngIf="row.item_status != 'DEL' ">
 											<td >{{index+1}}</td>
@@ -454,23 +460,28 @@
 											<td >{{row.delivery_date | date :'dd/MM/yyyy'}}</td>
 											<td >{{row.pr_no}}</td>
 											<td >{{row.pr_item_no}}</td>
+											<td align="center">
+												<a href="#" (click)="showDetail(row)" data-toggle="modal" data-target="#m_modal_item_detail" class="m-btn m-btn--pill m-btn--hover-metal btn btn-sm btn-secondary" title="Item Detail">
+													<i class="fa fa-search-plus"></i>
+												</a>
+											</td>
 										</ng-container>
 									</tr>
 									<tr>
 										<td style='text-align:right ' colspan='7'> Total</td>
 										<td style='text-align:right ' >{{totalVat | number:'1.2'}}</td>
 										<td style='text-align:right ' >{{totalAmount | number:'1.2'}}</td>
-										<td style='text-align:right ' colspan='3'></td>
+										<td style='text-align:right ' colspan='4'></td>
 									</tr>
 									<tr>
 										<td style='text-align:right ' colspan='7'> Discount</td>
 										<td style='text-align:right ' colspan='2'>-{{totalDiscount | number:'1.2'}}</td>
-										<td style='text-align:right ' colspan='3'></td>
+										<td style='text-align:right ' colspan='4'></td>
 									</tr>
 									<tr>
 										<td style='text-align:right ' colspan='7'> Grand Total</td>
 										<td style='text-align:right ' colspan='2'>{{po.grand_total | number:'1.2'}}</td>
-										<td style='text-align:right ' colspan='3'></td>
+										<td style='text-align:right ' colspan='4'></td>
 									</tr>
 								</table>
 							</div>
@@ -484,357 +495,6 @@
 
 
 
-	<!-- <div class="m-portlet">
-		<div class="m-portlet__body m-portlet__body--no-padding">
-			<div class="row m-row--no-padding m-row--col-separator-xl">
-				<div class="col-md-12 col-lg-6 col-xl-3">
-					<div class="m-widget1">
-						<div class="m-widget1__item">
-							<div class="row m-row--no-padding align-items-center">
-								<div class="col">
-									<h3 class="m-widget1__title">
-										Status
-									</h3>
-								</div>
-								<div class="col m--align-right">
-									<span class="m-widget1__number" >
-										<span class={{docStatus[po.c_doc_status].displayclass}}>{{docStatus[po.c_doc_status].name}}</span>	
-									</span>
-								</div>
-							</div>
-						</div>
-						<div class="m-widget1__item">
-							<div class="row m-row--no-padding align-items-center">
-								<div class="col">
-									<span class="m-widget1__title">
-										PO No.
-									</span>
-								</div>
-								<div class="col m--align-right">
-									<span class="m-widget1__number m--font-brand">
-										{{po.po_no}}
-									</span>
-								</div>
-							</div>
-						</div>
-						<div class="m-widget1__item">
-							<div class="row m-row--no-padding align-items-center">
-								<div class="col">
-									<span class="m-widget1__title">
-										PO Date
-									</span>
-								</div>
-								<div class="col m--align-right">
-									<span class="m-widget1__number m--font-brand">
-										{{ po.po_date | date :'dd/MM/yyyy' }}
-									</span>
-								</div>
-							</div>
-						</div>
-						<div class="m-widget1__item">
-							<div class="row m-row--no-padding align-items-center">
-								<div class="col">
-									<h3 class="m-widget1__desc">
-										Currency
-									</h3><br>
-									<span class="m-widget1__title">
-										{{po.currency}}
-									</span>
-								</div>
-							</div>
-						</div>
-						<div class="m-widget1__item">
-							<div class="row m-row--no-padding align-items-center">
-								<div class="col">
-									<h3 class="m-widget1__desc">
-										Exchange Rate
-									</h3><br>
-									<span class="m-widget1__title">
-										{{po.exchrate}}
-									</span>
-								</div>
-							</div>
-						</div>
-						<div class="m-widget1__item">
-							<div class="row m-row--no-padding align-items-center">
-								<div class="col">
-									<h3 class="m-widget1__desc">
-										Purchasing Group
-									</h3><br>
-									<span class="m-widget1__title">
-										{{po.purchasing_group}}
-									</span>
-								</div>
-							</div>
-						</div>
-						
-					</div>
-				</div>
-				<div class="col-md-12 col-lg-6 col-xl-3">
-					<div class="m-widget1">
-						<div class="m-widget1__item">
-							<div class="row m-row--no-padding align-items-center">
-								<div class="col">
-									<h3 class="m-widget1__desc">
-										Doc Type
-									</h3><br>
-									<span class="m-widget1__title">
-										{{po.doc_type}}
-									</span>
-								</div>
-							</div>
-						</div>
-						<div class="m-widget1__item">
-							<div class="row m-row--no-padding align-items-center">
-								<div class="col">
-									<h3 class="m-widget1__desc">
-										PO Category
-									</h3><br>
-									<ng-container [ngSwitch]="po.account_category">
-										<span *ngSwitchCase="categoryCode.asset" class="m-widget1__title">{{categoryName.asset}}</span>
-										<span *ngSwitchCase="categoryCode.expense" class="m-widget1__title">{{categoryName.expense}}</span>
-										<span *ngSwitchCase="categoryCode.stock" class="m-widget1__title">{{categoryName.stock}}</span>
-										<span *ngSwitchCase="categoryCode.projecttcl" class="m-widget1__title">{{categoryName.projecttcl}}</span>
-									</ng-container>
-								</div>
-							</div>
-						</div>
-						<div class="m-widget1__item">
-							<div class="row m-row--no-padding align-items-center">
-								<div class="col">
-									<h3 class="m-widget1__desc">
-										Terms of Payment
-									</h3><br>
-									<span class="m-widget1__title">{{po.terms_payment}}-{{po.terms_payment_name}}</span>
-								</div>
-							</div>
-						</div>
-						<div class="m-widget1__item">
-							<div class="row m-row--no-padding align-items-center">
-								<div class="col">
-									<h3 class="m-widget1__desc">
-										Purchase Org
-									</h3><br>
-									<span class="m-widget1__title">{{po.purchasing_org}}</span>
-								</div>
-							</div>
-						</div>
-						<div class="m-widget1__item">
-							<div class="row m-row--no-padding align-items-center">
-								<div class="col">
-									<h3 class="m-widget1__desc">
-										Tracking
-									</h3><br>
-									<span class="m-widget1__title">
-										{{po.tracking_no}}
-									</span>
-								</div>
-							</div>
-						</div>
-						
-					</div>
-				</div>
-
-				<div class="col-md-12 col-lg-12 col-xl-6">
-					<div class="m-widget1">
-						<div class="m-widget1__item">
-							<div class="row m-row--no-padding align-items-center">
-								<div class="col">
-									<h3 class="m-widget1__desc">
-										Company
-									</h3><br>
-									<span class="m-widget1__title">
-										{{po.comp_code}} - {{po.comp_name}}
-									</span>
-								</div>
-							</div>
-						</div>
-						<div class="m-widget1__item">
-							<div class="row m-row--no-padding align-items-center">
-								<div class="col">
-									<h3 class="m-widget1__desc">
-										Plant
-									</h3><br>
-									<span class="m-widget1__title">
-										{{po.plant_code}} - {{po.plant_name}}
-									</span>
-								</div>
-							</div>
-						</div>
-						<div class="m-widget1__item">
-							<div class="row m-row--no-padding align-items-center">
-								<div class="col">
-									<h3 class="m-widget1__desc">
-										Subject
-									</h3><br>
-									<span class="m-widget1__title" *ngIf="po.subject!=null">
-										{{po.subject}}
-									</span>
-									<span class="m-widget1__title" *ngIf="po.subject==null">
-										-
-									</span>
-								</div>
-							</div>
-						</div>
-						<div class="m-widget1__item">
-							<div class="row m-row--no-padding align-items-center">
-								<div class="col">
-									<h3 class="m-widget1__desc">
-										Vendor
-									</h3><br>
-									<span class="m-widget1__title">
-										{{po.vendor_code}} - {{po.vendor_name}}
-									</span>
-								</div>
-							</div>
-						</div>
-						
-					</div>
-				</div>
-			</div>
-		</div>
-	</div> -->
-
-	<!-- <div class="row">
-		<div class="col-xl-12">
-			<div class="m-portlet m-portlet--full-height">
-				<div class="m-portlet__head">
-					<div class="m-portlet__head-caption">
-						<div class="m-portlet__head-title">
-							<h3 class="m-portlet__head-text">
-								Items
-							</h3>
-						</div>
-					</div>
-				</div>
-				<div class="m-portlet__body">
-					<div class="m-section">
-						<div class="m-section__content">
-							<div class="table-responsive">
-								<table class='table table-bordered m-table m-table--border-brand m-table--head-bg-brand'>
-									<thead>
-										<tr>
-											<th>No</th>
-											<th>Budget</th>
-											<th>Description</th>
-											<th>Qty</th>
-											<th>Unit</th>
-											<th>Unit Price</th>
-											<th>Disc.</th>
-											<th>VAT</th>
-											<th>Amount</th>
-											<th>Delivery Date</th>
-											<th>PR</th>
-											<th>Item</th>
-										</tr>
-									</thead>
-									<tr *ngFor="let row of po.po_items; let index = index">
-										<ng-container *ngIf="row.item_status == 'DEL' ">
-											<td class="m--font-deleted">{{index+1}}</td>
-											<td class="m--font-deleted">{{row.account_no}} - {{row.account_name}}</td>
-											<td class="m--font-deleted">{{row.mat_desc}}</td>
-											<td align="right" class="m--font-deleted">{{row.qty}}</td>
-											<td class="m--font-deleted">{{row.unit}}</td>
-											<td align="right" class="m--font-deleted">{{row.price | number:'1.2'}}</td>
-											<td align="right" class="m--font-deleted">{{row.discount | number:'1.2'}}</td>
-											<td align="right" class="m--font-deleted">{{row.vat | number:'1.2'}}</td>
-											<td align="right" class="m--font-deleted">{{row.total_amount | number:'1.2'}}</td>
-											<td class="m--font-deleted">{{row.delivery_date | date :'dd/MM/yyyy'}}</td>
-											<td class="m--font-deleted">{{row.pr_no}}</td>
-											<td class="m--font-deleted">{{row.pr_item_no}}</td>
-										</ng-container>
-										<ng-container *ngIf="row.item_status != 'DEL' ">
-											<td >{{index+1}}</td>
-											<td >{{row.account_no}} - {{row.account_name}}</td>
-											<td >{{row.mat_desc}}</td>
-											<td align="right" >{{row.qty}}</td>
-											<td >{{row.unit}}</td>
-											<td align="right" >{{row.price | number:'1.2'}}</td>
-											<td align="right" >{{row.discount | number:'1.2'}}</td>
-											<td align="right" >{{row.vat | number:'1.2'}}</td>
-											<td align="right" >{{row.total_amount | number:'1.2'}}</td>
-											<td >{{row.delivery_date | date :'dd/MM/yyyy'}}</td>
-											<td >{{row.pr_no}}</td>
-											<td >{{row.pr_item_no}}</td>
-										</ng-container>
-									</tr>
-									<tr>
-										<td style='text-align:right ' colspan='7'> Total</td>
-										<td style='text-align:right ' >{{totalVat | number:'1.2'}}</td>
-										<td style='text-align:right ' >{{totalAmount | number:'1.2'}}</td>
-										<td style='text-align:right ' colspan='3'></td>
-									</tr>
-									<tr>
-										<td style='text-align:right ' colspan='7'> Discount</td>
-										<td style='text-align:right ' colspan='2'>-{{totalDiscount | number:'1.2'}}</td>
-										<td style='text-align:right ' colspan='3'></td>
-									</tr>
-									<tr>
-										<td style='text-align:right ' colspan='7'> Grand Total</td>
-										<td style='text-align:right ' colspan='2'>{{po.grand_total | number:'1.2'}}</td>
-										<td style='text-align:right ' colspan='3'></td>
-									</tr>
-								</table>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div> -->
-
-	
-	<!-- <form class="m-form m-form--fit " >
-		<div class="row">
-		<div class="col-12">
-			<div class="m-portlet m-portlet--full-height">
-				<div class="m-portlet__head">
-					<div class="m-portlet__head-caption">
-						<div class="m-portlet__head-title">
-							<h3 class="m-portlet__head-text">
-								Approval Status
-							</h3>
-						</div>
-					</div>
-				</div>
-				<div class="m-portlet__body">
-					<div class="m-widget4">
-
-						<ng-template ngFor let-item [ngForOf]="po.worklist.stage_list" let-i="index" [ngForTrackBy]="trackByFn">
-								
-						<div class="m-widget4__item" *ngFor="let row of item.stage_logs_list" [ngSwitch]="row.activity">
-							<div class="m-widget4__info">
-								<span class="m-widget4__title">
-									<i class="la la-user"></i>
-									{{row.actor_username}}
-								</span>
-								<br>
-								<span class="m-widget4__sub">
-									<i class="la la-clock-o"></i>
-									{{row.start_datetime | date :'dd/MM/yyyy HH:mm'}} - {{row.finish_datetime | date :'dd/MM/yyyy HH:mm'}}
-								</span>
-								<br>
-								<span class="m-widget4__sub">
-									{{row.activity_description}}
-								</span>
-							</div>
-							<div class="m-widget4__ext" style="vertical-align: top">
-								<span *ngSwitchCase="statusName.reviewed" class="m-badge m-badge--info m-badge--wide">{{row.activity}}</span>
-								<span *ngSwitchCase="statusName.approved" class="m-badge m-badge--success m-badge--wide">{{row.activity}}</span>
-								<span *ngSwitchCase="statusName.rejected" class="m-badge m-badge--danger m-badge--wide">{{row.activity}}</span>
-								<span *ngSwitchDefault class="m-badge-border m-badge--info m-badge--wide ">{{row.activity}}</span>
-							</div>
-						</div>
-
-						</ng-template>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	</form> -->
 
 	
 
@@ -897,6 +557,135 @@
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">
 						Close
 					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--end::Modal-->
+
+
+
+	<!--begin::Modal-->
+	<div class="modal fade" id="m_modal_item_detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document" *ngIf="currentItem!=null">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="modalTitle" name="modalTitle">
+						<i class="fa fa-search-plus"></i>
+						Item Detail
+					</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">
+							&times;
+						</span>
+					</button>
+				</div>
+				<div class="modal-body">
+						<table class="table-display">
+							
+								<tr class="table-display-thead-top-bottom  m--font-bolder">
+									<th colspan="2">Acc. & Budget</th>
+								</tr>
+								<tr>
+									<th style="vertical-align: top;">Budget's Name</th>
+									<td>
+										<span *ngIf="currentItem.pr_item != null">
+											{{currentItem.pr_item.account_no}}
+										</span>
+									</td>
+								</tr>
+								<tr>
+									<th style="vertical-align: top;">Currency</th>
+									<td>
+										<span *ngIf="currentItem.pr_item != null">
+											{{currentItem.pr_item.currency}}
+										</span>
+									</td>
+								</tr>
+								<tr>
+									<th style="vertical-align: top;">Budget</th>
+									<td>
+										<span *ngIf="currentItem.pr_item != null">
+											{{currentItem.pr_item.budget_amount}}
+										</span>
+									</td>
+								</tr>
+								<tr>
+									<th style="vertical-align: top;">Commit</th>
+									<td>
+										<span *ngIf="currentItem.pr_item != null">
+											{{currentItem.pr_item.budget_commit}}
+										</span>
+									</td>
+								</tr>
+								<tr>
+									<th style="vertical-align: top;">Actual</th>
+									<td>
+										<span *ngIf="currentItem.pr_item != null">
+											{{currentItem.pr_item.budget_actual}}
+										</span>
+									</td>
+								</tr>
+								<tr>
+									<th style="vertical-align: top;">Remaining</th>
+									<td>
+										<span *ngIf="currentItem.pr_item != null">
+											{{currentItem.pr_item.budget_remaining}}
+										</span>
+									</td>
+								</tr>
+							
+
+							<tr class="table-display-thead-top-bottom  m--font-bolder">
+								<th colspan="2">Item Text</th>
+							</tr>
+							<tr>
+								<th style="vertical-align: top;">Item Text</th>
+								<td>
+									<span>{{currentItem.I01_01}}</span>
+									<span *ngIf="currentItem.I01_02 != ''" ><br>{{currentItem.I01_02}}</span>
+									<span *ngIf="currentItem.I01_03 != ''" ><br>{{currentItem.I01_03}}</span>
+									<span *ngIf="currentItem.I01_04 != ''" ><br>{{currentItem.I01_04}}</span>
+								</td>
+							</tr>
+							<tr>
+								<th style="vertical-align: top;">Info Record PO Text</th>
+								<td>
+									<span>{{currentItem.I02_01}}</span>
+									<span *ngIf="currentItem.I02_02 != ''" ><br>{{currentItem.I02_02}}</span>
+									<span *ngIf="currentItem.I02_03 != ''" ><br>{{currentItem.I02_03}}</span>
+									<span *ngIf="currentItem.I02_04 != ''" ><br>{{currentItem.I02_04}}</span>
+								</td>
+							</tr>
+							<tr>
+								<th style="vertical-align: top;">Meterial PO Text</th>
+								<td>
+									<span>{{currentItem.I03_01}}</span>
+									<span *ngIf="currentItem.I03_02 != ''" ><br>{{currentItem.I03_02}}</span>
+									<span *ngIf="currentItem.I03_03 != ''" ><br>{{currentItem.I03_03}}</span>
+									<span *ngIf="currentItem.I03_04 != ''" ><br>{{currentItem.I03_04}}</span>
+								</td>
+							</tr>
+							<tr>
+								<th style="vertical-align: top;">Delivery Text</th>
+								<td>
+									<span>{{currentItem.I04_01}}</span>
+									<span *ngIf="currentItem.I04_02 != ''" ><br>{{currentItem.I04_02}}</span>
+									<span *ngIf="currentItem.I04_03 != ''" ><br>{{currentItem.I04_03}}</span>
+									<span *ngIf="currentItem.I04_04 != ''" ><br>{{currentItem.I04_04}}</span>
+								</td>
+							</tr>
+							<tr>
+								<th style="vertical-align: top;">Info Record Note</th>
+								<td>
+									<span>{{currentItem.I05_01}}</span>
+									<span *ngIf="currentItem.I05_02 != ''" ><br>{{currentItem.I05_02}}</span>
+									<span *ngIf="currentItem.I05_03 != ''" ><br>{{currentItem.I05_03}}</span>
+									<span *ngIf="currentItem.I05_04 != ''" ><br>{{currentItem.I05_04}}</span>
+								</td>
+							</tr>
+
+						</table>
 				</div>
 			</div>
 		</div>

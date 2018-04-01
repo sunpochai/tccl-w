@@ -91,7 +91,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
 
         if (this.id != null && this.id != '0') {
             this._prService.get<any>(this.id).subscribe(resp => {
-                console.log(resp);
+                // console.log(resp);
 
                 if (resp.is_error == false) {
                     this.pr = resp.data;
@@ -127,7 +127,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                     }
 
                     super.unblockui('#m-content');
-                    console.log(this.pr.worklist);
+                    // console.log(this.pr.worklist);
                 } else {
                     console.log(resp);
                     super.showError(resp.error_msg);

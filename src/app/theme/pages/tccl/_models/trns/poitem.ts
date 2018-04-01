@@ -1,3 +1,5 @@
+import { PRItem } from "./pritem";
+
 export class POItem {
     po_itm_id: number;
     po_no: string;
@@ -85,4 +87,5 @@ export class POItem {
     mat_group: string;
     mat_group_desc: string;
     project_name: string;
+    pr_item: PRItem;
 }  

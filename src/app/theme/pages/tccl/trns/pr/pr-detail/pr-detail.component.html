@@ -420,7 +420,7 @@
 											<td class="m--font-deleted">{{row.currency}}</td>
 											<td class="m--font-deleted">{{row.delivery_date | date :'dd/MM/yyyy'}}</td>
 											<td align="center">
-												<a href="#" (click)="showDetail(row)" data-toggle="modal" data-target="#m_modal_item_detail" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary" title="Item Detail">
+												<a href="#" (click)="showDetail(row)" data-toggle="modal" data-target="#m_modal_item_detail" class="m-btn m-btn--pill m-btn--hover-metal btn btn-sm btn-secondary" title="Item Detail">
 													<i class="fa fa-search-plus"></i>
 												</a>
 											</td>
@@ -435,7 +435,7 @@
 											<td>{{row.currency}}</td>
 											<td>{{row.delivery_date | date :'dd/MM/yyyy'}}</td>
 											<td align="center">
-												<a href="#" (click)="showDetail(row)" data-toggle="modal" data-target="#m_modal_item_detail" class="m-btn m-btn--pill m-btn--hover-brand btn btn-sm btn-secondary" title="Item Detail">
+												<a href="#" (click)="showDetail(row)" data-toggle="modal" data-target="#m_modal_item_detail" class="m-btn m-btn--pill m-btn--hover-metal btn btn-sm btn-secondary" title="Item Detail">
 													<i class="fa fa-search-plus"></i>
 												</a>
 											</td>
@@ -444,7 +444,7 @@
 									<tr>
 										<td style='text-align:right ' colspan='5'> Total</td>
 										<td style='text-align:right ' >{{pr.grand_total | number:'1.2'}}</td>
-										<td style='text-align:right ' colspan='2'></td>
+										<td style='text-align:right ' colspan='3'></td>
 									</tr>
 								</table>
 							</div>
@@ -539,52 +539,70 @@
 					</button>
 				</div>
 				<div class="modal-body">
-						<table class="table-display">
+						<table class="table-display" >
 							<tr class="table-display-thead-top-bottom  m--font-bolder">
 								<th colspan="2">Acc. & Budget</th>
 							</tr>
 							<tr>
-								<th>Budget's Name</th>
+								<th style="vertical-align: top;">Budget's Name</th>
 								<td>{{currentItem.account_no}}</td>
 							</tr>
 							<tr>
-								<th>Currency</th>
+								<th style="vertical-align: top;">Currency</th>
 								<td>{{currentItem.currency}}</td>
 							</tr>
 							<tr>
-								<th>Budget</th>
+								<th style="vertical-align: top;">Budget</th>
 								<td>{{currentItem.budget_amount}}</td>
 							</tr>
 							<tr>
-								<th>Commit</th>
+								<th style="vertical-align: top;">Commit</th>
 								<td>{{currentItem.budget_commit}}</td>
 							</tr>
 							<tr>
-								<th>Actual</th>
+								<th style="vertical-align: top;">Actual</th>
 								<td>{{currentItem.budget_actual}}</td>
 							</tr>
 							<tr>
-								<th>Remaining</th>
+								<th style="vertical-align: top;">Remaining</th>
 								<td>{{currentItem.budget_remaining}}</td>
 							</tr>
 							<tr class="table-display-thead-top-bottom  m--font-bolder">
 								<th colspan="2">Item Text</th>
 							</tr>
 							<tr>
-								<th>Item Text</th>
-								<td>{{currentItem.item_text1}}</td>
+								<th style="vertical-align: top;">Item Text</th>
+								<td>
+									<span>{{currentItem.item_text1}}</span>
+									<span *ngIf="currentItem.item_text2 != ''" ><br>{{currentItem.item_text2}}</span>
+									<span *ngIf="currentItem.item_text3 != ''" ><br>{{currentItem.item_text3}}</span>
+									<span *ngIf="currentItem.item_text4 != ''" ><br>{{currentItem.item_text4}}</span>
+								</td>
 							</tr>
 							<tr>
-								<th>Item Note</th>
-								<td>{{currentItem.item_note1}}</td>
+								<th style="vertical-align: top;">Item Note</th>
+								<td>
+									<span>{{currentItem.item_note1}}</span>
+									<span *ngIf="currentItem.item_note2 != ''" ><br>{{currentItem.item_note2}}</span>
+									<span *ngIf="currentItem.item_note3 != ''" ><br>{{currentItem.item_note3}}</span>
+									<span *ngIf="currentItem.item_note4 != ''" ><br>{{currentItem.item_note4}}</span>
+								</td>
 							</tr>
 							<tr>
-								<th>Delevery Note</th>
-								<td>{{currentItem.delivery_note1}}</td>
+								<th style="vertical-align: top;">Delevery Note</th>
+								<td>
+									<span>{{currentItem.delivery_note1}}</span>
+									<span *ngIf="currentItem.delivery_note2 != ''" ><br>{{currentItem.delivery_note2}}</span>
+									<span *ngIf="currentItem.delivery_note3 != ''" ><br>{{currentItem.delivery_note3}}</span>
+									<span *ngIf="currentItem.delivery_note4 != ''" ><br>{{currentItem.delivery_note4}}</span>
+								</td>
 							</tr>
 							<tr>
-								<th>Material PO Text</th>
-								<td></td>
+								<th style="vertical-align: top;">Material PO Text</th>
+								<span>{{currentItem.po_text1}}</span>
+								<span *ngIf="currentItem.po_text2 != ''" ><br>{{currentItem.po_text2}}</span>
+								<span *ngIf="currentItem.po_text3 != ''" ><br>{{currentItem.po_text3}}</span>
+								<span *ngIf="currentItem.po_text4 != ''" ><br>{{currentItem.po_text4}}</span>
 							</tr>
 
 						</table>

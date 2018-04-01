@@ -25,6 +25,8 @@ import { RequestOptions } from '@angular/http';
 import { UserService } from '../../../../../../auth/_services';
 import { ADUserService } from '../../../_services/masters/aduser.service';
 import { Subject } from 'rxjs';
+import { PRService } from '../../../_services/trns/pr.service';
+import { PRItem } from '../../../_models/trns/pritem';
 
 @Component({
     selector: "trns-po-detail",
@@ -44,6 +46,7 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
     public urlattachment: String = API_ATTACHMENT_GET_DEL;
     public statusName: any = ACTION_NAME;
     public docStatus: Array<any> = C_DOC_STATUS_2;
+    public currentItem: any;
     public categoryCode: any = CATEGORY_CODE;
     public categoryName: any = CATEGORY_NAME;
     public totalVat: number = 0;
@@ -73,6 +76,7 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
         private _router: Router,
         private route: ActivatedRoute,
         private _poService: POService,
+        private _prService: PRService,
         private _attachmentService: AttachmentService,
         private _workflowService: WorkflowService,
         private _adUserService:ADUserService,
@@ -96,7 +100,12 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
             this._poService.get<any>(this.id).subscribe(resp => {
                 console.log(resp);
 
-                if (resp.is_error == false) {
+                if (resp.is_error) {
+                    console.log(resp);
+                    super.showError(resp.error_msg);
+                    super.unblockui('#m-content');
+
+                } else {
                     this.po = resp.data;
                     
                     if (this.po.worklist != null && this.po.worklist.current_responsible != null) {
@@ -131,6 +140,7 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
                     }
 
                     for (let item of this.po.po_items) {
+                    // console.log(this.po);
                         this.totalVat += item.vat;
                         this.totalAmount += item.total_amount;
                         this.totalDiscount += item.discount;
@@ -138,24 +148,22 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
 
                     super.unblockui('#m-content');
                     // console.log(this.po);
-                } else {
-                    console.log(resp);
-                    super.showError(resp.error_msg);
-                    super.unblockui('#m-content');
+
                 }
 
                 
             },
-                error => {
-                    super.showError(error);
-                    console.log('error');
-                    super.unblockui('#m-content');
+            error => {
+                super.showError(error);
+                console.log('error');
+                super.unblockui('#m-content');
 
-                },
-                () => {
-                    super.unblockui('#m-content');
-                    // console.log('done');
-                });
+            },
+            () => {
+                super.unblockui('#m-content');
+                // console.log('done');
+            });
+
         } else {
             //console.log(this.pr);
         }
@@ -622,4 +630,59 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
             return '' ;
         }
     }
+
+    showDetail(pItem) {
+        super.blockui('#m_modal_item_detail');
+
+        this.currentItem = pItem;
+
+        this._prService.getPRItem<any>(this.currentItem.pr_no, this.currentItem.pr_item_no).subscribe(resp => {
+
+            if (resp.is_error) {
+                console.log(resp);
+                super.showError(resp.error_msg);
+                super.unblockui('#m_modal_item_detail');
+            } else {
+                this.currentItem.pr_item = resp.data;
+
+                console.log(this.currentItem);
+
+                /* Just to test the display data result and layout  
+                    Need to be removed!!!
+                */
+                if (this.currentItem.pr_item == null) {
+                    this.currentItem.pr_item = this.getFakePRItem();
+                }
+                console.log(this.currentItem);
+
+                super.unblockui('#m_modal_item_detail');
+            }
+        },
+        error => {
+            super.showError(error);
+            console.log(error);
+            super.unblockui('#m_modal_item_detail');
+
+        },
+        () => {
+            super.unblockui('#m_modal_item_detail');
+            // console.log('done');
+        });
+
+    }
+
+    getFakePRItem() {
+        var pritem : PRItem = new PRItem;
+        pritem.budget_check = "B";
+        pritem.account_no = "0121999000";
+        pritem.account_name = "Fixed Assets Dummy";
+        pritem.currency = "THB";
+        pritem.budget_amount = 297900;
+        pritem.budget_commit = 149895;
+        pritem.budget_actual = 110240;
+        pritem.budget_remaining = 37765;
+        
+        return pritem;
+    }
+
 }

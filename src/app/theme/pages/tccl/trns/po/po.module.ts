@@ -21,6 +21,7 @@ import { PlantService } from '../../_services/masters/plant.service';
 import { AttachmentService } from '../../_services/trns/attachment.service';
 import { WorkflowService } from '../../_services/trns/workflow.service';
 import { ADUserService } from '../../_services/masters/aduser.service';
+import { PRService } from '../../_services/trns/pr.service';
 
 const routes: Routes = [
     {
@@ -48,6 +49,7 @@ const routes: Routes = [
         PODetailComponent
     ], providers: [
         POService,
+        PRService,
         DocTypeService,
         CompanyService,
         PlantService,
