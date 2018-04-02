@@ -66,11 +66,11 @@ var myDatatable = function( ) {
           field: 'sap_code',
           title: 'SAP Code',
           selector: false,
+          textAlign: 'center',
           sortable: 'asc'
         }, {
           field: 'sap_group',
           title: 'SAP Group',
-          sortable: 'asc',
           template: function (row) {
             if (row.sap_group=='1'){
               return 'Requisitioner';
@@ -85,13 +85,13 @@ var myDatatable = function( ) {
         }, {
           field: 'ad_username',
           title: 'Reviewer',
-          sortable: 'asc'
         }, {
           field: 'Actions',
           width: 110,
           title: 'Actions',
           sortable: false,
           overflow: 'visible',
+          textAlign: 'center',
           template: function (row, index, datatable) {
             var dropup = (datatable.getPageSize() - index) <= 4 ? 'dropup' : '';
             return '\<a   href="javascript:navigate_edit(\''+ row.review_id +'\')"  class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit">\

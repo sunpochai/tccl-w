@@ -70,15 +70,28 @@ var myDatatable = function( ) {
         }, {
           field: 'tracking_no',
           title: 'Tracking Number',
-          sortable: 'asc',
         }, {
           field: 'doc_type',
           title: 'Doc Type',
-          sortable: 'asc',
+          textAlign: 'center',
+        }, {
+          field: 'price_over_pr_flag',
+          title: 'Price Over PR',
+          textAlign: 'center',
+          template: function (row) {
+            if (row.price_over_pr_flag == 'A') {
+              return 'All';
+            } else if (row.price_over_pr_flag == 'Y') {
+              return 'Yes';
+            } else if (row.price_over_pr_flag == 'N') {
+              return 'No';
+            } else {
+              return 'N/A';
+            }
+          }
         }, {
           field: 'minimum_value',
           title: 'Minimum Value',
-          sortable: 'asc',
           type: 'number',
           textAlign: 'right',
           template: function (row) {
@@ -90,7 +103,6 @@ var myDatatable = function( ) {
         }, {
           field: 'maximum_value',
           title: 'Maximum Value',
-          sortable: 'asc',
           type: 'number',
           textAlign: 'right',
           template: function (row) {
@@ -105,6 +117,7 @@ var myDatatable = function( ) {
           title: 'Actions',
           sortable: false,
           overflow: 'visible',
+          textAlign: 'center',
           template: function (row, index, datatable) {
             return '\<a   href="javascript:navigate_edit(\''+ row.route_id +'\')"  class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit">\
               <i class="la la-edit"></i>\

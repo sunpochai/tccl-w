@@ -70,15 +70,13 @@ var myDatatable = function( ) {
         }, {
           field: 'tracking_no',
           title: 'Tracking Number',
-          sortable: 'asc',
         }, {
           field: 'doc_type',
           title: 'Doc Type',
-          sortable: 'asc',
+          textAlign: 'center',
         }, {
           field: 'minimum_value',
           title: 'Minimum Value',
-          sortable: 'asc',
           type: 'number',
           textAlign: 'right',
           template: function (row) {
@@ -90,7 +88,6 @@ var myDatatable = function( ) {
         }, {
           field: 'maximum_value',
           title: 'Maximum Value',
-          sortable: 'asc',
           type: 'number',
           textAlign: 'right',
           template: function (row) {
@@ -105,6 +102,7 @@ var myDatatable = function( ) {
           title: 'Actions',
           sortable: false,
           overflow: 'visible',
+          textAlign: 'center',
           template: function (row, index, datatable) {
             return '\<a   href="javascript:navigate_edit(\''+ row.route_id +'\')"  class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit">\
               <i class="la la-edit"></i>\

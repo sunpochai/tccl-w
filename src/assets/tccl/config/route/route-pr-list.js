@@ -70,15 +70,14 @@ var myDatatable = function( ) {
         }, {
           field: 'tracking_no',
           title: 'Tracking Number',
-          sortable: 'asc'
         }, {
           field: 'doc_type',
           title: 'Doc Type',
-          sortable: 'asc'
+          textAlign: 'center',
         }, {
           field: 'account',
           title: 'Account / Non-account',
-          sortable: 'asc',
+          textAlign: 'center',
           //A:Account   N:Non-Account
           template: function (row) {
             if (row.account=='A'){
@@ -96,6 +95,7 @@ var myDatatable = function( ) {
           title: 'Actions',
           sortable: false,
           overflow: 'visible',
+          textAlign: 'center',
           template: function (row, index, datatable) {
             var dropup = (datatable.getPageSize() - index) <= 4 ? 'dropup' : '';
             return '\<a   href="javascript:navigate_edit(\''+ row.route_id +'\')"  class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit">\
