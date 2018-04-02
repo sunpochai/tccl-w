@@ -117,7 +117,8 @@ export const C_DOC_STATUS_2: Array<any> = [
 ];
 
 export const ACTION_NAME: any = {
-    reviewed: "Reviewed"
+    pending: "Pending"
+    , reviewed: "Reviewed"
     , approved: C_DOC_STATUS_APPROVED_NAME
     , rejected: C_DOC_STATUS_REJECTED_NAME
     , cancelled: C_DOC_STATUS_CANCELLED_NAME

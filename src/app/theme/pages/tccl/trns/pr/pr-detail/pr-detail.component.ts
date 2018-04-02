@@ -555,12 +555,14 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     }
 
     getStatusDisplayClass(pStatus: string): string {
-        switch (pStatus) {
-            case ACTION_NAME.reviewed: 
+        switch (pStatus.toLowerCase()) {
+            case ACTION_NAME.pending.toLowerCase(): 
+                return 'm-badge m-badge--warning m-badge--wide';
+            case ACTION_NAME.reviewed.toLowerCase(): 
                 return 'm-badge m-badge--info m-badge--wide';
-            case ACTION_NAME.approved: 
+            case ACTION_NAME.approved.toLowerCase(): 
                 return 'm-badge m-badge--success m-badge--wide';
-            case ACTION_NAME.rejected: 
+            case ACTION_NAME.rejected.toLowerCase(): 
                 return 'm-badge m-badge--danger m-badge--wide';
             default:
                 return 'm-badge-border m-badge--info m-badge--wide';
@@ -580,9 +582,9 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         // console.log(pDescription);
         // console.log(pStageLogsList);
         if (pStageLogsList!=null && pStageLogsList.length > 1) {
-            return this.getDisplayTR('') + ' m--font-bolder';
+            return this.getDisplayTR('') + ' m--font-boldest';
         } else {
-            return this.getDisplayTR(pDescription) + ' m--font-bolder';
+            return this.getDisplayTR(pDescription) + ' m--font-boldest';
         }
     }
 

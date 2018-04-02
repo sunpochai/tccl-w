@@ -244,7 +244,7 @@
 				</div>
 				<div class="m-portlet__body-lil">
 					<div class="row">
-						<div class="col-xl-12 col-sm-12" *ngIf="pr.worklist.stage_list!=null && pr.worklist.stage_list.length > 0">
+						<div class="col-xl-12 col-sm-12" *ngIf="pr.worklist != null && pr.worklist.stage_list!=null && pr.worklist.stage_list.length > 0">
 							<div class="table-responsive">
 								<table class="table-display">
 									<thead>
@@ -288,8 +288,10 @@
 												<tr [class]="getDisplayTR(row.activity_description)">
 													<td>&nbsp;</td>
 													<td>
-														<i class="fa fa-caret-right"></i>
-														<span>{{row.actor_username}}</span>
+														<span style="padding-left:2em">
+															<i class="fa fa-caret-right"></i>
+															<span>{{row.actor_username}}</span>
+														</span>
 													</td>
 													<td>
 														<span>{{row.start_datetime | date :'dd/MM/yyyy HH:mm'}} - {{row.finish_datetime | date :'dd/MM/yyyy HH:mm'}}</span>
@@ -304,9 +306,10 @@
 												<tr class="table-display-lastrow" *ngIf="row.activity_description!=null && row.activity_description!=''">
 													<td>&nbsp;</td>
 													<td colspan="4">
-														&nbsp;&nbsp;&nbsp;
-														<i class="flaticon-chat-1"></i>
-														{{row.activity_description}}
+														<span style="padding-left:2em">
+															<i class="flaticon-chat-1"></i>
+															{{row.activity_description}}
+														</span>
 													</td>
 												</tr>
 											</ng-template>
@@ -344,7 +347,8 @@
 								<table class="table-display">
 									<tr>
 										<td class="table-display-caption">Status</td>
-										<td class="table-display-value"><span class={{docStatus[pr.c_doc_status].displayclass}}>{{docStatus[pr.c_doc_status].name}}</span></td>
+										<td *ngIf="pr.c_doc_status==null" class="table-display-value"><span class={{docStatus[0].displayclass}}>{{docStatus[0].name}}</span></td>
+										<td *ngIf="pr.c_doc_status!=null" class="table-display-value"><span class={{docStatus[pr.c_doc_status].displayclass}}>{{docStatus[pr.c_doc_status].name}}</span></td>
 									</tr>
 									<tr>
 										<td class="table-display-caption">PR Date</td>
@@ -393,7 +397,7 @@
 					<!--begin::m-widget5-->
 					<div class="m-section">
 						<div class="m-section__content">
-							<div class="table-responsive">
+							<div class="table-responsive" style="text-align: center">
 								<!-- <table class='table table-bordered m-table m-table--border-brand m-table--head-bg-brand'> -->
 								<table class="table table-bordered table-hover ">
 									<thead>
@@ -409,32 +413,32 @@
 											<th>Item Detail</th>
 										</tr>
 									</thead>
-									<tr *ngFor="let row of pr.pr_items; let index = index">
+									<tr *ngFor="let row of pr.pr_items; let index = index" style="vertical-align:middle">
 										<ng-container *ngIf="row.item_status == 'DEL' ">
-											<td align="center" class="m--font-deleted">{{row.pr_item_no}}</td>
-											<td class="m--font-deleted">{{row.account_no}} - {{row.account_name}}</td>
-											<td class="m--font-deleted">{{row.mat_desc}}</td>
-											<td align="right" class="m--font-deleted">{{row.qty}}</td>
-											<td class="m--font-deleted">{{row.unit}}</td>
-											<td align="right" class="m--font-deleted">{{row.estimate_price | number:'1.2'}}</td>
-											<td class="m--font-deleted">{{row.currency}}</td>
-											<td class="m--font-deleted">{{row.delivery_date | date :'dd/MM/yyyy'}}</td>
-											<td align="center">
+											<td style="vertical-align: middle" align="center" class="m--font-deleted">{{row.pr_item_no}}</td>
+											<td style="vertical-align: middle" align="left" class="m--font-deleted">{{row.account_no}} - {{row.account_name}}</td>
+											<td style="vertical-align: middle" align="left" class="m--font-deleted">{{row.mat_desc}}</td>
+											<td style="vertical-align: middle" align="right" class="m--font-deleted">{{row.qty}}</td>
+											<td style="vertical-align: middle" align="center" class="m--font-deleted">{{row.unit}}</td>
+											<td style="vertical-align: middle" align="right" class="m--font-deleted">{{row.estimate_price | number:'1.2'}}</td>
+											<td style="vertical-align: middle" align="center" class="m--font-deleted">{{row.currency}}</td>
+											<td style="vertical-align: middle" align="center" class="m--font-deleted">{{row.delivery_date | date :'dd/MM/yyyy'}}</td>
+											<td style="vertical-align: middle" align="center">
 												<a href="#" (click)="showDetail(row)" data-toggle="modal" data-target="#m_modal_item_detail" class="m-btn m-btn--pill m-btn--hover-metal btn btn-sm btn-secondary" title="Item Detail">
 													<i class="fa fa-search-plus"></i>
 												</a>
 											</td>
 										</ng-container>
 										<ng-container *ngIf="row.item_status != 'DEL' ">
-											<td align="center">{{row.pr_item_no}}</td>
-											<td>{{row.account_no}} - {{row.account_name}}</td>
-											<td>{{row.mat_desc}}</td>
-											<td align="right">{{row.qty}}</td>
-											<td>{{row.unit}}</td>
-											<td align="right">{{row.estimate_price | number:'1.2'}}</td>
-											<td>{{row.currency}}</td>
-											<td>{{row.delivery_date | date :'dd/MM/yyyy'}}</td>
-											<td align="center">
+											<td style="vertical-align: middle" align="center">{{row.pr_item_no}}</td>
+											<td style="vertical-align: middle" align="left">{{row.account_no}} - {{row.account_name}}</td>
+											<td style="vertical-align: middle" align="left">{{row.mat_desc}}</td>
+											<td style="vertical-align: middle" align="right">{{row.qty}}</td>
+											<td style="vertical-align: middle" align="center">{{row.unit}}</td>
+											<td style="vertical-align: middle" align="right">{{row.estimate_price | number:'1.2'}}</td>
+											<td style="vertical-align: middle" align="center">{{row.currency}}</td>
+											<td style="vertical-align: middle" align="center">{{row.delivery_date | date :'dd/MM/yyyy'}}</td>
+											<td style="vertical-align: middle" align="center">
 												<a href="#" (click)="showDetail(row)" data-toggle="modal" data-target="#m_modal_item_detail" class="m-btn m-btn--pill m-btn--hover-metal btn btn-sm btn-secondary" title="Item Detail">
 													<i class="fa fa-search-plus"></i>
 												</a>
