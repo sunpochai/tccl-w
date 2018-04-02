@@ -28,15 +28,21 @@
 	</div>
 </div>
 <!-- END: Subheader -->
-<table style="width: 100%" *ngIf="fakepo==null">
-	<tr>
-		<td align="center">
-			<img src="./assets/app/media/img//error/no_info.jpg"  >
-		</td>
-	</tr>
-</table>
+
+
+
+<div class="m-content" id="m-content">
+	<table style="width: 100%" *ngIf="fakepo==null">
+		<tr>
+			<td align="center">
+				<img src="./assets/app/media/img//error/no_info.jpg"  >
+			</td>
+		</tr>
+	</table>
 	
-<div class="m-content" id="m-content" *ngIf="po!=null">
+	<ng-container *ngIf="po!=null">
+
+	
 
 	<form class="m-form m-form--fit " >
 		<div class="row">
@@ -703,5 +709,8 @@
 	</div>
 	<!--end::Modal-->
 
+
+
+	</ng-container>
 
 </div>
