@@ -140,6 +140,9 @@ var myDatatable = function( ) {
           field: 'purchasing_group',
           title: 'Purchasing Group',
           sortable: true,
+          template: function (row) {
+            return row.purchasing_group + (row.purchasing_groupname==null ? '' : ' - '+row.purchasing_groupname);
+          }
         }
       ],
     });

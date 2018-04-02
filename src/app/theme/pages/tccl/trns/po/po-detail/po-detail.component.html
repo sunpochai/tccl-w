@@ -1,5 +1,5 @@
 <!-- BEGIN: Subheader -->
-<div class="m-subheader" appunwraptag="" *ngIf="po!=null">
+<div class="m-subheader" appunwraptag="" >
 	<div class="d-flex align-items-center">
 		<div class="mr-auto">
 			<h3 class="m-subheader__title m-subheader__title--separator">
@@ -28,7 +28,14 @@
 	</div>
 </div>
 <!-- END: Subheader -->
-
+<table style="width: 100%" *ngIf="fakepo==null">
+	<tr>
+		<td align="center">
+			<img src="./assets/app/media/img//error/no_info.jpg"  >
+		</td>
+	</tr>
+</table>
+	
 <div class="m-content" id="m-content" *ngIf="po!=null">
 
 	<form class="m-form m-form--fit " >
@@ -382,7 +389,7 @@
 									</tr>
 									<tr>
 										<td class="table-display-caption">Purchasing Grp.</td>
-										<td class="table-display-value">{{po.purchasing_group}}</td>
+										<td class="table-display-value">{{po.purchasing_group}}-{{po.purchasing_groupname}}</td>
 									</tr>
 								</table>
 							</div>

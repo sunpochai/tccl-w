@@ -1,5 +1,5 @@
 <!-- BEGIN: Subheader -->
-<div class="m-subheader" appunwraptag="" *ngIf="pr!=null">
+<div class="m-subheader" appunwraptag="">
 	<div class="d-flex align-items-center">
 		<div class="mr-auto">
 			<h3 class="m-subheader__title m-subheader__title--separator">
@@ -36,7 +36,14 @@
 	</div>
 </div>
 <!-- END: Subheader -->
-
+<table style="width: 100%" *ngIf="fakepr==null">
+	<tr>
+		<td align="center">
+			<img src="./assets/app/media/img//error/no_info.jpg"  >
+		</td>
+	</tr>
+</table>
+	
 <div class="m-content" id="m-content" *ngIf="pr!=null">
 
 	<form class="m-form m-form--fit " >

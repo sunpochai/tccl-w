@@ -33,6 +33,7 @@ import { Subject } from 'rxjs';
 export class PRDetailComponent extends PageBaseComponent implements OnInit, AfterViewInit {
     public form: FormGroup;
     public pr: PR;
+    public fakepr: PR = new PR;
     public id: any;
     public wf_stage_resp_id: any;
     public canReview: boolean = false;
@@ -93,7 +94,15 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
             this._prService.get<any>(this.id).subscribe(resp => {
                 // console.log(resp);
 
-                if (resp.is_error == false) {
+                if (resp.is_error) {
+                    console.log(resp);
+                    super.showError(resp.error_msg);
+                    this.fakepr = null;
+                    
+                    super.unblockui('#m-content');
+
+                } else {
+
                     this.pr = resp.data;
 
                     if (this.pr.worklist != null && this.pr.worklist.current_responsible != null) {
@@ -128,10 +137,6 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
 
                     super.unblockui('#m-content');
                     // console.log(this.pr.worklist);
-                } else {
-                    console.log(resp);
-                    super.showError(resp.error_msg);
-                    super.unblockui('#m-content');
                 }
             },
             error => {

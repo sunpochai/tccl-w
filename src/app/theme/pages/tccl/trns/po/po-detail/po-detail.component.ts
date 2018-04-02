@@ -36,6 +36,7 @@ import { PRItem } from '../../../_models/trns/pritem';
 export class PODetailComponent extends PageBaseComponent implements OnInit, AfterViewInit {
     public form: FormGroup;
     public po: PO;
+    public fakepo: PO = new PO;
     public id: any;
     public wf_stage_resp_id: any;
     public canReview: boolean = false;
@@ -103,6 +104,8 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
                 if (resp.is_error) {
                     console.log(resp);
                     super.showError(resp.error_msg);
+                    this.fakepo = null;
+                    
                     super.unblockui('#m-content');
 
                 } else {
