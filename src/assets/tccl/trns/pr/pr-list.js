@@ -140,7 +140,7 @@ var myDatatable = function( ) {
           field: 'create_datetime',
           title: 'Create Date',
           template: function(row) {
-            return      toDisplayDateTime(row.create_datetime);
+            return      toDisplayDate(row.create_datetime);
           }
         }
       ],
