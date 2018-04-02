@@ -28,7 +28,7 @@ declare var window: any;
 })
 export class WorklistComponent extends PageBaseComponent implements OnInit, AfterViewInit {
     public docStatus: Array<any> = C_DOC_STATUS_2;
-    public myworklists: Array<Worklist>;
+    public myworklists: Array<Worklist>; /* Use for render in HTML page */
     public totalworklists: Array<Worklist>;
     public doctypeList: Array<DocType>;
     public companyList: Array<Company>;
@@ -128,6 +128,8 @@ export class WorklistComponent extends PageBaseComponent implements OnInit, Afte
                 this.showPA = true;
                 break;
         }
+
+        this.setFilteredItems();
     }
 
     toggleSearch() {
@@ -184,6 +186,18 @@ export class WorklistComponent extends PageBaseComponent implements OnInit, Afte
                 }
             )
         }
+
+
+        this.myworklists = this.myworklists.filter(
+            (item) => {
+                return ( 
+                    (this.showPR && item.name.toLowerCase() == 'pr') ||
+                    (this.showPO && item.name.toLowerCase() == 'po') ||
+                    (this.showPA && item.name.toLowerCase() == 'pa')
+                );
+            }
+        )
+
     }
 
     sort(pSortBy: string) {

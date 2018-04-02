@@ -27,7 +27,7 @@ var myDatatable = function( ) {
             },
           },
         },
-        pageSize: 10,
+        pageSize: 50,
         serverPaging: true,
         serverFiltering: true,
         serverSorting: true,
@@ -52,7 +52,7 @@ var myDatatable = function( ) {
           // pagination
           pagination: {
             // page size select
-            pageSizeSelect: [5,10, 20, 30, 50, 100],
+            pageSizeSelect: [10, 20, 30, 50, 100],
           },
         },
       },
