@@ -11,6 +11,7 @@ export class RouteApprove {
     price_over_pr_flag: string;
     minimum_value: number;
     maximum_value: number;
+    number_approver_sap: number;
     route_status: boolean;
     create_user: string;
     create_username: string;

@@ -50,6 +50,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     public maxValPlaceholder: string = "Enter Maximum Value";
     public maxValCaption: string = "*";
     public unlimit_maximum;
+    public last_approver: string;
 /* 
     public trackingList : any;
     public textSearchTrackCode:string;
@@ -131,6 +132,8 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
                         break;
                 }
 
+                this.last_approver = this.routeapprove.number_approver_sap+'';
+
                 /* this.priceoverpr_yes = (this.routeapprove.price_over_pr_flag == 'A' || this.routeapprove.price_over_pr_flag == 'Y');
                 this.priceoverpr_no = (this.routeapprove.price_over_pr_flag == 'A' || this.routeapprove.price_over_pr_flag == 'N'); */
                 /* this.textSearchTrackCode = this.routeapprove.tracking_no; */
@@ -162,6 +165,13 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
         if (this.validateData() == false) {
             return;
         }
+        // console.log(this.routeapprove);
+        // console.log(this.routeapprove.number_approver_sap);
+console.log(this.last_approver);
+console.log(this.routeapprove);
+        this.routeapprove.number_approver_sap = parseInt(this.last_approver);
+console.log(this.routeapprove);
+
         if (this.routeapprove.route_id != null && this.routeapprove.route_id != 0) {
             this.update();
         } else {
@@ -170,7 +180,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     }
 
     validateData(): boolean {
-        console.log(this.unlimit_maximum);
+        // console.log(this.unlimit_maximum);
 
         if (this.unlimit_maximum) {
             this.routeapprove.maximum_value=9999999999999.99;
