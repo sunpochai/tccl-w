@@ -348,7 +348,7 @@
 						<div class="m-portlet__head-title">
 							<h3 class="m-portlet__head-text">
 								<i class="flaticon-folder-2"></i>
-								PR#{{pr.pr_no}}
+								PR {{pr.pr_no}}
 							</h3>
 						</div>
 					</div>
@@ -373,7 +373,7 @@
 									</tr>
 									<tr>
 										<td class="table-display-caption">Plant</td>
-										<td class="table-display-value">{{pr.plant_code}}-{{pr.plant_name}}</td>
+										<td class="table-display-value">{{pr.plant_code}} {{pr.plant_name}}</td>
 									</tr>
 								</table>
 							</div>
@@ -428,7 +428,7 @@
 									</thead>
 									<tr *ngFor="let row of pr.pr_items; let index = index" style="vertical-align:middle">
 										<ng-container *ngIf="row.item_status == 'DEL' ">
-											<td style="vertical-align: middle" align="center" class="m--font-deleted">{{row.pr_item_no}}</td>
+											<td style="vertical-align: middle" align="center" class="m--font-deleted">{{formatSAPItemNo(row.pr_item_no)}}</td>
 											<td style="vertical-align: middle" align="left" class="m--font-deleted">{{row.account_no}} - {{row.account_name}}</td>
 											<td style="vertical-align: middle" align="left" class="m--font-deleted">{{row.mat_desc}}</td>
 											<td style="vertical-align: middle" align="right" class="m--font-deleted">{{row.qty}}</td>
@@ -443,7 +443,7 @@
 											</td>
 										</ng-container>
 										<ng-container *ngIf="row.item_status != 'DEL' ">
-											<td style="vertical-align: middle" align="center">{{row.pr_item_no}}</td>
+											<td style="vertical-align: middle" align="center">{{formatSAPItemNo(row.pr_item_no)}}</td>
 											<td style="vertical-align: middle" align="left">{{row.account_no}} - {{row.account_name}}</td>
 											<td style="vertical-align: middle" align="left">{{row.mat_desc}}</td>
 											<td style="vertical-align: middle" align="right">{{row.qty}}</td>

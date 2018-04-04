@@ -339,7 +339,7 @@
 						<div class="m-portlet__head-title">
 							<h3 class="m-portlet__head-text">
 								<i class="flaticon-folder-2"></i>
-								PO#{{po.po_no}}
+								PO {{po.po_no}}
 							</h3>
 						</div>
 					</div>
@@ -383,11 +383,11 @@
 									</tr>
 									<tr>
 										<td class="table-display-caption">Vendor</td>
-										<td class="table-display-value">{{po.vendor_code}}-{{po.vendor_name}}</td>
+										<td class="table-display-value">{{lefttrim(po.vendor_code,'0')}}-{{po.vendor_name}}</td>
 									</tr>
 									<tr>
 										<td class="table-display-caption">Plant</td>
-										<td class="table-display-value">{{po.plant_code}}-{{po.plant_name}}</td>
+										<td class="table-display-value">{{po.plant_code}} {{po.plant_name}}</td>
 									</tr>
 									<tr>
 										<td class="table-display-caption">Tracking</td>
@@ -395,7 +395,7 @@
 									</tr>
 									<tr>
 										<td class="table-display-caption">Purchasing Grp.</td>
-										<td class="table-display-value">{{po.purchasing_group}}-{{po.purchasing_groupname}}</td>
+										<td class="table-display-value">{{po.purchasing_group}} {{po.purchasing_groupname}}</td>
 									</tr>
 								</table>
 							</div>
@@ -446,7 +446,7 @@
 									</thead>
 									<tr *ngFor="let row of po.po_items; let index = index">
 										<ng-container *ngIf="row.item_status == 'DEL' ">
-											<td style="vertical-align:middle" align="center" class="m--font-deleted">{{row.po_itm_no}}</td>
+											<td style="vertical-align:middle" align="center" class="m--font-deleted">{{formatSAPItemNo(row.po_itm_no)}}</td>
 											<td style="vertical-align:middle" align="left" class="m--font-deleted">{{row.account_no}} - {{row.account_name}}</td>
 											<td style="vertical-align:middle" align="left" class="m--font-deleted">{{row.mat_desc}}</td>
 											<td style="vertical-align:middle" align="right" class="m--font-deleted">{{row.qty}}</td>
@@ -465,7 +465,7 @@
 											</td>
 										</ng-container>
 										<ng-container *ngIf="row.item_status != 'DEL' ">
-											<td style="vertical-align: middle" align="center" >{{row.po_itm_no}}</td>
+											<td style="vertical-align: middle" align="center" >{{formatSAPItemNo(row.po_itm_no)}}</td>
 											<td style="vertical-align: middle" align="left" >{{row.account_no}} - {{row.account_name}}</td>
 											<td style="vertical-align: middle" align="left" >{{row.mat_desc}}</td>
 											<td style="vertical-align: middle" align="right" >{{row.qty}}</td>

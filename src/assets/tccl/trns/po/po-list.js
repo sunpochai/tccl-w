@@ -62,7 +62,12 @@ var myDatatable = function( ) {
       },
 
       columns: [
-        {
+        {   
+          field: 'doc_type',
+          title: 'Doc Type',
+          sortable: true,
+          textAlign: 'center',
+        } , {
           field: 'po_no',
           title: 'PO No.',
           selector: false,
@@ -82,12 +87,7 @@ var myDatatable = function( ) {
           template: function(row) {
             return toDisplayDate(row.po_date);
           }
-        }, {   
-          field: 'doc_type',
-          title: 'Doc Type',
-          sortable: true,
-          textAlign: 'center',
-        } , {
+        }, {
           field: 'grand_total',
           title: 'Total',
           type: 'number',
@@ -99,13 +99,17 @@ var myDatatable = function( ) {
             var num = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (parts[1] ? "." + parts[1] : ".00");
             return num;
           }
-
         } , {
-          field: 'comp_name',
-          title: 'Company',
+          field: 'currency',
+          title: 'Currency',
+          sortable: true,
+          textAlign: 'center',
+        } , {
+          field: 'plant_name',
+          title: 'Plant',
           sortable: true,
           template: function (row) {
-            return row.comp_code + ' - ' + row.comp_name;
+            return row.plant_code + ' ' + row.plant_name;
           }
         } , {
           field: 'subject',
@@ -116,14 +120,18 @@ var myDatatable = function( ) {
           title: 'Vendor',
           sortable: true,
           template: function (row) {
-            return row.vendor_code + ' - ' + row.vendor_name;
+            return row.vendor_code.replace(/^0+/, '') + ' - ' + row.vendor_name;
           }
         } , {
-          field: 'plant_name',
-          title: 'Plant',
+          field: 'tracking_no',
+          title: 'Tracking Code',
+          sortable: true,
+        } , {
+          field: 'purchasing_group',
+          title: 'Purchasing Group',
           sortable: true,
           template: function (row) {
-            return row.plant_code + ' - ' + row.plant_name;
+            return row.purchasing_group + (row.purchasing_groupname==null ? '' : ' '+row.purchasing_groupname);
           }
         } , {
           field: 'c_doc_status',
@@ -135,13 +143,6 @@ var myDatatable = function( ) {
             } else {
               return '<span class="' + my.docStatus[0].displayclass + '">' + my.docStatus[0].name + '</span>';
             }
-          }
-        } , {
-          field: 'purchasing_group',
-          title: 'Purchasing Group',
-          sortable: true,
-          template: function (row) {
-            return row.purchasing_group + (row.purchasing_groupname==null ? '' : ' - '+row.purchasing_groupname);
           }
         }
       ],
@@ -176,7 +177,7 @@ var myDatatable = function( ) {
     query.po_date_from = toInternalDate($('#m_form_date_from').val());
     query.po_date_to = toInternalDate($('#m_form_date_to').val());
     query.comp_code = $('#m_form_company').val();
-    query.subject = $('#m_form_subject').val();
+    // query.subject = $('#m_form_subject').val();
     query.vendor_code = $('#m_form_vendor').val();
     query.plant_code = $('#m_form_plant').val();
     query.c_doc_status = $('#m_form_status').val();

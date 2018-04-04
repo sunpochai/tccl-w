@@ -61,7 +61,13 @@ var myDatatable = function( ) {
       },
 
       columns: [
-        {
+        {   
+          field: 'doc_type',
+          title: 'Doc Type',
+          sortable: true,
+          textAlign: 'center',
+          
+        } , {
           field: 'pr_no',
           title: 'PR No.',
           selector: false,
@@ -84,13 +90,7 @@ var myDatatable = function( ) {
           template: function(row) {
             return toDisplayDate(row.pr_date);
           }  
-        }, {   
-          field: 'doc_type',
-          title: 'Doc Type',
-          sortable: true,
-          textAlign: 'center',
-          
-        } , {
+        }, {
           field: 'grand_total',
           title: 'Est. Price',
           type: 'number',
@@ -103,24 +103,29 @@ var myDatatable = function( ) {
             return num;
           }
         } , {
-          field: 'comp_name',
-          title: 'Company',
+          field: 'currency',
+          title: 'Currency',
           sortable: true,
-          template: function (row) {
-            return row.comp_code + ' - ' + row.comp_name;
-          }
-        } , {
-          field: 'subject',
-          title: 'Subject',
-          sortable: true,
-         
+          textAlign: 'center',
         } , {
           field: 'plant_name',
           title: 'Plant',
           sortable: true,
           template: function (row) {
-            return row.plant_code + ' - ' + row.plant_name;
+            return row.plant_code + ' ' + row.plant_name;
           }
+        } , {
+          field: 'subject',
+          title: 'Subject',
+          sortable: true,
+        } , {
+          field: 'tracking_no',
+          title: 'Tracking Code',
+          sortable: true,
+        } , {
+          field: 'create_username',
+          title: 'Requisitioner',
+          sortable: true,
         } , {
           field: 'c_doc_status',
           title: 'Status',
@@ -132,17 +137,13 @@ var myDatatable = function( ) {
               return '<span class="' + my.docStatus[0].displayclass + '">' + my.docStatus[0].name + '</span>';
             }
           }
-        } , {
-          field: 'create_username',
-          title: 'Requisitioner',
-          sortable: true,
-        } , {
+        }/*  , {
           field: 'create_datetime',
           title: 'Create Date',
           template: function(row) {
             return      toDisplayDate(row.create_datetime);
           }
-        }
+        } */
       ],
     });
 
@@ -208,7 +209,7 @@ var myDatatable = function( ) {
     query.pr_date_from = toInternalDate($('#m_form_date_from').val());
     query.pr_date_to = toInternalDate($('#m_form_date_to').val());
     query.comp_code = $('#m_form_company').val();
-    query.subject = $('#m_form_subject').val();
+    // query.subject = $('#m_form_subject').val();
     query.plant_code = $('#m_form_plant').val();
     query.c_doc_status = $('#m_form_status').val();
 

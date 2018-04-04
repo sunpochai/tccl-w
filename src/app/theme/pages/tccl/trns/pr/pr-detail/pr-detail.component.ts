@@ -24,6 +24,7 @@ import { ADUser } from '../../../_models/masters/aduser';
 import { UserService } from '../../../../../../auth/_services';
 import { ADUserService } from '../../../_services/masters/aduser.service';
 import { Subject } from 'rxjs';
+import { UtilService } from '../../../../../../_services/utils.service';
 
 @Component({
     selector: "trns-pr-detail",
@@ -116,9 +117,10 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                             this.canComment = true;
                         }
 
-                        if (this.pr.worklist.current_responsible.resp_allow_action == null) {
+                        if (this.pr.worklist.current_responsible.resp_allow_action == null || this.pr.worklist.current_responsible.resp_allow_action == '') {
                             this.canApprove = true;
                         }
+                        // console.log(this.pr.worklist.current_responsible);
                     }
                     if (this.pr.pr_attachment_items != null && this.pr.pr_attachment_items.length > 0) {
                         let index = 0;
@@ -152,6 +154,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
             //console.log(this.pr);
         }
 
+        // console.log(UtilService.formatSAPItemNo('00020'));
     }
 
     ngOnInit() {
@@ -626,6 +629,27 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
 
     showDetail(pItem) {
         this.currentItem = pItem;
+    }
+
+    formatSAPItemNo(in_sap_no) {
+        var out_sap_no = in_sap_no.substr(0,in_sap_no.length-1)
+        out_sap_no = this.lefttrim (out_sap_no, '0');
+        return out_sap_no;
+    }
+
+    lefttrim(s,c) {
+        var index = s.indexOf('0');
+        
+        while (index == 0) {
+            // console.log(index);
+            s = s.substr(1,s.length-1);
+            // console.log(s);
+            index = s.indexOf('0');
+            if (index!=0) {
+                break;
+            }
+        }
+        return s;
     }
 
 }
