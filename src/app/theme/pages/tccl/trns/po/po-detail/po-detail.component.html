@@ -107,11 +107,13 @@
 												</div>
 											</div>
 										</div>
-										<div *ngFor="let user of user_list; let i = index">
-											<div class="close-left" (click)="removeUser(i)">
-												<i class="la la-close" ></i>
+										<div class="row" style="padding-left: 15px; padding-right: 15px" *ngFor="let user of user_list; let i = index">
+											<div class="m-row--full-height">
+												<div class="close-left" (click)="removeUser(i)">
+													<i class="la la-close" ></i>
+												</div>
+												<span>{{user.ad_username}}</span>
 											</div>
-											<span>{{user.ad_username}}</span>
 										</div>
 									</div>  
 								</div>
