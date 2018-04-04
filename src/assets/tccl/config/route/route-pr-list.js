@@ -29,7 +29,7 @@ var myDatatable = function( ) {
           },
         }
         ,
-        pageSize: 10,
+        pageSize: 50,
         serverPaging: true,
         serverFiltering: true,
         serverSorting: true,
@@ -51,7 +51,7 @@ var myDatatable = function( ) {
           // pagination
           pagination: {
             // page size select
-            pageSizeSelect: [5,10, 20, 30, 50, 100],
+            pageSizeSelect: [10, 20, 30, 50, 100],
           },
         },
       },
@@ -97,7 +97,6 @@ var myDatatable = function( ) {
           overflow: 'visible',
           textAlign: 'center',
           template: function (row, index, datatable) {
-            var dropup = (datatable.getPageSize() - index) <= 4 ? 'dropup' : '';
             return '\<a   href="javascript:navigate_edit(\''+ row.route_id +'\')"  class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit">\
               <i class="la la-edit"></i>\
             </a>\

@@ -76,11 +76,12 @@ var myDatatable = function( ) {
           
           
           template: function (row) {
-            return '\
+            return '<a href="/trns/pr/detail/' + row.pr_no + '" title="Purchase Request Detail">' + row.pr_no + '</a>';
+            /* return '\
               <a href="javascript:navigate_edit(' + row.pr_id + ')" title="Purchase Request Detail">\
                               '+row.pr_no+'\
                           </a>\
-            '; 
+            ';  */
           }
         }, {   
           field: 'pr_date',
@@ -227,9 +228,9 @@ var myDatatable = function( ) {
     }
   };
 }();
-
+/* 
 function navigate_edit(prId){
   my.namespace.navigate_edit(prId);
-}
+} */
 
  

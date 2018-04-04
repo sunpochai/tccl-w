@@ -123,7 +123,7 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
                             this.canComment = true;
                         }
 
-                        if (this.po.worklist.current_responsible.resp_allow_action == null) {
+                        if (this.po.worklist.current_responsible.resp_allow_action == null || this.po.worklist.current_responsible.resp_allow_action == '') {
                             this.canApprove = true;
                         }
                     }

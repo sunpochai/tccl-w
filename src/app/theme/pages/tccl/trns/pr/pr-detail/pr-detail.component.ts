@@ -24,7 +24,6 @@ import { ADUser } from '../../../_models/masters/aduser';
 import { UserService } from '../../../../../../auth/_services';
 import { ADUserService } from '../../../_services/masters/aduser.service';
 import { Subject } from 'rxjs';
-import { UtilService } from '../../../../../../_services/utils.service';
 
 @Component({
     selector: "trns-pr-detail",

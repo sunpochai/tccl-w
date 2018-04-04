@@ -133,7 +133,8 @@
 							Company:
 						</label>
 						<div class="col-lg-4 col-sm-8">
-							<select class="form-control m-input" [(ngModel)]="m_list_company" (change)="setFilteredItems()" name="m_list_company" id="m_list_company">
+							<input type="text" [(ngModel)]="m_list_company" (ngModelChange)="setFilteredItems()" maxlength="50" class="form-control m-input" id="m_list_company">
+							<!-- <select class="form-control m-input" [(ngModel)]="m_list_company" (change)="setFilteredItems()" name="m_list_company" id="m_list_company">
 								<option value="">
 									All
 								</option>
@@ -142,22 +143,13 @@
 										{{row.comp_name}}
 									</option>
 								</ng-container>
-							</select>
+							</select> -->
 						</div>
 						<label class="col-lg-2 col-sm-4 col-form-label">
 							Plant:
 						</label>
 						<div class="col-lg-4 col-sm-8">
-							<select class="form-control m-input" [(ngModel)]="m_list_plant" (change)="setFilteredItems()" name="m_list_plant" id="m_list_plant">
-								<option value="">
-									All
-								</option>
-								<ng-container *ngFor="let row of plantList; let index = index">
-									<option value="{{row.plant_code}}">
-										{{row.plant_name}}
-									</option>
-								</ng-container>
-							</select>
+							<input type="text" [(ngModel)]="m_list_plant" (ngModelChange)="setFilteredItems()" maxlength="50" class="form-control m-input" id="m_list_plant">
 						</div>
 					</div>
 				</div>
@@ -180,7 +172,7 @@
 										</div>
 										<div class="m-widget5__content">
 											<span class="m-widget5__title">
-												<a href="#" >{{row.name}} {{row.doc_no}}</a>&nbsp;&nbsp;
+												<a routerLink="/trns/{{row.name.toLowerCase()}}/detail/{{row.doc_no}}" >{{row.name}} {{row.doc_no}}</a>&nbsp;&nbsp;
 												<span class="m-widget5__info-date m--font-info">
 													{{row.doc_date | date :'dd/MM/yyyy'}}
 												</span>

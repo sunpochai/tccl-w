@@ -24,8 +24,8 @@ declare var window: any;
 })
 export class PRListComponent extends PageBaseComponent implements OnInit, AfterViewInit {
     public doctypeList: Array<DocType>;
-    public companyList: Array<Company>;
-    public plantList: Array<Plant>;
+    // public companyList: Array<Company>;
+    // public plantList: Array<Plant>;
     public docStatus: Array<any> = C_DOC_STATUS_2;
 
     constructor(private _router: Router,
@@ -49,15 +49,15 @@ export class PRListComponent extends PageBaseComponent implements OnInit, AfterV
             // console.log(data);
         });
 
-        this._companyService.getall().subscribe(data => {
-            this.companyList = data;
-            // console.log(data);
-        });
+        // this._companyService.getall().subscribe(data => {
+        //     this.companyList = data;
+        //     // console.log(data);
+        // });
 
-        this._plantService.getall().subscribe(data => {
-            this.plantList = data;
-            // console.log(data);
-        });
+        // this._plantService.getall().subscribe(data => {
+        //     this.plantList = data;
+        //     // console.log(data);
+        // });
 
     }
 

@@ -262,7 +262,7 @@
 										</tr>
 									</thead>
 									<ng-template ngFor let-item [ngForOf]="po.worklist.stage_list" let-i="index" [ngForTrackBy]="trackByFn">
-										<ng-container *ngIf="item.outcome != null && item.outcome != ''">
+										<ng-container *ngIf="item.destination_user != null && item.destination_user != ''">
 											<tr [class]="getDisplayTRHead(item.outcome_description,item.stage_logs_list)">
 												<td>
 													<span>
@@ -447,7 +447,14 @@
 									<tr *ngFor="let row of po.po_items; let index = index">
 										<ng-container *ngIf="row.item_status == 'DEL' ">
 											<td style="vertical-align:middle" align="center" class="m--font-deleted">{{formatSAPItemNo(row.po_itm_no)}}</td>
-											<td style="vertical-align:middle" align="left" class="m--font-deleted">{{row.account_no}} - {{row.account_name}}</td>
+											<td style="vertical-align: middle" align="left" class="m--font-deleted">
+												<ng-container *ngIf="row.wbs_no != null && row.wbs_no != ''" >
+													{{row.wbs_no}} - {{row.wbs_name}}
+												</ng-container>
+												<ng-container *ngIf="row.wbs_no == null || row.wbs_no == ''" >
+													{{row.account_no}} - {{row.account_name}}
+												</ng-container>
+											</td>
 											<td style="vertical-align:middle" align="left" class="m--font-deleted">{{row.mat_desc}}</td>
 											<td style="vertical-align:middle" align="right" class="m--font-deleted">{{row.qty}}</td>
 											<td style="vertical-align:middle" align="center" class="m--font-deleted">{{row.unit}}</td>
@@ -456,8 +463,8 @@
 											<td style="vertical-align:middle" align="right" class="m--font-deleted">{{row.vat | number:'1.2'}}</td>
 											<td style="vertical-align:middle" align="right" class="m--font-deleted">{{row.total_amount | number:'1.2'}}</td>
 											<td style="vertical-align:middle" align="center" class="m--font-deleted">{{row.delivery_date | date :'dd/MM/yyyy'}}</td>
-											<td style="vertical-align:middle" align="center" class="m--font-deleted">{{row.pr_no}}</td>
-											<td style="vertical-align:middle" align="center" class="m--font-deleted">{{row.pr_item_no}}</td>
+											<td style="vertical-align:middle" align="center" class="m--font-deleted"><a routerLink="/trns/pr/detail/{{row.pr_no}}" target="_blank">{{row.pr_no}}</a></td>
+											<td style="vertical-align:middle" align="center" class="m--font-deleted">{{formatSAPItemNo(row.pr_item_no)}}</td>
 											<td style="vertical-align:middle" align="center">
 												<a href="#" (click)="showDetail(row)" data-toggle="modal" data-target="#m_modal_item_detail" class="m-btn m-btn--pill m-btn--hover-metal btn btn-sm btn-secondary" title="Item Detail">
 													<i class="fa fa-search-plus"></i>
@@ -466,7 +473,14 @@
 										</ng-container>
 										<ng-container *ngIf="row.item_status != 'DEL' ">
 											<td style="vertical-align: middle" align="center" >{{formatSAPItemNo(row.po_itm_no)}}</td>
-											<td style="vertical-align: middle" align="left" >{{row.account_no}} - {{row.account_name}}</td>
+											<td style="vertical-align: middle" align="left">
+												<ng-container *ngIf="row.wbs_no != null && row.wbs_no != ''" >
+													{{row.wbs_no}} - {{row.wbs_name}}
+												</ng-container>
+												<ng-container *ngIf="row.wbs_no == null || row.wbs_no == ''" >
+													{{row.account_no}} - {{row.account_name}}
+												</ng-container>
+											</td>
 											<td style="vertical-align: middle" align="left" >{{row.mat_desc}}</td>
 											<td style="vertical-align: middle" align="right" >{{row.qty}}</td>
 											<td style="vertical-align: middle" align="center" >{{row.unit}}</td>
@@ -475,8 +489,8 @@
 											<td style="vertical-align: middle" align="right" >{{row.vat | number:'1.2'}}</td>
 											<td style="vertical-align: middle" align="right" >{{row.total_amount | number:'1.2'}}</td>
 											<td style="vertical-align: middle" align="center" >{{row.delivery_date | date :'dd/MM/yyyy'}}</td>
-											<td style="vertical-align: middle" align="center" >{{row.pr_no}}</td>
-											<td style="vertical-align: middle" align="center" >{{row.pr_item_no}}</td>
+											<td style="vertical-align: middle" align="center" ><a routerLink="/trns/pr/detail/{{row.pr_no}}" target="_blank">{{row.pr_no}}</a></td>
+											<td style="vertical-align: middle" align="center" >{{formatSAPItemNo(row.pr_item_no)}}</td>
 											<td style="vertical-align: middle" align="center">
 												<a href="#" (click)="showDetail(row)" data-toggle="modal" data-target="#m_modal_item_detail" class="m-btn m-btn--pill m-btn--hover-metal btn btn-sm btn-secondary" title="Item Detail">
 													<i class="fa fa-search-plus"></i>
@@ -607,7 +621,7 @@
 									<th style="vertical-align: top;">Budget's Name</th>
 									<td>
 										<span *ngIf="currentItem.pr_item != null">
-											{{currentItem.pr_item.account_no}}
+											{{currentItem.pr_item.wbs_no}} - {{currentItem.pr_item.wbs_name}}
 										</span>
 									</td>
 								</tr>

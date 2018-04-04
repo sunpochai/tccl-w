@@ -107,31 +107,13 @@
 						Company:
 					</label>
 					<div class="col-lg-4 col-sm-8">
-						<select class="form-control m-input" id="m_form_company">
-							<option value="">
-								All
-							</option>
-							<ng-container *ngFor="let row of companyList; let index = index">
-								<option value="{{row.comp_code}}">
-									{{row.comp_name}}
-								</option>
-							</ng-container>
-						</select>
+						<input type="text" maxlength="50" class="form-control m-input" id="m_form_company">
 					</div>
 					<label class="col-lg-2 col-sm-4 col-form-label">
 						Plant:
 					</label>
 					<div class="col-lg-4 col-sm-8">
-						<select class="form-control m-input" id="m_form_plant">
-							<option value="">
-								All
-							</option>
-							<ng-container *ngFor="let row of plantList; let index = index">
-								<option value="{{row.plant_code}}">
-									{{row.plant_name}}
-								</option>
-							</ng-container>
-						</select>
+						<input type="text" maxlength="50" class="form-control m-input" id="m_form_plant">
 					</div>
 				</div>
 				<div class="form-group m-form__group row">

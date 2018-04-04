@@ -31,8 +31,8 @@ export class WorklistComponent extends PageBaseComponent implements OnInit, Afte
     public myworklists: Array<Worklist>; /* Use for render in HTML page */
     public totalworklists: Array<Worklist>;
     public doctypeList: Array<DocType>;
-    public companyList: Array<Company>;
-    public plantList: Array<Plant>;
+    // public companyList: Array<Company>;
+    // public plantList: Array<Plant>;
     public showPR: boolean = true;
     public showPO: boolean = true;
     public showPA: boolean = true;
@@ -65,15 +65,15 @@ export class WorklistComponent extends PageBaseComponent implements OnInit, Afte
             // console.log(data);
         });
 
-        this._companyService.getall().subscribe(data => {
-            this.companyList = data;
-            // console.log(data);
-        });
+        // this._companyService.getall().subscribe(data => {
+        //     this.companyList = data;
+        //     // console.log(data);
+        // });
 
-        this._plantService.getall().subscribe(data => {
-            this.plantList = data;
-            // console.log(data);
-        });
+        // this._plantService.getall().subscribe(data => {
+        //     this.plantList = data;
+        //     // console.log(data);
+        // });
 
         this._worklistService.getall(super.getADUserLogin()).subscribe(data => {
             this.totalworklists = data;
@@ -171,7 +171,8 @@ export class WorklistComponent extends PageBaseComponent implements OnInit, Afte
             this.myworklists = this.myworklists.filter(
                 (item) => {
                     return ( 
-                        item.comp_code.toLowerCase() == this.m_list_company.toLowerCase() 
+                        (item.comp_code).toLowerCase().indexOf(this.m_list_company.toLowerCase()) > -1 ||
+                        (item.comp_name).toLowerCase().indexOf(this.m_list_company.toLowerCase()) > -1 
                     );
                 }
             )
@@ -181,7 +182,8 @@ export class WorklistComponent extends PageBaseComponent implements OnInit, Afte
             this.myworklists = this.myworklists.filter(
                 (item) => {
                     return ( 
-                        item.plant_code.toLowerCase() == this.m_list_plant.toLowerCase() 
+                        (item.plant_code).toLowerCase().indexOf(this.m_list_plant.toLowerCase()) > -1 ||
+                        (item.plant_name).toLowerCase().indexOf(this.m_list_plant.toLowerCase()) > -1 
                     );
                 }
             )

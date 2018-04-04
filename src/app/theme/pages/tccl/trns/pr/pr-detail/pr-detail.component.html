@@ -269,7 +269,7 @@
 										</tr>
 									</thead>
 									<ng-template ngFor let-item [ngForOf]="pr.worklist.stage_list" let-i="index" [ngForTrackBy]="trackByFn">
-										<ng-container *ngIf="item.outcome != null && item.outcome != ''">
+										<ng-container *ngIf="item.destination_user != null && item.destination_user != ''">
 											<tr [class]="getDisplayTRHead(item.outcome_description,item.stage_logs_list)">
 												<td>
 													<span>
@@ -416,7 +416,7 @@
 									<thead>
 										<tr style="background-color:#d9c1e9;">
 											<th>No</th>
-											<th>Budget Name</th>
+											<th>Budget name/GL Account</th>
 											<th>Description</th>
 											<th>Qty</th>
 											<th>Unit</th>
@@ -429,7 +429,14 @@
 									<tr *ngFor="let row of pr.pr_items; let index = index" style="vertical-align:middle">
 										<ng-container *ngIf="row.item_status == 'DEL' ">
 											<td style="vertical-align: middle" align="center" class="m--font-deleted">{{formatSAPItemNo(row.pr_item_no)}}</td>
-											<td style="vertical-align: middle" align="left" class="m--font-deleted">{{row.account_no}} - {{row.account_name}}</td>
+											<td style="vertical-align: middle" align="left" class="m--font-deleted">
+												<ng-container *ngIf="row.wbs_no != null && row.wbs_no != ''" >
+													{{row.wbs_no}} - {{row.wbs_name}}
+												</ng-container>
+												<ng-container *ngIf="row.wbs_no == null || row.wbs_no == ''" >
+													{{row.account_no}} - {{row.account_name}}
+												</ng-container>
+											</td>
 											<td style="vertical-align: middle" align="left" class="m--font-deleted">{{row.mat_desc}}</td>
 											<td style="vertical-align: middle" align="right" class="m--font-deleted">{{row.qty}}</td>
 											<td style="vertical-align: middle" align="center" class="m--font-deleted">{{row.unit}}</td>
@@ -444,7 +451,14 @@
 										</ng-container>
 										<ng-container *ngIf="row.item_status != 'DEL' ">
 											<td style="vertical-align: middle" align="center">{{formatSAPItemNo(row.pr_item_no)}}</td>
-											<td style="vertical-align: middle" align="left">{{row.account_no}} - {{row.account_name}}</td>
+											<td style="vertical-align: middle" align="left">
+												<ng-container *ngIf="row.wbs_no != null && row.wbs_no != ''" >
+													{{row.wbs_no}} - {{row.wbs_name}}
+												</ng-container>
+												<ng-container *ngIf="row.wbs_no == null || row.wbs_no == ''" >
+													{{row.account_no}} - {{row.account_name}}
+												</ng-container>
+											</td>
 											<td style="vertical-align: middle" align="left">{{row.mat_desc}}</td>
 											<td style="vertical-align: middle" align="right">{{row.qty}}</td>
 											<td style="vertical-align: middle" align="center">{{row.unit}}</td>
@@ -562,7 +576,7 @@
 							</tr>
 							<tr>
 								<th style="vertical-align: top;">Budget's Name</th>
-								<td>{{currentItem.account_no}}</td>
+								<td>{{currentItem.wbs_no}} - {{currentItem.wbs_name}}</td>
 							</tr>
 							<tr>
 								<th style="vertical-align: top;">Currency</th>
