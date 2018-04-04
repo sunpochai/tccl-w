@@ -74,7 +74,7 @@ var myDatatable = function( ) {
           field: 'doc_type',
           title: 'Doc Type',
           textAlign: 'center',
-        }, {
+        /* }, {
           field: 'price_over_pr_flag',
           title: 'Price Over PR',
           textAlign: 'center',
@@ -88,7 +88,7 @@ var myDatatable = function( ) {
             } else {
               return 'N/A';
             }
-          }
+          } */
         }, {
           field: 'minimum_value',
           title: 'Minimum Value',
@@ -106,10 +106,14 @@ var myDatatable = function( ) {
           type: 'number',
           textAlign: 'right',
           template: function (row) {
-            var parts = (row.maximum_value).toFixed(2).split(".");
-            // alert(parts);
-            var num = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (parts[1] ? "." + parts[1] : ".00");
-            return num;
+            if (row.maximum_value == 9999999999999.99) {
+              return 'Unlimited';
+            } else {
+              var parts = (row.maximum_value).toFixed(2).split(".");
+              // alert(parts);
+              var num = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (parts[1] ? "." + parts[1] : ".00");
+              return num;
+            }
           }
         }, {
           field: 'Actions',

@@ -41,11 +41,15 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     public routetype: any;
     public doctypeList: Array<DocType>;
     public trackingNumberList: Array<Tracking>;
-    public priceoverpr_yes: boolean;
-    public priceoverpr_no: boolean;
+    /* public priceoverpr_yes: boolean;
+    public priceoverpr_no: boolean; */
 
     public action_type: any;
     public action_index: number;
+
+    public maxValPlaceholder: string = "Enter Maximum Value";
+    public maxValCaption: string = "*";
+    public unlimit_maximum;
 /* 
     public trackingList : any;
     public textSearchTrackCode:string;
@@ -127,11 +131,18 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
                         break;
                 }
 
-                this.priceoverpr_yes = (this.routeapprove.price_over_pr_flag == 'A' || this.routeapprove.price_over_pr_flag == 'Y');
-                this.priceoverpr_no = (this.routeapprove.price_over_pr_flag == 'A' || this.routeapprove.price_over_pr_flag == 'N');
+                /* this.priceoverpr_yes = (this.routeapprove.price_over_pr_flag == 'A' || this.routeapprove.price_over_pr_flag == 'Y');
+                this.priceoverpr_no = (this.routeapprove.price_over_pr_flag == 'A' || this.routeapprove.price_over_pr_flag == 'N'); */
                 /* this.textSearchTrackCode = this.routeapprove.tracking_no; */
                 // console.log(this.routeapprove);
                 // console.log(this.routetype);
+
+                if (this.routeapprove.doc_group != ROUTE_PR.doc_group && this.routeapprove.maximum_value == 9999999999999.99) {
+                    this.unlimit_maximum = true;
+                    this.routeapprove.maximum_value = null;
+                    this.maxValPlaceholder = "Maximum Value Unlimited";
+                }
+
                 super.unblockui('#m_form_1');
             });
         } else {
@@ -159,6 +170,12 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     }
 
     validateData(): boolean {
+        console.log(this.unlimit_maximum);
+
+        if (this.unlimit_maximum) {
+            this.routeapprove.maximum_value=9999999999999.99;
+        }
+
         if (this.routetype.doc_group != ROUTE_PR.doc_group && this.routeapprove.minimum_value > this.routeapprove.maximum_value) {
             super.showError('Invalid minimum and maximum value');
             return false;
@@ -167,10 +184,10 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
         // console.log(this.priceoverpr_yes);
         // console.log(this.priceoverpr_no);
 
-        if (this.routetype.doc_group == ROUTE_PO.doc_group && this.priceoverpr_yes == null && this.priceoverpr_no == null) {
+        /* if (this.routetype.doc_group == ROUTE_PO.doc_group && this.priceoverpr_yes == null && this.priceoverpr_no == null) {
             super.showError('Please specify Price Over PR');
             return false;
-        }
+        } */
 
         return true;
     }
@@ -186,7 +203,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
             this.routeapprove.account = 'A';
         }
 
-        if (this.priceoverpr_yes && this.priceoverpr_no) {
+       /*  if (this.priceoverpr_yes && this.priceoverpr_no) {
             this.routeapprove.price_over_pr_flag = 'A';
         } else if (this.priceoverpr_yes) {
             this.routeapprove.price_over_pr_flag = 'Y';
@@ -195,7 +212,8 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
         } else {
             //default
             this.routeapprove.price_over_pr_flag = 'A';
-        }
+        } */
+        this.routeapprove.price_over_pr_flag = 'A';
 
         this.routeapprove.route_status = true;
         this.routeapprove.create_user = super.getADUserLogin();
@@ -238,7 +256,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
         super.blockui('#m_form_1');
 
         // console.log(this.routeapprove.doc_type);
-        if (this.priceoverpr_yes && this.priceoverpr_no) {
+        /* if (this.priceoverpr_yes && this.priceoverpr_no) {
             this.routeapprove.price_over_pr_flag = 'A';
         } else if (this.priceoverpr_yes) {
             this.routeapprove.price_over_pr_flag = 'Y';
@@ -247,7 +265,8 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
         } else {
             //default
             this.routeapprove.price_over_pr_flag = 'A';
-        }
+        } */
+        this.routeapprove.price_over_pr_flag = 'A';
 
         this.routeapprove.update_user = super.getADUserLogin();
         this.routeapprove.update_username = super.getFullNameUserLogin();
@@ -405,6 +424,18 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     closeDropDown() {
         /* this.showDropDownTracking = false; */
         this.showDropDownUser = false;
+    }
+
+    toggleUnlimit() {
+        if (this.maxValPlaceholder == "Enter Maximum Value") {
+            this.maxValPlaceholder = "Maximum Value Unlimited"
+            this.maxValCaption = "";
+            this.routeapprove.maximum_value = null;
+        } else {
+            this.maxValPlaceholder = "Enter Maximum Value"
+            this.maxValCaption = "*";
+        }
+        
     }
 
     /* isTrackingCodeValid(): boolean {
