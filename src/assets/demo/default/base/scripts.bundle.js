@@ -4413,7 +4413,8 @@ $(document).ready(function() {
 							input: 'Page number',
 							select: 'Select page size',
 						},
-						info: 'Displaying {{start}} - {{end}} of {{total}} records',
+                    /*	info: 'Displaying {{start}} - {{end}} of {{total}} records'  sanchai change */
+                    info: ' {{start}} - {{end}} of {{total}} items' ,
 					},
 				},
 			},

@@ -76,7 +76,7 @@ var myDatatable = function( ) {
           
           
           template: function (row) {
-            return '<a href="/trns/pr/detail/' + row.pr_no + '" title="Purchase Request Detail">' + row.pr_no + '</a>';
+            return '<a href="./trns/pr/detail/' + row.pr_no + '" title="Purchase Request Detail">' + row.pr_no + '</a>';
             /* return '\
               <a href="javascript:navigate_edit(' + row.pr_id + ')" title="Purchase Request Detail">\
                               '+row.pr_no+'\
