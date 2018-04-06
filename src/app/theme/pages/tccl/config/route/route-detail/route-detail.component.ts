@@ -161,17 +161,13 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     }
 
     save() {
-        // console.log(this.routeapprove);
         if (this.validateData() == false) {
             return;
         }
+
         // console.log(this.routeapprove);
         // console.log(this.routeapprove.number_approver_sap);
-console.log(this.last_approver);
-console.log(this.routeapprove);
-        this.routeapprove.number_approver_sap = parseInt(this.last_approver);
-console.log(this.routeapprove);
-
+        
         if (this.routeapprove.route_id != null && this.routeapprove.route_id != 0) {
             this.update();
         } else {
@@ -202,10 +198,25 @@ console.log(this.routeapprove);
         return true;
     }
 
+    fillData() {
+        if (this.routeapprove.doc_group == ROUTE_PO.doc_group) {
+            this.routeapprove.number_approver_sap = parseInt(this.last_approver);
+        } else {
+            this.routeapprove.number_approver_sap = 0;
+        }
+
+        this.routeapprove.price_over_pr_flag = 'A';
+        
+        this.routeapprove.update_user = super.getADUserLogin();
+        this.routeapprove.update_username = super.getFullNameUserLogin();
+        this.routeapprove.update_datetime = new Date();
+    }
+
     create() {
         super.blockui('#m_form_1');
 
         this.routeapprove.doc_group = this.routetype.doc_group;
+
         if (this.routetype.doc_group == ROUTE_PR.doc_group) {
             this.routeapprove.minimum_value = 0;
             this.routeapprove.maximum_value = 999999999999;
@@ -213,25 +224,13 @@ console.log(this.routeapprove);
             this.routeapprove.account = 'A';
         }
 
-       /*  if (this.priceoverpr_yes && this.priceoverpr_no) {
-            this.routeapprove.price_over_pr_flag = 'A';
-        } else if (this.priceoverpr_yes) {
-            this.routeapprove.price_over_pr_flag = 'Y';
-        } else if (this.priceoverpr_no) {
-            this.routeapprove.price_over_pr_flag = 'N';
-        } else {
-            //default
-            this.routeapprove.price_over_pr_flag = 'A';
-        } */
-        this.routeapprove.price_over_pr_flag = 'A';
+        this.fillData();
 
         this.routeapprove.route_status = true;
-        this.routeapprove.create_user = super.getADUserLogin();
-        this.routeapprove.create_username = super.getFullNameUserLogin();
-        this.routeapprove.create_datetime = new Date();
-        this.routeapprove.update_user = super.getADUserLogin();
-        this.routeapprove.update_username = super.getFullNameUserLogin();
-        this.routeapprove.update_datetime = new Date();
+        
+        this.routeapprove.create_user = this.routeapprove.update_user;
+        this.routeapprove.create_username = this.routeapprove.update_username;
+        this.routeapprove.create_datetime = this.routeapprove.update_datetime;
 
         /** detail data will get the same time as header */
         for (let index in this.routeapprove.cf_route_detail) {
@@ -265,22 +264,7 @@ console.log(this.routeapprove);
     update() {
         super.blockui('#m_form_1');
 
-        // console.log(this.routeapprove.doc_type);
-        /* if (this.priceoverpr_yes && this.priceoverpr_no) {
-            this.routeapprove.price_over_pr_flag = 'A';
-        } else if (this.priceoverpr_yes) {
-            this.routeapprove.price_over_pr_flag = 'Y';
-        } else if (this.priceoverpr_no) {
-            this.routeapprove.price_over_pr_flag = 'N';
-        } else {
-            //default
-            this.routeapprove.price_over_pr_flag = 'A';
-        } */
-        this.routeapprove.price_over_pr_flag = 'A';
-
-        this.routeapprove.update_user = super.getADUserLogin();
-        this.routeapprove.update_username = super.getFullNameUserLogin();
-        this.routeapprove.update_datetime = new Date();
+        this.fillData();
 
         /** detail data will get the same time as header */
         for (let index in this.routeapprove.cf_route_detail) {

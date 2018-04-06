@@ -66,10 +66,10 @@ var myDatatable = function( ) {
           field: 'route_name',
           title: 'Route Name',
           selector: false,
-          sortable: 'asc'
         }, {
           field: 'tracking_no',
           title: 'Tracking Number',
+          sortable: 'asc'
         }, {
           field: 'doc_type',
           title: 'Doc Type',
@@ -115,6 +115,11 @@ var myDatatable = function( ) {
               return num;
             }
           }
+        }, {
+          field: 'number_approver_sap',
+          title: 'Last Approver',
+          type: 'number',
+          textAlign: 'center'
         }, {
           field: 'Actions',
           width: 110,
