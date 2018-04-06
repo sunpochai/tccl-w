@@ -200,7 +200,7 @@
 									<span class="m--font-pale">{{row.create_datetime | date :'dd/MM/yyyy HH:mm:ss'}}</span>
 								</td>
 								<td>
-									<span *ngIf="canReview">
+									<span *ngIf="canReview || canApprove || canComment">
 										<a href="#" (click)="prepareRemoveFile(row.attach_id, row.file_name)" data-toggle="modal" data-target="#m_modal_delete" class="m-btn m-btn--pill m-btn--hover-danger btn btn-sm btn-secondary" title="Remove">
 											<i class="la la-trash"></i>
 										</a>
@@ -212,13 +212,13 @@
 							</tr>
 						</table>
 	
-						<div class="form-group m-form__group" *ngIf="canReview">
+						<div class="form-group m-form__group" *ngIf="canReview || canApprove || canComment">
 							<label for="exampleInputEmail1">
 								Attach File
 							</label>
 							<div></div>
 							<div class="custom-file">
-								<input type="file" (change)="fileChange($event)" class="custom-file-input" id="customFile" data-max-size="2048" multiple>
+								<input type="file" accept=".xls,.xlsx,.doc,.docx,.pdf" (change)="fileChange($event)" class="custom-file-input" id="customFile" data-max-size="2048" multiple>
 								<label class="custom-file-label" for="customFile"  >
 									Choose file
 								</label>
@@ -227,7 +227,7 @@
 								<div><span class="filen">{{f}}</span></div>	 
 							</div>
 						</div>
-						<div class="m-form__actions m-form__actions" *ngIf="canReview && this.attFile!=null">
+						<div class="m-form__actions m-form__actions" *ngIf="(canReview || canApprove || canComment) && this.attFile!=null">
 							<div class="row" >
 								<div class="col-lg-12 ml-lg-auto ">
 									<button type="button" class="btn btn-brand" (click)="uploadFile()" *ngIf="this.attFile!=null"  >
