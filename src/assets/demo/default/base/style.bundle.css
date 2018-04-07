@@ -12060,26 +12060,26 @@ b, strong {
 .m-badge.m-badge--success {
   /* weeraya 07/04/2018
   background-color: #34bfa3; */
-  background-color: #5fd3bc;
+  background-color: #3bb300;
   color: #ffffff; }
 
 .m-badge.m-badge--info {
   /* weeraya 07/04/2018
   background-color: #85c7fa; */
-  background-color: #36a3f7;
+  background-color: #0194b2;
   color: #ffffff; }
 
 .m-badge.m-badge--warning {
   /* weeraya 07/04/2018
   background-color: #ffb822;
   color: #111111; */
-  background-color: #ffcf66;
+  background-color: #dacb3e;
   color: #ffffff; }
 
 .m-badge.m-badge--danger {
   /* weeraya 07/04/2018
   background-color: #f4516c; */
-  background-color: #f7879a;
+  background-color: #d3a2a1;
   color: #ffffff; }
 
 /* .m-badge-border
@@ -12113,15 +12113,15 @@ b, strong {
     /* weeraya 07/04/2018
     border: 1px solid #34bfa3;
     color: #34bfa3; */ 
-    border: 1px solid #5fd3bc;
-    color: #5fd3bc; }
+    border: 1px solid #3bb300;
+    color: #3bb300; }
 
   .m-badge-border.m-badge--info {
     /* weeraya 07/04/2018
     border: 1px solid #36a3f7;
     color: #36a3f7; */ 
-    border: 1px solid #85c7fa;
-    color: #85c7fa; }
+    border: 1px solid #0194b2;
+    color: #0194b2; }
 
 
 .m-link {
