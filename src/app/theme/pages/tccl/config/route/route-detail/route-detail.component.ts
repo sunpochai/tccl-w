@@ -198,7 +198,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
         return true;
     }
 
-    fillData() {
+    fillData(isCreate: boolean) {
         if (this.routeapprove.doc_group == ROUTE_PO.doc_group) {
             this.routeapprove.number_approver_sap = parseInt(this.last_approver);
         } else {
@@ -210,6 +210,22 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
         this.routeapprove.update_user = super.getADUserLogin();
         this.routeapprove.update_username = super.getFullNameUserLogin();
         this.routeapprove.update_datetime = new Date();
+
+        if (isCreate) {
+            this.routeapprove.route_status = true;
+            
+            this.routeapprove.create_user = this.routeapprove.update_user;
+            this.routeapprove.create_username = this.routeapprove.update_username;
+            this.routeapprove.create_datetime = this.routeapprove.update_datetime;    
+        }
+
+        /** detail data will get the same time as header */
+        for (let index in this.routeapprove.cf_route_detail) {
+            this.routeapprove.cf_route_detail[index].create_user = this.routeapprove.update_user;
+            this.routeapprove.cf_route_detail[index].create_username = this.routeapprove.update_username;
+            this.routeapprove.cf_route_detail[index].create_datetime = this.routeapprove.update_datetime;
+        }
+        
     }
 
     create() {
@@ -224,20 +240,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
             this.routeapprove.account = 'A';
         }
 
-        this.fillData();
-
-        this.routeapprove.route_status = true;
-        
-        this.routeapprove.create_user = this.routeapprove.update_user;
-        this.routeapprove.create_username = this.routeapprove.update_username;
-        this.routeapprove.create_datetime = this.routeapprove.update_datetime;
-
-        /** detail data will get the same time as header */
-        for (let index in this.routeapprove.cf_route_detail) {
-            this.routeapprove.cf_route_detail[index].create_user = this.routeapprove.create_user;
-            this.routeapprove.cf_route_detail[index].create_username = this.routeapprove.create_username;
-            this.routeapprove.cf_route_detail[index].create_datetime = this.routeapprove.create_datetime;
-        }
+        this.fillData(true);
 
         this._routeapproveService.create<any>(this.routeapprove).subscribe(resp => {
             // console.log(resp);
@@ -264,14 +267,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     update() {
         super.blockui('#m_form_1');
 
-        this.fillData();
-
-        /** detail data will get the same time as header */
-        for (let index in this.routeapprove.cf_route_detail) {
-            this.routeapprove.cf_route_detail[index].create_user = this.routeapprove.update_user;
-            this.routeapprove.cf_route_detail[index].create_username = this.routeapprove.update_username;
-            this.routeapprove.cf_route_detail[index].create_datetime = this.routeapprove.update_datetime;
-        }
+        this.fillData(false);
 
         this._routeapproveService.put<any>(this.routeapprove).subscribe(resp => {
             if (resp.is_error == false) {

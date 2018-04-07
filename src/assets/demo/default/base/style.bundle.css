@@ -12026,6 +12026,12 @@ b, strong {
     -ms-border-radius: 100%;
     -o-border-radius: 100%;
     border-radius: 100%; }
+  /* .m-badge.m-badge--fullwidth
+      Weeraya 07/04/2018 */
+  .m-badge.m-badge--fullwidth {
+    letter-spacing: 0.6px;
+    padding: 1px 10px; 
+    width: 95%;}
 
 .m-badge.m-badge--brand {
   background-color: #716aca;
@@ -12052,19 +12058,28 @@ b, strong {
   color: #ffffff; }
 
 .m-badge.m-badge--success {
-  background-color: #34bfa3;
+  /* weeraya 07/04/2018
+  background-color: #34bfa3; */
+  background-color: #3bb300;
   color: #ffffff; }
 
 .m-badge.m-badge--info {
-  background-color: #36a3f7;
+  /* weeraya 07/04/2018
+  background-color: #85c7fa; */
+  background-color: #0194b2;
   color: #ffffff; }
 
 .m-badge.m-badge--warning {
+  /* weeraya 07/04/2018
   background-color: #ffb822;
-  color: #111111; }
+  color: #111111; */
+  background-color: #dacb3e;
+  color: #ffffff; }
 
 .m-badge.m-badge--danger {
-  background-color: #f4516c;
+  /* weeraya 07/04/2018
+  background-color: #f4516c; */
+  background-color: #d3a2a1;
   color: #ffffff; }
 
 /* .m-badge-border
@@ -12089,14 +12104,24 @@ b, strong {
   .m-badge-border.m-badge--wide {
     letter-spacing: 0.6px;
     padding: 1px 10px; }
-
+  .m-badge-border.m-badge--fullwidth {
+    letter-spacing: 0.6px;
+    padding: 1px 10px; 
+    width: 95%}
+  
   .m-badge-border.m-badge--success {
+    /* weeraya 07/04/2018
     border: 1px solid #34bfa3;
-    color: #34bfa3; }
+    color: #34bfa3; */ 
+    border: 1px solid #3bb300;
+    color: #3bb300; }
 
   .m-badge-border.m-badge--info {
+    /* weeraya 07/04/2018
     border: 1px solid #36a3f7;
-    color: #36a3f7; }
+    color: #36a3f7; */ 
+    border: 1px solid #0194b2;
+    color: #0194b2; }
 
 
 .m-link {

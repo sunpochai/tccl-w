@@ -564,17 +564,21 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     getStatusDisplayClass(pStatus: string): string {
         switch (pStatus.toLowerCase()) {
             case ACTION_NAME.pending.toLowerCase(): 
-                return 'm-badge m-badge--warning m-badge--wide';
+                return 'm-badge m-badge--warning m-badge--fullwidth';
             case ACTION_NAME.reviewed.toLowerCase(): 
-                return 'm-badge m-badge--info m-badge--wide';
+                return 'm-badge m-badge--info m-badge--fullwidth';
             case ACTION_NAME.approved.toLowerCase(): 
-                return 'm-badge m-badge--success m-badge--wide';
-            case ACTION_NAME.rejected.toLowerCase(): 
-                return 'm-badge m-badge--danger m-badge--wide';
+                return 'm-badge m-badge--success m-badge--fullwidth';
+            case ACTION_NAME.rejected.toLowerCase():
+            case ACTION_NAME.cancelled.toLowerCase(): 
+                return 'm-badge m-badge--danger m-badge--fullwidth';
+            case ACTION_NAME.waiting.toLowerCase():
+            case ACTION_NAME.commented.toLowerCase():
+            case ACTION_NAME.delegated.toLowerCase():
+                return 'm-badge-border m-badge--info m-badge--fullwidth';
             default:
                 return 'm-badge-border m-badge--info m-badge--wide';
         }
-
     }
 
     getDisplayTR(pDescription): string {
