@@ -27,6 +27,7 @@ import { ADUserService } from '../../../_services/masters/aduser.service';
 import { Subject } from 'rxjs';
 import { PRService } from '../../../_services/trns/pr.service';
 import { PRItem } from '../../../_models/trns/pritem';
+import { StringUtil } from '../../../../../../Util/stringutil';
 
 @Component({
     selector: "trns-po-detail",
@@ -71,6 +72,8 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
     public user_list: any = [];
 
     public dtSwitch: boolean[] = [];
+
+    public myUtil = new StringUtil;
     
     constructor(
         private _script: ScriptLoaderService,
@@ -192,6 +195,25 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
             
             for (let index = 0; index < this.fileList.length; index++) {
                 let file = this.fileList[index];
+
+                var sFileName = file.name;
+                var sFileExtension = sFileName.split('.')[sFileName.split('.').length - 1].toLowerCase();
+                var iFileSize = file.size;
+                // var iConvert = (file.size / 1048576).toFixed(2);
+
+                if ( !( sFileExtension === "pdf"
+                     || sFileExtension === "doc" 
+                     || sFileExtension === "docx" 
+                     || sFileExtension === "xls" 
+                     || sFileExtension === "xlsx" )
+                     || iFileSize > 10485760) {
+                    
+                    super.showError("Wrong file format (only .pdf, .doc, .docx, .xls, .xlsx allowed) or file size larger than 10MB!");
+                    this.attFile = null;
+                    this.fileList = null;
+                    return;
+                }
+                
                 this.attFile.push(file.name);
             }
             // console.log(this.attFile);
@@ -694,25 +716,12 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
         return pritem;
     }
 
-    formatSAPItemNo(in_sap_no) {
-        var out_sap_no = in_sap_no.substr(0,in_sap_no.length-1)
-        out_sap_no = this.lefttrim (out_sap_no, '0');
-        return out_sap_no;
+    formatSAPItemNo(in_sap_item_no) {
+        return StringUtil.formatSAPItemNo(in_sap_item_no);
     }
 
     lefttrim(s,c) {
-        var index = s.indexOf('0');
-        
-        while (index == 0) {
-            // console.log(index);
-            s = s.substr(1,s.length-1);
-            // console.log(s);
-            index = s.indexOf('0');
-            if (index!=0) {
-                break;
-            }
-        }
-        return s;
+        return StringUtil.lefttrim(s,c);
     }
 
 }
