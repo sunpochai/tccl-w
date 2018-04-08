@@ -40,6 +40,11 @@ export const API_REVIEWER_SEARCH: string = API_BASE_URL + '/api/reviewer/list2'
 export const API_REVIEWER_GET_PUT_DEL: string = API_BASE_URL + '/api/reviewer'
 export const API_REVIEWER_INSERT: string = API_BASE_URL + '/api/reviewer/insert'
 
+export const API_DELEGATE_LIST: string = API_BASE_URL + '/api/delegate/list'
+export const API_DELEGATE_SEARCH: string = API_BASE_URL + '/api/delegate/list2'
+export const API_DELEGATE_GET_PUT_DEL: string = API_BASE_URL + '/api/delegate'
+export const API_DELEGATE_INSERT: string = API_BASE_URL + '/api/delegate/insert'
+
 export const API_WORKFLOW_ACTION_REVIEW: string = API_BASE_URL + '/api/worklist/review'
 export const API_WORKFLOW_ACTION_APPROVE: string = API_BASE_URL + '/api/worklist/approve'
 export const API_WORKFLOW_ACTION_REJECT: string = API_BASE_URL + '/api/worklist/reject'

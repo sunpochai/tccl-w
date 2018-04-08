@@ -38,6 +38,10 @@ const routes: Routes = [
                 "loadChildren": ".\/pages\/tccl\/config\/reviewer\/reviewer.module#ReviewerModule"
             },
             {
+                "path": "config\/delegate",
+                "loadChildren": ".\/pages\/tccl\/config\/delegate\/delegate.module#DelegateModule"
+            },
+            {
                 "path": "trns\/worklist",
                 "loadChildren": ".\/pages\/tccl\/trns\/worklist\/worklist.module#WorklistModule"
             },
