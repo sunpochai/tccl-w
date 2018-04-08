@@ -99,7 +99,7 @@
 								</label>
 								<div class="col-lg-9 col-sm-9">
 									<div class="width-half">
-										<input id='searchuser' placeholder="Search for a user" class=' form-control m-input' [(ngModel)]="textSearchUser" name="user" type='text' (ngModelChange)="onChangeSearchUser($event);"  >
+										<input id='searchuser' placeholder="Search for a user" class=' form-control m-input' [(ngModel)]="textSearchUser" name="user" type='text' (ngModelChange)="onChangeSearchUser($event);" autocomplete="off" >
 										<div clickOutside (clickOutside)="closeDropDown()">
 											<div  *ngIf="showDropDownUser" class='search-drop-down card'>
 												<div (click)='selectUserValue(s)' class='search-results ' *ngFor="let s of this.userList ">
@@ -209,7 +209,7 @@
 							</label>
 							<div></div>
 							<div class="custom-file">
-								<input type="file" (change)="fileChange($event)" class="custom-file-input" id="customFile" data-max-size="2048" multiple>
+								<input type="file" accept=".xls,.xlsx,.doc,.docx,.pdf" (change)="fileChange($event)" class="custom-file-input" id="customFile" data-max-size="2048" multiple>
 								<label class="custom-file-label" for="customFile"  >
 									Choose file
 								</label>

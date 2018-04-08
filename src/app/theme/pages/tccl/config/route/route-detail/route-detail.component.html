@@ -340,7 +340,7 @@
                             </label>
                             <div class="col-lg-9 col-sm-9">
 								<div class="width-half">
-									<input required id='searchuser' placeholder="Search for a user" class=' form-control m-input' [(ngModel)]="textSearchUser" name="user" type='text' (ngModelChange)="onChangeSearchUser($event);"  >
+									<input required id='searchuser' placeholder="Search for a user" class=' form-control m-input' [(ngModel)]="textSearchUser" name="user" type='text' (ngModelChange)="onChangeSearchUser($event);" autocomplete="off" >
 									<div clickOutside (clickOutside)="closeDropDown()">
 										<div  *ngIf="showDropDownUser" class='search-drop-down card'>
 											<div (click)='selectUserValue(s)' class='search-results ' *ngFor="let s of this.userList ">

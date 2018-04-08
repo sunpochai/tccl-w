@@ -37,6 +37,9 @@ const routes: Routes = [
                 "path": "list/po/:routetype", //routetype:string ('pr','po','pa')
                 "component": RouteApproveListComponent
             }, {
+                "path": "list/pa/:routetype", //routetype:string ('pr','po','pa')
+                "component": RouteApproveListComponent
+            }, {
                 "path": "detail/:id", //id:any ('pr','po','pa' <-- add new record ,id <-- get old record)
                 "component": RouteApproveDetailComponent
             }
