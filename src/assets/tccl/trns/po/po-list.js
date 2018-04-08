@@ -76,7 +76,7 @@ var myDatatable = function( ) {
           sortable: true,
           width: '80px',
           template: function (row) {
-            return '<a href="/trns/po/detail/'+row.po_no+'"  class="m-menu__link" title="Purchase Order Detail"> ' + row.po_no + '</a>';
+            return '<a href="./trns/po/detail/'+row.po_no+'"  class="m-menu__link" title="Purchase Order Detail"> ' + row.po_no + '</a>';
             /* return '\
               <a href="javascript:navigate_edit(' + row.po_id + ')" class="m-menu__link" title="Purchase Order Detail">\
                               '+row.po_no+'\

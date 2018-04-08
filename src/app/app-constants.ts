@@ -1,17 +1,7 @@
 //Service URL
-//export const API_BASE_URL: string = 'http://202.60.207.137/WebRESTApi'
-<<<<<<< HEAD
-<<<<<<< HEAD
-//export const API_BASE_URL: string = 'http://sunpochai.thddns.net:5555'
-export const API_BASE_URL: string = 'http://192.168.1.99:5555'
-=======
-export const API_BASE_URL: string = 'http://sunpochai.thddns.net:5555'
-// export const API_BASE_URL: string = 'http://192.168.1.99:5555'
->>>>>>> 96c54dc8cef228d5e40a9f9b85ff4b10a13f6a42
-=======
+export const API_BASE_URL: string = 'http://202.60.207.137/WebRESTApi'
 // export const API_BASE_URL: string = 'http://sunpochai.thddns.net:5555'
-export const API_BASE_URL: string = 'http://192.168.1.99:5555'
->>>>>>> 0540913c06079f13697dd29cda43939660ac1d97
+//export const API_BASE_URL: string = 'http://192.168.1.99:5555'
 export const API_AUTHEN_TOKEN: string = API_BASE_URL + '/token'
 export const API_AUTHEN_CHECKIN: string = API_BASE_URL + '/api/authen/checkin'
 export const API_AUTHEN_VERIFY: string = API_BASE_URL + '/api/authen/verify'
