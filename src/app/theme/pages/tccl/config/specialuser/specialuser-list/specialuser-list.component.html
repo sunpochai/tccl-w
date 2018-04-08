@@ -1,0 +1,124 @@
+<!-- BEGIN: Subheader -->
+<div class="m-subheader" appunwraptag="">
+	<div class="d-flex align-items-center">
+		<div class="mr-auto">
+			<h3 class="m-subheader__title m-subheader__title--separator">
+				{{specialuser_type.caption}} Configuration
+			</h3>
+			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+				<li class="m-nav__item">
+					<a routerLink="/trns/worklist/my" class="m-nav__link">
+						<span class="m-nav__link-text">
+							<i class="la la-home"></i>
+						</span>
+					</a>
+				</li>
+				<li class="m-nav__separator">
+					-
+				</li>
+				<li class="m-nav__item">
+					<a href="#" (click)="navigate_list()" class="m-nav__link">
+						<span class="m-nav__link-text">
+							{{specialuser_type.caption}}
+						</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	 
+	</div>
+</div>
+<!-- END: Subheader -->
+<div class="m-content" id="m-content">
+	 
+	<div class="m-portlet m-portlet--mobile">
+		<!-- <div class="m-portlet__head">
+			<div class="m-portlet__head-caption">
+				<div class="m-portlet__head-title">
+					<h3 class="m-portlet__head-text">
+						{{specialuser_type.caption}} 
+					</h3>
+				</div>
+			</div>
+			<div class="m-portlet__head-tools">
+				<ul class="m-portlet__nav">
+					<li class="m-portlet__nav-item">
+						<a href="#" (click)="navigate_add()" class="m-portlet__nav-link btn btn-brand m-btn " >
+							<i class="la la-plus"></i>
+							<span>
+								Add
+							</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div> -->
+		<form>
+			<div class="m-portlet__body">
+				<!--begin: Search Form -->
+				<div class="form-group m-form__group row">
+					<div class="col-6">
+						<div class="form-group m-form__group row align-items-center">
+							<div class="col-xl-12 col-sm-12">
+								<div class="m-input-icon m-input-icon--left">
+									<input type="text" class="form-control m-input" placeholder="Search..." id="generalSearch" name="generalSearch" autocomplete="off" >
+									<span class="m-input-icon__icon m-input-icon__icon--left">
+										<span>
+											<i class="la la-search"></i>
+										</span>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-6 m--align-right">
+						<div>
+							<a href="#" (click)="navigate_add();" class="btn btn-brand">
+								<span>
+									<i class="la la-plus"></i>
+									<span>
+										New
+									</span>
+								</span>
+							</a>
+						</div>
+					</div>
+				</div>
+				<!--begin: Datatable -->
+				<div class="m_datatable" id="ajax_data"></div>
+				<!--end: Datatable -->
+			</div>
+		</form>
+	</div>
+</div>
+
+<div class="modal fade" id="m_modal_confirm" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">
+					Confirm ?
+				</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">
+						&times;
+					</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p>
+					Confirm Delete {{action_sap_code}} ?
+				</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" (click)="del()" data-dismiss="modal" class="btn btn-danger">
+					Delete
+				</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">
+					Close
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+ 

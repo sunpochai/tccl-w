@@ -117,6 +117,16 @@ export class DelegateDetailComponent extends PageBaseComponent implements OnInit
                 });
             } else {
                 this.delegate = new Delegate();
+
+                /** Default owner by AD User Login */
+                this.textSearchOwner = super.getFullNameUserLogin();
+                this.txtOwnerSelected = super.getADUserLogin();
+                this.txtOwnerNameSelected = super.getFullNameUserLogin();
+
+                this.delegate.ad_user = this.txtOwnerSelected;
+                this.delegate.ad_username = this.txtOwnerNameSelected;
+                /** ------------------------------ */
+
                 console.log(this.delegate);
                 super.unblockui('#m_form_1');
             }
