@@ -47,7 +47,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="m-portlet__body" *ngIf='delegate != null'>
+			<div class="m-portlet__body" >
 				<div class="m-form__content">
 					<div class="m-alert m-alert--icon alert alert-danger m--hide" role="alert" id="m_form_1_msg">
 						<div class="m-alert__icon">
@@ -67,7 +67,7 @@
 					</label>
 					<div class="col-lg-4 col-sm-8">
 						<div class="width-half">
-							<input required id='searchowner' placeholder="Search for a user" class=' form-control m-input' [(ngModel)]="textSearchOwner" name="owner" type='text' (ngModelChange)="onChangeSearchOwner($event);"  >
+							<input required id='searchowner' placeholder="Search for a user" class=' form-control m-input' [(ngModel)]="textSearchOwner" name="owner" type='text' (ngModelChange)="onChangeSearchOwner($event);" autocomplete="off"  >
 							<div clickOutside (clickOutside)="closeDropDownOwner()">
 								<div  *ngIf="showDropDownOwner" class='search-drop-down card'>
 									<div (click)='selectOwnerValue(s)' class='search-results ' *ngFor="let s of this.ownerList ">
@@ -80,7 +80,7 @@
 				</div>
 				<div class="form-group m-form__group row" >
 					<label class="col-lg-2 col-sm-4 col-form-label">
-						Date From *
+						Start date *
 					</label>
 					<div class="col-lg-4 col-sm-8">
 						<div class='input-group'>
@@ -93,7 +93,7 @@
 						</div>
 					</div>
 					<label class="col-lg-2 col-sm-4 col-form-label">
-						Date To *
+						End date *
 					</label>
 					<div class="col-lg-4 col-sm-8">
 						<div class='input-group'>
@@ -126,7 +126,7 @@
 						</span>
 					</div>
 				</div>
-				<div class="form-group m-form__group row">
+				<div class="form-group m-form__group row" >
 					<label class="col-form-label col-lg-2 col-sm-4">
 						Delegate to *
 					</label> 
@@ -188,98 +188,6 @@
 			</div> 
 		</div>
 
-		
-		<!-- <div class="m-portlet m-portlet--full-height">
-			<div class="m-portlet__head">
-				<div class="m-portlet__head-caption">
-					<div class="m-portlet__head-title">
-						<span class="m-portlet__head-icon">
-							<i class="fa flaticon-users"></i>
-						</span>
-						<h3 class="m-portlet__head-text">
-							Delegate to
-						</h3>
-					</div>
-				</div>
-				<div class="m-portlet__head-tools">
-					<ul class="m-portlet__nav">
-						<li class="m-portlet__nav-item">
-							<a href="#" (click)="prepareAddDelegates()" class="m-portlet__nav-link btn btn-brand m-btn" data-toggle="modal" data-target="#m_modal_add_delegates">
-								<i class="fa fa-user-plus"></i>
-								<span>
-									Add
-								</span>
-							</a>
-						</li>
-					</ul>
-				</div>
-			</div>
-			<div class="m-portlet__body" *ngIf='delegate != null'>
-				<div class="m-widget4">
-					<div class="m-widget4__item" *ngFor="let row of delegate.cf_delegate_users; let index = index">
-						<div class="m-widget4__info">
-							<span class="m-widget4__title">
-								{{index+1}}.&nbsp;
-							</span>
-							<span class="m-widget4__title">
-								{{row.ad_username}}
-							</span>
-							<br>
-							<span class="m-widget4__sub">
-								<i class="la la-user"></i>
-								{{row.ad_user}}
-							</span>
-						</div>
-						<div class="m-widget4__ext">
-							<a href="#" (click)="prepareEditDelegates(index)" class="m-btn m-btn--pill m-btn--hover-info btn btn-sm btn-secondary" title="Edit" data-toggle="modal" data-target="#m_modal_add_delegates">
-								<i class="la la-edit"></i>
-							</a>
-						</div>
-						<div class="m-widget4__ext" >
-							<a href="#" (click)="removeDelegates(index)" class="m-btn m-btn--pill m-btn--hover-danger btn btn-sm btn-secondary" title="Remove">
-								<i class="la la-trash"></i>
-							</a>
-						</div>
-					</div>
-				</div>		
-				<div class="m-portlet__foot m-portlet__foot--fit">
-					<div class="m-form__actions m-form__actions">
-						<div class="row">
-							<div class="col-5"></div>
-							<div class="col-7 ml-lg-auto">
-								<button type="button" [disabled]="delegate.ad_user==null || delegate.start_date=='' || delegate.end_date == null || delegate.cf_delegate_users.length<=0" class="btn btn-success" data-toggle="modal" data-target="#m_modal_confirm">
-									Save 
-								</button>
-								<button type="reset" (click)="navigate_list()" class="btn btn-secondary">
-									Cancel
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>		
-			</div>
-		</div> -->
-		
-
-		<!--begin:: Portlet-->
-		<!-- <div class="m-portlet">
-			<div class="m-portlet__foot m-portlet__foot--fit">
-				<div class="m-form__actions m-form__actions">
-					<div class="row">
-						<div class="col-5"></div>
-						<div class="col-7 ml-lg-auto">
-							<button type="button" [disabled]="delegate.ad_user==null || delegate.start_date=='' || delegate.end_date == null || delegate.cf_delegate_users.length<=0" class="btn btn-success" data-toggle="modal" data-target="#m_modal_confirm">
-								Save 
-							</button>
-							<button type="reset" (click)="navigate_list()" class="btn btn-secondary">
-								Cancel
-							</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> -->
-		<!--end::Portlet--> 
 	</form>
 	<!--end::Form-->
 
@@ -299,7 +207,7 @@
 				</div>
 				<div class="modal-body">
 					<p>
-						Delegate for {{delegate.ad_user}} between {{delegate.start_date}} and {{delegate.end_date}} ?
+						Delegate for {{delegate.ad_user}} between {{start_date}} and {{end_date}} ?
 					</p>
 				</div>
 				<div class="modal-footer">
@@ -319,7 +227,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="">
-                        Add delegate to
+                        Delegate to
                     </h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true" class="la la-remove"></span>
@@ -329,11 +237,11 @@
                     <div class="modal-body">
                         <div class="form-group m-form__group row m--margin-top-20">
                             <label class="col-form-label col-lg-3 col-sm-3">
-                                Delegate name:
+                                User:
                             </label>
                             <div class="col-lg-9 col-sm-9">
 								<div class="width-half">
-									<input required id='searchuser' placeholder="Search for a user" class=' form-control m-input' [(ngModel)]="textSearchUser" name="user" type='text' (ngModelChange)="onChangeSearchUser($event);"  >
+									<input required id='searchuser' placeholder="Search for a user" class=' form-control m-input' [(ngModel)]="textSearchUser" name="user" type='text' (ngModelChange)="onChangeSearchUser($event);" autocomplete="off" >
 									<div clickOutside (clickOutside)="closeDropDown()">
 										<div  *ngIf="showDropDownUser" class='search-drop-down card'>
 											<div (click)='selectUserValue(s)' class='search-results ' *ngFor="let s of this.userList ">

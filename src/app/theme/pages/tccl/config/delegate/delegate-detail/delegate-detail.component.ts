@@ -86,7 +86,7 @@ export class DelegateDetailComponent extends PageBaseComponent implements OnInit
 
             if (this.id != null && this.id != '0') {
                 this._delegateService.get<any>(this.id).subscribe(resp => {
-                    console.log(resp);
+                    // console.log(resp);
 
                     if (resp.is_error) {
                         console.log(resp);
@@ -100,20 +100,15 @@ export class DelegateDetailComponent extends PageBaseComponent implements OnInit
                         this.txtOwnerSelected = this.delegate.ad_user;
                         this.txtOwnerNameSelected = this.delegate.ad_username;
 
-                        // console.log(this.delegate.start_date);
-                        // console.log(this.delegate.end_date);
-
                         this.start_date = DateUtil.toDisplayDate(this.delegate.start_date);
                         this.end_date = DateUtil.toDisplayDate(this.delegate.end_date);
-                        // console.log('start_date: ' + this.start_date);
-                        // console.log('end_date: ' + this.end_date);
         
                         super.unblockui('#m_form_1');
                     }
                 },
                 error => {
                     super.showError(error);
-                    console.log('error');
+                    // console.log('error');
                     super.unblockui('#m_form_1');
                 },
                 () => {
@@ -129,23 +124,19 @@ export class DelegateDetailComponent extends PageBaseComponent implements OnInit
     }
 
     ngAfterViewInit() {
-        // console.log('ngAfterViewInit');
         this._script.loadScripts('config-delegate-detail',
             ['assets/tccl/config/delegate/delegate-detail.js']);
-
         this.load();
     }
 
     load() {
-        // console.log('load');
         super.blockui('#m_form_1');
         jQuery(document).ready(function() {
-            // alert('load-init');
             setTimeout(
-                function() 
-                {
+                function() {
                     myData.init();
-                }, 1500);
+                }, 1200
+            );
         });
         super.unblockui('#m_form_1');
     }
@@ -155,14 +146,14 @@ export class DelegateDetailComponent extends PageBaseComponent implements OnInit
             return;
         }
 
-        console.log(this.start_date);
-        console.log(this.end_date);
+        // console.log(this.start_date);
+        // console.log(this.end_date);
 
         this.delegate.start_date = DateUtil.toInternalDate(this.start_date);
         this.delegate.end_date = DateUtil.toInternalDate(this.end_date);
 
-        console.log(this.delegate.start_date);
-        console.log(this.delegate.end_date);
+        // console.log(this.delegate.start_date);
+        // console.log(this.delegate.end_date);
 
         if (this.delegate.delegate_id != null && this.delegate.delegate_id != 0) {
             this.update();
@@ -193,15 +184,7 @@ export class DelegateDetailComponent extends PageBaseComponent implements OnInit
             this.delegate.create_user = this.delegate.update_user;
             this.delegate.create_username = this.delegate.update_username;
             this.delegate.create_datetime = this.delegate.update_datetime;    
-        }
-
-        /** detail data will get the same time as header */
-        /* for (let index in this.delegate.cf_delegate_users) {
-            this.delegate.cf_delegate_users[index].create_user = this.delegate.update_user;
-            this.delegate.cf_delegate_users[index].create_username = this.delegate.update_username;
-            this.delegate.cf_delegate_users[index].create_datetime = this.delegate.update_datetime;
-        } */
-        
+        }        
     }
 
     create() {
