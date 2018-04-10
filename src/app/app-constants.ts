@@ -74,6 +74,8 @@ export const API_ATTACHMENT_UPLOAD: string = API_BASE_URL + '/api/attachment/upl
  
 export const API_USER_LIST: string = API_BASE_URL + '/api/users/list'
 
+export const API_OUTBOUND_LIST: string = API_BASE_URL + '/api/outbound/list'
+
 //Model status code
 export const ROUTE_PR: any = { "name": "pr", "doc_group": 1 }
 export const ROUTE_PO: any = { "name": "po", "doc_group": 2 }
