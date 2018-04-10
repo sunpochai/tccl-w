@@ -4413,7 +4413,8 @@ $(document).ready(function() {
 							input: 'Page number',
 							select: 'Select page size',
 						},
-						info: 'Displaying {{start}} - {{end}} of {{total}} records',
+                    /*	info: 'Displaying {{start}} - {{end}} of {{total}} records'  sanchai change */
+                    info: ' {{start}} - {{end}} of {{total}} items' ,
 					},
 				},
 			},
@@ -8784,4 +8785,23 @@ function toDisplayDateTime(in_date) {
         }
         return toDisplayDate(in_date) + ' ' + d[1];
     }
+}
+
+/* Input: -
+   Output: First day of current month
+   KT 11/04/2018 */
+function getCurrentMonthFirstDate() {
+    var curdate = new Date();
+
+    return curdate.getFullYear()+'-'+(curdate.getMonth()+1)+'-'+curdate.getDate();
+}
+
+/* Input: -
+   Output: Last day of current month
+   KT 11/04/2018 */
+function getCurrentMonthLastDate() {
+    var curdate = new Date();
+    var mydate = new Date(curdate.getFullYear(),curdate.getMonth,0);
+
+    return mydate.getFullYear()+'-'+(mydate.getMonth()+1)+'-'+mydate.getDate();
 }
