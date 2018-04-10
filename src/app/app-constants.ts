@@ -1,5 +1,6 @@
 //Service URL
-export const API_BASE_URL: string = 'http://202.60.207.137/WebRESTApi'
+export const API_BASE_URL: string =  'https://portal.tccland.com:8090/OASRESTApi'
+//export const API_BASE_URL: string = 'http://202.60.207.137/WebRESTApi'
 // export const API_BASE_URL: string = 'http://sunpochai.thddns.net:5555'
 //export const API_BASE_URL: string = 'http://192.168.1.99:5555'
 export const API_AUTHEN_TOKEN: string = API_BASE_URL + '/token'
