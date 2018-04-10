@@ -1,6 +1,12 @@
 //Service URL
+<<<<<<< HEAD
 export const API_BASE_URL: string = 'http://202.60.207.137/WebRESTApi'
 //export const API_BASE_URL: string = 'http://sunpochai.thddns.net:5555'
+=======
+//export const API_BASE_URL: string = 'http://202.60.207.137/WebRESTApi'
+// export const API_BASE_URL: string = 'http://sunpochai.thddns.net:5555'
+export const API_BASE_URL: string = 'http://192.168.1.99:5555'
+>>>>>>> cdab4066d39463cf29ebabe7de7cfd24b093c91e
 export const API_AUTHEN_TOKEN: string = API_BASE_URL + '/token'
 export const API_AUTHEN_CHECKIN: string = API_BASE_URL + '/api/authen/checkin'
 export const API_AUTHEN_VERIFY: string = API_BASE_URL + '/api/authen/verify'
@@ -38,6 +44,16 @@ export const API_REVIEWER_LIST: string = API_BASE_URL + '/api/reviewer/list'
 export const API_REVIEWER_SEARCH: string = API_BASE_URL + '/api/reviewer/list2'
 export const API_REVIEWER_GET_PUT_DEL: string = API_BASE_URL + '/api/reviewer'
 export const API_REVIEWER_INSERT: string = API_BASE_URL + '/api/reviewer/insert'
+
+export const API_DELEGATE_LIST: string = API_BASE_URL + '/api/delegate/list'
+export const API_DELEGATE_SEARCH: string = API_BASE_URL + '/api/delegate/list2'
+export const API_DELEGATE_GET_PUT_DEL: string = API_BASE_URL + '/api/delegate'
+export const API_DELEGATE_INSERT: string = API_BASE_URL + '/api/delegate/insert'
+
+export const API_SPECIALUSER_ADMINLIST: string = API_BASE_URL + '/api/specialusers/adminlist'
+export const API_SPECIALUSER_OWNERLIST: string = API_BASE_URL + '/api/specialusers/ownerlist'
+export const API_SPECIALUSER_GET_PUT_DEL: string = API_BASE_URL + '/api/specialusers'
+export const API_SPECIALUSER_INSERT: string = API_BASE_URL + '/api/specialusers/insert'
 
 export const API_WORKFLOW_ACTION_REVIEW: string = API_BASE_URL + '/api/worklist/review'
 export const API_WORKFLOW_ACTION_APPROVE: string = API_BASE_URL + '/api/worklist/approve'
@@ -104,16 +120,16 @@ export const C_DOC_STATUS_REJECTED_CLASS: string = 'm-badge m-badge--' + C_DOC_S
 export const C_DOC_STATUS_CANCELLED_CLASS: string = 'm-badge m-badge--' + C_DOC_STATUS_CANCELLED_COLOR + ' m-badge--wide';
 
 export const C_DOC_STATUS_2: Array<any> = [
-    { code: 0, active: false, name: "n/a", color: C_DOC_STATUS_CANCELLED_COLOR, displayclass: C_DOC_STATUS_CANCELLED_CLASS },
-    { code: 1, active: true, name: C_DOC_STATUS_WAIT_REVIEW_NAME, color: C_DOC_STATUS_WAIT_REVIEW_COLOR, displayclass: C_DOC_STATUS_WAIT_REVIEW_CLASS },
-    { code: 2, active: true, name: C_DOC_STATUS_WAIT_APPROVE_NAME, color: C_DOC_STATUS_WAIT_APPROVE_COLOR, displayclass: C_DOC_STATUS_WAIT_APPROVE_CLASS },
-    { code: 3, active: true, name: C_DOC_STATUS_APPROVED_NAME, color: C_DOC_STATUS_APPROVED_COLOR, displayclass: C_DOC_STATUS_APPROVED_CLASS },
-    { code: 4, active: true, name: C_DOC_STATUS_REJECTED_NAME, color: C_DOC_STATUS_REJECTED_COLOR, displayclass: C_DOC_STATUS_REJECTED_CLASS },
-    { code: 5, active: false, name: "n/a", color: C_DOC_STATUS_CANCELLED_COLOR, displayclass: C_DOC_STATUS_CANCELLED_CLASS },
-    { code: 6, active: false, name: "n/a", color: C_DOC_STATUS_CANCELLED_COLOR, displayclass: C_DOC_STATUS_CANCELLED_CLASS },
-    { code: 7, active: false, name: "n/a", color: C_DOC_STATUS_CANCELLED_COLOR, displayclass: C_DOC_STATUS_CANCELLED_CLASS },
-    { code: 8, active: false, name: "n/a", color: C_DOC_STATUS_CANCELLED_COLOR, displayclass: C_DOC_STATUS_CANCELLED_CLASS },
-    { code: 9, active: true, name: C_DOC_STATUS_CANCELLED_NAME, color: C_DOC_STATUS_CANCELLED_COLOR, displayclass: C_DOC_STATUS_CANCELLED_CLASS }
+    { code: 0, active: false, name: "n/a", color: C_DOC_STATUS_CANCELLED_COLOR, displayclass: C_DOC_STATUS_CANCELLED_CLASS, displayListClass: 'm-badge m-badge--' + C_DOC_STATUS_CANCELLED_COLOR + ' m-badge--fullwidth' },
+    { code: 1, active: true, name: C_DOC_STATUS_WAIT_REVIEW_NAME, color: C_DOC_STATUS_WAIT_REVIEW_COLOR, displayclass: C_DOC_STATUS_WAIT_REVIEW_CLASS, displayListClass: 'm-badge m-badge--' + C_DOC_STATUS_WAIT_REVIEW_COLOR + ' m-badge--fullwidth' },
+    { code: 2, active: true, name: C_DOC_STATUS_WAIT_APPROVE_NAME, color: C_DOC_STATUS_WAIT_APPROVE_COLOR, displayclass: C_DOC_STATUS_WAIT_APPROVE_CLASS, displayListClass: 'm-badge m-badge--' + C_DOC_STATUS_WAIT_APPROVE_COLOR + ' m-badge--fullwidth' },
+    { code: 3, active: true, name: C_DOC_STATUS_APPROVED_NAME, color: C_DOC_STATUS_APPROVED_COLOR, displayclass: C_DOC_STATUS_APPROVED_CLASS, displayListClass: 'm-badge m-badge--' + C_DOC_STATUS_APPROVED_COLOR + ' m-badge--fullwidth' },
+    { code: 4, active: true, name: C_DOC_STATUS_REJECTED_NAME, color: C_DOC_STATUS_REJECTED_COLOR, displayclass: C_DOC_STATUS_REJECTED_CLASS, displayListClass: 'm-badge m-badge--' + C_DOC_STATUS_REJECTED_COLOR + ' m-badge--fullwidth' },
+    { code: 5, active: false, name: "n/a", color: C_DOC_STATUS_CANCELLED_COLOR, displayclass: C_DOC_STATUS_CANCELLED_CLASS, displayListClass: 'm-badge m-badge--' + C_DOC_STATUS_CANCELLED_COLOR + ' m-badge--fullwidth' },
+    { code: 6, active: false, name: "n/a", color: C_DOC_STATUS_CANCELLED_COLOR, displayclass: C_DOC_STATUS_CANCELLED_CLASS, displayListClass: 'm-badge m-badge--' + C_DOC_STATUS_CANCELLED_COLOR + ' m-badge--fullwidth' },
+    { code: 7, active: false, name: "n/a", color: C_DOC_STATUS_CANCELLED_COLOR, displayclass: C_DOC_STATUS_CANCELLED_CLASS, displayListClass: 'm-badge m-badge--' + C_DOC_STATUS_CANCELLED_COLOR + ' m-badge--fullwidth' },
+    { code: 8, active: false, name: "n/a", color: C_DOC_STATUS_CANCELLED_COLOR, displayclass: C_DOC_STATUS_CANCELLED_CLASS, displayListClass: 'm-badge m-badge--' + C_DOC_STATUS_CANCELLED_COLOR + ' m-badge--fullwidth' },
+    { code: 9, active: true, name: C_DOC_STATUS_CANCELLED_NAME, color: C_DOC_STATUS_CANCELLED_COLOR, displayclass: C_DOC_STATUS_CANCELLED_CLASS, displayListClass: 'm-badge m-badge--' + C_DOC_STATUS_CANCELLED_COLOR + ' m-badge--fullwidth' }
 ];
 
 export const ACTION_NAME: any = {
@@ -139,4 +155,16 @@ export const CATEGORY_NAME: any = {
     , expense: 'Expense'
     , stock: 'Stock'
     , projecttcl: 'Projectcl'
+}
+
+export const SPECIAL_USER_ADMIN: any = {
+    dbname: 'admin',
+    caption: 'Administrator',
+    showname: 'admin'
+}
+
+export const SPECIAL_USER_OWNER: any = {
+    dbname: 'owner',
+    caption: 'Maintainer',
+    showname: 'maintain'
 }

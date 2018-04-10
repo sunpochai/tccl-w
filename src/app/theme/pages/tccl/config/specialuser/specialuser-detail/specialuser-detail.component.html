@@ -1,10 +1,10 @@
 <!-- BEGIN: Subheader -->
  
-<div class="m-subheader" appunwraptag="" *ngIf="reviewer!=null">
+<div class="m-subheader" appunwraptag="" *ngIf="specialuser!=null">
 	<div class="d-flex align-items-center">
 		<div class="mr-auto">
 			<h3 class="m-subheader__title m-subheader__title--separator">
-				Reviewer
+				{{specialuser_type.caption}} Configuration
 			</h3>
 			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
 				<li class="m-nav__item">
@@ -20,7 +20,7 @@
 				<li class="m-nav__item">
 					<a href="#" (click)="navigate_list()" class="m-nav__link">
 						<span class="m-nav__link-text">
-							Reviewer
+							{{specialuser_type.caption}}
 						</span>
 					</a>
 				</li>
@@ -29,7 +29,7 @@
 	</div>
 </div>
 <!-- END: Subheader -->
-<div class="m-content" *ngIf="reviewer!=null">
+<div class="m-content" *ngIf="specialuser!=null">
 	<form  #heroForm="ngForm" class="m-form m-form--fit m-form--label-align-right" id="m_form_1">
 		<!--begin::Portlet-->
 		<div class="m-portlet">
@@ -37,15 +37,17 @@
 				<div class="m-portlet__head-caption">
 					<div class="m-portlet__head-title">
 						<h3 class="m-portlet__head-text" *ngIf="id==0">
-							New Reviewer
+							<i class="la la-plus"></i>
+							New {{specialuser_type.caption}}
 						</h3>
 						<h3 class="m-portlet__head-text" *ngIf="id!=0">
-							Edit Reviewer
+							<i class="la la-pencil"></i>
+							Edit {{specialuser_type.caption}}
 						</h3>
 					</div>
 				</div>
 			</div>
-			<div class="m-portlet__body" *ngIf='reviewer != null'>
+			<div class="m-portlet__body" *ngIf='specialuser != null'>
 				<div class="m-form__content">
 					<div class="m-alert m-alert--icon alert alert-danger m--hide" role="alert" id="m_form_1_msg">
 						<div class="m-alert__icon">
@@ -61,39 +63,7 @@
 				</div>
 				<div class="form-group m-form__group row" >
 					<label class="col-form-label col-lg-2 col-sm-3">
-						SAP Code *   
-					</label> 
-					<div class="col-lg-4 col-sm-4">
-						<input required maxlength="100" [(ngModel)]="reviewer.sap_code" type="text" class="form-control m-input" name="sap_code" value="{{reviewer.sap_code}}" placeholder="Enter SAP Code"  >
-					</div>
-				</div>
-				<div class="form-group m-form__group row" >
-					<label class="col-form-label col-lg-2 col-sm-3">
-						SAP Group *   
-					</label>
-					<div class="col-lg-10 col-sm-9">
-						<div class="m-radio-inline">
-							<label class="m-radio">
-								<input type="radio" [(ngModel)]="input_sap_group"  name="sap_group" value="1">
-								Requisitioner
-								<span></span>
-							</label>
-							<label class="m-radio">
-								<input type="radio" [(ngModel)]="input_sap_group" name="sap_group" value="2">
-								Purchasing Group
-								<span></span>
-							</label>
-							<label class="m-radio">
-								<input type="radio" [(ngModel)]="input_sap_group" name="sap_group" value="3">
-								User ID
-								<span></span>
-							</label>
-						</div>
-					</div>
-				</div>
-				<div class="form-group m-form__group row" >
-					<label class="col-form-label col-lg-2 col-sm-3">
-						Reviewer *
+						{{specialuser_type.caption}} *
 					</label>
 					<div class="col-lg-8 col-sm-8">
 						<div class="width-half">
@@ -106,18 +76,6 @@
 								</div>
 							</div>
 						</div>  
-					</div>
-				</div>
-				<div class="form-group m-form__group row" *ngIf="reviewer!=null && reviewer.review_id != null">
-					<div class="col-lg-12">
-						<span class="m-form__help">
-							Created at {{reviewer.create_datetime  | date:'dd/MM/yyyy HH:mm:ss'}} by {{reviewer.create_username}} 
-						</span>
-					</div>
-					<div class="col-lg-12"> 
-						<span class="m-form__help">
-							Last modified at {{reviewer.update_datetime  | date:'dd/MM/yyyy HH:mm:ss'}} by {{reviewer.update_username}} 
-						</span>
 					</div>
 				</div>
 			</div> 
@@ -161,7 +119,7 @@
 				</div>
 				<div class="modal-body">
 					<p>
-						Reviewer {{reviewer.sap_code}} ?
+						{{specialuser_type.caption}}: {{specialuser.ad_user}} ?
 					</p>
 				</div>
 				<div class="modal-footer">

@@ -96,6 +96,7 @@ export class PRListComponent extends PageBaseComponent implements OnInit, AfterV
 
         if (date_from.getTime() > date_to.getTime()) {
             super.showError('Invalid date range!');
+            super.unblockui('#m-content');
             return;
         }
 

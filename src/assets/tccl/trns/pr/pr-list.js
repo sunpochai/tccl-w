@@ -66,15 +66,14 @@ var myDatatable = function( ) {
           title: 'Doc Type',
           sortable: true,
           textAlign: 'center',
-          
+          width: '60px',
         } , {
           field: 'pr_no',
           title: 'PR No.',
           selector: false,
           textAlign: 'center',
           sortable: true,
-          
-          
+          width: '80px',
           template: function (row) {
             return '<a href="./trns/pr/detail/' + row.pr_no + '" title="Purchase Request Detail">' + row.pr_no + '</a>';
             /* return '\
@@ -88,6 +87,7 @@ var myDatatable = function( ) {
           title: 'PR Date',
           textAlign: 'center',
           sortable: 'desc',
+          width: '80px',
           template: function(row) {
             return toDisplayDate(row.pr_date);
           }  
@@ -97,6 +97,7 @@ var myDatatable = function( ) {
           type: 'number',
           textAlign: 'right',
           sortable: true,
+          width: '80px',
           template: function (row) {
             var parts = (row.grand_total).toFixed(2).split(".");
             // alert(parts);
@@ -108,6 +109,7 @@ var myDatatable = function( ) {
           title: 'Currency',
           sortable: true,
           textAlign: 'center',
+          width: '60px',
         } , {
           field: 'plant_name',
           title: 'Plant',
@@ -119,6 +121,7 @@ var myDatatable = function( ) {
           field: 'subject',
           title: 'Subject',
           sortable: true,
+          width: '150px',
         } , {
           field: 'tracking_no',
           title: 'Tracking Code',
@@ -128,14 +131,19 @@ var myDatatable = function( ) {
           title: 'Requisitioner',
           sortable: true,
         } , {
+          field: 'cur_resp_user',
+          title: 'Current Responsible',
+          sortable: true,
+        } , {
           field: 'c_doc_status',
           title: 'Status',
           sortable: true,
           template: function (row) {
             if (row.c_doc_status != null && row.c_doc_status!='') {
-              return '<span class="' + my.docStatus[row.c_doc_status].displayclass + '">' + my.docStatus[row.c_doc_status].name + '</span>';
+              // return '<span class="m-badge m-badge--info m-badge--fullwidth">' + my.docStatus[row.c_doc_status].name + '</span>';
+              return '<span class="' + my.docStatus[row.c_doc_status].displayListClass + '">' + my.docStatus[row.c_doc_status].name + '</span>';
             } else {
-              return '<span class="' + my.docStatus[0].displayclass + '">' + my.docStatus[0].name + '</span>';
+              return '<span class="' + my.docStatus[0].displayListClass + '">' + my.docStatus[0].name + '</span>';
             }
           }
         }/*  , {
