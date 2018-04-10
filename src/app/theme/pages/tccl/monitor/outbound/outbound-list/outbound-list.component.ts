@@ -6,8 +6,7 @@ import { ScriptLoaderService } from './../../../../../../_services/script-loader
 import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { constructDependencies } from '@angular/core/src/di/reflective_provider';
 import { OutboundService } from './../../../_services/monitor/outbound.service';
-import { C_DOC_STATUS_2, API_OUTBOUND_LIST } from './../../../../../../app-constants';
-import { Outbound } from '../../../_models/monitor/outbound';
+import { API_OUTBOUND_LIST, ROUTE_PR, ROUTE_PO, ROUTE_PA, C_OUTBOUND_STATUS, DOCUMENT_GROUP } from './../../../../../../app-constants';
 
 declare var myDatatable: any;
 declare var window: any;
@@ -18,7 +17,17 @@ declare var window: any;
     encapsulation: ViewEncapsulation.None
 })
 export class OutboundListComponent extends PageBaseComponent implements OnInit, AfterViewInit {
-    public docStatus: Array<any> = C_DOC_STATUS_2;
+    public outboundStatus: Array<any> = C_OUTBOUND_STATUS;
+    public documentGroup: any = DOCUMENT_GROUP;
+    public action_name: string;
+    public action_display_name: string;
+    public action_doc_group: number;
+    public action_doc_group_name: string;
+    public action_doc_no: string;
+
+    public searchStatus: string = 'E';
+
+
 
     constructor(private _router: Router,
         private _script: ScriptLoaderService,
@@ -28,16 +37,18 @@ export class OutboundListComponent extends PageBaseComponent implements OnInit, 
 
     ngOnInit() {
         window.my = window.my || {};
-        window.my.docStatus = this.docStatus;
         window.my.namespace = window.my.namespace || {};
-
-        // console.log(window.my.docStatus)
+        window.my.namespace.prepare_action = this.prepare_action.bind(this);
+        // window.my.myROUTE_PR = this.myROUTE_PR;
+        // window.my.myROUTE_PO = this.myROUTE_PO;
+        // window.my.myROUTE_PA = this.myROUTE_PA;
     }
 
     ngAfterViewInit() {
-
         this._script.loadScripts('monitor-outbound-list',
             ['assets/tccl/monitor/outbound/outbound-list.js']);
+
+        this.searchStatus = 'E';
 
         this.load();
     }
@@ -47,7 +58,7 @@ export class OutboundListComponent extends PageBaseComponent implements OnInit, 
         jQuery(document).ready(function() {
             myDatatable.init(API_OUTBOUND_LIST);
         });
-
+        
         super.unblockui('#m-content');
     }
 
@@ -68,6 +79,80 @@ export class OutboundListComponent extends PageBaseComponent implements OnInit, 
  */
         myDatatable.search();
         super.unblockui('#m-content');
+    }
+
+    prepare_action(action: string, doc_group: number, doc_no: string) {
+        this.action_name = action;
+        this.action_doc_group = doc_group;
+
+        switch (doc_group+'') {
+            case ROUTE_PR.doc_group+'': this.action_doc_group_name = ROUTE_PR.name.toUpperCase(); break;
+            case ROUTE_PO.doc_group+'': this.action_doc_group_name = ROUTE_PO.name.toUpperCase(); break;
+            case ROUTE_PA.doc_group+'': this.action_doc_group_name = ROUTE_PA.name.toUpperCase(); break;
+            default: this.action_doc_group_name = 'N/A';
+        }
+
+        this.action_doc_no = doc_no;
+    }
+
+    performAction() {
+        if (this.action_name == 'reupload') {
+            this.action_display_name = 'Re-Upload';
+            this.reupload();
+        } else if (this.action_name == 'manual') {
+            this.action_display_name = 'Manual';
+            this.manual();
+        } else {
+            super.showError('Something went wrong! ' + this.action_name + ' is not a valid action');
+        }
+    }
+
+    reupload() {
+        super.blockui('#m-content');
+
+        this._outboundService.reupload<any>(this.action_doc_group, this.action_doc_no).subscribe(
+            resp => {
+                if (resp.is_error) {
+                    super.showError(resp.error_msg);
+                    super.unblockui('#m-content');
+                } else {
+                    super.showsuccess(this.action_doc_group_name + ' ' + this.action_doc_no + this.action_display_name + ' Success');
+                    this.search();
+                    super.unblockui('#m-content');
+                }
+            },
+            error => {
+                super.showError(error);
+                super.unblockui('#m-content');
+            },
+            () => {
+                super.unblockui('#m-content');
+            }
+        );
+    }
+
+    manual() {
+        super.blockui('#m-content');
+
+        this._outboundService.manual<any>(this.action_doc_group, this.action_doc_no).subscribe(
+            resp => {
+                if (resp.is_error) {
+                    super.showError(resp.error_msg);
+                    super.unblockui('#m-content');
+                } else {
+                    super.showsuccess(this.action_doc_group_name + ' ' + this.action_doc_no + this.action_display_name + ' Success');
+                    this.search();
+                    super.unblockui('#m-content');
+                }
+            },
+            error => {
+                super.showError(error);
+                super.unblockui('#m-content');
+            },
+            () => {
+                super.unblockui('#m-content');
+            }
+        );
     }
 
 }   

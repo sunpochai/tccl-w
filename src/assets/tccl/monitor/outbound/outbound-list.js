@@ -62,142 +62,116 @@ var myDatatable = function( ) {
 
       columns: [
         {   
-          field: 'doc_type',
-          title: 'Doc Type',
+          field: 'doc_group',
+          title: 'Document Group',
           sortable: true,
           textAlign: 'center',
           width: '60px',
+          template: function (row) {
+            switch (row.doc_group) {
+              case 1:
+                return '<span class="m-badge m-badge--dot m-badge--success"></span><span  style="padding: 3px">PR</span>';
+              case 2:
+                return '<span class="m-badge m-badge--dot m-badge--metal"></span><span  style="padding: 3px">PO</span>';
+              case 3:
+                return '<span class="m-badge m-badge--dot m-badge--success"></span><span  style="padding: 3px">PA</span>';
+              default:
+                return 'n/a';
+            }
+          },
         } , {
-          field: 'pr_no',
-          title: 'PR No.',
+          field: 'doc_no',
+          title: 'Document No.',
           selector: false,
           textAlign: 'center',
           sortable: true,
           width: '80px',
           template: function (row) {
-            return '<a href="/trns/pr/detail/' + row.pr_no + '" title="Purchase Request Detail">' + row.pr_no + '</a>';
-            /* return '\
-              <a href="javascript:navigate_edit(' + row.pr_id + ')" title="Purchase Request Detail">\
-                              '+row.pr_no+'\
-                          </a>\
-            ';  */
+            if (row.doc_group == 1) {
+              return '<a href="./trns/pr/detail/' + row.doc_no + '" title="Purchase Request Detail">' + row.doc_no + '</a>';
+            } else if (row.doc_group == 2) {
+              return '<a href="./trns/po/detail/' + row.doc_no + '" title="Purchase Order Detail">' + row.doc_no + '</a>';
+            } else if (row.doc_group == 3) {
+              return '<a href="./trns/pa/detail/' + row.doc_no + '" title="Purchase Approve Detail">' + row.doc_no + '</a>';
+            } else {
+              return row.doc_no;
+            }
           }
         }, {   
-          field: 'pr_date',
-          title: 'PR Date',
+          field: 'doc_date',
+          title: 'Document Date',
           textAlign: 'center',
           sortable: 'desc',
           width: '80px',
           template: function(row) {
-            return toDisplayDate(row.pr_date);
+            return toDisplayDate(row.doc_date);
           }  
         }, {
-          field: 'grand_total',
-          title: 'Est. Price',
-          type: 'number',
-          textAlign: 'right',
+          field: 'doc_type',
+          title: 'Doc Type',
+          textAlign: 'center',
           sortable: true,
           width: '80px',
-          template: function (row) {
-            var parts = (row.grand_total).toFixed(2).split(".");
-            // alert(parts);
-            var num = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (parts[1] ? "." + parts[1] : ".00");
-            return num;
-          }
         } , {
-          field: 'currency',
-          title: 'Currency',
+          field: 'upload_status',
+          title: 'Upload Status',
           sortable: true,
           textAlign: 'center',
-          width: '60px',
-        } , {
-          field: 'plant_name',
-          title: 'Plant',
-          sortable: true,
-          template: function (row) {
-            return row.plant_code + ' ' + row.plant_name;
-          }
-        } , {
-          field: 'subject',
-          title: 'Subject',
-          sortable: true,
-          width: '150px',
-        } , {
-          field: 'tracking_no',
-          title: 'Tracking Code',
-          sortable: true,
-        } , {
-          field: 'create_username',
-          title: 'Requisitioner',
-          sortable: true,
-        } , {
-          field: 'cur_resp_user',
-          title: 'Current Responsible',
-          sortable: true,
-        } , {
-          field: 'c_doc_status',
-          title: 'Status',
-          sortable: true,
-          template: function (row) {
-            if (row.c_doc_status != null && row.c_doc_status!='') {
-              // return '<span class="m-badge m-badge--info m-badge--fullwidth">' + my.docStatus[row.c_doc_status].name + '</span>';
-              return '<span class="' + my.docStatus[row.c_doc_status].displayListClass + '">' + my.docStatus[row.c_doc_status].name + '</span>';
-            } else {
-              return '<span class="' + my.docStatus[0].displayListClass + '">' + my.docStatus[0].name + '</span>';
-            }
-          }
-        }/*  , {
-          field: 'create_datetime',
-          title: 'Create Date',
           template: function(row) {
-            return      toDisplayDate(row.create_datetime);
-          }
-        } */
+            if (row.upload_status == 'E') {
+              return '<span class="m-badge m-badge--danger m-badge--fullwidth">Error</span>';
+            } else if (row.upload_status == 'M') {
+              return '<span class="m-badge m-badge--info m-badge--fullwidth">Manual</span>';
+            } else if (row.upload_status == 'S') {
+              return '<span class="m-badge m-badge--success m-badge--fullwidth">Success</span>';
+            } else {
+              return '<span class="m-badge m-badge--danger m-badge--fullwidth">n/a</span>';
+            }
+          } 
+        } , {
+          field: 'upload_message',
+          title: 'Upload Message',
+          sortable: true,
+        } , {
+          field: 'upload_datetime',
+          title: 'Upload Datetime',
+          sortable: true,
+          textAlign: 'center',
+          template: function(row) {
+            return toDisplayDateTime(row.upload_datetime);
+          },
+        } , {
+          field: 'Actions',
+          title: 'Actions',
+          sortable: false,
+          overflow: 'visible',
+          textAlign: 'center',
+          
+          template: function (row, index, datatable) {
+            if (row.upload_status == 'E') {
+              return '\<a href="#" onclick="prepare_action(\'reupload\',\''+ row.doc_group +'\', \'' + row.doc_no + '\'); " data-toggle="modal" data-target="#m_modal_confirm" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Re-Upload document">\
+                <i class="fa fa-upload"></i>\
+              </a>\
+              <a href="#" onclick="prepare_action(\'manual\',\''+ row.doc_group +'\', \'' + row.doc_no + '\'); " data-toggle="modal" data-target="#m_modal_confirm" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Manual operated">\
+                <i class="fa fa-check"></i>\
+              </a>\
+              ';
+            } else {
+              return '';
+            }
+        }
+        }  
       ],
     });
 
-    // datepicker
     $('#m_form_date_from').datepicker({
       todayHighlight: true,
       format: 'dd/mm/yyyy',
       templates: {
         leftArrow: '<i class="la la-angle-left"></i>',
         rightArrow: '<i class="la la-angle-right"></i>'
-      },
-      // minDate: new Date(),
-      // onSelect: function(dateStr) 
-      // {         
-          // $("#m_form_date_to").datepicker("destroy");
-          // $("#m_form_date_to").val(dateStr);
-          // $("#m_form_date_to").datepicker({ minDate: new Date(dateStr)});
-      //     alert(dateStr);
-      // }
+      }
     });
-
-    // $('m_form_date_from').datepicker({
-    //   onSelect: function(formattedDate, date, inst) {
-    //       $(inst.el).trigger('change');
-    //       alert('d');
-    //   }
-    // });
-
-    // $('#m_form_date_from').datepicker()
-    // .on(picker_event, function(e) {
-    //   alert('c');
-    //     // `e` here contains the extra attributes
-    // });
-
-// alert('b');
-  //   $("#from").datepicker({
-  //     defaultDate: new Date(),
-  //     minDate: new Date(),
-  //     onSelect: function(dateStr) 
-  //     {         
-  //         $("#to").datepicker("destroy");
-  //         $("#to").val(dateStr);
-  //         $("#to").datepicker({ minDate: new Date(dateStr)})
-  //     }
-  // });
 
     $('#m_form_date_to').datepicker({
       todayHighlight: true,
@@ -213,14 +187,21 @@ var myDatatable = function( ) {
   var search = function()  {
     var query = datatable.getDataSourceQuery();
     
-    query.pr_no = $('#m_form_pr_no').val();
-    query.doc_type = $('#m_form_doc_type').val();
+    query.doc_group = $('#m_form_doc_group').val();
+    query.upload_status = $('#m_form_upload_status').val();
     query.pr_date_from = toInternalDate($('#m_form_date_from').val());
     query.pr_date_to = toInternalDate($('#m_form_date_to').val());
-    query.comp_code = $('#m_form_company').val();
-    // query.subject = $('#m_form_subject').val();
-    query.plant_code = $('#m_form_plant').val();
-    query.c_doc_status = $('#m_form_status').val();
+
+    datatable.setDataSourceQuery(query);
+    datatable.load();
+  };
+
+  var initial = function()  {
+    var query = datatable.getDataSourceQuery();
+    
+    query.upload_status = 'E';
+    query.pr_date_from = getCurrentMonthFirstDate();
+    query.pr_date_to = getCurrentMonthLastDate();
 
     datatable.setDataSourceQuery(query);
     datatable.load();
@@ -230,15 +211,15 @@ var myDatatable = function( ) {
     // public functions
     init: function(apiurl) {
       load(apiurl);
+      //firstFunction(() => console.log('huzzah, I\'m done!'))
+      // load((apiurl) => initial());
     },
     search: function() {
       search();
-    }
+    },
   };
 }();
-/* 
-function navigate_edit(prId){
-  my.namespace.navigate_edit(prId);
-} */
 
- 
+function prepare_action(action, doc_group, doc_no) {
+  my.namespace.prepare_action(action, doc_group, doc_no);
+}

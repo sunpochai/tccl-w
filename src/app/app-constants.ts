@@ -1,12 +1,7 @@
 //Service URL
-<<<<<<< HEAD
-export const API_BASE_URL: string = 'http://202.60.207.137/WebRESTApi'
-//export const API_BASE_URL: string = 'http://sunpochai.thddns.net:5555'
-=======
 //export const API_BASE_URL: string = 'http://202.60.207.137/WebRESTApi'
 // export const API_BASE_URL: string = 'http://sunpochai.thddns.net:5555'
 export const API_BASE_URL: string = 'http://192.168.1.99:5555'
->>>>>>> cdab4066d39463cf29ebabe7de7cfd24b093c91e
 export const API_AUTHEN_TOKEN: string = API_BASE_URL + '/token'
 export const API_AUTHEN_CHECKIN: string = API_BASE_URL + '/api/authen/checkin'
 export const API_AUTHEN_VERIFY: string = API_BASE_URL + '/api/authen/verify'
@@ -80,11 +75,18 @@ export const API_ATTACHMENT_UPLOAD: string = API_BASE_URL + '/api/attachment/upl
 export const API_USER_LIST: string = API_BASE_URL + '/api/users/list'
 
 export const API_OUTBOUND_LIST: string = API_BASE_URL + '/api/outbound/list'
+export const API_OUTBOUND_RE_UPLOAD: string = API_BASE_URL + '/api/outbound/reupload'
+export const API_OUTBOUND_MANUAL: string = API_BASE_URL + '/api/outbound/manual'
 
 //Model status code
-export const ROUTE_PR: any = { "name": "pr", "doc_group": 1 }
-export const ROUTE_PO: any = { "name": "po", "doc_group": 2 }
-export const ROUTE_PA: any = { "name": "pa", "doc_group": 3 }
+export const ROUTE_PR: any = { "display_name":"PR", "name": "pr", "doc_group": 1 }
+export const ROUTE_PO: any = { "display_name":"PO", "name": "po", "doc_group": 2 }
+export const ROUTE_PA: any = { "display_name":"PA", "name": "pa", "doc_group": 3 }
+export const DOCUMENT_GROUP: any = [
+    ROUTE_PR,
+    ROUTE_PO,
+    ROUTE_PA
+]
 
 export const C_ACCOUNT_TYPE_ACCOUNT_NAME: string = 'Account';
 export const C_ACCOUNT_TYPE_NON_ACCOUNT_NAME: string = 'Non-Account';
@@ -170,3 +172,27 @@ export const SPECIAL_USER_OWNER: any = {
     caption: 'Maintainer',
     showname: 'maintain'
 }
+
+export const OUTBOUND_STATUS_ERROR: any = {
+    status_code: 'E',
+    status_name: 'error',
+    display_name: 'Error',
+}
+
+export const OUTBOUND_STATUS_MANUAL: any = {
+    status_code: 'M',
+    status_name: 'manual',
+    display_name: 'Manual',
+}
+
+export const OUTBOUND_STATUS_SUCCESS: any = {
+    status_code: 'S',
+    status_name: 'success',
+    display_name: 'Success',
+}
+
+export const C_OUTBOUND_STATUS: Array<any> = [
+    OUTBOUND_STATUS_ERROR,
+    OUTBOUND_STATUS_MANUAL,
+    OUTBOUND_STATUS_SUCCESS,
+];
