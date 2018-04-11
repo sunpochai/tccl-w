@@ -48,12 +48,12 @@
 						Status:
 					</label>
 					<div class="col-lg-4 col-sm-8">
-						<select class="form-control m-input" id="m_form_status" name="m_form_status" [(ngModel)]="searchStatus">
+						<select class="form-control m-input" id="m_form_status" >
 							<option value="">
 								All
 							</option>
 							<ng-container *ngFor="let row of outboundStatus; let index = index" >
-								<option value="{{row.code}}" >
+								<option value="{{row.status_code}}" >
 									{{row.display_name}}
 								</option>
 							</ng-container>
@@ -63,7 +63,7 @@
 						Document Group:
 					</label>
 					<div class="col-lg-4 col-sm-8 ">
-						<select class="form-control m-input" id="m_form_doc_type">
+						<select class="form-control m-input" id="m_form_doc_group">
 							<option value="">
 								All
 							</option>
@@ -108,7 +108,7 @@
 						Search:
 					</label>
 					<div class="col-lg-4 col-sm-8" >
-						<input type="text" maxlength="50" class="form-control m-input" id="m_form_general_search">
+						<input type="text" maxlength="50" class="form-control m-input" id="m_form_general_search" name="m_form_general_search">
 					</div>
 					
 				</div>
