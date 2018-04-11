@@ -42,7 +42,18 @@ export class PageBaseComponent {
         return this.currentUser.fullname;
 
     }
-
+    protected  CheckAdmin() {
+       
+        return this.currentUser.roles!=null && 
+        this.currentUser.roles.length > 0 &&
+        this.currentUser.roles[0] == 'ADMIN';
+    }
+protected  CheckOwner() {
+        return this.currentUser.roles!=null && 
+            this.currentUser.roles.length > 0 &&
+            this.currentUser.roles[0] == 'OWNER';
+ 
+    }
 
 
 }
