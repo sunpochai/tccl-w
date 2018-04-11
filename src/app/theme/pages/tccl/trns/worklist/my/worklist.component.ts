@@ -80,7 +80,7 @@ export class WorklistComponent extends PageBaseComponent implements OnInit, Afte
             this.myworklists = data;
             super.unblockui('#m_form_1');
         });
-        
+
     }
 
     ngAfterViewInit() {
@@ -149,30 +149,30 @@ export class WorklistComponent extends PageBaseComponent implements OnInit, Afte
         if (this.m_text_search != null && this.m_text_search != '') {
             this.myworklists = this.myworklists.filter(
                 (item) => {
-                    return ( 
+                    return (
                         (item.doc_no).toLowerCase().indexOf(this.m_text_search.toLowerCase()) > -1 ||
-                        (item.subject).toLowerCase().indexOf(this.m_text_search.toLowerCase()) > -1 
-                    );
-                }
-            )
-        } 
-        
-        if (this.m_list_doctype != null && this.m_list_doctype != '') {
-            this.myworklists = this.myworklists.filter(
-                (item) => {
-                    return ( 
-                        item.doc_type.toLowerCase() == this.m_list_doctype.toLowerCase() 
+                        (item.subject).toLowerCase().indexOf(this.m_text_search.toLowerCase()) > -1
                     );
                 }
             )
         }
-        
+
+        if (this.m_list_doctype != null && this.m_list_doctype != '') {
+            this.myworklists = this.myworklists.filter(
+                (item) => {
+                    return (
+                        item.doc_type.toLowerCase() == this.m_list_doctype.toLowerCase()
+                    );
+                }
+            )
+        }
+
         if (this.m_list_company != null && this.m_list_company != '') {
             this.myworklists = this.myworklists.filter(
                 (item) => {
-                    return ( 
+                    return (
                         (item.comp_code).toLowerCase().indexOf(this.m_list_company.toLowerCase()) > -1 ||
-                        (item.comp_name).toLowerCase().indexOf(this.m_list_company.toLowerCase()) > -1 
+                        (item.comp_name).toLowerCase().indexOf(this.m_list_company.toLowerCase()) > -1
                     );
                 }
             )
@@ -181,9 +181,9 @@ export class WorklistComponent extends PageBaseComponent implements OnInit, Afte
         if (this.m_list_plant != null && this.m_list_plant != '') {
             this.myworklists = this.myworklists.filter(
                 (item) => {
-                    return ( 
+                    return (
                         (item.plant_code).toLowerCase().indexOf(this.m_list_plant.toLowerCase()) > -1 ||
-                        (item.plant_name).toLowerCase().indexOf(this.m_list_plant.toLowerCase()) > -1 
+                        (item.plant_name).toLowerCase().indexOf(this.m_list_plant.toLowerCase()) > -1
                     );
                 }
             )
@@ -192,7 +192,7 @@ export class WorklistComponent extends PageBaseComponent implements OnInit, Afte
 
         this.myworklists = this.myworklists.filter(
             (item) => {
-                return ( 
+                return (
                     (this.showPR && item.name.toLowerCase() == 'pr') ||
                     (this.showPO && item.name.toLowerCase() == 'po') ||
                     (this.showPA && item.name.toLowerCase() == 'pa')
@@ -231,14 +231,14 @@ export class WorklistComponent extends PageBaseComponent implements OnInit, Afte
             } else {
                 return 'm-nav__link-icon la la-caret-up';
             }
-            
+
         } else {
             return 'm-nav__link-icon la la-genderless';
         }
     }
 
     getSortingDisplayColor(pSortBy: string): string {
-        if (pSortBy == this.sortBy) { 
+        if (pSortBy == this.sortBy) {
             return 'm-nav__link m--font-brand';
         } else {
             return 'm-nav__link';

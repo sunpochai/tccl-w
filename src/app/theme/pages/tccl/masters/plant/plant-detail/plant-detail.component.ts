@@ -85,14 +85,14 @@ export class PlantDetailComponent extends PageBaseComponent implements OnInit, A
             super.showsuccess(this.plant.plant_code + ' create complete');
             this._router.navigate(['/masters/plant/list']);
         },
-        error => {
-            alert(error);
-            super.showError(error);
-            super.unblockui('#m_form_1');
-        },
-        () => {
-            super.unblockui('#m_form_1');
-        });
+            error => {
+                alert(error);
+                super.showError(error);
+                super.unblockui('#m_form_1');
+            },
+            () => {
+                super.unblockui('#m_form_1');
+            });
     }
 
     update() {
@@ -105,13 +105,13 @@ export class PlantDetailComponent extends PageBaseComponent implements OnInit, A
             super.showsuccess(this.plant.plant_code + ' update complete');
             this._router.navigate(['/masters/plant/list']);
         },
-        error => {
-            super.showError(error);
-            super.unblockui('#m_form_1');
-        },
-        () => {
-            super.unblockui('#m_form_1');
-        });
+            error => {
+                super.showError(error);
+                super.unblockui('#m_form_1');
+            },
+            () => {
+                super.unblockui('#m_form_1');
+            });
     }
 
     navigate_list() {

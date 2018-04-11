@@ -53,7 +53,7 @@ export class POListComponent extends PageBaseComponent implements OnInit, AfterV
         //     this.companyList = data;
         //     // console.log(data);
         // });
-        
+
         // this._plantService.getall().subscribe(data => {
         //     this.plantList = data;
         //     // console.log(data);
@@ -91,12 +91,12 @@ export class POListComponent extends PageBaseComponent implements OnInit, AfterV
 
     search() {
         super.blockui('#m-content');
-        
+
         var dd_from = $('#m_form_date_from').val().toString().split('/');
         var dd_to = $('#m_form_date_to').val().toString().split('/');
 
-        var date_from = new Date(parseInt(dd_from[2]),parseInt(dd_from[1]),parseInt(dd_from[0]));
-        var date_to = new Date(parseInt(dd_to[2]),parseInt(dd_to[1]),parseInt(dd_to[0]));
+        var date_from = new Date(parseInt(dd_from[2]), parseInt(dd_from[1]), parseInt(dd_from[0]));
+        var date_to = new Date(parseInt(dd_to[2]), parseInt(dd_to[1]), parseInt(dd_to[0]));
 
         // console.log(date_from.getTime());
         // console.log(date_to.getTime());

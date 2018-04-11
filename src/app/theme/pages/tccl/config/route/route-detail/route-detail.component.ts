@@ -7,7 +7,7 @@ import { Tracking } from '../../../_models/masters/tracking';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Company } from '../../../_models/masters/company';
 import {
-    FormGroup,  
+    FormGroup,
     FormBuilder,
     Validators,
     FormControl
@@ -25,9 +25,9 @@ import { ADUserService } from '../../../_services/masters/aduser.service';
 import { Subject } from 'rxjs';
 import { SortPipe } from '../../../../../../_pipe/sort';
 
- 
 
-@Component({ 
+
+@Component({
     selector: "config-route-detail",
     templateUrl: "./route-detail.component.html",
     styleUrls: ["./route-detail.component.css"]
@@ -51,43 +51,43 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
     public maxValCaption: string = "*";
     public unlimit_maximum;
     public last_approver: string;
-/* 
-    public trackingList : any;
-    public textSearchTrackCode:string;
-    public txtSearchTrackingChanged:Subject<string> = new Subject<string>();
-    public showDropDownTracking = false; */
+    /* 
+        public trackingList : any;
+        public textSearchTrackCode:string;
+        public txtSearchTrackingChanged:Subject<string> = new Subject<string>();
+        public showDropDownTracking = false; */
 
-    public userList : any;
+    public userList: any;
     public txtAdUserSelected;
     public txtAdUserNameSelected;
-    public textSearchUser:string;
-    public txtSearchUserChanged:Subject<string> = new Subject<string>();    
+    public textSearchUser: string;
+    public txtSearchUserChanged: Subject<string> = new Subject<string>();
     public showDropDownUser = false;
 
     public sortBy = 'tracking_code';
     public sortType = -1;
-    
+
     constructor(private _script: ScriptLoaderService,
         private _router: Router, private route: ActivatedRoute,
         private _routeapproveService: RouteApproveService,
         private _doctypeService: DocTypeService,
         private formBuilder: FormBuilder,
-        private _trackingService:TrackingService,
-        private _adUserService:ADUserService) {
+        private _trackingService: TrackingService,
+        private _adUserService: ADUserService) {
         super();
-       
-        this.txtSearchUserChanged.debounceTime(500).distinctUntilChanged().subscribe(md=>{
-                this.textSearchUser  = md;
-                this.searchUser(md);
+
+        this.txtSearchUserChanged.debounceTime(500).distinctUntilChanged().subscribe(md => {
+            this.textSearchUser = md;
+            this.searchUser(md);
         })
-/* 
-        this.txtSearchTrackingChanged.debounceTime(500).distinctUntilChanged().subscribe(md=>{
-            this.textSearchTrackCode  = md;
-            this.searchTracking(md);
-        }) */
+        /* 
+                this.txtSearchTrackingChanged.debounceTime(500).distinctUntilChanged().subscribe(md=>{
+                    this.textSearchTrackCode  = md;
+                    this.searchTracking(md);
+                }) */
     }
 
-   
+
     ngOnInit() {
         super.blockui('#m_form_1');
 
@@ -98,7 +98,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
 
         this._trackingService.getall().subscribe(resp => {
             this.trackingNumberList = resp;
-            
+
             // console.log(resp);
             // console.log(this.trackingNumberList);
         });
@@ -132,7 +132,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
                         break;
                 }
 
-                this.last_approver = this.routeapprove.number_approver_sap+'';
+                this.last_approver = this.routeapprove.number_approver_sap + '';
 
                 /* this.priceoverpr_yes = (this.routeapprove.price_over_pr_flag == 'A' || this.routeapprove.price_over_pr_flag == 'Y');
                 this.priceoverpr_no = (this.routeapprove.price_over_pr_flag == 'A' || this.routeapprove.price_over_pr_flag == 'N'); */
@@ -167,7 +167,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
 
         // console.log(this.routeapprove);
         // console.log(this.routeapprove.number_approver_sap);
-        
+
         if (this.routeapprove.route_id != null && this.routeapprove.route_id != 0) {
             this.update();
         } else {
@@ -179,7 +179,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
         // console.log(this.unlimit_maximum);
 
         if (this.unlimit_maximum) {
-            this.routeapprove.maximum_value=9999999999999.99;
+            this.routeapprove.maximum_value = 9999999999999.99;
         }
 
         if (this.routetype.doc_group != ROUTE_PR.doc_group && this.routeapprove.minimum_value > this.routeapprove.maximum_value) {
@@ -206,17 +206,17 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
         }
 
         this.routeapprove.price_over_pr_flag = 'A';
-        
+
         this.routeapprove.update_user = super.getADUserLogin();
         this.routeapprove.update_username = super.getFullNameUserLogin();
         this.routeapprove.update_datetime = new Date();
 
         if (isCreate) {
             this.routeapprove.route_status = true;
-            
+
             this.routeapprove.create_user = this.routeapprove.update_user;
             this.routeapprove.create_username = this.routeapprove.update_username;
-            this.routeapprove.create_datetime = this.routeapprove.update_datetime;    
+            this.routeapprove.create_datetime = this.routeapprove.update_datetime;
         }
 
         /** detail data will get the same time as header */
@@ -225,7 +225,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
             this.routeapprove.cf_route_detail[index].create_username = this.routeapprove.update_username;
             this.routeapprove.cf_route_detail[index].create_datetime = this.routeapprove.update_datetime;
         }
-        
+
     }
 
     create() {
@@ -254,14 +254,14 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
                 super.unblockui('#m_form_1');
             }
         },
-        error => {
-            // alert(error);
-            super.showError(error);
-            super.unblockui('#m_form_1');
-        },
-        () => {
-            super.unblockui('#m_form_1');
-        });
+            error => {
+                // alert(error);
+                super.showError(error);
+                super.unblockui('#m_form_1');
+            },
+            () => {
+                super.unblockui('#m_form_1');
+            });
     }
 
     update() {
@@ -280,13 +280,13 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
                 super.unblockui('#m_form_1');
             }
         },
-        error => {
-            super.showError(error);
-            super.unblockui('#m_form_1');
-        },
-        () => {
-            super.unblockui('#m_form_1');
-        });
+            error => {
+                super.showError(error);
+                super.unblockui('#m_form_1');
+            },
+            () => {
+                super.unblockui('#m_form_1');
+            });
     }
 
     prepareAddApprover() {
@@ -320,7 +320,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
         } else {
 
             for (let row of this.routeapprove.cf_route_detail) {
-                if (row.ad_user == this.txtAdUserSelected)  {
+                if (row.ad_user == this.txtAdUserSelected) {
                     super.showError('Duplicate approver name');
                     return;
                 }
@@ -330,7 +330,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
         let approver: RouteApproveDetail = new RouteApproveDetail;
         approver.route_id = this.routeapprove.route_id;
         approver.route_d_id = null;
-        
+
         approver.route_level = this.routeapprove.cf_route_detail.length + 1;
         approver.ad_user = this.txtAdUserSelected;
         approver.ad_username = this.txtAdUserNameSelected;
@@ -369,7 +369,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
         this._router.navigate(['/config/route/list/' + this.routetype.name + '/' + this.routetype.name]);
     }
 
-    
+
     /* searchTracking(search) {
         if(search.length < 2) return;
         // console.log("search >>" + search);
@@ -378,21 +378,21 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
             this.trackingList = x
         });  
     } */
-   
+
     searchUser(search) {
-        if(search.length < 2) return;
+        if (search.length < 2) return;
         // console.log("search >>" + search);
         this.showDropDownUser = true;
-        this._adUserService.search(search).subscribe(x=>  {
-         this.userList = x
-       });  
+        this._adUserService.search(search).subscribe(x => {
+            this.userList = x
+        });
     }
 
     /* onChangeSearchTracking(event){
         // console.log(event);
         this.txtSearchTrackingChanged.next(event);
     } */
-    onChangeSearchUser(event){
+    onChangeSearchUser(event) {
         // console.log(event);
         this.txtSearchUserChanged.next(event);
     }
@@ -403,14 +403,14 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
         
         this.showDropDownTracking = false;
     } */
-      
+
     selectUserValue(value) {
-        this.textSearchUser = value.fullname 
+        this.textSearchUser = value.fullname
         this.txtAdUserSelected = value.ad_user;
         this.txtAdUserNameSelected = value.fullname;
         this.showDropDownUser = false;
     }
-    
+
     closeDropDown() {
         /* this.showDropDownTracking = false; */
         this.showDropDownUser = false;
@@ -425,7 +425,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
             this.maxValPlaceholder = "Enter Maximum Value"
             this.maxValCaption = "*";
         }
-        
+
     }
 
     /* isTrackingCodeValid(): boolean {
@@ -436,6 +436,6 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
 
         return false;
     } */
-    
+
 
 }

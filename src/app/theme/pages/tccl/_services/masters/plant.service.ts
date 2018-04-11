@@ -36,7 +36,7 @@ export class PlantService extends TokenBaseService {
         return this.http.put(API_PLANT_GET_PUT_DEL + '/' + plant.plant_code, plant, super.jwt())
             .map((response: Response) => <T>response.json());
     }
-    
+
     public del(id: string) {
         return this.http.delete(API_PLANT_GET_PUT_DEL + '/' + id, super.jwt())
             .map((response: Response) => response.json());

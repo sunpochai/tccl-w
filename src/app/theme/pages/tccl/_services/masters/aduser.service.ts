@@ -11,7 +11,7 @@ export class ADUserService extends TokenBaseService {
     constructor(private http: Http) {
         super();
     }
- 
+
     public search(textSearch) {
 
         return this.http.post(API_USER_LIST, JSON.stringify({ name: textSearch, }), super.jwt())

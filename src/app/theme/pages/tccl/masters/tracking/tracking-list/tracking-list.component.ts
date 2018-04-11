@@ -58,21 +58,21 @@ export class TrackingListComponent extends PageBaseComponent implements OnInit, 
 
     del() {
         super.blockui('#m-content');
-        
+
         this._trackingService.del(this.action_item).subscribe(resp => {
             console.log(resp);
             super.showsuccess(this.action_item + ' delete complete');
             myDatatable.reload();
         },
-        error => {
-            super.showError(error);
-            super.unblockui('#m-content');
-            console.log('error');
-        },
-        () => {
-            super.unblockui('#m-content');
-            console.log('done');
-        });
+            error => {
+                super.showError(error);
+                super.unblockui('#m-content');
+                console.log('error');
+            },
+            () => {
+                super.unblockui('#m-content');
+                console.log('done');
+            });
     }
 
     navigate_edit(trackingCode) {

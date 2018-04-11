@@ -69,16 +69,16 @@ export class TrackingDetailComponent extends PageBaseComponent implements OnInit
             super.showsuccess(this.tracking.tracking_code + ' create complete');
             this._router.navigate(['/masters/tracking/list']);
         },
-        error => {
-            alert(error);
-            super.showError(error);
-            super.unblockui('#m_form_1');
-        },
-        () => {
-            super.unblockui('#m_form_1');
-        });
+            error => {
+                alert(error);
+                super.showError(error);
+                super.unblockui('#m_form_1');
+            },
+            () => {
+                super.unblockui('#m_form_1');
+            });
     }
-    
+
     save() {
         console.log(this.tracking);
         if (this.id != null && this.id != '0') {
@@ -98,13 +98,13 @@ export class TrackingDetailComponent extends PageBaseComponent implements OnInit
             super.showsuccess(this.tracking.tracking_code + ' update complete');
             this._router.navigate(['/masters/tracking/list']);
         },
-        error => {
-            super.showError(error);
-            super.unblockui('#m_form_1');
-        },
-        () => {
-            super.unblockui('#m_form_1');
-        });
+            error => {
+                super.showError(error);
+                super.unblockui('#m_form_1');
+            },
+            () => {
+                super.unblockui('#m_form_1');
+            });
     }
 
     navigate_list() {

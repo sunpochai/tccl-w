@@ -18,9 +18,9 @@ import { SpecialUserService } from '../../../_services/config/specialuser.servic
 import { ADUserService } from '../../../_services/masters/aduser.service';
 import { Subject } from 'rxjs';
 import { SPECIAL_USER_ADMIN, SPECIAL_USER_OWNER } from '../../../../../../app-constants';
- 
 
-@Component({ 
+
+@Component({
     selector: "config-specialuser-detail",
     templateUrl: "./specialuser-detail.component.html",
     styleUrls: ["./specialuser-detail.component.css"]
@@ -33,10 +33,10 @@ export class SpecialUserDetailComponent extends PageBaseComponent implements OnI
     public id: any;
     public specialuser_type: any;
 
-    public userList : any;
-    public textSearchUser:string;
-    public txtSearchUserChanged:Subject<string> = new Subject<string>();
-    
+    public userList: any;
+    public textSearchUser: string;
+    public txtSearchUserChanged: Subject<string> = new Subject<string>();
+
     public showDropDownUser = false;
 
     constructor(private _script: ScriptLoaderService,
@@ -46,8 +46,8 @@ export class SpecialUserDetailComponent extends PageBaseComponent implements OnI
         private formBuilder: FormBuilder) {
         super();
 
-        this.txtSearchUserChanged.debounceTime(500).distinctUntilChanged().subscribe(md=>{
-            this.textSearchUser  = md;
+        this.txtSearchUserChanged.debounceTime(500).distinctUntilChanged().subscribe(md => {
+            this.textSearchUser = md;
             this.searchUser(md);
         })
     }
@@ -80,18 +80,18 @@ export class SpecialUserDetailComponent extends PageBaseComponent implements OnI
                     super.unblockui('#m_form_1');
                 } else {
                     this.specialuser = resp.data;
-                    
+
                     switch (this.specialuser.roles.toLowerCase()) {
                         case SPECIAL_USER_ADMIN.dbname:
-                            this.specialuser = SPECIAL_USER_ADMIN; 
+                            this.specialuser = SPECIAL_USER_ADMIN;
                             break;
                         case SPECIAL_USER_ADMIN.dbname:
-                            this.specialuser = SPECIAL_USER_OWNER; 
+                            this.specialuser = SPECIAL_USER_OWNER;
                             break;
                     }
 
                     this.textSearchUser = this.specialuser.ad_username;
-                    
+
                     super.unblockui('#m_form_1');
                 }
             });
@@ -99,7 +99,7 @@ export class SpecialUserDetailComponent extends PageBaseComponent implements OnI
             this.specialuser = new SpecialUser();
             super.unblockui('#m_form_1');
         }
-        
+
     }
 
     ngAfterViewInit() {
@@ -131,7 +131,7 @@ export class SpecialUserDetailComponent extends PageBaseComponent implements OnI
         super.blockui('#m_form_1');
 
         this.fillData(true);
-        
+
         this._specialuserService.create<any>(this.specialuser).subscribe(resp => {
             if (resp.is_error == false) {
                 // console.log(resp);
@@ -146,14 +146,14 @@ export class SpecialUserDetailComponent extends PageBaseComponent implements OnI
                 super.unblockui('#m_form_1');
             }
         },
-        error => {
-            alert(error);
-            super.showError(error);
-            super.unblockui('#m_form_1');
-        },
-        () => {
-            super.unblockui('#m_form_1');
-        });
+            error => {
+                alert(error);
+                super.showError(error);
+                super.unblockui('#m_form_1');
+            },
+            () => {
+                super.unblockui('#m_form_1');
+            });
     }
 
     clearForm() {
@@ -166,42 +166,42 @@ export class SpecialUserDetailComponent extends PageBaseComponent implements OnI
     }
 
     navigate_list() {
-        this._router.navigate(['/config/user/' + this.specialuser_type.showname + '/' + this.specialuser_type.showname ]);
+        this._router.navigate(['/config/user/' + this.specialuser_type.showname + '/' + this.specialuser_type.showname]);
     }
 
     searchUser(search) {
-        if(search.length < 2) return;
+        if (search.length < 2) return;
         // console.log("search >>" + search);
         this.showDropDownUser = true;
-        this._adUserService.search(search).subscribe(x=>  {
-         this.userList = x
-       });  
+        this._adUserService.search(search).subscribe(x => {
+            this.userList = x
+        });
     }
 
-    onChangeSearchUser(event){
+    onChangeSearchUser(event) {
         // console.log(event);
         this.txtSearchUserChanged.next(event);
     }
 
     selectUserValue(value) {
         this.specialuser.ad_user = value.ad_user;
-        this.specialuser.ad_username = value.fullname;        
-        
-        this.textSearchUser = value.fullname 
+        this.specialuser.ad_username = value.fullname;
+
+        this.textSearchUser = value.fullname
         this.showDropDownUser = false;
     }
-    
+
     closeDropDown() {
         this.showDropDownUser = false;
     }
 
     isValid() {
-        if ( this.specialuser.ad_user != null && this.specialuser.ad_user != ''
-                && this.specialuser.ad_username != null && this.specialuser.ad_username != '' ) {
+        if (this.specialuser.ad_user != null && this.specialuser.ad_user != ''
+            && this.specialuser.ad_username != null && this.specialuser.ad_username != '') {
             return true;
         } else {
             return false;
         }
     }
-    
+
 }

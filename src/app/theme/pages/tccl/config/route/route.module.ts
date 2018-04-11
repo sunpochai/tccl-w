@@ -23,7 +23,7 @@ import { LetterBoldPipe } from '../../../../../_pipe/letter-bold.pipe';
 import { UserService } from '../../../../../auth/_services/user.service';
 import { ADUserService } from '../../_services/masters/aduser.service';
 import { PipesModule } from '../../../../../_pipe/pipes.module';
- 
+
 
 const routes: Routes = [
     {
@@ -48,16 +48,16 @@ const routes: Routes = [
 ];
 @NgModule({
     imports: [
-        CommonModule, RouterModule.forChild(routes), LayoutModule, HttpModule,ReactiveFormsModule, FormsModule,
+        CommonModule, RouterModule.forChild(routes), LayoutModule, HttpModule, ReactiveFormsModule, FormsModule,
         PipesModule
     ], exports: [
         RouterModule
-    ], declarations: [  
+    ], declarations: [
         RouteApproveListComponent,
-        RouteApproveDetailComponent,ClickOutsideDirective,SearchFilterPipe,LetterBoldPipe
+        RouteApproveDetailComponent, ClickOutsideDirective, SearchFilterPipe, LetterBoldPipe
     ], providers: [
-        RouteApproveService,  
-        DocTypeService,  
+        RouteApproveService,
+        DocTypeService,
         TrackingService,
         ADUserService,
         FormBuilder

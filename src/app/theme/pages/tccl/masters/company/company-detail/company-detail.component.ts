@@ -81,14 +81,14 @@ export class CompanyDetailComponent extends PageBaseComponent implements OnInit,
             super.showsuccess(this.company.comp_code + ' create complete');
             this._router.navigate(['/masters/company/list']);
         },
-        error => {
-            alert(error);
-            super.showError(error);
-            super.unblockui('#m_form_1');
-        },
-        () => {
-            super.unblockui('#m_form_1');
-        });
+            error => {
+                alert(error);
+                super.showError(error);
+                super.unblockui('#m_form_1');
+            },
+            () => {
+                super.unblockui('#m_form_1');
+            });
     }
 
     update() {
@@ -101,13 +101,13 @@ export class CompanyDetailComponent extends PageBaseComponent implements OnInit,
             super.showsuccess(this.company.comp_code + ' update complete');
             this._router.navigate(['/masters/company/list']);
         },
-        error => {
-            super.showError(error);
-            super.unblockui('#m_form_1');
-        },
-        () => {
-            super.unblockui('#m_form_1');
-        });
+            error => {
+                super.showError(error);
+                super.unblockui('#m_form_1');
+            },
+            () => {
+                super.unblockui('#m_form_1');
+            });
     }
 
     navigate_list() {

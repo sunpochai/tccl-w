@@ -68,15 +68,15 @@ export class PlantListComponent extends PageBaseComponent implements OnInit, Aft
             myDatatable.reload();
             super.unblockui('#m-content');
         },
-        error => {
-            super.showError(error);
-            super.unblockui('#m-content');
-            console.log('error');
-        },
-        () => {
-            super.unblockui('#m-content');
-            console.log('done');
-        });
+            error => {
+                super.showError(error);
+                super.unblockui('#m-content');
+                console.log('error');
+            },
+            () => {
+                super.unblockui('#m-content');
+                console.log('done');
+            });
     }
 
     navigate_edit(action_code) {

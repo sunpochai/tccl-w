@@ -20,7 +20,7 @@ declare var window: any
 export class ReviewerListComponent extends PageBaseComponent implements OnInit, AfterViewInit {
     public action_review_id: any;
     public action_sap_code: any;
-    public sap_group: any = [{value:'1', name:'Requisitioner'},{value:'2', name:'Purchasing Group'},{value:'3', name:'User ID'}];
+    public sap_group: any = [{ value: '1', name: 'Requisitioner' }, { value: '2', name: 'Purchasing Group' }, { value: '3', name: 'User ID' }];
 
     constructor(private _router: Router, private route: ActivatedRoute,
         private _script: ScriptLoaderService,
@@ -37,7 +37,7 @@ export class ReviewerListComponent extends PageBaseComponent implements OnInit, 
     }
 
     ngAfterViewInit() {
-        this._script.loadScripts('config-reviewer-list', 
+        this._script.loadScripts('config-reviewer-list',
             ['assets/tccl/config/reviewer/reviewer-list.js']);
 
         this.load();
@@ -73,15 +73,15 @@ export class ReviewerListComponent extends PageBaseComponent implements OnInit, 
                 super.unblockui('#m-content');
             }
         },
-        error => {
-            super.showError(error);
-            super.unblockui('#m-content');
-            console.log('error');
-        },
-        () => {
-            super.unblockui('#m-content');
-            console.log('done');
-        });
+            error => {
+                super.showError(error);
+                super.unblockui('#m-content');
+                console.log('error');
+            },
+            () => {
+                super.unblockui('#m-content');
+                console.log('done');
+            });
     }
 
     navigate_edit(routeId) {

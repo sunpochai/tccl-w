@@ -55,7 +55,7 @@ export class SpecialUserListComponent extends PageBaseComponent implements OnIni
     }
 
     ngAfterViewInit() {
-        this._script.loadScripts('config-specialuser-list', 
+        this._script.loadScripts('config-specialuser-list',
             ['assets/tccl/config/specialuser/specialuser-list.js']);
         console.log(this.api_list);
         this.load(this.api_list);
@@ -92,15 +92,15 @@ export class SpecialUserListComponent extends PageBaseComponent implements OnIni
                 super.unblockui('#m-content');
             }
         },
-        error => {
-            // console.log('error');
-            super.showError(error);
-            super.unblockui('#m-content');
-        },
-        () => {
-            // console.log('done');
-            super.unblockui('#m-content');
-        });
+            error => {
+                // console.log('error');
+                super.showError(error);
+                super.unblockui('#m-content');
+            },
+            () => {
+                // console.log('done');
+                super.unblockui('#m-content');
+            });
     }
 
     navigate_add() {

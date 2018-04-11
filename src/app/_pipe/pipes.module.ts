@@ -6,7 +6,7 @@ import { SortPipe } from './sort';
         SortPipe
     ],
     imports: [
-        
+
     ],
     exports: [
         SortPipe

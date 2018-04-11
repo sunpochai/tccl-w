@@ -1,23 +1,19 @@
 //Service URL
-<<<<<<< HEAD
-export const API_BASE_URL: string = 'http://202.60.207.137/WebRESTApi'
-//export const API_BASE_URL: string = 'http://sunpochai.thddns.net:5555'
-=======
 //export const API_BASE_URL: string = 'http://202.60.207.137/WebRESTApi'
 // export const API_BASE_URL: string = 'http://sunpochai.thddns.net:5555'
-export const API_BASE_URL: string = 'http://192.168.1.99:5555'
->>>>>>> cdab4066d39463cf29ebabe7de7cfd24b093c91e
+export const API_BASE_URL: string = 'http://localhost:65179' 
+//export const API_BASE_URL: string = 'http://192.168.1.99:5555'
 export const API_AUTHEN_TOKEN: string = API_BASE_URL + '/token'
 export const API_AUTHEN_CHECKIN: string = API_BASE_URL + '/api/authen/checkin'
 export const API_AUTHEN_VERIFY: string = API_BASE_URL + '/api/authen/verify'
-
+  
 export const API_COMPANY_GETALL: string = API_BASE_URL + '/api/company/getall' //list all item (use with dropdown)
 export const API_COMPANY_LIST: string = API_BASE_URL + '/api/company/list' //search item (use with search page)
 export const API_COMPANY_GET: string = API_BASE_URL + '/api/company'
 export const API_COMPANY_PUT: string = API_BASE_URL + '/api/company'
 export const API_COMPANY_DEL: string = API_BASE_URL + '/api/company'
 export const API_COMPANY_INSERT: string = API_BASE_URL + '/api/company/insert'
-    
+
 export const API_DOCTYPE_GETALL: string = API_BASE_URL + '/api/doctype/getall' //list all item (use with dropdown)
 export const API_DOCTYPE_LIST: string = API_BASE_URL + '/api/doctype/list' //search item (use with search page)
 export const API_DOCTYPE_GET_PUT_DEL: string = API_BASE_URL + '/api/doctype'
@@ -76,7 +72,7 @@ export const API_PAYMENT_GET: string = API_BASE_URL + '/api/payment'
 
 export const API_ATTACHMENT_GET_DEL: string = API_BASE_URL + '/api/attachment'
 export const API_ATTACHMENT_UPLOAD: string = API_BASE_URL + '/api/attachment/uploadfile'
- 
+
 export const API_USER_LIST: string = API_BASE_URL + '/api/users/list'
 
 //Model status code

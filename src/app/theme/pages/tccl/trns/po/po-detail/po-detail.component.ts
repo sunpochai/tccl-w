@@ -54,27 +54,27 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
     public totalVat: number = 0;
     public totalAmount: number = 0;
     public totalDiscount: number = 0;
-    public attFile :any ;
-    public formData: FormData = new FormData(); 
+    public attFile: any;
+    public formData: FormData = new FormData();
     public fileList: FileList;
     public action_attach_file_id: any;
     public action_file_name: any;
     public action_type: any;
     public action_comment: any;
 
-    public userList : any;
-    public textSearchTrackCode:string;
-    public textSearchUser:string;
+    public userList: any;
+    public textSearchTrackCode: string;
+    public textSearchUser: string;
     public txtAdUserSelected;
     public txtAdUserNameSelected;
-    public txtSearchUserChanged:Subject<string> = new Subject<string>();
+    public txtSearchUserChanged: Subject<string> = new Subject<string>();
     public showDropDownUser = false;
     public user_list: any = [];
 
     public dtSwitch: boolean[] = [];
 
     public myUtil = new StringUtil;
-    
+
     constructor(
         private _script: ScriptLoaderService,
         private _router: Router,
@@ -83,12 +83,12 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
         private _prService: PRService,
         private _attachmentService: AttachmentService,
         private _workflowService: WorkflowService,
-        private _adUserService:ADUserService,
+        private _adUserService: ADUserService,
         private formBuilder: FormBuilder) {
         super();
 
-        this.txtSearchUserChanged.debounceTime(500).distinctUntilChanged().subscribe(md=>{
-            this.textSearchUser  = md;
+        this.txtSearchUserChanged.debounceTime(500).distinctUntilChanged().subscribe(md => {
+            this.textSearchUser = md;
             this.searchUser(md);
         })
     }
@@ -108,12 +108,12 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
                     console.log(resp);
                     super.showError(resp.error_msg);
                     this.fakepo = null;
-                    
+
                     super.unblockui('#m-content');
 
                 } else {
                     this.po = resp.data;
-                    
+
                     if (this.po.worklist != null && this.po.worklist.current_responsible != null) {
                         this.wf_stage_resp_id = this.po.worklist.current_responsible.wf_stage_resp_id;
 
@@ -137,7 +137,7 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
                             let s = row.file_name.split('.');
 
                             if (s.length > 0) {
-                                this.po.po_attachment_items[index].file_extension = s[s.length-1].toLowerCase().toString();
+                                this.po.po_attachment_items[index].file_extension = s[s.length - 1].toLowerCase().toString();
                             }
 
                             index++;
@@ -146,7 +146,7 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
                     }
 
                     for (let item of this.po.po_items) {
-                    // console.log(this.po);
+                        // console.log(this.po);
                         this.totalVat += item.vat;
                         this.totalAmount += item.total_amount;
                         this.totalDiscount += item.discount;
@@ -157,18 +157,18 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
 
                 }
 
-                
-            },
-            error => {
-                super.showError(error);
-                console.log('error');
-                super.unblockui('#m-content');
 
             },
-            () => {
-                super.unblockui('#m-content');
-                // console.log('done');
-            });
+                error => {
+                    super.showError(error);
+                    console.log('error');
+                    super.unblockui('#m-content');
+
+                },
+                () => {
+                    super.unblockui('#m-content');
+                    // console.log('done');
+                });
 
         } else {
             //console.log(this.pr);
@@ -187,12 +187,12 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
 
     fileChange(event) {
         //ebugger;  
-        this.fileList = event.target.files;  
+        this.fileList = event.target.files;
         // console.log(this.fileList);
 
-        if (this.fileList.length > 0) { 
-            this.attFile = []; 
-            
+        if (this.fileList.length > 0) {
+            this.attFile = [];
+
             for (let index = 0; index < this.fileList.length; index++) {
                 let file = this.fileList[index];
 
@@ -201,19 +201,19 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
                 var iFileSize = file.size;
                 // var iConvert = (file.size / 1048576).toFixed(2);
 
-                if ( !( sFileExtension === "pdf"
-                     || sFileExtension === "doc" 
-                     || sFileExtension === "docx" 
-                     || sFileExtension === "xls" 
-                     || sFileExtension === "xlsx" )
-                     || iFileSize > 10485760) {
-                    
+                if (!(sFileExtension === "pdf"
+                    || sFileExtension === "doc"
+                    || sFileExtension === "docx"
+                    || sFileExtension === "xls"
+                    || sFileExtension === "xlsx")
+                    || iFileSize > 10485760) {
+
                     super.showError("Wrong file format (only .pdf, .doc, .docx, .xls, .xlsx allowed) or file size larger than 10MB!");
                     this.attFile = null;
                     this.fileList = null;
                     return;
                 }
-                
+
                 this.attFile.push(file.name);
             }
             // console.log(this.attFile);
@@ -225,41 +225,41 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
     uploadFile() {
         super.blockui('#m-content');
 
-        if (this.fileList.length > 0) { 
-            this.formData.append("doc_group",ROUTE_PO.doc_group);   
-            this.formData.append("doc_id",this.po.po_id.toString());  
-            this.formData.append("create_user",this.getADUserLogin());  
-            this.formData.append("create_username",this.getFullNameUserLogin());
-            
+        if (this.fileList.length > 0) {
+            this.formData.append("doc_group", ROUTE_PO.doc_group);
+            this.formData.append("doc_id", this.po.po_id.toString());
+            this.formData.append("create_user", this.getADUserLogin());
+            this.formData.append("create_username", this.getFullNameUserLogin());
+
             for (let index = 0; index < this.fileList.length; index++) {
                 let file = this.fileList[index];
-                this.formData.append("file_" + index.toString(), file, file.name); 
+                this.formData.append("file_" + index.toString(), file, file.name);
             }
             // console.log(this.attFile);
         } else {
             // this.attFile = null;
         }
 
-        this._attachmentService.upload(this.formData).subscribe(  
+        this._attachmentService.upload(this.formData).subscribe(
             data => {
-                let att  = data;
+                let att = data;
                 // console.log(att);  
                 this.attFile = null;
                 this.formData = new FormData();
                 super.unblockui('#m-content');
                 super.showsuccess('upload complete');
-                this.po.po_attachment_items = this.po.po_attachment_items || [] ;
+                this.po.po_attachment_items = this.po.po_attachment_items || [];
 
                 for (let index = 0; index < att.length; index++) {
                     let s = att[index].file_name.split('.');
 
                     if (s.length > 0) {
-                        att[index].file_extension = s[s.length-1].toLowerCase().toString();
+                        att[index].file_extension = s[s.length - 1].toLowerCase().toString();
                     }
                     this.po.po_attachment_items.push(att[index]);
                 }
                 // console.log(this.po.po_attachment_items);
-            },  
+            },
             error => {
                 super.unblockui('#m-content');
                 super.showError(error);
@@ -271,7 +271,7 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
         this.action_attach_file_id = attachId;
         this.action_file_name = fileName;
     }
-    
+
     removeFile() {
         // alert(attachId + ',' + fileIndex);
         super.blockui('#m-content');
@@ -280,19 +280,19 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
             super.unblockui('#m-content');
             super.showsuccess('Remove file complete');
             //todo:: refresh file list
-            this.po.po_attachment_items.forEach( (item, index) => {
-                if(item.attach_id === this.action_attach_file_id) this.po.po_attachment_items.splice(index,1);
-            });  
+            this.po.po_attachment_items.forEach((item, index) => {
+                if (item.attach_id === this.action_attach_file_id) this.po.po_attachment_items.splice(index, 1);
+            });
         },
-        error => {
-            super.showError(error);
-            console.log('error');
-            super.unblockui('#m-content');  
-        },
-        () => {
-            super.unblockui('#m-content');
-            // console.log('done');
-        });
+            error => {
+                super.showError(error);
+                console.log('error');
+                super.unblockui('#m-content');
+            },
+            () => {
+                super.unblockui('#m-content');
+                // console.log('done');
+            });
         super.unblockui('#m-content');
     }
 
@@ -546,16 +546,16 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
     }
 
     searchUser(search) {
-        if(search.length < 2) return;
+        if (search.length < 2) return;
         // console.log("search >>" + search);
         this.showDropDownUser = true;
-        this._adUserService.search(search).subscribe(x=>  {
+        this._adUserService.search(search).subscribe(x => {
             this.userList = x
             // console.log(x);
-        });  
+        });
     }
 
-    onChangeSearchUser(event){
+    onChangeSearchUser(event) {
         // console.log(event);
         this.txtSearchUserChanged.next(event);
     }
@@ -565,8 +565,10 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
         this.txtAdUserSelected = value.ad_user;
         this.txtAdUserNameSelected = value.fullname;
 
-        var user = {ad_user: value.ad_user,
-                    ad_username: value.fullname} ;
+        var user = {            
+ad_user: value.ad_user,
+            ad_username: value.fullname
+        };
         this.user_list.push(user);
 
         this.showDropDownUser = false;
@@ -574,9 +576,9 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
     }
 
     removeUser(index: number) {
-        this.user_list.splice(index,1);
+        this.user_list.splice(index, 1);
     }
-    
+
     closeDropDown() {
         // console.log('closedropdown');
         this.showDropDownUser = false;
@@ -597,14 +599,14 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
 
     getStatusDisplayClass(pStatus: string): string {
         switch (pStatus.toLowerCase()) {
-            case ACTION_NAME.pending.toLowerCase(): 
+            case ACTION_NAME.pending.toLowerCase():
                 return 'm-badge m-badge--warning m-badge--fullwidth';
-            case ACTION_NAME.reviewed.toLowerCase(): 
+            case ACTION_NAME.reviewed.toLowerCase():
                 return 'm-badge m-badge--info m-badge--fullwidth';
-            case ACTION_NAME.approved.toLowerCase(): 
+            case ACTION_NAME.approved.toLowerCase():
                 return 'm-badge m-badge--success m-badge--fullwidth';
             case ACTION_NAME.rejected.toLowerCase():
-            case ACTION_NAME.cancelled.toLowerCase(): 
+            case ACTION_NAME.cancelled.toLowerCase():
                 return 'm-badge m-badge--danger m-badge--fullwidth';
             case ACTION_NAME.waiting.toLowerCase():
             case ACTION_NAME.commented.toLowerCase():
@@ -616,15 +618,15 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
     }
 
     getDisplayTR(pDescription): string {
-        if (pDescription==null || pDescription=='') {
+        if (pDescription == null || pDescription == '') {
             return 'table-display-lastrow';
         } else {
             return '';/* no display class */
         }
     }
 
-    getDisplayTRHead(pDescription,pStageLogsList): string {
-        if (pStageLogsList!=null && pStageLogsList.length > 1) {
+    getDisplayTRHead(pDescription, pStageLogsList): string {
+        if (pStageLogsList != null && pStageLogsList.length > 1) {
             return this.getDisplayTR('') + ' m--font-boldest';
         } else {
             return this.getDisplayTR(pDescription) + ' m--font-boldest';
@@ -656,9 +658,9 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
         this.setInitial(index);
 
         if (this.po.worklist.stage_list[index].stage_logs_list.length > 1) {
-            return this.dtSwitch[index] ? 'fa fa-minus' : 'fa fa-plus' ;
+            return this.dtSwitch[index] ? 'fa fa-minus' : 'fa fa-plus';
         } else {
-            return '' ;
+            return '';
         }
     }
 
@@ -689,21 +691,21 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
                 super.unblockui('#m_modal_item_detail');
             }
         },
-        error => {
-            super.showError(error);
-            console.log(error);
-            super.unblockui('#m_modal_item_detail');
+            error => {
+                super.showError(error);
+                console.log(error);
+                super.unblockui('#m_modal_item_detail');
 
-        },
-        () => {
-            super.unblockui('#m_modal_item_detail');
-            // console.log('done');
-        });
+            },
+            () => {
+                super.unblockui('#m_modal_item_detail');
+                // console.log('done');
+            });
 
     }
 
     getFakePRItem() {
-        var pritem : PRItem = new PRItem;
+        var pritem: PRItem = new PRItem;
         pritem.budget_check = "B";
         pritem.account_no = "0121999000";
         pritem.account_name = "Fixed Assets Dummy";
@@ -712,7 +714,7 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
         pritem.budget_commit = 149895;
         pritem.budget_actual = 110240;
         pritem.budget_remaining = 37765;
-        
+
         return pritem;
     }
 
@@ -720,8 +722,8 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
         return StringUtil.formatSAPItemNo(in_sap_item_no);
     }
 
-    lefttrim(s,c) {
-        return StringUtil.lefttrim(s,c);
+    lefttrim(s, c) {
+        return StringUtil.lefttrim(s, c);
     }
 
 }

@@ -15,7 +15,7 @@ export class TokenBaseService {
         if (currentUser && currentUser.token) {
 
             return currentUser.token;
-  
+
         }
     }
     protected jwt() {

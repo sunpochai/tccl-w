@@ -14,7 +14,7 @@ export class AuthGuard implements CanActivate {
         var profile: User = JSON.parse(localStorage.getItem('currentUser'));
 
         if (profile && profile.token && profile.fullname) {
-            return true;    
+            return true;
         } else {
             this._router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
             false;

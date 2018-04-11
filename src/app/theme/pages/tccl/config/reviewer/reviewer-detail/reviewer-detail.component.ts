@@ -19,9 +19,9 @@ import { UserService } from '../../../../../../auth/_services';
 import { ADUserService } from '../../../_services/masters/aduser.service';
 import { Subject } from 'rxjs';
 
- 
 
-@Component({ 
+
+@Component({
     selector: "config-reviewer-detail",
     templateUrl: "./reviewer-detail.component.html",
     styleUrls: ["./reviewer-detail.component.css"]
@@ -33,12 +33,12 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
     public reviewer: Reviewer;
     public id: any;
 
-    public userList : any;
-    public textSearchUser:string;
-    public txtSearchUserChanged:Subject<string> = new Subject<string>();
-    
+    public userList: any;
+    public textSearchUser: string;
+    public txtSearchUserChanged: Subject<string> = new Subject<string>();
+
     public showDropDownUser = false;
-    public input_sap_group : string;
+    public input_sap_group: string;
 
 
     constructor(private _script: ScriptLoaderService,
@@ -48,8 +48,8 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
         private formBuilder: FormBuilder) {
         super();
 
-        this.txtSearchUserChanged.debounceTime(500).distinctUntilChanged().subscribe(md=>{
-            this.textSearchUser  = md;
+        this.txtSearchUserChanged.debounceTime(500).distinctUntilChanged().subscribe(md => {
+            this.textSearchUser = md;
             this.searchUser(md);
         })
     }
@@ -70,9 +70,9 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
         if (this.id != null && this.id != '0') {
             this._reviewerService.get<Reviewer>(this.id).subscribe(data => {
                 this.reviewer = data;
-                this.input_sap_group = this.reviewer.sap_group+'';
+                this.input_sap_group = this.reviewer.sap_group + '';
                 this.textSearchUser = this.reviewer.ad_username;
-                
+
                 // console.log(this.reviewer);
                 // console.log(this.routetype);
                 super.unblockui('#m_form_1');
@@ -82,7 +82,7 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
             // console.log(this.routeapprove);
             super.unblockui('#m_form_1');
         }
-        
+
     }
 
     ngAfterViewInit() {
@@ -123,7 +123,7 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
         this.reviewer.update_username = super.getFullNameUserLogin();
         this.reviewer.update_datetime = this.reviewer.create_datetime; */
         this.fillData(true);
-        
+
         this._reviewerService.create<any>(this.reviewer).subscribe(resp => {
             if (resp.is_error == false) {
                 // console.log(resp);
@@ -136,14 +136,14 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
                 super.unblockui('#m_form_1');
             }
         },
-        error => {
-            alert(error);
-            super.showError(error);
-            super.unblockui('#m_form_1');
-        },
-        () => {
-            super.unblockui('#m_form_1');
-        });
+            error => {
+                alert(error);
+                super.showError(error);
+                super.unblockui('#m_form_1');
+            },
+            () => {
+                super.unblockui('#m_form_1');
+            });
     }
 
     update() {
@@ -166,13 +166,13 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
                 super.unblockui('#m_form_1');
             }
         },
-        error => {
-            super.showError(error);
-            super.unblockui('#m_form_1');
-        },
-        () => {
-            super.unblockui('#m_form_1');
-        });
+            error => {
+                super.showError(error);
+                super.unblockui('#m_form_1');
+            },
+            () => {
+                super.unblockui('#m_form_1');
+            });
     }
 
 
@@ -182,33 +182,33 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
 
 
     searchUser(search) {
-        if(search.length < 2) return;
+        if (search.length < 2) return;
         // console.log("search >>" + search);
         this.showDropDownUser = true;
-        this._adUserService.search(search).subscribe(x=>  {
-         this.userList = x
-       });  
+        this._adUserService.search(search).subscribe(x => {
+            this.userList = x
+        });
     }
 
-    onChangeSearchUser(event){
+    onChangeSearchUser(event) {
         // console.log(event);
         this.txtSearchUserChanged.next(event);
     }
 
     selectUserValue(value) {
         this.reviewer.ad_user = value.ad_user;
-        this.reviewer.ad_username = value.fullname;        
-        
-        this.textSearchUser = value.fullname 
+        this.reviewer.ad_username = value.fullname;
+
+        this.textSearchUser = value.fullname
         this.showDropDownUser = false;
     }
-    
+
     closeDropDown() {
         this.showDropDownUser = false;
     }
 
     isValid() {
-        if (this.input_sap_group != null 
+        if (this.input_sap_group != null
             && this.reviewer.ad_user != null && this.reviewer.ad_user != ''
             && this.reviewer.ad_username != null && this.reviewer.ad_username != ''
         ) {
@@ -217,5 +217,5 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
             return false;
         }
     }
-    
+
 }

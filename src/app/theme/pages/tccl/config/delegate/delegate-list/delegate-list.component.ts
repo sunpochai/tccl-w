@@ -53,8 +53,8 @@ export class DelegateListComponent extends PageBaseComponent implements OnInit, 
         this._router.navigate(['/config/delegate/detail/0']);
     }
 
-    prepare_del(delegateId,adUser) {
-        console.log('prepare_del: '+delegateId+','+adUser);
+    prepare_del(delegateId, adUser) {
+        console.log('prepare_del: ' + delegateId + ',' + adUser);
         this.action_delegate_id = delegateId;
         this.action_ad_user = adUser;
     }
@@ -73,15 +73,15 @@ export class DelegateListComponent extends PageBaseComponent implements OnInit, 
                 super.unblockui('#m-content');
             }
         },
-        error => {
-            super.showError(error);
-            super.unblockui('#m-content');
-            console.log('error');
-        },
-        () => {
-            super.unblockui('#m-content');
-            console.log('done');
-        });
+            error => {
+                super.showError(error);
+                super.unblockui('#m-content');
+                console.log('error');
+            },
+            () => {
+                super.unblockui('#m-content');
+                console.log('done');
+            });
     }
 
     navigate_edit(delegateId) {
@@ -98,12 +98,12 @@ export class DelegateListComponent extends PageBaseComponent implements OnInit, 
 
     search() {
         super.blockui('#m-content');
-        
+
         var dd_from = $('#m_form_date_from').val().toString().split('/');
         var dd_to = $('#m_form_date_to').val().toString().split('/');
 
-        var date_from = new Date(parseInt(dd_from[2]),parseInt(dd_from[1]),parseInt(dd_from[0]));
-        var date_to = new Date(parseInt(dd_to[2]),parseInt(dd_to[1]),parseInt(dd_to[0]));
+        var date_from = new Date(parseInt(dd_from[2]), parseInt(dd_from[1]), parseInt(dd_from[0]));
+        var date_to = new Date(parseInt(dd_to[2]), parseInt(dd_to[1]), parseInt(dd_to[0]));
 
         // console.log(date_from.getTime());
         // console.log(date_to.getTime());

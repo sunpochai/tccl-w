@@ -7,7 +7,7 @@ import { Tracking } from '../../../_models/masters/tracking';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Company } from '../../../_models/masters/company';
 import {
-    FormGroup,  
+    FormGroup,
     FormBuilder,
     Validators,
     FormControl
@@ -23,10 +23,10 @@ import { Delegate } from '../../../_models/config/delegate';
 import { DelegateDetail } from '../../../_models/config/delegatedetail';
 import { StringUtil } from '../../../../../../Util/stringutil';
 import { DateUtil } from '../../../../../../Util/dateutil';
- 
+
 declare var myData: any;
 
-@Component({ 
+@Component({
     selector: "config-delegate-detail",
     templateUrl: "./delegate-detail.component.html",
     styleUrls: ["./delegate-detail.component.css"]
@@ -43,40 +43,40 @@ export class DelegateDetailComponent extends PageBaseComponent implements OnInit
     public action_type: any;
     public action_index: number;
 
-    public userList : any;
+    public userList: any;
     public txtAdUserSelected;
     public txtAdUserNameSelected;
-    public textSearchUser:string;
-    public txtSearchUserChanged:Subject<string> = new Subject<string>();    
+    public textSearchUser: string;
+    public txtSearchUserChanged: Subject<string> = new Subject<string>();
     public showDropDownUser = false;
 
-    public ownerList : any;
+    public ownerList: any;
     public txtOwnerSelected;
     public txtOwnerNameSelected;
-    public textSearchOwner:string;
-    public txtSearchOwnerChanged:Subject<string> = new Subject<string>();    
+    public textSearchOwner: string;
+    public txtSearchOwnerChanged: Subject<string> = new Subject<string>();
     public showDropDownOwner = false;
-    
+
     constructor(private _script: ScriptLoaderService,
         private _router: Router, private route: ActivatedRoute,
         private _delegateService: DelegateService,
         private formBuilder: FormBuilder,
-        private _adUserService:ADUserService) {
+        private _adUserService: ADUserService) {
         super();
-       
-        this.txtSearchUserChanged.debounceTime(500).distinctUntilChanged().subscribe(md=>{
-                this.textSearchUser  = md;
-                this.searchUser(md);
+
+        this.txtSearchUserChanged.debounceTime(500).distinctUntilChanged().subscribe(md => {
+            this.textSearchUser = md;
+            this.searchUser(md);
         })
-       
-        this.txtSearchOwnerChanged.debounceTime(500).distinctUntilChanged().subscribe(md=>{
-            this.textSearchOwner  = md;
+
+        this.txtSearchOwnerChanged.debounceTime(500).distinctUntilChanged().subscribe(md => {
+            this.textSearchOwner = md;
             this.searchOwner(md);
         })
 
     }
 
-   
+
     ngOnInit() {
         // console.log('ngOnInit');
         super.blockui('#m_form_1');
@@ -91,7 +91,7 @@ export class DelegateDetailComponent extends PageBaseComponent implements OnInit
                     if (resp.is_error) {
                         console.log(resp);
                         super.showError(resp.error_msg);
-                        
+
                         super.unblockui('#m_form_1');
                     } else {
                         this.delegate = resp.data;
@@ -102,19 +102,19 @@ export class DelegateDetailComponent extends PageBaseComponent implements OnInit
 
                         this.start_date = DateUtil.toDisplayDate(this.delegate.start_date);
                         this.end_date = DateUtil.toDisplayDate(this.delegate.end_date);
-        
+
                         super.unblockui('#m_form_1');
                     }
                 },
-                error => {
-                    super.showError(error);
-                    // console.log('error');
-                    super.unblockui('#m_form_1');
-                },
-                () => {
-                    super.unblockui('#m_form_1');
-                    // console.log('done');
-                });
+                    error => {
+                        super.showError(error);
+                        // console.log('error');
+                        super.unblockui('#m_form_1');
+                    },
+                    () => {
+                        super.unblockui('#m_form_1');
+                        // console.log('done');
+                    });
             } else {
                 this.delegate = new Delegate();
 
@@ -193,8 +193,8 @@ export class DelegateDetailComponent extends PageBaseComponent implements OnInit
         if (isCreate) {
             this.delegate.create_user = this.delegate.update_user;
             this.delegate.create_username = this.delegate.update_username;
-            this.delegate.create_datetime = this.delegate.update_datetime;    
-        }        
+            this.delegate.create_datetime = this.delegate.update_datetime;
+        }
     }
 
     create() {
@@ -216,14 +216,14 @@ export class DelegateDetailComponent extends PageBaseComponent implements OnInit
                 super.unblockui('#m_form_1');
             }
         },
-        error => {
-            // alert(error);
-            super.showError(error);
-            super.unblockui('#m_form_1');
-        },
-        () => {
-            super.unblockui('#m_form_1');
-        });
+            error => {
+                // alert(error);
+                super.showError(error);
+                super.unblockui('#m_form_1');
+            },
+            () => {
+                super.unblockui('#m_form_1');
+            });
     }
 
     update() {
@@ -243,13 +243,13 @@ export class DelegateDetailComponent extends PageBaseComponent implements OnInit
                 super.unblockui('#m_form_1');
             }
         },
-        error => {
-            super.showError(error);
-            super.unblockui('#m_form_1');
-        },
-        () => {
-            super.unblockui('#m_form_1');
-        });
+            error => {
+                super.showError(error);
+                super.unblockui('#m_form_1');
+            },
+            () => {
+                super.unblockui('#m_form_1');
+            });
     }
 
     prepareAddDelegates() {
@@ -283,7 +283,7 @@ export class DelegateDetailComponent extends PageBaseComponent implements OnInit
         } else {
 
             for (let row of this.delegate.cf_delegate_users) {
-                if (row.delegate_ad_user == this.txtAdUserSelected)  {
+                if (row.delegate_ad_user == this.txtAdUserSelected) {
                     super.showError('Duplicate approver name');
                     return;
                 }
@@ -293,7 +293,7 @@ export class DelegateDetailComponent extends PageBaseComponent implements OnInit
         let delegates: DelegateDetail = new DelegateDetail;
         delegates.delegate_id = this.delegate.delegate_id;
         delegates.delegate_d_id = null;
-        
+
         delegates.delegate_ad_user = this.txtAdUserSelected;
         delegates.delegate_ad_username = this.txtAdUserNameSelected;
 
@@ -330,61 +330,61 @@ export class DelegateDetailComponent extends PageBaseComponent implements OnInit
     navigate_list() {
         this._router.navigate(['/config/delegate/list/']);
     }
-   
+
     searchOwner(search) {
-        if(search.length < 2) return;
+        if (search.length < 2) return;
         // console.log("search >>" + search);
         this.showDropDownOwner = true;
-        this._adUserService.search(search).subscribe(x=>  {
-         this.ownerList = x
-       });
+        this._adUserService.search(search).subscribe(x => {
+            this.ownerList = x
+        });
     }
 
-    onChangeSearchOwner(event){
+    onChangeSearchOwner(event) {
         // console.log(event);
         this.txtSearchOwnerChanged.next(event);
     }
 
     selectOwnerValue(value) {
-        this.textSearchOwner = value.fullname 
+        this.textSearchOwner = value.fullname
         this.txtOwnerSelected = value.ad_user;
         this.txtOwnerNameSelected = value.fullname;
 
         this.delegate.ad_user = this.txtOwnerSelected;
         this.delegate.ad_username = this.txtOwnerNameSelected;
-        
+
         this.showDropDownOwner = false;
     }
-    
+
     closeDropDownOwner() {
         this.showDropDownOwner = false;
-    }    
-
-    searchUser(search) {
-        if(search.length < 2) return;
-        // console.log("search >>" + search);
-        this.showDropDownUser = true;
-        this._adUserService.search(search).subscribe(x=>  {
-         this.userList = x
-       });  
     }
 
-    onChangeSearchUser(event){
+    searchUser(search) {
+        if (search.length < 2) return;
+        // console.log("search >>" + search);
+        this.showDropDownUser = true;
+        this._adUserService.search(search).subscribe(x => {
+            this.userList = x
+        });
+    }
+
+    onChangeSearchUser(event) {
         // console.log(event);
         this.txtSearchUserChanged.next(event);
     }
 
     selectUserValue(value) {
-        this.textSearchUser = value.fullname 
+        this.textSearchUser = value.fullname
         this.txtAdUserSelected = value.ad_user;
         this.txtAdUserNameSelected = value.fullname;
         this.showDropDownUser = false;
     }
-    
+
     closeDropDown() {
         /* this.showDropDownTracking = false; */
         this.showDropDownUser = false;
-    }    
+    }
 
     onChangeStartDate(event) {
         console.log(event);

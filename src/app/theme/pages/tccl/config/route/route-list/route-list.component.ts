@@ -44,8 +44,8 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
             this.doctypeList = data;
             // console.log(data);
         });
-console.log('ngOnInit');
-console.log(this.route);
+        console.log('ngOnInit');
+        console.log(this.route);
         this.route.params.subscribe(params => {
             console.log(params['routetype']);
             //routetype: string ('pr','po','pa')
@@ -71,7 +71,7 @@ console.log(this.route);
 
     ngAfterViewInit() {
         this._script.loadScripts('config-route-list', [this.scriptpath]);
-console.log('ngAfterViewInit');
+        console.log('ngAfterViewInit');
         this.load(this.api_list, this.routetype.doc_group);
     }
 
@@ -107,15 +107,15 @@ console.log('ngAfterViewInit');
                 super.unblockui('#m-content');
             }
         },
-        error => {
-            super.showError(error);
-            super.unblockui('#m-content');
-            console.log('error');
-        },
-        () => {
-            super.unblockui('#m-content');
-            console.log('done');
-        });
+            error => {
+                super.showError(error);
+                super.unblockui('#m-content');
+                console.log('error');
+            },
+            () => {
+                super.unblockui('#m-content');
+                console.log('done');
+            });
     }
 
     navigate_edit(routeId) {

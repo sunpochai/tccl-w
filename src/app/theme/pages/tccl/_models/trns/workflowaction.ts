@@ -7,5 +7,5 @@ export class WorkflowAction {
     actor_username: string;
     outcome: string;
     outcome_description: string;
-    user_list : Array<ADUser>;
+    user_list: Array<ADUser>;
 }
