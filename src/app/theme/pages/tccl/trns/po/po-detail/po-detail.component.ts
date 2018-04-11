@@ -28,6 +28,7 @@ import { Subject } from 'rxjs';
 import { PRService } from '../../../_services/trns/pr.service';
 import { PRItem } from '../../../_models/trns/pritem';
 import { StringUtil } from '../../../../../../Util/stringutil';
+import { DateUtil } from '../../../../../../Util/dateutil';
 
 @Component({
     selector: "trns-po-detail",
@@ -72,6 +73,7 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
     public user_list: any = [];
 
     public dtSwitch: boolean[] = [];
+    public showPurchasingHistory: boolean = false;
 
     public myUtil = new StringUtil;
 
@@ -718,12 +720,24 @@ ad_user: value.ad_user,
         return pritem;
     }
 
+    togglePurchasingHistory() {
+        this.showPurchasingHistory = !this.showPurchasingHistory;
+    }
+
+    getPHSwitchCaption() {
+        return (this.showPurchasingHistory)?'Collapse':'Expand';
+    }
+
     formatSAPItemNo(in_sap_item_no) {
         return StringUtil.formatSAPItemNo(in_sap_item_no);
     }
 
     lefttrim(s, c) {
         return StringUtil.lefttrim(s, c);
+    }
+
+    toDisplayDateString(s: string) {
+        return DateUtil.toDisplayDateString(s);
     }
 
 }

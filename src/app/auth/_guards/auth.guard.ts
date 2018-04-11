@@ -12,17 +12,17 @@ export class AuthGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
         var profile: User = JSON.parse(localStorage.getItem('currentUser'));
+  
+if(profile==null){
 
-        if (profile && profile.token && profile.fullname) {
-            return true;
-        } else {
-            this._router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
-            false;
-        }
-        /*  return this._userService.verify()
+    this._router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+    return false;
+}
+
+           return this._userService.verify()
        .map(
            data => {
-               alert('ddd')
+            
                if (data !== null) { 
                    // logged in so return true
                    return true;
@@ -31,12 +31,12 @@ export class AuthGuard implements CanActivate {
                this._router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
                return false;
            },
-           error => {
-              alert('ssss')
+           error => {    
                // error when verify so redirect to login page with the return url
-               this._router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+                localStorage.removeItem('currentUser');
                return false;
-           }); */
+           }); 
 
+           
     }
 }

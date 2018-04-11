@@ -48,4 +48,24 @@ export class DateUtil {
 
         return [DateUtil.toDisplayDate(in_date), mydisplaytime.join(':')].join(' ');
     }
+
+    /** Input: string yyyy-MM-dd
+     *  Output: dd/mm/yyyy
+     *  Weeraya 10/04/2018
+     */
+    public static toDisplayDateString(in_date: string) {
+        var mydate = (in_date+'').split('-');
+
+        if (mydate.length < 3) {
+            return in_date;
+        }
+
+        var mydisplaydate = [];
+        mydisplaydate[0] = mydate[2];
+        mydisplaydate[1] = mydate[1];
+        mydisplaydate[2] = mydate[0];
+
+        return mydisplaydate.join('/');
+    }
+
 }
