@@ -64,7 +64,7 @@ export class OutboundListComponent extends PageBaseComponent implements OnInit, 
 
     search() {
         super.blockui('#m-content');
-/* 
+
         var dd_from = $('#m_form_date_from').val().toString().split('/');
         var dd_to = $('#m_form_date_to').val().toString().split('/');
 
@@ -76,7 +76,7 @@ export class OutboundListComponent extends PageBaseComponent implements OnInit, 
             super.unblockui('#m-content');
             return;
         }
- */
+
         myDatatable.search();
         super.unblockui('#m-content');
     }

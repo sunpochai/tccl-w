@@ -187,10 +187,11 @@ var myDatatable = function( ) {
   var search = function()  {
     var query = datatable.getDataSourceQuery();
     
+    query.upload_status = $('#m_form_status').val();
     query.doc_group = $('#m_form_doc_group').val();
-    query.upload_status = $('#m_form_upload_status').val();
     query.pr_date_from = toInternalDate($('#m_form_date_from').val());
     query.pr_date_to = toInternalDate($('#m_form_date_to').val());
+    query.generalSearch = $('#m_form_general_search').val();
 
     datatable.setDataSourceQuery(query);
     datatable.load();
