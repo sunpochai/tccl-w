@@ -7,7 +7,7 @@ declare var myBundle: any;
 
 export class PageBaseComponent {
 
-    protected currentUser: User
+    public currentUser: User
 
 
     constructor() {

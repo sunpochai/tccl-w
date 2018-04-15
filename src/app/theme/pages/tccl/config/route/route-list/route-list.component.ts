@@ -20,12 +20,12 @@ declare var window: any
     encapsulation: ViewEncapsulation.None,
 })
 export class RouteApproveListComponent extends PageBaseComponent implements OnInit, AfterViewInit {
-    private routetype: any;
-    private api_list: string;
-    private scriptpath: string;
-    private doctypeList: Array<DocType>;
-    private action_route_id: string;
-    private action_route_name: string;
+    public routetype: any;
+    public api_list: string;
+    public scriptpath: string;
+    public doctypeList: Array<DocType>;
+    public action_route_id: string;
+    public action_route_name: string;
     constructor(private _router: Router, private route: ActivatedRoute,
         private _script: ScriptLoaderService,
         private _routeapproveService: RouteApproveService,

@@ -8,7 +8,8 @@ var myDatatable = function( ) {
   var load = function(apiurl,callback)  {
     
     datatable = $('.m_datatable').mDatatable({
-      // datasource definition
+     
+      // datasource definition 
       data: {  
         saveState:false,
         type: 'remote',
@@ -230,7 +231,7 @@ var myDatatable = function( ) {
   var initial = function(apiurl)  {
     load(apiurl, function() {
       // alert('bf search')
-      search();
+     search();
     });
 
   };
