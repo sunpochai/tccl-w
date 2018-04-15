@@ -18,25 +18,27 @@ export class AuthGuard implements CanActivate {
             this._router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
             return false;
         }
-        return true;
+      
 
-    //        return this._userService.verify()
-    //    .map(
-    //        data => {
+           return this._userService.verify()
+       .map(
+           data => {
             
-    //            if (data !== null) { 
-    //                // logged in so return true
-    //                return true;
-    //            }
-    //            // error when verify so redirect to login page with the return url
-    //            this._router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
-    //            return true;
-    //        },
-    //        error => {    
-    //            // error when verify so redirect to login page with the return url
-    //             localStorage.removeItem('currentUser');
-    //            return false;
-    //        }); 
+               if (data !== null) { 
+                   // logged in so return true
+                   return true;
+               }else{
+               // error when verify so redirect to login page with the return url
+               localStorage.removeItem('currentUser');  
+               this._router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
+               return true;
+               }
+           },
+           error => {    
+               // error when verify so redirect to login page with the return url
+                localStorage.removeItem('currentUser');
+               return false;
+           }); 
  
            
     }
