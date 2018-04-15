@@ -56,13 +56,13 @@
 						PO No.:
 					</label>
 					<div class="col-lg-4 col-sm-8" >
-						<input type="text" maxlength="20" class="form-control m-input" id="m_form_po_no">
+						<input type="text" maxlength="20" class="form-control m-input" [(ngModel)]="m_form_po_no" id="m_form_po_no" name="m_form_po_no">
 					</div>
 					<label class="col-lg-2 col-sm-4 col-form-label">
 						Doc Type:
 					</label>
 					<div class="col-lg-4 col-sm-8 ">
-						<select class="form-control m-input" id="m_form_doc_type">
+						<select class="form-control m-input" [(ngModel)]="m_form_doc_type" id="m_form_doc_type" name="m_form_doc_type">
 							<option value="">
 								All
 							</option>
@@ -80,7 +80,7 @@
 					</label>
 					<div class="col-lg-4 col-sm-8">
 						<div class='input-group'>
-							<input type='text' class="form-control m-input" name="m_form_date_from" id='m_form_date_from'/>
+							<input type='text' class="form-control m-input" [(ngModel)]="dateFrom" name="m_form_date_from" id='m_form_date_from'/>
 							<div class="input-group-append">
 								<span class="input-group-text">
 									<i class="la la-calendar-check-o"></i>
@@ -93,7 +93,7 @@
 					</label>
 					<div class="col-lg-4 col-sm-8">
 						<div class='input-group'>
-							<input type='text' class="form-control m-input" name="m_form_date_to" id='m_form_date_to'/>
+							<input type='text' class="form-control m-input" [(ngModel)]="dateTo" name="m_form_date_to" id='m_form_date_to'/>
 							<div class="input-group-append">
 								<span class="input-group-text">
 									<i class="la la-calendar-check-o"></i>
@@ -107,30 +107,52 @@
 						Company:
 					</label>
 					<div class="col-lg-4 col-sm-8">
-						<input type="text" maxlength="50" class="form-control m-input" id="m_form_company">
+						<input type="text" maxlength="50" class="form-control m-input" [(ngModel)]="m_form_company" id="m_form_company" name="m_form_company">
 					</div>
 					<label class="col-lg-2 col-sm-4 col-form-label">
 						Plant:
 					</label>
 					<div class="col-lg-4 col-sm-8">
-						<input type="text" maxlength="50" class="form-control m-input" id="m_form_plant">
+						<input type="text" maxlength="50" class="form-control m-input" [(ngModel)]="m_form_plant" id="m_form_plant" name="m_form_plant">
 					</div>
 				</div>
 				<div class="form-group m-form__group row">
 					<label class="col-lg-2 col-sm-4 col-form-label">
 						Status:
 					</label>
-					<div class="col-lg-4 col-sm-8">
-						<select class="form-control m-input" id="m_form_status">
-							<option value="">
+					<div class="col-lg-10 col-sm-8">
+						<div class="m-checkbox-inline">
+							<label class="m-checkbox">
+								<input type="checkbox" id="chkStatusAll" name="chkStatusAll" [(ngModel)]="chkStatusAll" (ngModelChange)="toggleStatusAll()"  >
 								All
-							</option>
-							<ng-container *ngFor="let row of docStatus; let index = index" >
-								<option value="{{row.code}}" *ngIf="row.active">
-									{{row.name}}
-								</option>
-							</ng-container>
-						</select>
+								<span></span>
+							</label>
+							<label class="m-checkbox">
+								<input type="checkbox" id="chkStatusWaitReview" name="chkStatusWaitReview" [(ngModel)]="chkStatusWaitReview"  >
+								Wait Review
+								<span></span>
+							</label>
+							<label class="m-checkbox">
+								<input type="checkbox" id="chkStatusWaitApprove" name="chkStatusWaitApprove" [(ngModel)]="chkStatusWaitApprove"  >
+								Wait Approve
+								<span></span>
+							</label>
+							<label class="m-checkbox">
+								<input type="checkbox" id="chkStatusApproved" name="chkStatusApproved" [(ngModel)]="chkStatusApproved"  >
+								Approved
+								<span></span>
+							</label>
+							<label class="m-checkbox">
+								<input type="checkbox" id="chkStatusRejected" name="chkStatusRejected" [(ngModel)]="chkStatusRejected"  >
+								Rejected
+								<span></span>
+							</label>
+							<label class="m-checkbox">
+								<input type="checkbox" id="chkStatusCancelled" name="chkStatusCancelled" [(ngModel)]="chkStatusCancelled"  >
+								Cancelled
+								<span></span>
+							</label>
+						</div>
 					</div>
 				</div>
 				<div class="form-group m-form__group row">
@@ -139,7 +161,7 @@
 							<i class="fa fa-search"></i>
 							Search
 						</button>
-						<button type="reset" class="btn btn-metal">
+						<button type="button" class="btn btn-metal" (click)="clearForm()">
 							<i class="fa fa-refresh"></i>
 							Clear
 						</button>

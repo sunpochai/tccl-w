@@ -735,7 +735,7 @@
 									<th style="vertical-align: top;">Budget</th>
 									<td>
 										<span *ngIf="currentItem.pr_item != null">
-											{{currentItem.pr_item.budget_amount}}
+											{{currentItem.pr_item.budget_amount | number:'1.2'}}
 										</span>
 									</td>
 								</tr>
@@ -743,7 +743,7 @@
 									<th style="vertical-align: top;">Commit</th>
 									<td>
 										<span *ngIf="currentItem.pr_item != null">
-											{{currentItem.pr_item.budget_commit}}
+											{{currentItem.pr_item.budget_commit | number:'1.2'}}
 										</span>
 									</td>
 								</tr>
@@ -751,7 +751,7 @@
 									<th style="vertical-align: top;">Actual</th>
 									<td>
 										<span *ngIf="currentItem.pr_item != null">
-											{{currentItem.pr_item.budget_actual}}
+											{{currentItem.pr_item.budget_actual | number:'1.2'}}
 										</span>
 									</td>
 								</tr>
@@ -759,7 +759,7 @@
 									<th style="vertical-align: top;">Remaining</th>
 									<td>
 										<span *ngIf="currentItem.pr_item != null">
-											{{currentItem.pr_item.budget_remaining}}
+											{{currentItem.pr_item.budget_remaining | number:'1.2'}}
 										</span>
 									</td>
 								</tr>

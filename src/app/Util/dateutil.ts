@@ -68,4 +68,26 @@ export class DateUtil {
         return mydisplaydate.join('/');
     }
 
+    /** Input: -
+     *  Output: date
+     *  Weeraya 12/04/2018
+     */
+    public static getCurrentMonthFirstDate() {
+        var d = new Date();
+        var mydate = new Date(d.getFullYear(),d.getMonth(),1);
+        console.log(mydate);
+        return mydate;
+    }
+
+    /** Input: -
+     *  Output: date
+     *  Weeraya 12/04/2018
+     */
+    public static getCurrentMonthLastDate() {
+        var d = new Date();
+        var mydate = new Date(d.getFullYear(),d.getMonth()+1,0);
+        console.log(mydate);
+        return mydate;
+    }
+
 }

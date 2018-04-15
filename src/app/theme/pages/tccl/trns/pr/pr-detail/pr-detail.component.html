@@ -586,19 +586,19 @@
 							</tr>
 							<tr>
 								<th style="vertical-align: top;">Budget</th>
-								<td>{{currentItem.budget_amount}}</td>
+								<td>{{currentItem.budget_amount | number:'1.2'}}</td>
 							</tr>
 							<tr>
 								<th style="vertical-align: top;">Commit</th>
-								<td>{{currentItem.budget_commit}}</td>
+								<td>{{currentItem.budget_commit | number:'1.2'}}</td>
 							</tr>
 							<tr>
 								<th style="vertical-align: top;">Actual</th>
-								<td>{{currentItem.budget_actual}}</td>
+								<td>{{currentItem.budget_actual | number:'1.2'}}</td>
 							</tr>
 							<tr>
 								<th style="vertical-align: top;">Remaining</th>
-								<td>{{currentItem.budget_remaining}}</td>
+								<td>{{currentItem.budget_remaining | number:'1.2'}}</td>
 							</tr>
 							<tr class="table-display-thead-top-bottom  m--font-bolder">
 								<th colspan="2">Item Text</th>

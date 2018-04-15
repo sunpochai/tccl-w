@@ -169,6 +169,8 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     }
 
     fileChange(event) {
+        super.blockui('#m-content');
+
         //ebugger;  
         this.fileList = event.target.files;  
         // console.log(this.fileList);
@@ -189,19 +191,26 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                      || sFileExtension === "docx" 
                      || sFileExtension === "xls" 
                      || sFileExtension === "xlsx" )
-                     || iFileSize > 10485760) {
+                     || iFileSize > (1048576*50) ) {
                     
-                    super.showError("Wrong file format (only .pdf, .doc, .docx, .xls, .xlsx allowed) or file size larger than 10MB!");
+                    super.showError("Wrong file format (only .pdf, .doc, .docx, .xls, .xlsx allowed) or file size larger than 50MB!");
                     this.attFile = null;
                     this.fileList = null;
+
+                    super.unblockui('#m-content');
                     return;
                 }
                 
                 this.attFile.push(file.name);
+
+                if (index == this.fileList.length - 1) {
+                    super.unblockui('#m-content');
+                }
             }
             // console.log(this.attFile);
         } else {
             this.attFile = null;
+            super.unblockui('#m-content');
         }
     }
 

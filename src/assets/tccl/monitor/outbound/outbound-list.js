@@ -5,7 +5,7 @@ var myDatatable = function( ) {
   var datatable;
 
   // basic demo
-  var load = function(apiurl)  {
+  var load = function(apiurl,callback)  {
     
     datatable = $('.m_datatable').mDatatable({ 
       data: {  
@@ -182,6 +182,7 @@ var myDatatable = function( ) {
       }
     });
 
+    callback();
   };
 
   var search = function()  {
@@ -197,21 +198,26 @@ var myDatatable = function( ) {
     datatable.load();
   };
 
-  var initial = function()  {
-    var query = datatable.getDataSourceQuery();
+  var initial = function(apiurl)  {
+    load(apiurl, function() {
+      var query = datatable.getDataSourceQuery();
     
-    query.upload_status = 'E';
-    query.pr_date_from = getCurrentMonthFirstDate();
-    query.pr_date_to = getCurrentMonthLastDate();
+      query.upload_status = 'E';
+      query.pr_date_from = getCurrentMonthFirstDate();
+      query.pr_date_to = getCurrentMonthLastDate();
+  
+      datatable.setDataSourceQuery(query);
+      datatable.load();
+  
+    });
 
-    datatable.setDataSourceQuery(query);
-    datatable.load();
   };
 
   return {
     // public functions
     init: function(apiurl) {
-      load(apiurl);
+      initial(apiurl);
+      // load(apiurl);
       //firstFunction(() => console.log('huzzah, I\'m done!'))
       // load((apiurl) => initial());
     },

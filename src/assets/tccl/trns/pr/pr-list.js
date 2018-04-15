@@ -5,7 +5,7 @@ var myDatatable = function( ) {
   var datatable;
 
   // basic demo
-  var load = function(apiurl)  {
+  var load = function(apiurl,callback)  {
     
     datatable = $('.m_datatable').mDatatable({ 
       data: {  
@@ -31,7 +31,8 @@ var myDatatable = function( ) {
         serverFiltering: true,
         serverSorting: true,
       },
-      // render: $.fn.dataTable.render.number( ',', '.', 2 ),
+      
+      // oSearch: {"currency": "THB"},
 
       // layout definition
       layout: {
@@ -75,6 +76,9 @@ var myDatatable = function( ) {
           sortable: true,
           width: '80px',
           template: function (row) {
+            //<a target="_blank" routerLink="/Page2">
+            // return '<a target="_blank" routerLink="/trns/pr/detail/' + row.pr_no + '" title="Purchase Request Detail">' + row.pr_no + '</a>';
+            // return '<a href="#" routerLink="/trns/pr/detail/' + row.pr_no + '" olinw title="Purchase Request Detail">' + row.pr_no + '</a>';
             return '<a href="./trns/pr/detail/' + row.pr_no + '" title="Purchase Request Detail">' + row.pr_no + '</a>';
             /* return '\
               <a href="javascript:navigate_edit(' + row.pr_id + ')" title="Purchase Request Detail">\
@@ -164,40 +168,7 @@ var myDatatable = function( ) {
         leftArrow: '<i class="la la-angle-left"></i>',
         rightArrow: '<i class="la la-angle-right"></i>'
       },
-      // minDate: new Date(),
-      // onSelect: function(dateStr) 
-      // {         
-          // $("#m_form_date_to").datepicker("destroy");
-          // $("#m_form_date_to").val(dateStr);
-          // $("#m_form_date_to").datepicker({ minDate: new Date(dateStr)});
-      //     alert(dateStr);
-      // }
     });
-
-    // $('m_form_date_from').datepicker({
-    //   onSelect: function(formattedDate, date, inst) {
-    //       $(inst.el).trigger('change');
-    //       alert('d');
-    //   }
-    // });
-
-    // $('#m_form_date_from').datepicker()
-    // .on(picker_event, function(e) {
-    //   alert('c');
-    //     // `e` here contains the extra attributes
-    // });
-
-// alert('b');
-  //   $("#from").datepicker({
-  //     defaultDate: new Date(),
-  //     minDate: new Date(),
-  //     onSelect: function(dateStr) 
-  //     {         
-  //         $("#to").datepicker("destroy");
-  //         $("#to").val(dateStr);
-  //         $("#to").datepicker({ minDate: new Date(dateStr)})
-  //     }
-  // });
 
     $('#m_form_date_to').datepicker({
       todayHighlight: true,
@@ -208,9 +179,11 @@ var myDatatable = function( ) {
       }
     });
 
+    callback();
   };
 
   var search = function()  {
+    // alert('search');
     var query = datatable.getDataSourceQuery();
     
     query.pr_no = $('#m_form_pr_no').val();
@@ -220,16 +193,53 @@ var myDatatable = function( ) {
     query.comp_code = $('#m_form_company').val();
     // query.subject = $('#m_form_subject').val();
     query.plant_code = $('#m_form_plant').val();
-    query.c_doc_status = $('#m_form_status').val();
+
+    var mystatus = [];
+
+    if ( document.getElementById("chkStatusAll").checked ) {
+      //do nothing
+    } else {
+      if ( document.getElementById("chkStatusWaitReview").checked ) {
+        // alert(1);
+        mystatus[mystatus.length] = 1;
+      }
+      if ( document.getElementById("chkStatusWaitApprove").checked ) {
+        // alert(2);
+        mystatus[mystatus.length] = 2;
+      }
+      if ( document.getElementById("chkStatusApproved").checked ) {
+        // alert(3);
+        mystatus[mystatus.length] = 3;
+      }
+      if ( document.getElementById("chkStatusRejected").checked ) {
+        // alert(4);
+        mystatus[mystatus.length] = 4;
+      }
+      if ( document.getElementById("chkStatusCancelled").checked ) {
+        // alert(9);
+        mystatus[mystatus.length] = 9;
+      }
+    }
+    query.c_doc_status = mystatus;
 
     datatable.setDataSourceQuery(query);
     datatable.load();
   };
 
+  
+  var initial = function(apiurl)  {
+    load(apiurl, function() {
+      // alert('bf search')
+      search();
+    });
+
+  };
+
+
   return {
     // public functions
     init: function(apiurl) {
-      load(apiurl);
+      initial(apiurl);
     },
     search: function() {
       search();

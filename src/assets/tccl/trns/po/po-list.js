@@ -5,7 +5,7 @@ var myDatatable = function( ) {
   var datatable;
 
   // basic demo
-  var load = function(apiurl)  {
+  var load = function(apiurl,callback)  {
     
     datatable = $('.m_datatable').mDatatable({
       // datasource definition
@@ -179,6 +179,7 @@ var myDatatable = function( ) {
       }
     });
 
+    callback();
   };
 
   var search = function()  {
@@ -192,16 +193,52 @@ var myDatatable = function( ) {
     // query.subject = $('#m_form_subject').val();
     query.vendor_code = $('#m_form_vendor').val();
     query.plant_code = $('#m_form_plant').val();
-    query.c_doc_status = $('#m_form_status').val();
+    // query.c_doc_status = $('#m_form_status').val();
+    
+    var mystatus = [];
+
+    if ( document.getElementById("chkStatusAll").checked ) {
+      //do nothing
+    } else {
+      if ( document.getElementById("chkStatusWaitReview").checked ) {
+        // alert(1);
+        mystatus[mystatus.length] = 1;
+      }
+      if ( document.getElementById("chkStatusWaitApprove").checked ) {
+        // alert(2);
+        mystatus[mystatus.length] = 2;
+      }
+      if ( document.getElementById("chkStatusApproved").checked ) {
+        // alert(3);
+        mystatus[mystatus.length] = 3;
+      }
+      if ( document.getElementById("chkStatusRejected").checked ) {
+        // alert(4);
+        mystatus[mystatus.length] = 4;
+      }
+      if ( document.getElementById("chkStatusCancelled").checked ) {
+        // alert(9);
+        mystatus[mystatus.length] = 9;
+      }
+    }
+    query.c_doc_status = mystatus;
 
     datatable.setDataSourceQuery(query);
     datatable.load();
+  };
+  
+  var initial = function(apiurl)  {
+    load(apiurl, function() {
+      // alert('bf search')
+      search();
+    });
+
   };
 
   return {
     // public functions
     init: function(apiurl) {
-      load(apiurl);
+      initial(apiurl);
     },
     search: function() {
       search();
