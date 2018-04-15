@@ -13,6 +13,7 @@ import { DocType } from '../../../_models/masters/doctype';
 import { PlantService } from '../../../_services/masters/plant.service';
 import { Company } from '../../../_models/masters/company';
 import { Plant } from '../../../_models/masters/plant';
+import { DateUtil } from '../../../../../../Util/dateutil';
 
 declare var myDatatable: any;
 declare var window: any;
@@ -24,9 +25,20 @@ declare var window: any;
 })
 export class POListComponent extends PageBaseComponent implements OnInit, AfterViewInit {
     public doctypeList: Array<DocType>;
-    // public companyList: Array<Company>;
-    // public plantList: Array<Plant>;
     public docStatus: Array<any> = C_DOC_STATUS_2;
+
+    public dateFrom: any;
+    public dateTo: any;
+    public m_form_po_no;
+    public m_form_doc_type;
+    public m_form_company;
+    public m_form_plant;
+    public chkStatusAll = false;
+    public chkStatusWaitReview = true;
+    public chkStatusWaitApprove = true;
+    public chkStatusApproved = false;
+    public chkStatusRejected = false;
+    public chkStatusCancelled = false;
 
     constructor(private _router: Router,
         private _script: ScriptLoaderService,
@@ -91,23 +103,51 @@ export class POListComponent extends PageBaseComponent implements OnInit, AfterV
 
     search() {
         super.blockui('#m-content');
+        
+        if (this.dateFrom != null && this.dateFrom != '' && this.dateTo != null && this.dateTo != '') {
+            console.log(this.dateFrom);
+            console.log(this.dateTo);
 
-        var dd_from = $('#m_form_date_from').val().toString().split('/');
-        var dd_to = $('#m_form_date_to').val().toString().split('/');
-
-        var date_from = new Date(parseInt(dd_from[2]), parseInt(dd_from[1]), parseInt(dd_from[0]));
-        var date_to = new Date(parseInt(dd_to[2]), parseInt(dd_to[1]), parseInt(dd_to[0]));
-
-        // console.log(date_from.getTime());
-        // console.log(date_to.getTime());
-
-        if (date_from.getTime() > date_to.getTime()) {
-            super.showError('Invalid date range!');
-            return;
+            var date_from = DateUtil.toInternalDate(this.dateFrom);
+            var date_to = DateUtil.toInternalDate(this.dateTo);
+    
+            console.log(date_from.getTime());
+            console.log(date_to.getTime());
+    
+            if (date_from.getTime() > date_to.getTime()) {
+                super.showError('Invalid date range!');
+                super.unblockui('#m-content');
+                return;
+            }
         }
 
         myDatatable.search();
         super.unblockui('#m-content');
     }
 
+    clearForm() {
+        this.m_form_po_no = '';
+        this.m_form_doc_type = '';
+        this.m_form_company = '';
+        this.m_form_plant = '';
+        this.dateFrom = '';
+        this.dateTo = '';
+
+        this.chkStatusAll = false;
+        this.chkStatusWaitReview = true;
+        this.chkStatusWaitApprove = true;
+        this.chkStatusApproved = false;
+        this.chkStatusRejected = false;
+        this.chkStatusCancelled = false;
+    }
+
+    toggleStatusAll() {
+        // console.log(this.chkStatusAll);
+
+        this.chkStatusWaitReview = this.chkStatusAll;
+        this.chkStatusWaitApprove = this.chkStatusAll;
+        this.chkStatusApproved = this.chkStatusAll;
+        this.chkStatusCancelled = this.chkStatusAll;
+        this.chkStatusRejected = this.chkStatusAll;
+    }
 }   

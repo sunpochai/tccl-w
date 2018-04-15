@@ -203,14 +203,14 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
                 var iFileSize = file.size;
                 // var iConvert = (file.size / 1048576).toFixed(2);
 
-                if (!(sFileExtension === "pdf"
-                    || sFileExtension === "doc"
-                    || sFileExtension === "docx"
-                    || sFileExtension === "xls"
-                    || sFileExtension === "xlsx")
-                    || iFileSize > 10485760) {
-
-                    super.showError("Wrong file format (only .pdf, .doc, .docx, .xls, .xlsx allowed) or file size larger than 10MB!");
+                if ( !( sFileExtension === "pdf"
+                     || sFileExtension === "doc" 
+                     || sFileExtension === "docx" 
+                     || sFileExtension === "xls" 
+                     || sFileExtension === "xlsx" )
+                     || iFileSize > (1048576*50) ) {
+                    
+                    super.showError("Wrong file format (only .pdf, .doc, .docx, .xls, .xlsx allowed) or file size larger than 50MB!");
                     this.attFile = null;
                     this.fileList = null;
                     return;
@@ -706,19 +706,19 @@ ad_user: value.ad_user,
 
     }
 
-    getFakePRItem() {
-        var pritem: PRItem = new PRItem;
-        pritem.budget_check = "B";
-        pritem.account_no = "0121999000";
-        pritem.account_name = "Fixed Assets Dummy";
-        pritem.currency = "THB";
-        pritem.budget_amount = 297900;
-        pritem.budget_commit = 149895;
-        pritem.budget_actual = 110240;
-        pritem.budget_remaining = 37765;
-
-        return pritem;
-    }
+    // getFakePRItem() {
+    //     var pritem : PRItem = new PRItem;
+    //     pritem.budget_check = "B";
+    //     pritem.account_no = "0121999000";
+    //     pritem.account_name = "Fixed Assets Dummy";
+    //     pritem.currency = "THB";
+    //     pritem.budget_amount = 297900;
+    //     pritem.budget_commit = 149895;
+    //     pritem.budget_actual = 110240;
+    //     pritem.budget_remaining = 37765;
+        
+    //     return pritem;
+    // }
 
     togglePurchasingHistory() {
         this.showPurchasingHistory = !this.showPurchasingHistory;
