@@ -24,9 +24,7 @@ export class OutboundListComponent extends PageBaseComponent implements OnInit, 
     public action_doc_group: number;
     public action_doc_group_name: string;
     public action_doc_no: string;
-
     public searchStatus: string = 'E';
-
 
 
     constructor(private _router: Router,
@@ -42,23 +40,22 @@ export class OutboundListComponent extends PageBaseComponent implements OnInit, 
         // window.my.myROUTE_PR = this.myROUTE_PR;
         // window.my.myROUTE_PO = this.myROUTE_PO;
         // window.my.myROUTE_PA = this.myROUTE_PA;
+        console.log(this.searchStatus);
     }
 
     ngAfterViewInit() {
         this._script.loadScripts('monitor-outbound-list',
             ['assets/tccl/monitor/outbound/outbound-list.js']);
-
-        this.searchStatus = 'E';
-
         this.load();
     }
 
     load() {
         super.blockui('#m-content');
+
         jQuery(document).ready(function() {
             myDatatable.init(API_OUTBOUND_LIST);
         });
-        
+
         super.unblockui('#m-content');
     }
 

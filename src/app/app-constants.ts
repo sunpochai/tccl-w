@@ -172,7 +172,7 @@ export const SPECIAL_USER_ADMIN: any = {
 
 export const SPECIAL_USER_OWNER: any = {
     dbname: 'owner',
-    caption: 'Maintainer',
+    caption: 'Data Owner',
     showname: 'maintain'
 }
 

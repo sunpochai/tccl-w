@@ -35,6 +35,7 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
 
     public userList: any;
     public textSearchUser: string;
+    public textSearchADUser: string;
     public txtSearchUserChanged: Subject<string> = new Subject<string>();
 
     public showDropDownUser = false;
@@ -72,6 +73,7 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
                 this.reviewer = data;
                 this.input_sap_group = this.reviewer.sap_group + '';
                 this.textSearchUser = this.reviewer.ad_username;
+                this.textSearchADUser = this.reviewer.ad_user
 
                 // console.log(this.reviewer);
                 // console.log(this.routetype);
@@ -199,7 +201,8 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
         this.reviewer.ad_user = value.ad_user;
         this.reviewer.ad_username = value.fullname;
 
-        this.textSearchUser = value.fullname
+        this.textSearchUser = value.fullname;
+        this.textSearchADUser = value.ad_user;
         this.showDropDownUser = false;
     }
 

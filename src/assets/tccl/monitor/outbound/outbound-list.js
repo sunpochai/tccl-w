@@ -106,17 +106,18 @@ var myDatatable = function( ) {
           template: function(row) {
             return toDisplayDate(row.doc_date);
           }  
-        }, {
+        /* }, {
           field: 'doc_type',
           title: 'Doc Type',
           textAlign: 'center',
           sortable: true,
-          width: '80px',
+          width: '80px', */
         } , {
           field: 'upload_status',
           title: 'Upload Status',
           sortable: true,
           textAlign: 'center',
+          width: '65px',
           template: function(row) {
             if (row.upload_status == 'E') {
               return '<span class="m-badge m-badge--danger m-badge--fullwidth">Error</span>';
@@ -137,6 +138,7 @@ var myDatatable = function( ) {
           title: 'Upload Datetime',
           sortable: true,
           textAlign: 'center',
+          width: '90px',
           template: function(row) {
             return toDisplayDateTime(row.upload_datetime);
           },
@@ -146,7 +148,7 @@ var myDatatable = function( ) {
           sortable: false,
           overflow: 'visible',
           textAlign: 'center',
-          
+          width: '70px',
           template: function (row, index, datatable) {
             if (row.upload_status == 'E') {
               return '\<a href="#" onclick="prepare_action(\'reupload\',\''+ row.doc_group +'\', \'' + row.doc_no + '\'); " data-toggle="modal" data-target="#m_modal_confirm" class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Re-Upload document">\
@@ -159,8 +161,21 @@ var myDatatable = function( ) {
             } else {
               return '';
             }
+          }
+        } , {
+          field: 'View Detail',
+          title: 'View Detail',
+          sortable: false,
+          overflow: 'visible',
+          textAlign: 'center',
+          width: '70px',
+          template: function (row, index, datatable) {
+            return '<a href="#" (click)="showDetail(row)" data-toggle="modal" data-target="#m_modal_item_detail" \
+            class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="More detail...">\
+              <i class="fa fa-search-plus"></i>\
+            </a>'
+          }
         }
-        }  
       ],
     });
 
@@ -190,8 +205,8 @@ var myDatatable = function( ) {
     
     query.upload_status = $('#m_form_status').val();
     query.doc_group = $('#m_form_doc_group').val();
-    query.pr_date_from = toInternalDate($('#m_form_date_from').val());
-    query.pr_date_to = toInternalDate($('#m_form_date_to').val());
+    query.upload_date_from = toInternalDate($('#m_form_date_from').val());
+    query.upload_date_to = toInternalDate($('#m_form_date_to').val());
     query.generalSearch = $('#m_form_general_search').val();
 
     datatable.setDataSourceQuery(query);
@@ -200,15 +215,7 @@ var myDatatable = function( ) {
 
   var initial = function(apiurl)  {
     load(apiurl, function() {
-      var query = datatable.getDataSourceQuery();
-    
-      query.upload_status = 'E';
-      query.pr_date_from = getCurrentMonthFirstDate();
-      query.pr_date_to = getCurrentMonthLastDate();
-  
-      datatable.setDataSourceQuery(query);
-      datatable.load();
-  
+      search();
     });
 
   };
@@ -217,9 +224,6 @@ var myDatatable = function( ) {
     // public functions
     init: function(apiurl) {
       initial(apiurl);
-      // load(apiurl);
-      //firstFunction(() => console.log('huzzah, I\'m done!'))
-      // load((apiurl) => initial());
     },
     search: function() {
       search();
