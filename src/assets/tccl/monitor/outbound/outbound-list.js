@@ -162,7 +162,7 @@ var myDatatable = function( ) {
               return '';
             }
           }
-        } , {
+        } /* , {
           field: 'View Detail',
           title: 'View Detail',
           sortable: false,
@@ -175,7 +175,7 @@ var myDatatable = function( ) {
               <i class="fa fa-search-plus"></i>\
             </a>'
           }
-        }
+        } */
       ],
     });
 
