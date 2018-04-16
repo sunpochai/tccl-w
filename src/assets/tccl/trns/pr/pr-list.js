@@ -229,12 +229,10 @@ var myDatatable = function( ) {
   
   var initial = function(apiurl)  {
     load(apiurl, function() {
-      // alert('bf search')
       search();
     });
 
   };
-
 
   return {
     // public functions

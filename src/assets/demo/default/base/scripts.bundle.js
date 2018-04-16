@@ -8729,22 +8729,24 @@ $(document).ready(function() {
 });
 
 /* Input: dd/mm/yyyy
-   Output: yyyy-mm-dd  
+   Output: yyyy-mm-ddThh:mm:ssz
    KT 06/03/2018 */
 function toInternalDate(in_date) {
     if (in_date == null || in_date == '') {
         return in_date;
     }
 
-    var d = in_date.split('/');
-
-    if (d.length < 3) {
+    var dd = in_date.split('/');
+    if (dd.length < 3) {
         return in_date;
     }
-    
-    return [d[2],d[1],d[0]].join('-');
-}
 
+    // var mydate = new Date(dd[2], dd[1]-1, dd[0]);
+    // return mydate.toISOString();
+
+    var mydate = [dd[2],dd[1],dd[0]];
+    return mydate.join('-');
+}
 
 /* Input: yyyy-MM-ddTHH:mm:ss
    Output: dd/mm/yyyy
@@ -8754,17 +8756,12 @@ function toDisplayDate(in_date) {
         return in_date;
     }
 
-    var d = in_date.split('T');
-    if (d.length == 0) {
-        return in_date;
-    }
-
-    var dd = d[0].split('-');
-    if (dd.length < 3) {
-        return in_date;
-    }
+    var dd = new Date(in_date);
+    var mm = 0+dd.getMonth();
+    mm = mm+1;
+    var mydate = ('0'+dd.getDate()).slice(-2) + '/' + ('0'+mm).slice(-2) + '/' + dd.getFullYear();
     
-    return [dd[2],dd[1],dd[0]].join('/');
+    return mydate;
 }
 
 /* Input: yyyy-MM-ddTHH:mm:ss
@@ -8774,17 +8771,11 @@ function toDisplayDateTime(in_date) {
     if (in_date == null || in_date == '') {
         return in_date;
     }
+
+    var dd = new Date(in_date);
+    var mydate = toDisplayDate(in_date) + ' ' + ('0'+dd.getHours()).slice(-2) + ':' + ('0'+dd.getMinutes()).slice(-2) + ':' + ('0'+dd.getSeconds()).slice(-2);
     
-    var d = in_date.split('T');
-    if (d.length <= 1) {
-        return toDisplayDate(in_date);
-    } else {
-        var t = d[1].split('.');
-        if (t.length > 1) {
-            return toDisplayDate(in_date) + ' ' + t[0];
-        }
-        return toDisplayDate(in_date) + ' ' + d[1];
-    }
+    return mydate;
 }
 
 /* Input: -

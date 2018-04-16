@@ -35,6 +35,7 @@ export class SpecialUserDetailComponent extends PageBaseComponent implements OnI
 
     public userList: any;
     public textSearchUser: string;
+    public textSearchADUser: string;
     public txtSearchUserChanged: Subject<string> = new Subject<string>();
 
     public showDropDownUser = false;
@@ -91,6 +92,7 @@ export class SpecialUserDetailComponent extends PageBaseComponent implements OnI
                     }
 
                     this.textSearchUser = this.specialuser.ad_username;
+                    this.textSearchADUser = this.specialuser.ad_user;
 
                     super.unblockui('#m_form_1');
                 }
@@ -159,6 +161,7 @@ export class SpecialUserDetailComponent extends PageBaseComponent implements OnI
     clearForm() {
         this.specialuser = new SpecialUser();
         this.textSearchUser = '';
+        this.textSearchADUser = '';
     }
 
     navigate_new() {
@@ -188,6 +191,7 @@ export class SpecialUserDetailComponent extends PageBaseComponent implements OnI
         this.specialuser.ad_username = value.fullname;
 
         this.textSearchUser = value.fullname
+        this.textSearchADUser = value.ad_user;
         this.showDropDownUser = false;
     }
 
