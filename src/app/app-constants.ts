@@ -81,6 +81,10 @@ export const API_OUTBOUND_LIST: string = API_BASE_URL + '/api/outbound/list'
 export const API_OUTBOUND_RE_UPLOAD: string = API_BASE_URL + '/api/outbound/reupload'
 export const API_OUTBOUND_MANUAL: string = API_BASE_URL + '/api/outbound/manual'
 
+export const API_USERLOCK_LIST: string = API_BASE_URL + '/api/userslock/list'
+export const API_USERLOCK_GET_PUT_DEL: string = API_BASE_URL + '/api/userslock'
+export const API_USERLOCK_INSERT: string = API_BASE_URL + '/api/userslock/insert'
+
 //Model status code
 export const ROUTE_PR: any = { "display_name":"PR", "name": "pr", "doc_group": 1 }
 export const ROUTE_PO: any = { "display_name":"PO", "name": "po", "doc_group": 2 }
