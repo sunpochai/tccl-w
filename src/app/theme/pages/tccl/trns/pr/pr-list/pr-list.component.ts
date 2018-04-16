@@ -40,6 +40,8 @@ export class PRListComponent extends PageBaseComponent implements OnInit, AfterV
     public chkStatusRejected = false;
     public chkStatusCancelled = false;
 
+    public showSearchForm: boolean = false;
+
     constructor(private _router: Router,
         private _script: ScriptLoaderService,
         private _doctypeService: DocTypeService,
@@ -134,6 +136,16 @@ export class PRListComponent extends PageBaseComponent implements OnInit, AfterV
         this.chkStatusApproved = this.chkStatusAll;
         this.chkStatusCancelled = this.chkStatusAll;
         this.chkStatusRejected = this.chkStatusAll;
+    }
+
+    toggleSearchForm() {
+        console.log(this.showSearchForm);
+        this.showSearchForm = !this.showSearchForm;
+    }
+
+    getSearchFormLinkCaption(): string {
+        console.log(this.showSearchForm);
+        return (this.showSearchForm) ? 'Hide search' : 'Show search' ;
     }
 
 }   
