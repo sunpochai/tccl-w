@@ -608,7 +608,7 @@ ad_user: value.ad_user,
             case ACTION_NAME.approved.toLowerCase():
                 return 'm-badge m-badge--success m-badge--fullwidth';
             case ACTION_NAME.rejected.toLowerCase():
-            case ACTION_NAME.cancelled.toLowerCase():
+            case ACTION_NAME.canceled.toLowerCase():
                 return 'm-badge m-badge--danger m-badge--fullwidth';
             case ACTION_NAME.waiting.toLowerCase():
             case ACTION_NAME.commented.toLowerCase():

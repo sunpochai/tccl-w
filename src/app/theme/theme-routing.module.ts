@@ -50,6 +50,10 @@ const routes: Routes = [
                 "loadChildren": ".\/pages\/tccl\/monitor\/outbound\/outbound.module#OutboundModule"
             },
             {
+                "path": "system\/userlock",
+                "loadChildren": ".\/pages\/tccl\/system\/userlock\/userlock.module#UserLockModule"
+            },
+            {
                 "path": "trns\/worklist",
                 "loadChildren": ".\/pages\/tccl\/trns\/worklist\/worklist.module#WorklistModule"
             },

@@ -46,7 +46,7 @@ export class StringUtil {
      *  Weeraya 08/04/2018
      */
     public static formatSAPItemNo(in_sap_no): string {
-        var out_sap_no = in_sap_no.substr(0, in_sap_no.length - 1)
+        var out_sap_no = in_sap_no;//.substr(0, in_sap_no.length - 1)
         out_sap_no = StringUtil.lefttrim(out_sap_no, '0');
         return out_sap_no;
     }

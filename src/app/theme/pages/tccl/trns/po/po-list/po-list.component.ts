@@ -38,7 +38,7 @@ export class POListComponent extends PageBaseComponent implements OnInit, AfterV
     public chkStatusWaitApprove = true;
     public chkStatusApproved = false;
     public chkStatusRejected = false;
-    public chkStatusCancelled = false;
+    public chkStatusCanceled = false;
 
     constructor(private _router: Router,
         private _script: ScriptLoaderService,
@@ -138,7 +138,7 @@ export class POListComponent extends PageBaseComponent implements OnInit, AfterV
         this.chkStatusWaitApprove = true;
         this.chkStatusApproved = false;
         this.chkStatusRejected = false;
-        this.chkStatusCancelled = false;
+        this.chkStatusCanceled = false;
     }
 
     toggleStatusAll() {
@@ -147,7 +147,7 @@ export class POListComponent extends PageBaseComponent implements OnInit, AfterV
         this.chkStatusWaitReview = this.chkStatusAll;
         this.chkStatusWaitApprove = this.chkStatusAll;
         this.chkStatusApproved = this.chkStatusAll;
-        this.chkStatusCancelled = this.chkStatusAll;
+        this.chkStatusCanceled = this.chkStatusAll;
         this.chkStatusRejected = this.chkStatusAll;
     }
 }   

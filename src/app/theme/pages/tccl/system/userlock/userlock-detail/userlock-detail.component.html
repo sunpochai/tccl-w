@@ -1,10 +1,10 @@
 <!-- BEGIN: Subheader -->
  
-<div class="m-subheader" appunwraptag="" *ngIf="specialuser!=null">
+<div class="m-subheader" appunwraptag="" *ngIf="userlock!=null">
 	<div class="d-flex align-items-center">
 		<div class="mr-auto">
 			<h3 class="m-subheader__title m-subheader__title--separator">
-				{{specialuser_type.caption}} Configuration
+				Lock User Configuration
 			</h3>
 			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
 				<li class="m-nav__item">
@@ -20,7 +20,7 @@
 				<li class="m-nav__item">
 					<a href="#" (click)="navigate_list()" class="m-nav__link">
 						<span class="m-nav__link-text">
-							{{specialuser_type.caption}}
+							Lock User
 						</span>
 					</a>
 				</li>
@@ -29,25 +29,25 @@
 	</div>
 </div>
 <!-- END: Subheader -->
-<div class="m-content" *ngIf="specialuser!=null">
+<div class="m-content" *ngIf="userlock!=null">
 	<form  #heroForm="ngForm" class="m-form m-form--fit m-form--label-align-right" id="m_form_1">
 		<!--begin::Portlet-->
 		<div class="m-portlet">
 			<div class="m-portlet__head">
 				<div class="m-portlet__head-caption">
 					<div class="m-portlet__head-title">
-						<h3 class="m-portlet__head-text" *ngIf="id==0">
+						<h3 class="m-portlet__head-text" *ngIf="id==0 || id=='0'">
 							<i class="la la-plus"></i>
-							New {{specialuser_type.caption}}
+							New User Lock
 						</h3>
 						<h3 class="m-portlet__head-text" *ngIf="id!=0">
 							<i class="la la-pencil"></i>
-							Edit {{specialuser_type.caption}}
+							Edit
 						</h3>
 					</div>
 				</div>
 			</div>
-			<div class="m-portlet__body" *ngIf='specialuser != null'>
+			<div class="m-portlet__body" *ngIf='userlock != null'>
 				<div class="m-form__content">
 					<div class="m-alert m-alert--icon alert alert-danger m--hide" role="alert" id="m_form_1_msg">
 						<div class="m-alert__icon">
@@ -63,7 +63,7 @@
 				</div>
 				<div class="form-group m-form__group row" >
 					<label class="col-form-label col-lg-2 col-sm-3">
-						{{specialuser_type.caption}} *
+						User Name *
 					</label>
 					<div class="col-lg-8 col-sm-8">
 						<div class="width-half">
@@ -120,12 +120,12 @@
 				</div>
 				<div class="modal-body">
 					<p>
-						Confirm save {{specialuser_type.caption}} : {{specialuser.ad_user}} ?
+						Confirm save lock for : {{userlock.ad_user}} ?
 					</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" (click)="save()" data-dismiss="modal" class="btn btn-success">
-						Yes
+						Yes 
 					</button>
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">
 						No

@@ -6,8 +6,9 @@ var myDatatable = function( ) {
   var datatable;
 
   var load = function( apiurl)  {
+    // alert(apiurl);
   	
-    datatable = $('.m_datatables').mDatatable({
+    datatable = $('.m_datatable').mDatatable({
       // datasource definition 
       data: {  
         saveState:false,
@@ -35,61 +36,47 @@ var myDatatable = function( ) {
         serverSorting: true,
       },
 
-      // layout definition
       layout: {
         scroll: false,
         footer: false,
         theme: "default"
       },
 
-      // column sorting
       sortable: true,
       pagination: true,
+
       toolbar: {
-        // toolbar items
         items: {
-          // pagination
           pagination: {
-            // page size select
             pageSizeSelect: [10, 20, 30, 50, 100],
           },
         },
       },
  
-      /* search: {
+      search: {
         input: $('#generalSearch'),
-      }, */
+      },
 
       // columns definition
       columns: [
         {
-          field: 'route_name',
-          title: 'Route Name',
-          selector: false,
+          field: 'ad_user',
+          title: 'AD User',
+          sortable: 'asc',
         }, {
-          field: 'tracking_no',
-          title: 'Tracking Number',
-          sortable: 'asc'
+          field: 'ad_username',
+          title: 'AD Username',
+          filterable: false,
         }, {
-          field: 'doc_type',
-          title: 'Doc Type',
-          textAlign: 'center',
+          field: 'create_username',
+          title: 'Create Username',
         }, {
-          field: 'account',
-          title: 'Account / Non-account',
-          textAlign: 'center',
-          //A:Account   N:Non-Account
-          template: function (row) {
-            if (row.account=='A'){
-              return 'Account';
-            } else if (row.account=='N') {
-              return 'Non-Account';
-            } else {
-              return 'N/A';
-            }
+          field: 'create_datetime',
+          title: 'Create Date',
+          template: function(row) {
+            return toDisplayDateTime(row.create_datetime);
           }
-        },
-        {
+        } , {
           field: 'Actions',
           width: 110,
           title: 'Actions',
@@ -97,10 +84,8 @@ var myDatatable = function( ) {
           overflow: 'visible',
           textAlign: 'center',
           template: function (row, index, datatable) {
-            return '\<a   href="javascript:navigate_edit(\''+ row.route_id +'\')"  class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit">\
-              <i class="la la-edit"></i>\
-            </a>\
-            <a href="#" onclick="prepare_del(\''+ row.route_id +'\', \'' + row.route_name + '\'); " data-toggle="modal" data-target="#m_modal_confirm" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Delete">\
+            return '\
+            <a href="#" onclick="prepare_del(\''+ row.user_id +'\', \'' + row.ad_user + '\'); " data-toggle="modal" data-target="#m_modal_confirm" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Delete">\
               <i class="la la-trash"></i>\
             </a>\
           	';
@@ -111,14 +96,13 @@ var myDatatable = function( ) {
   };
 
   var search = function()  {
-    var query = datatable.getDataSourceQuery();
+    /* var query = datatable.getDataSourceQuery();
     
-    query.route_name = $('#m_form_route_name').val();
-    query.doc_type = $('#m_form_doc_type').val();
-    query.tracking_no = $('#tracking_no').val();
+    query.ad_user = $('#m_text_username').val();
+    query.ad_username = $('#m_text_username').val();
 
     datatable.setDataSourceQuery(query);
-    datatable.load();
+    datatable.load(); */
   };
 
   return {
@@ -130,14 +114,10 @@ var myDatatable = function( ) {
       search();
     },
     reload: function() {
-      $('.m_datatables').mDatatable('reload');
+      $('.m_datatable').mDatatable('reload');
     }
   };
 }();
-
-function navigate_edit(id){
-  my.namespace.navigate_edit(id);
-}
 
 function prepare_del(id,name){
   my.namespace.prepare_del(id,name);

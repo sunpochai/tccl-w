@@ -217,7 +217,7 @@ var myDatatable = function( ) {
         // alert(4);
         mystatus[mystatus.length] = 4;
       }
-      if ( document.getElementById("chkStatusCancelled").checked ) {
+      if ( document.getElementById("chkStatusCanceled").checked ) {
         // alert(9);
         mystatus[mystatus.length] = 9;
       }
@@ -227,12 +227,36 @@ var myDatatable = function( ) {
     datatable.setDataSourceQuery(query);
     datatable.load();
   };
-  
+
+  var initToastr = function() {
+    toastr.options.showDuration = 1000;
+  }
+
+  var initSearchPanel = function() {
+    // This portlet is lazy initialized using data-portlet="true" attribute. You can access to the portlet object as shown below and override its behavior
+    var portlet = $('#m_portlet_search').mPortlet();
+
+    //== Toggle event handlers
+    portlet.on('beforeCollapse', function(portlet) {
+        // setTimeout(function() {
+        //     toastr.info('Before collapse event fired!');
+        // }, 100);
+    });
+
+    portlet.on('afterCollapse', function(portlet) {
+        // setTimeout(function() {
+        //     toastr.warning('Before collapse event fired!');
+        // }, 2000);            
+    });
+  }
+    
   var initial = function(apiurl)  {
     load(apiurl, function() {
       // alert('bf search')
      search();
     });
+    initToastr();
+    initSearchPanel();
 
   };
 

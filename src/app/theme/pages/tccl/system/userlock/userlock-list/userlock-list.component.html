@@ -3,7 +3,7 @@
 	<div class="d-flex align-items-center">
 		<div class="mr-auto">
 			<h3 class="m-subheader__title m-subheader__title--separator">
-				Reviewer Configuration
+				User Lock
 			</h3>
 			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
 				<li class="m-nav__item">
@@ -19,7 +19,7 @@
 				<li class="m-nav__item">
 					<a href="#" (click)="navigate_list()" class="m-nav__link">
 						<span class="m-nav__link-text">
-							Reviewer
+							User Lock
 						</span>
 					</a>
 				</li>
@@ -32,64 +32,37 @@
 <div class="m-content" id="m-content">
 	 
 	<div class="m-portlet m-portlet--mobile">
-		<div class="m-portlet__head">
-			<div class="m-portlet__head-caption">
-				<div class="m-portlet__head-title">
-					<h3 class="m-portlet__head-text">
-						Reviewer 
-					</h3>
-				</div>
-			</div>
-			<div class="m-portlet__head-tools">
-				<ul class="m-portlet__nav">
-					<li class="m-portlet__nav-item">
-						<a href="#" (click)="navigate_edit('0')" class="m-portlet__nav-link btn btn-brand m-btn " >
-							<i class="la la-plus"></i>
-							<span>
-								Add
-							</span>
-						</a>
-					</li>
-				</ul>
-			</div>
-		</div>
 		<form>
 			<div class="m-portlet__body">
 				<!--begin: Search Form -->
 				<div class="form-group m-form__group row">
-					<label class="col-lg-2 col-sm-4 col-form-label">
-						SAP Code:
-					</label>
-					<div class="col-lg-4 col-sm-8" >
-						<input type="text" maxlength="20" class="form-control m-input" id="m_form_sap_code">
+					<div class="col-6">
+						<div class="form-group m-form__group row align-items-center">
+							<div class="col-xl-12 col-sm-12">
+								<div class="m-input-icon m-input-icon--left">
+									<input type="text" class="form-control m-input" placeholder="Search..." id="generalSearch" name="generalSearch" autocomplete="off" >
+									<span class="m-input-icon__icon m-input-icon__icon--left">
+										<span>
+											<i class="la la-search"></i>
+										</span>
+									</span>
+								</div>
+							</div>
+						</div>
 					</div>
-					<label class="col-lg-2 col-sm-4 col-form-label">
-						SAP Group:
-					</label>
-					<div class="col-lg-4 col-sm-8 ">
-						<select class="form-control m-input" id="m_form_sap_group">
-							<option value="">
-								All
-							</option>
-							<option value={{item.value}} *ngFor="let item of sap_group">
-								{{item.name}}
-							</option>
-						</select>
-					</div>
-				</div>
-				<div class="form-group m-form__group row">
-					<div class="col-lg-12 col-sm-12 " >
-						<button type="button" class="btn btn-primary" (click)="search()">
-							<i class="fa fa-search"></i>
-							Search
-						</button>
-						<button type="reset" class="btn btn-metal">
-							<i class="fa fa-refresh"></i>
-							Clear
-						</button>
+					<div class="col-6 m--align-right">
+						<div>
+							<a href="#" (click)="navigate_add();" class="btn btn-brand">
+								<span>
+									<i class="la la-plus"></i>
+									<span>
+										New
+									</span>
+								</span>
+							</a>
+						</div>
 					</div>
 				</div>
-				<!--end: Search Form -->
 				<!--begin: Datatable -->
 				<div class="m_datatable" id="ajax_data"></div>
 				<!--end: Datatable -->
@@ -113,7 +86,7 @@
 			</div>
 			<div class="modal-body">
 				<p>
-					Confirm delete reviewer : {{action_sap_code}} ?
+					Confirm delete lock for : {{action_ad_user}} ?
 				</p>
 			</div>
 			<div class="modal-footer">
