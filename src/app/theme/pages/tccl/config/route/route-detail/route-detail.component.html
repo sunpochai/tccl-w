@@ -296,7 +296,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLongTitle">
-						Confirm Save ?
+						Confirm save ?
 					</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">
@@ -306,15 +306,15 @@
 				</div>
 				<div class="modal-body">
 					<p>
-						Route Approve PR {{routeapprove.route_name}} ?
+						Route Approve {{routetype.display_name}} : {{routeapprove.route_name}} ?
 					</p>
 				</div>
 				<div class="modal-footer">
 					<button type="button" (click)="save()" data-dismiss="modal" class="btn btn-success">
-						Save 
+						Yes 
 					</button>
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">
-						Close
+						No
 					</button>
 				</div>
 			</div>
@@ -354,7 +354,7 @@
                     </div>
                     <div class="modal-footer">
 						<button type="reset" [disabled]="txtAdUserSelected == null || txtAdUserSelected == ''" (click)="approverAction()" class="btn btn-success m-btn" data-dismiss="modal">
-                            Save
+                            Select
                         </button>
 						<button type="reset" class="btn btn-metal m-btn" data-dismiss="modal">
                             Close

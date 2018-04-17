@@ -141,11 +141,25 @@ export class PRListComponent extends PageBaseComponent implements OnInit, AfterV
     toggleSearchForm() {
         console.log(this.showSearchForm);
         this.showSearchForm = !this.showSearchForm;
+        console.log(this.showSearchForm);
     }
 
     getSearchFormLinkCaption(): string {
         console.log(this.showSearchForm);
-        return (this.showSearchForm) ? 'Hide search' : 'Show search' ;
+        if (this.showSearchForm) {
+            return 'Hide search';
+        } else {
+            return 'Show search';
+        }
+    }
+
+    getSearchDisplayClass(): string {
+        console.log(this.showSearchForm);
+        if (this.showSearchForm) {
+            return ' "display:inline;" ';
+        } else {
+            return ' "display:none;" ';
+        }
     }
 
 }   
