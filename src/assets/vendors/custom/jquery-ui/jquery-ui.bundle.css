@@ -158,14 +158,14 @@
   touch-action: none; }
 
 .ui-widget {
-  font-family: 'Sukhumvit',Arial,Helvetica,sans-serif;
+  font-family: 'Poppins',Arial,Helvetica,sans-serif;
   font-size: 1em; }
 
 .ui-widget .ui-widget {
   font-size: 1em; }
 
 .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
-  font-family: 'Sukhumvit',Arial,Helvetica,sans-serif;
+  font-family: 'Poppins',Arial,Helvetica,sans-serif;
   font-size: 1em; }
 
 .ui-widget.ui-widget-content {

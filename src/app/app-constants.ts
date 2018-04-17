@@ -1,4 +1,4 @@
-//Service URL
+//Service URL 
 //export const API_BASE_URL: string =  'http://portal.tccland.com:8090/OASRESTApi'
  export const API_BASE_URL: string = 'http://202.60.207.137/WebRESTApi'
 // export const API_BASE_URL: string = 'http://sunpochai.thddns.net:5555'
