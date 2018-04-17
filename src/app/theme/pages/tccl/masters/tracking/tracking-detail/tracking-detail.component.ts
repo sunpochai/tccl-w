@@ -34,7 +34,7 @@ export class TrackingDetailComponent extends PageBaseComponent implements OnInit
             this.id = params['id'];
         });
 
-        console.log(this.id);
+        // console.log(this.id);
 
         if (this.id != null && this.id != '0') {
             this._trackingService.get<Tracking>(this.id).subscribe(data => {
@@ -80,7 +80,7 @@ export class TrackingDetailComponent extends PageBaseComponent implements OnInit
     }
 
     save() {
-        console.log(this.tracking);
+        // console.log(this.tracking);
         if (this.id != null && this.id != '0') {
             this.update();
         } else {

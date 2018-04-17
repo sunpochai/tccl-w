@@ -146,6 +146,7 @@ var myDatatable = function( ) {
     
     query.route_name = $('#m_form_route_name').val();
     query.doc_type = $('#m_form_doc_type').val();
+    query.tracking_no = $('#tracking_no').val();
 
     datatable.setDataSourceQuery(query);
     datatable.load();
