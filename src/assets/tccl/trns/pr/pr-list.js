@@ -215,7 +215,7 @@ var myDatatable = function( ) {
         // alert(4);
         mystatus[mystatus.length] = 4;
       }
-      if ( document.getElementById("chkStatusCancelled").checked ) {
+      if ( document.getElementById("chkStatusCanceled").checked ) {
         // alert(9);
         mystatus[mystatus.length] = 9;
       }

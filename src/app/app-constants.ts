@@ -110,37 +110,37 @@ export const C_DOC_STATUS_WAIT_REVIEW: number = 1
 export const C_DOC_STATUS_REVIEWED: number = 2
 export const C_DOC_STATUS_APPROVED: number = 3
 export const C_DOC_STATUS_REJECTED: number = 4
-export const C_DOC_STATUS_CANCELLED: number = 9
+export const C_DOC_STATUS_CANCELED: number = 9
 
 export const C_DOC_STATUS_WAIT_REVIEW_NAME: string = 'Wait Review';
 export const C_DOC_STATUS_WAIT_APPROVE_NAME: string = 'Wait Approve';
 export const C_DOC_STATUS_APPROVED_NAME: string = 'Approved';
 export const C_DOC_STATUS_REJECTED_NAME: string = 'Rejected';
-export const C_DOC_STATUS_CANCELLED_NAME: string = 'Cancelled';
+export const C_DOC_STATUS_CANCELED_NAME: string = 'Canceled';
 
 export const C_DOC_STATUS_WAIT_REVIEW_COLOR: string = 'warning';
 export const C_DOC_STATUS_WAIT_APPROVE_COLOR: string = 'info';
 export const C_DOC_STATUS_APPROVED_COLOR: string = 'success';
 export const C_DOC_STATUS_REJECTED_COLOR: string = 'danger';
-export const C_DOC_STATUS_CANCELLED_COLOR: string = 'danger';
+export const C_DOC_STATUS_CANCELED_COLOR: string = 'danger';
 
 export const C_DOC_STATUS_WAIT_REVIEW_CLASS: string = 'm-badge m-badge--' + C_DOC_STATUS_WAIT_REVIEW_COLOR + ' m-badge--wide';
 export const C_DOC_STATUS_WAIT_APPROVE_CLASS: string = 'm-badge m-badge--' + C_DOC_STATUS_WAIT_APPROVE_COLOR + ' m-badge--wide';
 export const C_DOC_STATUS_APPROVED_CLASS: string = 'm-badge m-badge--' + C_DOC_STATUS_APPROVED_COLOR + ' m-badge--wide';
 export const C_DOC_STATUS_REJECTED_CLASS: string = 'm-badge m-badge--' + C_DOC_STATUS_REJECTED_COLOR + ' m-badge--wide';
-export const C_DOC_STATUS_CANCELLED_CLASS: string = 'm-badge m-badge--' + C_DOC_STATUS_CANCELLED_COLOR + ' m-badge--wide';
+export const C_DOC_STATUS_CANCELED_CLASS: string = 'm-badge m-badge--' + C_DOC_STATUS_CANCELED_COLOR + ' m-badge--wide';
 
 export const C_DOC_STATUS_2: Array<any> = [
-    { code: 0, active: false, name: "n/a", color: C_DOC_STATUS_CANCELLED_COLOR, displayclass: C_DOC_STATUS_CANCELLED_CLASS, displayListClass: 'm-badge m-badge--' + C_DOC_STATUS_CANCELLED_COLOR + ' m-badge--fullwidth' },
+    { code: 0, active: false, name: "n/a", color: C_DOC_STATUS_CANCELED_COLOR, displayclass: C_DOC_STATUS_CANCELED_CLASS, displayListClass: 'm-badge m-badge--' + C_DOC_STATUS_CANCELED_COLOR + ' m-badge--fullwidth' },
     { code: 1, active: true, name: C_DOC_STATUS_WAIT_REVIEW_NAME, color: C_DOC_STATUS_WAIT_REVIEW_COLOR, displayclass: C_DOC_STATUS_WAIT_REVIEW_CLASS, displayListClass: 'm-badge m-badge--' + C_DOC_STATUS_WAIT_REVIEW_COLOR + ' m-badge--fullwidth' },
     { code: 2, active: true, name: C_DOC_STATUS_WAIT_APPROVE_NAME, color: C_DOC_STATUS_WAIT_APPROVE_COLOR, displayclass: C_DOC_STATUS_WAIT_APPROVE_CLASS, displayListClass: 'm-badge m-badge--' + C_DOC_STATUS_WAIT_APPROVE_COLOR + ' m-badge--fullwidth' },
     { code: 3, active: true, name: C_DOC_STATUS_APPROVED_NAME, color: C_DOC_STATUS_APPROVED_COLOR, displayclass: C_DOC_STATUS_APPROVED_CLASS, displayListClass: 'm-badge m-badge--' + C_DOC_STATUS_APPROVED_COLOR + ' m-badge--fullwidth' },
     { code: 4, active: true, name: C_DOC_STATUS_REJECTED_NAME, color: C_DOC_STATUS_REJECTED_COLOR, displayclass: C_DOC_STATUS_REJECTED_CLASS, displayListClass: 'm-badge m-badge--' + C_DOC_STATUS_REJECTED_COLOR + ' m-badge--fullwidth' },
-    { code: 5, active: false, name: "n/a", color: C_DOC_STATUS_CANCELLED_COLOR, displayclass: C_DOC_STATUS_CANCELLED_CLASS, displayListClass: 'm-badge m-badge--' + C_DOC_STATUS_CANCELLED_COLOR + ' m-badge--fullwidth' },
-    { code: 6, active: false, name: "n/a", color: C_DOC_STATUS_CANCELLED_COLOR, displayclass: C_DOC_STATUS_CANCELLED_CLASS, displayListClass: 'm-badge m-badge--' + C_DOC_STATUS_CANCELLED_COLOR + ' m-badge--fullwidth' },
-    { code: 7, active: false, name: "n/a", color: C_DOC_STATUS_CANCELLED_COLOR, displayclass: C_DOC_STATUS_CANCELLED_CLASS, displayListClass: 'm-badge m-badge--' + C_DOC_STATUS_CANCELLED_COLOR + ' m-badge--fullwidth' },
-    { code: 8, active: false, name: "n/a", color: C_DOC_STATUS_CANCELLED_COLOR, displayclass: C_DOC_STATUS_CANCELLED_CLASS, displayListClass: 'm-badge m-badge--' + C_DOC_STATUS_CANCELLED_COLOR + ' m-badge--fullwidth' },
-    { code: 9, active: true, name: C_DOC_STATUS_CANCELLED_NAME, color: C_DOC_STATUS_CANCELLED_COLOR, displayclass: C_DOC_STATUS_CANCELLED_CLASS, displayListClass: 'm-badge m-badge--' + C_DOC_STATUS_CANCELLED_COLOR + ' m-badge--fullwidth' }
+    { code: 5, active: false, name: "n/a", color: C_DOC_STATUS_CANCELED_COLOR, displayclass: C_DOC_STATUS_CANCELED_CLASS, displayListClass: 'm-badge m-badge--' + C_DOC_STATUS_CANCELED_COLOR + ' m-badge--fullwidth' },
+    { code: 6, active: false, name: "n/a", color: C_DOC_STATUS_CANCELED_COLOR, displayclass: C_DOC_STATUS_CANCELED_CLASS, displayListClass: 'm-badge m-badge--' + C_DOC_STATUS_CANCELED_COLOR + ' m-badge--fullwidth' },
+    { code: 7, active: false, name: "n/a", color: C_DOC_STATUS_CANCELED_COLOR, displayclass: C_DOC_STATUS_CANCELED_CLASS, displayListClass: 'm-badge m-badge--' + C_DOC_STATUS_CANCELED_COLOR + ' m-badge--fullwidth' },
+    { code: 8, active: false, name: "n/a", color: C_DOC_STATUS_CANCELED_COLOR, displayclass: C_DOC_STATUS_CANCELED_CLASS, displayListClass: 'm-badge m-badge--' + C_DOC_STATUS_CANCELED_COLOR + ' m-badge--fullwidth' },
+    { code: 9, active: true, name: C_DOC_STATUS_CANCELED_NAME, color: C_DOC_STATUS_CANCELED_COLOR, displayclass: C_DOC_STATUS_CANCELED_CLASS, displayListClass: 'm-badge m-badge--' + C_DOC_STATUS_CANCELED_COLOR + ' m-badge--fullwidth' }
 ];
 
 export const ACTION_NAME: any = {
@@ -148,7 +148,7 @@ export const ACTION_NAME: any = {
     , reviewed: "Reviewed"
     , approved: C_DOC_STATUS_APPROVED_NAME
     , rejected: C_DOC_STATUS_REJECTED_NAME
-    , cancelled: C_DOC_STATUS_CANCELLED_NAME
+    , canceled: C_DOC_STATUS_CANCELED_NAME
     , waiting: "Waiting"
     , commented: "Comment"
     , delegated: "Delegate"

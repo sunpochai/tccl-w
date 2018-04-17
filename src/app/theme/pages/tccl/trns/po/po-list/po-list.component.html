@@ -134,27 +134,27 @@
 							</label>
 							<label class="m-checkbox">
 								<input type="checkbox" id="chkStatusWaitReview" name="chkStatusWaitReview" [(ngModel)]="chkStatusWaitReview"  >
-								Wait Review
+								{{docStatus[1].name}}
 								<span></span>
 							</label>
 							<label class="m-checkbox">
 								<input type="checkbox" id="chkStatusWaitApprove" name="chkStatusWaitApprove" [(ngModel)]="chkStatusWaitApprove"  >
-								Wait Approve
+								{{docStatus[2].name}}
 								<span></span>
 							</label>
 							<label class="m-checkbox">
 								<input type="checkbox" id="chkStatusApproved" name="chkStatusApproved" [(ngModel)]="chkStatusApproved"  >
-								Approved
+								{{docStatus[3].name}}
 								<span></span>
 							</label>
 							<label class="m-checkbox">
 								<input type="checkbox" id="chkStatusRejected" name="chkStatusRejected" [(ngModel)]="chkStatusRejected"  >
-								Rejected
+								{{docStatus[4].name}}
 								<span></span>
 							</label>
 							<label class="m-checkbox">
-								<input type="checkbox" id="chkStatusCancelled" name="chkStatusCancelled" [(ngModel)]="chkStatusCancelled"  >
-								Cancelled
+								<input type="checkbox" id="chkStatusCanceled" name="chkStatusCanceled" [(ngModel)]="chkStatusCanceled"  >
+								{{docStatus[9].name}}
 								<span></span>
 							</label>
 						</div>
@@ -278,8 +278,8 @@
 								<span></span>
 							</label>
 							<label class="m-checkbox">
-								<input type="checkbox" id="chkStatusCancelled" name="chkStatusCancelled" [(ngModel)]="chkStatusCancelled"  >
-								Cancelled
+								<input type="checkbox" id="chkStatusCanceled" name="chkStatusCanceled" [(ngModel)]="chkStatusCanceled"  >
+								Canceled
 								<span></span>
 							</label>
 						</div>
