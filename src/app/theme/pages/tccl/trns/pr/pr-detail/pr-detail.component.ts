@@ -669,4 +669,8 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         return StringUtil.formatSAPItemNo(in_sap_item_no);
     }
 
+    lefttrim(s,c) {
+        return StringUtil.lefttrim(s,c);
+    }
+
 }

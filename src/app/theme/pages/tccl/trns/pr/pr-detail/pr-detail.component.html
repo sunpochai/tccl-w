@@ -436,7 +436,7 @@
 													{{row.wbs_no}} - {{row.wbs_name}}
 												</ng-container>
 												<ng-container *ngIf="row.wbs_no == null || row.wbs_no == ''" >
-													{{row.account_no}} - {{row.account_name}}
+													{{lefttrim(row.account_no,'0')}} - {{row.account_name}}
 												</ng-container>
 											</td>
 											<td style="vertical-align: middle" align="left" class="m--font-deleted">{{row.mat_desc}}</td>
@@ -458,7 +458,7 @@
 													{{row.wbs_no}} - {{row.wbs_name}}
 												</ng-container>
 												<ng-container *ngIf="row.wbs_no == null || row.wbs_no == ''" >
-													{{row.account_no}} - {{row.account_name}}
+													{{lefttrim(row.account_no,'0')}} - {{row.account_name}}
 												</ng-container>
 											</td>
 											<td style="vertical-align: middle" align="left">{{row.mat_desc}}</td>
