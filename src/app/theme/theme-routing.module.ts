@@ -70,8 +70,8 @@ const routes: Routes = [
                 "loadChildren": ".\/pages\/tccl\/trns\/po\/po.module#POModule"
             },
             {
-                "path": "trns\/pm",
-                "loadChildren": ".\/pages\/tccl\/trns\/pm\/pm.module#PMModule"
+                "path": "trns\/pa",
+                "loadChildren": ".\/pages\/tccl\/trns\/pa\/pa.module#PAModule"
             },
             // {           
             //     "path": "angular\/primeng",

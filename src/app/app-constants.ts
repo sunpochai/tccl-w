@@ -1,9 +1,9 @@
 //Service URL 
 // export const API_BASE_URL: string =  'https://portal.tccland.com:8090/OASRESTApi'
- export const API_BASE_URL: string = 'http://202.60.207.137/WebRESTApi'
+//  export const API_BASE_URL: string = 'http://202.60.207.137/WebRESTApi'
 // export const API_BASE_URL: string = 'http://sunpochai.thddns.net:5555'
 //export const API_BASE_URL: string = 'http://localhost:65179/' 
-//export const API_BASE_URL: string = 'http://192.168.1.104:5555'  
+export const API_BASE_URL: string = 'http://192.168.1.104:5555'  
 export const API_AUTHEN_TOKEN: string = API_BASE_URL + '/token'
 export const API_AUTHEN_CHECKIN: string = API_BASE_URL + '/api/authen/checkin'
 export const API_AUTHEN_CHECKOUT: string = API_BASE_URL + '/api/authen/checkout'
@@ -72,9 +72,6 @@ export const API_PO_GET: string = API_BASE_URL + '/api/po'
 export const API_PA_LIST: string = API_BASE_URL + '/api/pa/list'
 export const API_PA_GET: string = API_BASE_URL + '/api/pa'
 
-export const API_PAYMENT_LIST: string = API_BASE_URL + '/api/payment/list'
-export const API_PAYMENT_GET: string = API_BASE_URL + '/api/payment'
-
 export const API_ATTACHMENT_GET_DEL: string = API_BASE_URL + '/api/attachment'
 export const API_ATTACHMENT_UPLOAD: string = API_BASE_URL + '/api/attachment/uploadfile'
 
@@ -105,7 +102,7 @@ export const C_ACCOUNT_TYPE_NON_ACCOUNT_NAME: string = 'Non-Account';
 
 export const ATTACHMENT_DOC_GROUP_PR: number = 1
 export const ATTACHMENT_DOC_GROUP_PO: number = 2
-export const ATTACHMENT_DOC_GROUP_PM: number = 3
+export const ATTACHMENT_DOC_GROUP_PA: number = 3
 
 export const WORKFLOW_STATUS_ACTIVE: number = 1
 export const WORKFLOW_STATUS_COMPLETED: number = 2
