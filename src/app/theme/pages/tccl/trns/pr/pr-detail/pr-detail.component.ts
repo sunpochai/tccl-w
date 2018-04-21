@@ -673,4 +673,12 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         return StringUtil.lefttrim(s,c);
     }
 
+    getAttachFileWidthClass() {
+        if (this.canApprove || this.canComment || this.canReview) {
+            return "col-12";
+        } else {
+            return "col-6";
+        }
+    }
+
 }

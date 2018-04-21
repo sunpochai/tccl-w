@@ -177,7 +177,36 @@
 						</div>
 					</div>
 					<div class="m-portlet__body-lil m--regular-font-size-sm1">
-						<table class="table-display">
+						<div class="row" *ngFor="let row of po.po_attachment_items; let index = index">
+							<div class="col-10">
+								<div class="row">
+									<div [ngClass]="getAttachFileWidthClass()">
+										<a href="#" (click)="openFile(row.attach_id)" title="Download">
+											<span class="m--font-brand">{{row.file_name}}</span>
+										</a>
+									</div>
+									<div [ngClass]="getAttachFileWidthClass()">
+										<span>
+											<i class="la la-user"></i>
+											<span class="m--font-pale">{{row.create_username}}</span>
+										</span>
+										<span>
+											<i class="la la-clock-o"></i>
+											<span class="m--font-pale">{{row.create_datetime | date :'dd/MM/yyyy HH:mm:ss'}}</span>
+										</span>
+									</div>
+								</div>
+							</div>
+							<div class="col-2">
+								<span *ngIf="row.create_user==getADUserLogin()">
+									<a href="#" (click)="prepareRemoveFile(row.attach_id, row.file_name)" data-toggle="modal" data-target="#m_modal_delete" class="m-btn m-btn--pill m-btn--hover-danger btn btn-sm btn-secondary" title="Remove">
+										<i class="la la-trash"></i>
+									</a>
+								</span>
+							</div>
+						</div>
+
+						<!-- <table class="table-display">
 							<tr *ngFor="let row of po.po_attachment_items; let index = index">
 								<td>
 									<a href="#" (click)="openFile(row.attach_id)" title="Download">
@@ -201,7 +230,7 @@
 							<tr *ngIf="po.po_attachment_items == null || po.po_attachment_items.length <= 0">
 								<td span="3" style="text-align: center;">-----No Attachment-----</td>
 							</tr>
-						</table>
+						</table> -->
 
 						<div class="form-group m-form__group" >
 							<label for="exampleInputEmail1">

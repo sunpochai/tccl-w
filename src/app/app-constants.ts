@@ -1,5 +1,5 @@
 //Service URL 
-//export const API_BASE_URL: string =  'http://portal.tccland.com:8090/OASRESTApi'
+// export const API_BASE_URL: string =  'https://portal.tccland.com:8090/OASRESTApi'
  export const API_BASE_URL: string = 'http://202.60.207.137/WebRESTApi'
 // export const API_BASE_URL: string = 'http://sunpochai.thddns.net:5555'
 //export const API_BASE_URL: string = 'http://localhost:65179/' 
@@ -68,6 +68,9 @@ export const API_PR_GET_PR_ITEM: string = API_BASE_URL + '/api/pr/getpritem'
 
 export const API_PO_LIST: string = API_BASE_URL + '/api/po/list'
 export const API_PO_GET: string = API_BASE_URL + '/api/po'
+
+export const API_PA_LIST: string = API_BASE_URL + '/api/pa/list'
+export const API_PA_GET: string = API_BASE_URL + '/api/pa'
 
 export const API_PAYMENT_LIST: string = API_BASE_URL + '/api/payment/list'
 export const API_PAYMENT_GET: string = API_BASE_URL + '/api/payment'
