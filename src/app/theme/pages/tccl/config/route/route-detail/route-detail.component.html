@@ -25,7 +25,7 @@
 				<li class="m-nav__item">
 					<a href="#" (click)="navigate_list()" class="m-nav__link">
 						<span class="m-nav__link-text">
-							{{routetype.name.toUpperCase()}} Route Approve
+							{{this.routetype.display_name}} Route Approve
 						</span>
 					</a>
 				</li>
@@ -43,11 +43,11 @@
 					<div class="m-portlet__head-title">
 						<h3 class="m-portlet__head-text" *ngIf="id==null || id==''">
 							<i class="la la-plus"></i>
-							New {{routetype.name.toUpperCase()}} Route Approve
+							New {{this.routetype.display_name}} Route Approve
 						</h3>
 						<h3 class="m-portlet__head-text" *ngIf="id!=null && id!=''">
 							<i class="la la-pencil"></i>
-							Edit {{routetype.name.toUpperCase()}} Route Approve
+							Edit {{this.routetype.display_name}} Route Approve
 						</h3>
 					</div>
 				</div>
