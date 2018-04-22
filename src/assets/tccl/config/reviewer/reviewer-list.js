@@ -78,6 +78,8 @@ var myDatatable = function( ) {
               return 'Purchasing Group';
             } else if (row.sap_group=='3') {
               return 'User ID';
+            } else if (row.sap_group=='4') {
+              return 'Goods Recipient';
             } else {
               return 'N/A';
             }

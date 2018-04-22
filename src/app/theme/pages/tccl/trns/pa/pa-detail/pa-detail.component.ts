@@ -355,36 +355,6 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
         );
     }
 
-    reject(workflowaction) {
-        super.blockui('#m-content');
-
-        workflowaction.outcome = ACTION_NAME.rejected
-        workflowaction.outcome_description = this.action_comment;
-
-        this._workflowService.reject<any>(workflowaction).subscribe(
-            resp => {
-                workflowaction = resp;
-                if (resp.is_error == false) {
-                    // console.log(resp);
-                    super.unblockui('#m-content');
-                    super.showsuccess('Reject completed');
-                    this.navigate_home();
-                } else {
-                    // console.log(resp);
-                    super.showError(resp.error_msg);
-                    super.unblockui('#m-content');
-                }
-            },
-            error => {
-                super.showError(error);
-                super.unblockui('#m-content');
-            },
-            () => {
-                super.unblockui('#m-content');
-            }
-        );
-    }
-
     waiting(workflowaction) {
         super.blockui('#m-content');
 
@@ -507,9 +477,6 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
                 break;
             case 'approve':
                 this.approve(workflowaction);
-                break;
-            case 'reject':
-                this.reject(workflowaction);
                 break;
             case 'waiting':
                 this.waiting(workflowaction);

@@ -64,13 +64,13 @@ var myDatatable = function( ) {
 
       columns: [
         {   
-          field: 'mat_doc_no',
+          field: 'matdoc_no',
           title: 'Mat.Doc No.',
           sortable: true,
           textAlign: 'center',
           // width: '60px',
         } , {
-          field: 'year',
+          field: 'doc_year',
           title: 'Year',
           selector: false,
           textAlign: 'center',
@@ -92,7 +92,7 @@ var myDatatable = function( ) {
             return row.comp_code + ' ' + row.comp_name;
           }
         } , {
-          field: 'subject',
+          field: 'business_place',
           title: 'Business Place',
           sortable: true,
           // width: '150px',
@@ -149,7 +149,7 @@ var myDatatable = function( ) {
             return '<a href="./trns/po/detail/'+row.po_no+'"  class="m-menu__link" title="Purchase Order Detail"> ' + row.po_no + '</a>';
           }
         } , {
-          field: 'goods_receipient',
+          field: 'goods_recipient',
           title: 'Goods Receipient',
           sortable: true,
         }
@@ -205,10 +205,6 @@ var myDatatable = function( ) {
       if ( document.getElementById("chkStatusApproved").checked ) {
         // alert(3);
         mystatus[mystatus.length] = 3;
-      }
-      if ( document.getElementById("chkStatusRejected").checked ) {
-        // alert(4);
-        mystatus[mystatus.length] = 4;
       }
       if ( document.getElementById("chkStatusCanceled").checked ) {
         // alert(9);

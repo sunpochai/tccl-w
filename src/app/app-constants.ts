@@ -90,7 +90,7 @@ export const API_USERLOGIN_LIST: string = API_BASE_URL + '/api/userslogin/list'
 //Model status code
 export const ROUTE_PR: any = { "display_name":"PR", "name": "pr", "doc_group": 1 }
 export const ROUTE_PO: any = { "display_name":"PO", "name": "po", "doc_group": 2 }
-export const ROUTE_PA: any = { "display_name":"PA", "name": "pa", "doc_group": 3 }
+export const ROUTE_PA: any = { "display_name":"Payment", "name": "pa", "doc_group": 3 }
 export const DOCUMENT_GROUP: any = [
     ROUTE_PR,
     ROUTE_PO,

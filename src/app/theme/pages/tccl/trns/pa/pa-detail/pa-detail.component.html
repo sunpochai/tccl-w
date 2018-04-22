@@ -134,9 +134,6 @@
 									<button type="button" [disabled]="isWaiting || isDelegate || heroForm.invalid" class="btn btn-success" (click)="prepareAction('Approve')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
 										Approve 
 									</button>
-									<button type="button" [disabled]="isWaiting || isDelegate || heroForm.invalid" class="btn btn-danger" (click)="prepareAction('Reject')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
-										Reject 
-									</button>
 									<ng-container *ngIf="isWaiting">
 										<button type="button" [disabled]="isWaiting==false || heroForm.invalid  || user_list==null || user_list.length < 1" class="btn btn-warning" (click)="prepareAction('Waiting')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
 											Waiting 

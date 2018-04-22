@@ -73,7 +73,15 @@
 					</label>
 					<div class="col-lg-10 col-sm-9">
 						<div class="m-radio-inline">
-							<label class="m-radio">
+							<label class="m-radio" *ngFor="let item of sap_group">
+								<input type="radio" [(ngModel)]="input_sap_group"  name="sap_group" value="{{item.value}}">
+								{{item.name}}
+								<span></span>
+							</label>
+							<!-- <option value={{item.value}} *ngFor="let item of sap_group">
+								{{item.name}}
+							</option> -->
+							<!-- <label class="m-radio">
 								<input type="radio" [(ngModel)]="input_sap_group"  name="sap_group" value="1">
 								Requisitioner
 								<span></span>
@@ -87,7 +95,7 @@
 								<input type="radio" [(ngModel)]="input_sap_group" name="sap_group" value="3">
 								User ID
 								<span></span>
-							</label>
+							</label> -->
 						</div>
 					</div>
 				</div>

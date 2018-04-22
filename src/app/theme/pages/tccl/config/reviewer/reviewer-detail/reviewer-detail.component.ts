@@ -40,6 +40,12 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
 
     public showDropDownUser = false;
     public input_sap_group: string;
+    public sap_group: any = [
+        { value: '1', name: 'Requisitioner' }, 
+        { value: '2', name: 'Purchasing Group' }, 
+        { value: '3', name: 'User ID' },
+        { value: '4', name: 'Goods Recipient' }
+    ];
 
 
     constructor(private _script: ScriptLoaderService,
