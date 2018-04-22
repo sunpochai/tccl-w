@@ -181,7 +181,7 @@ var myDatatable = function( ) {
   var search = function()  {
     var query = datatable.getDataSourceQuery();
     
-    query.po_no = $('#m_form_po_no').val();
+    query.matdoc_no = $('#m_form_pa_no').val();
     query.doc_type = $('#m_form_doc_type').val();
     query.po_date_from = toInternalDate($('#m_form_date_from').val());
     query.po_date_to = toInternalDate($('#m_form_date_to').val());
