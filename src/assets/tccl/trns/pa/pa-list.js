@@ -206,10 +206,6 @@ var myDatatable = function( ) {
         // alert(3);
         mystatus[mystatus.length] = 3;
       }
-      if ( document.getElementById("chkStatusRejected").checked ) {
-        // alert(4);
-        mystatus[mystatus.length] = 4;
-      }
       if ( document.getElementById("chkStatusCanceled").checked ) {
         // alert(9);
         mystatus[mystatus.length] = 9;

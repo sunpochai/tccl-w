@@ -37,7 +37,6 @@ export class PAListComponent extends PageBaseComponent implements OnInit, AfterV
     public chkStatusWaitReview = true;
     public chkStatusWaitApprove = true;
     public chkStatusApproved = false;
-    public chkStatusRejected = false;
     public chkStatusCanceled = false;
 
     constructor(private _router: Router,
@@ -116,7 +115,6 @@ export class PAListComponent extends PageBaseComponent implements OnInit, AfterV
         this.chkStatusWaitReview = true;
         this.chkStatusWaitApprove = true;
         this.chkStatusApproved = false;
-        this.chkStatusRejected = false;
         this.chkStatusCanceled = false;
     }
 
@@ -125,6 +123,5 @@ export class PAListComponent extends PageBaseComponent implements OnInit, AfterV
         this.chkStatusWaitApprove = this.chkStatusAll;
         this.chkStatusApproved = this.chkStatusAll;
         this.chkStatusCanceled = this.chkStatusAll;
-        this.chkStatusRejected = this.chkStatusAll;
     }
 }   
