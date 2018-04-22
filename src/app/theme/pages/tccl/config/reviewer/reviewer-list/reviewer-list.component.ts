@@ -20,7 +20,12 @@ declare var window: any
 export class ReviewerListComponent extends PageBaseComponent implements OnInit, AfterViewInit {
     public action_review_id: any;
     public action_sap_code: any;
-    public sap_group: any = [{ value: '1', name: 'Requisitioner' }, { value: '2', name: 'Purchasing Group' }, { value: '3', name: 'User ID' }];
+    public sap_group: any = [
+        { value: '1', name: 'Requisitioner' }, 
+        { value: '2', name: 'Purchasing Group' }, 
+        { value: '3', name: 'User ID' },
+        { value: '4', name: 'Goods Recipient' }
+    ];
 
     constructor(private _router: Router, private route: ActivatedRoute,
         private _script: ScriptLoaderService,
