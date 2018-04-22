@@ -111,6 +111,7 @@ export class OutboundListComponent extends PageBaseComponent implements OnInit, 
             resp => {
                 if (resp.is_error) {
                     super.showError(resp.error_msg);
+                    this.search();
                     super.unblockui('#m-content');
                 } else {
                     super.showsuccess(this.action_doc_group_name + ' ' + this.action_doc_no + this.action_display_name + ' Success');
@@ -120,6 +121,7 @@ export class OutboundListComponent extends PageBaseComponent implements OnInit, 
             },
             error => {
                 super.showError(error);
+                this.search();
                 super.unblockui('#m-content');
             },
             () => {
@@ -135,6 +137,7 @@ export class OutboundListComponent extends PageBaseComponent implements OnInit, 
             resp => {
                 if (resp.is_error) {
                     super.showError(resp.error_msg);
+                    this.search();
                     super.unblockui('#m-content');
                 } else {
                     super.showsuccess(this.action_doc_group_name + ' ' + this.action_doc_no + this.action_display_name + ' Success');
@@ -144,6 +147,7 @@ export class OutboundListComponent extends PageBaseComponent implements OnInit, 
             },
             error => {
                 super.showError(error);
+                this.search();
                 super.unblockui('#m-content');
             },
             () => {

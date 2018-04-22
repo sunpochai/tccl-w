@@ -76,17 +76,9 @@ $table-inverse-color:           $body-bg !default;
 
 
   /* sanchai pochai add */
-  @font-face {
-    font-family: 'Sukhumvit';
-    /*src: url('fonts/sukhumvit-set/SukhumvitSet-Bold.ttf');
-    src: url('fonts/sukhumvit-set/SukhumvitSet-Light.ttf');*/
-    src: url('../../../fonts/SukhumvitSet-Medium.ttf') format('truetype');
-    /*src: url('fonts/sukhumvit-set/SukhumvitSet-SemiBold.ttf');
-    src: url('fonts/sukhumvit-set/SukhumvitSet-Text.ttf');
-    src: url('fonts/sukhumvit-set/SukhumvitSet-Thin.ttf');*/
-  }
+  
 html {
-  font-family: 'Sukhumvit';
+  font-family: 'Poppins';
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
@@ -101,12 +93,12 @@ article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, s
 
 body {
   margin: 0;
-  font-family: "Sukhumvit";
-  font-size: 1rem;
+  font-family: "Poppins";
+  font-size: 1.2rem;
   
   /* weeraya 27/03/2018
   line-height: 1.5; */
-  color: #212529;
+  color: #17181a;
   text-align: left;
   background-color: #fff; }
 
@@ -7580,11 +7572,11 @@ body {
   height: 100%;
   margin: 0px;
   padding: 0px;
-  font-size: 13px;
+  font-size: 14px;
   /* weeraya 27/03/2018
   font-size: 14px; */
-  font-weight: 300;
-  font-family: Sukhumvit,Roboto;
+  font-weight:400;
+  font-family: Poppins,Roboto;
   -ms-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
@@ -10649,7 +10641,7 @@ b, strong {
     background: #f4f3f8; }
 
 .m-datatable.m-datatable--default > .m-datatable__table > .m-datatable__body .m-datatable__row > .m-datatable__cell > span {
-  color: #575962; }
+  color: #111111eb; }
 
 .m-datatable.m-datatable--default > .m-datatable__table > .m-datatable__body .m-datatable__row > .m-datatable__cell.m-datatable__cell--hover {
   background: #f7f6fa; }
@@ -12260,7 +12252,7 @@ b, strong {
     display: block;
     margin: 0 0 20px 0;
     padding: 0;
-    font-family: "Roboto";
+    font-family: "Poppins";
     font-weight: 500; }
   .m-section h4.m-section__heading {
     font-size: 1.1rem; }
@@ -16955,19 +16947,19 @@ code {
           /* weeraya 27/03/2018
           font-size: 1.3rem; */
           font-weight: 500;
-          font-family: 'Sukhumvit', Roboto; }
+          font-family: 'Poppins', Roboto; }
           .m-portlet .m-portlet__head .m-portlet__head-caption .m-portlet__head-title .m-portlet__head-text small {
             display: inline-block;
             padding-left: 5px;
             font-size: 1rem;
             font-weight: 300;
-            font-family: 'Sukhumvit', Roboto; }
+            font-family: 'Poppins', Roboto; }
           .m-portlet .m-portlet__head .m-portlet__head-caption .m-portlet__head-title .m-portlet__head-text .m-portlet__head-desc {
             margin-top: 0.4rem;
             display: block;
             font-size: 0.85rem;
             font-weight: 300;
-            font-family: 'Sukhumvit', Roboto; }
+            font-family: 'Poppins', Roboto; }
     .m-portlet .m-portlet__head .m-portlet__head-tools {
       text-align: right;
       display: table-cell;
@@ -35051,7 +35043,7 @@ body.m-content--skin-light2 {
   .m-subheader .m-subheader__title {
     display: inline-block;
     padding: 7px 25px 7px 0;
-    font-family: 'Sukhumvit', Roboto;
+    font-family: 'Roboto', Roboto;
     font-weight: 300;
     font-size: 1.55rem;
     font-weight: 500;

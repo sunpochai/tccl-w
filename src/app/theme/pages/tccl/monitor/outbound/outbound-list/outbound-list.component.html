@@ -141,7 +141,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLongTitle">
-					Confirm ?
+					Confirm {{this.action_name}} ?
 				</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">
@@ -155,11 +155,11 @@
 				</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" (click)="performAction()" data-dismiss="modal" class="btn btn-info">
-					Confirm
+				<button type="button" (click)="performAction()" data-dismiss="modal" class="btn btn-success">
+					Yes
 				</button>
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">
-					Close
+					No
 				</button>
 			</div>
 		</div>
@@ -168,7 +168,7 @@
 
 
 <!--begin::Modal-->
-<div class="modal fade" id="m_modal_item_detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<!-- <div class="modal fade" id="m_modal_item_detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document" *ngIf="currentItem!=null">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -253,5 +253,5 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->
 <!--end::Modal-->

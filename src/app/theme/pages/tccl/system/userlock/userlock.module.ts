@@ -1,8 +1,7 @@
-import { PMDetailComponent } from './pm-detail/pm-detail.component';
 import { FormBuilder } from '@angular/forms';
 
 import {
-    FormControl, FormsModule
+    FormsModule
 } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AlertComponent } from './../../../../../auth/_directives/alert.component';
@@ -11,40 +10,41 @@ import { DefaultComponent } from './../../../default/default.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { PMListComponent } from './pm-list/pm-list.component';
 import { LayoutModule } from '../../../../layouts/layout.module';
 import { AlertService } from '../../../../../auth/_services/index';
-import { PMService } from '../../_services/trns/pm.service';
+import { UserLockService } from '../../_services/system/userlock.service';
+import { UserLockListComponent } from './userlock-list/userlock-list.component';
+import { UserLockDetailComponent } from './userlock-detail/userlock-detail.component';
+import { ADUserService } from '../../_services/masters/aduser.service';
 
 const routes: Routes = [
     {
         "path": "",
         "component": DefaultComponent,
-        "children": [
-            {
+        "children": [{
                 "path": "list",
-                "component": PMListComponent
-            }/* , {
+                "component": UserLockListComponent
+            }, {
                 "path": "detail/:id",
-                "component": DocTypeDetailComponent
-            } */
+                "component": UserLockDetailComponent
+            }
         ]
     }
 ];
 @NgModule({
     imports: [
         CommonModule, RouterModule.forChild(routes), LayoutModule, HttpModule, FormsModule
-
-
     ], exports: [
         RouterModule
     ], declarations: [
-        PMListComponent,
-        PMDetailComponent/* ,
-        
-        DocTypeDetailComponent */
-    ], providers: [PMService, FormBuilder]
+        UserLockListComponent,
+        UserLockDetailComponent
+    ], providers: [
+        UserLockService,
+        ADUserService,
+        FormBuilder
+    ]
 })
-export class PMModule {
+export class UserLockModule {
 
 }

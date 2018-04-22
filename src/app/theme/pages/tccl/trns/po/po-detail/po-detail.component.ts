@@ -608,7 +608,7 @@ ad_user: value.ad_user,
             case ACTION_NAME.approved.toLowerCase():
                 return 'm-badge m-badge--success m-badge--fullwidth';
             case ACTION_NAME.rejected.toLowerCase():
-            case ACTION_NAME.cancelled.toLowerCase():
+            case ACTION_NAME.canceled.toLowerCase():
                 return 'm-badge m-badge--danger m-badge--fullwidth';
             case ACTION_NAME.waiting.toLowerCase():
             case ACTION_NAME.commented.toLowerCase():
@@ -738,6 +738,14 @@ ad_user: value.ad_user,
 
     toDisplayDateString(s: string) {
         return DateUtil.toDisplayDateString(s);
+    }
+
+    getAttachFileWidthClass() {
+        if (this.canApprove || this.canComment || this.canReview) {
+            return "col-12";
+        } else {
+            return "col-6";
+        }
     }
 
 }

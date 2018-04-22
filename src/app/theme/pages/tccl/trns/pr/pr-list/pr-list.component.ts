@@ -6,7 +6,7 @@ import { ScriptLoaderService } from './../../../../../../_services/script-loader
 import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { constructDependencies } from '@angular/core/src/di/reflective_provider';
 import { PRService } from './../../../_services/trns/pr.service';
-import { API_PR_LIST, C_DOC_STATUS_2, C_DOC_STATUS_WAIT_REVIEW, C_DOC_STATUS_REVIEWED, C_DOC_STATUS_APPROVED, C_DOC_STATUS_REJECTED, C_DOC_STATUS_CANCELLED } from './../../../../../../app-constants';
+import { API_PR_LIST, C_DOC_STATUS_2, C_DOC_STATUS_WAIT_REVIEW, C_DOC_STATUS_REVIEWED, C_DOC_STATUS_APPROVED, C_DOC_STATUS_REJECTED, C_DOC_STATUS_CANCELED } from './../../../../../../app-constants';
 import { DocTypeService } from '../../../_services/masters/doctype.service';
 import { CompanyService } from '../../../_services/masters/company.service';
 import { DocType } from '../../../_models/masters/doctype';
@@ -38,10 +38,8 @@ export class PRListComponent extends PageBaseComponent implements OnInit, AfterV
     public chkStatusWaitApprove = true;
     public chkStatusApproved = false;
     public chkStatusRejected = false;
-    public chkStatusCancelled = false;
-
-    public showSearchForm: boolean = false;
-
+    public chkStatusCanceled = false;
+    
     constructor(private _router: Router,
         private _script: ScriptLoaderService,
         private _doctypeService: DocTypeService,
@@ -127,25 +125,16 @@ export class PRListComponent extends PageBaseComponent implements OnInit, AfterV
         this.chkStatusWaitApprove = true;
         this.chkStatusApproved = false;
         this.chkStatusRejected = false;
-        this.chkStatusCancelled = false;
+        this.chkStatusCanceled = false;
     }
 
     toggleStatusAll() {
         this.chkStatusWaitReview = this.chkStatusAll;
         this.chkStatusWaitApprove = this.chkStatusAll;
         this.chkStatusApproved = this.chkStatusAll;
-        this.chkStatusCancelled = this.chkStatusAll;
+        this.chkStatusCanceled = this.chkStatusAll;
         this.chkStatusRejected = this.chkStatusAll;
     }
 
-    toggleSearchForm() {
-        console.log(this.showSearchForm);
-        this.showSearchForm = !this.showSearchForm;
-    }
-
-    getSearchFormLinkCaption(): string {
-        console.log(this.showSearchForm);
-        return (this.showSearchForm) ? 'Hide search' : 'Show search' ;
-    }
 
 }   

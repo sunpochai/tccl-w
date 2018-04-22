@@ -10,6 +10,8 @@ import { API_ROUTE_PR_LIST, API_ROUTE_PO_LIST, API_ROUTE_PA_LIST, ROUTE_PR, ROUT
 import { RouteApproveService } from '../../../_services/config/routeapprove.service';
 import { DocType } from '../../../_models/masters/doctype';
 import { DocTypeService } from '../../../_services/masters/doctype.service';
+import { TrackingService } from '../../../_services/masters/tracking.service';
+import { Tracking } from '../../../_models/masters/tracking';
 
 declare var myDatatable: any;
 declare var window: any
@@ -24,12 +26,14 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
     public api_list: string;
     public scriptpath: string;
     public doctypeList: Array<DocType>;
+    public trackingNumberList: Array<Tracking>;
     public action_route_id: string;
     public action_route_name: string;
     constructor(private _router: Router, private route: ActivatedRoute,
         private _script: ScriptLoaderService,
         private _routeapproveService: RouteApproveService,
-        private _doctypeService: DocTypeService) {
+        private _doctypeService: DocTypeService,
+        private _trackingService: TrackingService) {
         super();
     }
 
@@ -40,14 +44,20 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
         window.my.namespace.prepare_del = this.prepare_del.bind(this);
         window.my.namespace.navigate_edit = this.navigate_edit.bind(this);
 
-        this._doctypeService.getall().subscribe(data => {
-            this.doctypeList = data;
-            // console.log(data);
+        this._doctypeService.getall().subscribe(resp => {
+            this.doctypeList = resp;
+            // console.log(resp);
         });
-        console.log('ngOnInit');
-        console.log(this.route);
+
+
+        this._trackingService.getall().subscribe(resp => {
+            this.trackingNumberList = resp;
+            // console.log(resp);
+        });
+        
+        
         this.route.params.subscribe(params => {
-            console.log(params['routetype']);
+            // console.log(params['routetype']);
             //routetype: string ('pr','po','pa')
             switch (params['routetype']) {
                 case ROUTE_PR.name:
@@ -71,7 +81,7 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
 
     ngAfterViewInit() {
         this._script.loadScripts('config-route-list', [this.scriptpath]);
-        console.log('ngAfterViewInit');
+        // console.log('ngAfterViewInit');
         this.load(this.api_list, this.routetype.doc_group);
     }
 
@@ -91,8 +101,8 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
     prepare_del(routeId, routeName) {
         this.action_route_id = routeId;
         this.action_route_name = routeName;
-        console.log(this.action_route_id);
-        console.log(this.action_route_name);
+        // console.log(this.action_route_id);
+        // console.log(this.action_route_name);
     }
 
     del() {
@@ -110,11 +120,11 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
             error => {
                 super.showError(error);
                 super.unblockui('#m-content');
-                console.log('error');
+                // console.log('error');
             },
             () => {
                 super.unblockui('#m-content');
-                console.log('done');
+                // console.log('done');
             });
     }
 
@@ -131,7 +141,7 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
     }
 
     search() {
-        console.log('do search');
+        // console.log('do search');
         super.blockui('#m-content');
         myDatatable.search();
         super.unblockui('#m-content');

@@ -12,7 +12,7 @@
 					<span class="m-menu__link-title">
 						<span class="m-menu__link-wrap">
 							<span class="m-menu__link-text">
-							Worklist 
+							WorkList 
 							</span>
 							<span class="m-menu__link-badge">
 
@@ -75,7 +75,7 @@
 			</li>
 			<li *ngIf="isAdmin || isOwner" class="m-menu__item  m-menu__item--submenu" routerLinkActive="m-menu__item--open" routerLinkActiveOptions="{ exact: true }"  aria-haspopup="true"  data-menu-submenu-toggle="hover">
 				<a  href="#" class="m-menu__link m-menu__toggle">
-					<i class="m-menu__link-icon flaticon-cogwheel"></i>
+					<i class="m-menu__link-icon la la-wrench"></i>
 					<span class="m-menu__link-text">
 						Config
 					</span>
@@ -200,6 +200,40 @@
 								</span>
 							</a>
 						</li>  
+					</ul>  
+				</div>
+			</li>
+			<li *ngIf="isAdmin" class="m-menu__item  m-menu__item--submenu" routerLinkActive="m-menu__item--open" routerLinkActiveOptions="{ exact: true }"  aria-haspopup="true"  data-menu-submenu-toggle="hover">
+				<a  href="#" class="m-menu__link m-menu__toggle">
+					<i class="m-menu__link-icon flaticon-cogwheel"></i>
+					<span class="m-menu__link-text">
+						System
+					</span>
+					<i class="m-menu__ver-arrow la la-angle-right"></i>
+				</a>
+				<div class="m-menu__submenu">
+					<span class="m-menu__arrow"></span>
+					<ul class="m-menu__subnav">
+						<li class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }"  aria-haspopup="true" >
+							<a  routerLink="/system/userlock/list" class="m-menu__link">
+								<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+									<span></span>
+								</i>
+								<span class="m-menu__link-text">
+									User Lock
+								</span>
+							</a>
+						</li>
+						<li class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }"  aria-haspopup="true" >
+							<a  routerLink="/system/userlogin/list" class="m-menu__link">
+								<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+									<span></span>
+								</i>
+								<span class="m-menu__link-text">
+									User Login
+								</span>
+							</a>
+						</li>
 					</ul>  
 				</div>
 			</li>

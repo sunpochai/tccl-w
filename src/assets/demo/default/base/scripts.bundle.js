@@ -4399,7 +4399,7 @@ $(document).ready(function() {
 		translate: {
 			records: {
 				processing: 'Please wait...',
-				noRecords: 'No records found',
+				noRecords: '--- No data to display ---',
 			},
 			toolbar: {
 				pagination: {

@@ -601,7 +601,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
             case ACTION_NAME.approved.toLowerCase():
                 return 'm-badge m-badge--success m-badge--fullwidth';
             case ACTION_NAME.rejected.toLowerCase():
-            case ACTION_NAME.cancelled.toLowerCase():
+            case ACTION_NAME.canceled.toLowerCase():
                 return 'm-badge m-badge--danger m-badge--fullwidth';
             case ACTION_NAME.waiting.toLowerCase():
             case ACTION_NAME.commented.toLowerCase():
@@ -667,6 +667,18 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
 
     formatSAPItemNo(in_sap_item_no) {
         return StringUtil.formatSAPItemNo(in_sap_item_no);
+    }
+
+    lefttrim(s,c) {
+        return StringUtil.lefttrim(s,c);
+    }
+
+    getAttachFileWidthClass() {
+        if (this.canApprove || this.canComment || this.canReview) {
+            return "col-12";
+        } else {
+            return "col-6";
+        }
     }
 
 }

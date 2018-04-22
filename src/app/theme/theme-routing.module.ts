@@ -50,6 +50,14 @@ const routes: Routes = [
                 "loadChildren": ".\/pages\/tccl\/monitor\/outbound\/outbound.module#OutboundModule"
             },
             {
+                "path": "system\/userlock",
+                "loadChildren": ".\/pages\/tccl\/system\/userlock\/userlock.module#UserLockModule"
+            },
+            {
+                "path": "system\/userlogin",
+                "loadChildren": ".\/pages\/tccl\/system\/userlogin\/userlogin.module#UserLoginModule"
+            },
+            {
                 "path": "trns\/worklist",
                 "loadChildren": ".\/pages\/tccl\/trns\/worklist\/worklist.module#WorklistModule"
             },
@@ -62,8 +70,8 @@ const routes: Routes = [
                 "loadChildren": ".\/pages\/tccl\/trns\/po\/po.module#POModule"
             },
             {
-                "path": "trns\/pm",
-                "loadChildren": ".\/pages\/tccl\/trns\/pm\/pm.module#PMModule"
+                "path": "trns\/pa",
+                "loadChildren": ".\/pages\/tccl\/trns\/pa\/pa.module#PAModule"
             },
             // {           
             //     "path": "angular\/primeng",
