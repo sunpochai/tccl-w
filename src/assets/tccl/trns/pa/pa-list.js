@@ -68,14 +68,17 @@ var myDatatable = function( ) {
           title: 'Mat.Doc No.',
           sortable: true,
           textAlign: 'center',
-          // width: '60px',
+          width: '80px',
+          template: function(row) {
+            return '<a href="./trns/pa/detail/'+row.matdoc_no+'"  class="m-menu__link" title="Material Document Detail"> ' + row.matdoc_no + '</a>';
+          }
         } , {
           field: 'doc_year',
           title: 'Year',
           selector: false,
           textAlign: 'center',
           sortable: true,
-          // width: '80px',
+          width: '60px',
         }, {   
           field: 'doc_date',
           title: 'Doc. Date',
@@ -152,6 +155,17 @@ var myDatatable = function( ) {
           field: 'goods_recipient',
           title: 'Goods Receipient',
           sortable: true,
+        } , {
+          field: 'c_doc_status',
+          title: 'Status',
+          sortable: true,
+          template: function (row) {
+            if (row.c_doc_status != null && row.c_doc_status!='') {
+              return '<span class="' + my.docStatus[row.c_doc_status].displayListClass + '">' + my.docStatus[row.c_doc_status].name + '</span>';
+            } else {
+              return '<span class="' + my.docStatus[0].displayListClass + '">' + my.docStatus[0].name + '</span>';
+            }
+          }
         }
       ],
     });
