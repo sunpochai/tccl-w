@@ -69,8 +69,8 @@ export const API_PR_GET_PR_ITEM: string = API_BASE_URL + '/api/pr/getpritem'
 export const API_PO_LIST: string = API_BASE_URL + '/api/po/list'
 export const API_PO_GET: string = API_BASE_URL + '/api/po'
 
-export const API_PAYMENT_LIST: string = API_BASE_URL + '/api/payment/list'
-export const API_PAYMENT_GET: string = API_BASE_URL + '/api/payment'
+export const API_PA_LIST: string = API_BASE_URL + '/api/pa/list'
+export const API_PA_GET: string = API_BASE_URL + '/api/pa'
 
 export const API_ATTACHMENT_GET_DEL: string = API_BASE_URL + '/api/attachment'
 export const API_ATTACHMENT_UPLOAD: string = API_BASE_URL + '/api/attachment/uploadfile'
@@ -90,7 +90,7 @@ export const API_USERLOGIN_LIST: string = API_BASE_URL + '/api/userslogin/list'
 //Model status code
 export const ROUTE_PR: any = { "display_name":"PR", "name": "pr", "doc_group": 1 }
 export const ROUTE_PO: any = { "display_name":"PO", "name": "po", "doc_group": 2 }
-export const ROUTE_PA: any = { "display_name":"PA", "name": "pa", "doc_group": 3 }
+export const ROUTE_PA: any = { "display_name":"Payment", "name": "pa", "doc_group": 3 }
 export const DOCUMENT_GROUP: any = [
     ROUTE_PR,
     ROUTE_PO,
@@ -102,7 +102,7 @@ export const C_ACCOUNT_TYPE_NON_ACCOUNT_NAME: string = 'Non-Account';
 
 export const ATTACHMENT_DOC_GROUP_PR: number = 1
 export const ATTACHMENT_DOC_GROUP_PO: number = 2
-export const ATTACHMENT_DOC_GROUP_PM: number = 3
+export const ATTACHMENT_DOC_GROUP_PA: number = 3
 
 export const WORKFLOW_STATUS_ACTIVE: number = 1
 export const WORKFLOW_STATUS_COMPLETED: number = 2

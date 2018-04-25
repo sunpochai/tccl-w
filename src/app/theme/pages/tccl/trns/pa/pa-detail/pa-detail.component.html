@@ -1,19 +1,11 @@
 <!-- BEGIN: Subheader -->
-<div class="m-subheader" appunwraptag="">
+<div class="m-subheader" appunwraptag="" >
 	<div class="d-flex align-items-center">
 		<div class="mr-auto">
 			<h3 class="m-subheader__title m-subheader__title--separator">
-				Purchase Request Detail
+				Material Document
 			</h3>
 			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
-				<!-- <li class="m-nav__item m-nav__item--home">
-					<a href="#" class="m-nav__link m-nav__link--icon">
-						<i class="m-nav__link-icon la la-home"></i>
-					</a>
-				</li>
-				<li class="m-nav__separator">
-					-
-				</li> -->
 				<li class="m-nav__item">
 					<a routerLink="/trns/worklist/my" class="m-nav__link">
 						<span class="m-nav__link-text">
@@ -25,9 +17,9 @@
 					-
 				</li>
 				<li class="m-nav__item">
-					<a routerLink="/trns/pr/list" class="m-nav__link">
+					<a routerLink="/trns/pa/list" class="m-nav__link">
 						<span class="m-nav__link-text">
-							Purchase Request
+							Material Document
 						</span>
 					</a>
 				</li>
@@ -36,21 +28,21 @@
 	</div>
 </div>
 <!-- END: Subheader -->
-	
+
 
 
 <div class="m-content" id="m-content">
-
-	<table style="width: 100%" *ngIf="fakepr==null">
+	<table style="width: 100%" *ngIf="fakepa==null">
 		<tr>
 			<td align="center">
 				<img src="./assets/app/media/img//error/no_info.jpg"  >
 			</td>
 		</tr>
 	</table>
+	
+	<ng-container *ngIf="pa!=null">
 
-
-	<ng-container *ngIf="pr!=null">
+	
 
 	<form class="m-form m-form--fit " >
 		<div class="row">
@@ -58,12 +50,13 @@
 			<!-- Begin::Action Block -->
 			<div [class]="getTemplateClass('action')">
 
+				
 				<div class="m-portlet m-portlet--full-height" *ngIf="canReview || canApprove || canComment">
 					<div class="m-portlet__head">
 						<div class="m-portlet__head-caption">
 							<div class="m-portlet__head-title">
 								<h3 class="m-portlet__head-text" >
-									<i class="flaticon-edit"></i>
+										<i class="flaticon-edit"></i>
 									<span id="txtActionName" *ngIf="canReview">Review</span>
 									<span id="txtActionName" *ngIf="canApprove">Approve</span>
 									<span id="txtActionName" *ngIf="canComment">Comment</span>
@@ -71,7 +64,6 @@
 							</div>
 						</div>
 					</div>
-					
 					<form  #heroForm="ngForm" class="m-form m-form--fit m-form--label-align-right" id="m_form_1">
 						<div class="m-portlet__body m-portlet__body--no-top-padding" >
 							<div class="m-form__content">
@@ -133,30 +125,26 @@
 								<textarea class="form-control m-input" id="txtComment" rows="3" placeholder="Enter comment"></textarea>
 							</div>
 						</div>
-						
 						<div class="m-portlet__foot m-portlet__foot">
 							<div class="row">
 								<div class="col-lg-12 ml-lg-auto ">
-									<button type="button" class="btn btn-info" (click)="prepareAction('Review')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canReview">
+									<button type="button" [disabled]="heroForm.invalid" class="btn btn-info" (click)="prepareAction('Review')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canReview">
 										Review 
 									</button>
-									<button type="button" [disabled]="isWaiting || isDelegate" class="btn btn-success" (click)="prepareAction('Approve')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+									<button type="button" [disabled]="isWaiting || isDelegate || heroForm.invalid" class="btn btn-success" (click)="prepareAction('Approve')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
 										Approve 
 									</button>
-									<button type="button" [disabled]="isWaiting || isDelegate" class="btn btn-danger" (click)="prepareAction('Reject')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
-										Reject 
-									</button>
 									<ng-container *ngIf="isWaiting">
-										<button type="button" [disabled]="isWaiting==false || user_list==null || user_list.length < 1" class="btn btn-warning" (click)="prepareAction('Waiting')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+										<button type="button" [disabled]="isWaiting==false || heroForm.invalid  || user_list==null || user_list.length < 1" class="btn btn-warning" (click)="prepareAction('Waiting')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
 											Waiting 
 										</button>
 									</ng-container>
 									<ng-container *ngIf="isDelegate">
-										<button type="button" [disabled]="isDelegate==false || user_list==null || user_list.length < 1" class="btn btn-warning" (click)="prepareAction('Delegate')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+										<button type="button" [disabled]="isDelegate==false || heroForm.invalid  || user_list==null || user_list.length < 1" class="btn btn-warning" (click)="prepareAction('Delegate')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
 											Delegate 
 										</button>
 									</ng-container>
-									<button type="button" class="btn btn-info" (click)="prepareAction('Comment')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canComment">
+									<button type="button" [disabled]="heroForm.invalid" class="btn btn-info" (click)="prepareAction('Comment')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canComment">
 										Comment 
 									</button>
 									<!-- <button type="reset" (click)="navigate_home()" class="btn btn-secondary">
@@ -169,6 +157,7 @@
 				</div>
 			</div>
 			<!-- End::Action Block -->
+
 
 
 			<!-- Begin::Attachment Block -->
@@ -184,9 +173,8 @@
 							</div>
 						</div>
 					</div>
-					
 					<div class="m-portlet__body-lil m--regular-font-size-sm1">
-						<div class="row" *ngFor="let row of pr.pr_attachment_items; let index = index">
+						<div class="row" *ngFor="let row of pa.pa_attachment_items; let index = index">
 							<div class="col-10">
 								<div class="row">
 									<div [ngClass]="getAttachFileWidthClass()">
@@ -214,32 +202,7 @@
 								</span>
 							</div>
 						</div>
-						<!-- <table class="table-display">
-							<tr *ngFor="let row of pr.pr_attachment_items; let index = index">
-								<td>
-									<a href="#" (click)="openFile(row.attach_id)" title="Download">
-										<span class="m--font-pale">{{row.file_name}}</span>
-									</a>
-								</td>
-								<td>
-									<i class="la la-user"></i>
-									<span class="m--font-pale">{{row.create_username}}</span>
-									<i class="la la-clock-o"></i>
-									<span class="m--font-pale">{{row.create_datetime | date :'dd/MM/yyyy HH:mm:ss'}}</span>
-								</td>
-								<td>
-									<span *ngIf="row.create_user==getADUserLogin()">
-										<a href="#" (click)="prepareRemoveFile(row.attach_id, row.file_name)" data-toggle="modal" data-target="#m_modal_delete" class="m-btn m-btn--pill m-btn--hover-danger btn btn-sm btn-secondary" title="Remove">
-											<i class="la la-trash"></i>
-										</a>
-									</span>
-								</td>
-							</tr>
-							<tr *ngIf="pr.pr_attachment_items == null || pr.pr_attachment_items.length <= 0">
-								<td span="3" style="text-align: center;">-----No Attachment-----</td>
-							</tr>
-						</table> -->
-	
+
 						<div class="form-group m-form__group" >
 							<label for="exampleInputEmail1">
 								Attached File
@@ -255,23 +218,25 @@
 								<div><span class="filen">{{f}}</span></div>	 
 							</div>
 						</div>
-						<div class="m-form__actions m-form__actions" *ngIf="this.attFile!=null">
+						<div class="m-form__actions m-form__actions" *ngIf=" this.attFile!=null">
 							<div class="row" >
 								<div class="col-lg-12 ml-lg-auto ">
-									<button type="button" class="btn btn-brand" (click)="uploadFile()" *ngIf="this.attFile!=null"  >
+									<button type="reset" class="btn btn-brand" (click)="uploadFile()" *ngIf="this.attFile!=null"  >
 										Submit File 
 									</button> 
 								</div>
 							</div>
 						</div>
-					</div>   
+					</div>
 				</div>
 			</div>
 			<!-- End::Attachment Block -->
-		</div>	
+
+
+		</div>
 	</form>
 
-	
+
 	<div class="row">
 		<div class="col-12">
 			<div class="m-portlet m-portlet--full-height">
@@ -280,14 +245,14 @@
 						<div class="m-portlet__head-title">
 							<h3 class="m-portlet__head-text">
 								<i class="flaticon-list-3"></i>
-								Approve Status
+								Approval Status
 							</h3>
 						</div>
 					</div>
 				</div>
 				<div class="m-portlet__body-lil">
 					<div class="row">
-						<div class="col-xl-12 col-sm-12" *ngIf="pr.worklist != null && pr.worklist.stage_list!=null && pr.worklist.stage_list.length > 0">
+						<div class="col-xl-12 col-sm-12" *ngIf="pa.worklist!=null && pa.worklist.stage_list!=null && pa.worklist.stage_list.length > 0">
 							<div class="table-responsive">
 								<table class="table-display">
 									<thead>
@@ -298,7 +263,7 @@
 											<td style="text-align:center; width: 90px" >Action</td>
 										</tr>
 									</thead>
-									<ng-template ngFor let-item [ngForOf]="pr.worklist.stage_list" let-i="index" [ngForTrackBy]="trackByFn">
+									<ng-template ngFor let-item [ngForOf]="pa.worklist.stage_list" let-i="index" [ngForTrackBy]="trackByFn">
 										<ng-container *ngIf="item.destination_user != null && item.destination_user != ''">
 											<tr [class]="getDisplayTRHead(item.outcome_description,item.stage_logs_list)">
 												<td>
@@ -358,27 +323,25 @@
 											</ng-template>
 										</ng-container>
 									</ng-template>
-									
 								</table>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</div>		
 	</div>
-
+	
 
 	<div class="row">
 		<div class="col-xl-12">
-			<!--begin:: Widgets Items-->
 			<div class="m-portlet m-portlet--full-height">
 				<div class="m-portlet__head">
 					<div class="m-portlet__head-caption">
 						<div class="m-portlet__head-title">
 							<h3 class="m-portlet__head-text">
 								<i class="flaticon-folder-2"></i>
-								PR {{pr.pr_no}}
+								MatDoc. No. {{pa.matdoc_no}}/{{pa.doc_year}}
 							</h3>
 						</div>
 					</div>
@@ -390,20 +353,32 @@
 								<table class="table-display">
 									<tr>
 										<td class="table-display-caption">Status</td>
-										<td *ngIf="pr.c_doc_status==null" class="table-display-value"><span class={{docStatus[0].displayclass}}>{{docStatus[0].name}}</span></td>
-										<td *ngIf="pr.c_doc_status!=null" class="table-display-value"><span class={{docStatus[pr.c_doc_status].displayclass}}>{{docStatus[pr.c_doc_status].name}}</span></td>
+										<td *ngIf="pa.c_doc_status==null" class="table-display-value"><span class={{docStatus[0].displayclass}}>{{docStatus[0].name}}</span></td>
+										<td *ngIf="pa.c_doc_status!=null" class="table-display-value"><span class={{docStatus[pa.c_doc_status].displayclass}}>{{docStatus[pa.c_doc_status].name}}</span></td>
 									</tr>
 									<tr>
-										<td class="table-display-caption">PR Date</td>
-										<td class="table-display-value">{{ pr.pr_date | date :'dd/MM/yyyy' }}</td>
-									</tr>
-									<tr>
-										<td class="table-display-caption">Doc Type</td>
-										<td class="table-display-value">{{pr.doc_type}}</td>
+										<td class="table-display-caption">Company</td>
+										<td class="table-display-value">{{pa.comp_code}} {{pa.comp_name}}</td>
 									</tr>
 									<tr>
 										<td class="table-display-caption">Plant</td>
-										<td class="table-display-value">{{pr.plant_code}} {{pr.plant_name}}</td>
+										<td class="table-display-value">{{pa.plant_code}} {{pa.plant_name}}</td>
+									</tr>
+									<tr>
+										<td class="table-display-caption">Business Place</td>
+										<td class="table-display-value"></td>
+									</tr>
+									<tr>
+										<td class="table-display-caption">Vendor</td>
+										<td class="table-display-value">{{lefttrim(pa.vendor_code,'0')}}-{{pa.vendor_name}}</td>
+									</tr>
+									<tr>
+										<td class="table-display-caption">Tracking</td>
+										<td class="table-display-value">{{pa.tracking_no}}</td>
+									</tr>
+									<tr>
+										<td class="table-display-caption">Goods Receipient</td>
+										<td class="table-display-value">{{pa.goods_recipient}}</td>
 									</tr>
 								</table>
 							</div>
@@ -411,112 +386,89 @@
 						<div class="col-xl-7 col-sm-12">
 							<table class="table-display">
 								<tr>
-									<td class="table-display-caption">Tracking Name</td>
-									<td class="table-display-value">{{pr.tracking_no}}</td>
-								</tr>
-								<tr>
-									<td class="table-display-caption">Asset</td>
+									<td class="table-display-caption">Reason</td>
 									<td class="table-display-value">
-										<span *ngIf="pr.account_asign_category=='A'">
-											Account
-										</span>
-										<span *ngIf="pr.account_asign_category!='A'">
-											Non-Account
-										</span>
+										{{pa.reason_line1}}
+										<ng-container *ngIf="pa.reason_line2 != null && pa.reason_line2 != ''">
+											<br>{{pa.reason_line2}}
+										</ng-container>
+										<ng-container *ngIf="pa.reason_line3 != null && pa.reason_line3 != ''">
+											<br>{{pa.reason_line3}}
+										</ng-container>
+										<ng-container *ngIf="pa.reason_line4 != null && pa.reason_line4 != ''">
+											<br>{{pa.reason_line4}}
+										</ng-container>
 									</td>
 								</tr>
 								<tr>
-									<td class="table-display-caption">Requisitioner</td>
-									<td class="table-display-value">{{pr.create_username}}</td>
+									<td class="table-display-caption">PO No</td>
+									<td class="table-display-value"><a routerLink="/trns/po/detail/{{pa.po_no}}" target="_blank">{{pa.po_no}}</a></td>
 								</tr>
 								<tr>
-									<td class="table-display-caption">Subject</td>
-									<td class="table-display-value">{{pr.subject}}</td>
+									<td class="table-display-caption">Document Date</td>
+									<td class="table-display-value">{{ pa.doc_date | date :'dd/MM/yyyy' }}</td>
+								</tr>
+								<tr>
+									<td class="table-display-caption">Posting Date</td>
+									<td class="table-display-value">{{ pa.post_date | date :'dd/MM/yyyy' }}</td>
+								</tr>
+								<tr>
+									<td class="table-display-caption">Delivery Note</td>
+									<td class="table-display-value"></td>
+								</tr>
+								<tr>
+									<td class="table-display-caption">Currency</td>
+									<td class="table-display-value">{{pa.currency}}</td>
+								</tr>
+								<tr>
+									<td class="table-display-caption">Total</td>
+									<td class="table-display-value">{{ pa.amount | number:'1.2' }}</td>
 								</tr>
 							</table>
 						</div>
-						
 					</div>
-					<!--begin::m-widget5-->
+
+					<!-- PA Item -->
 					<div class="m-section">
 						<div class="m-section__content">
 							<div class="table-responsive" style="text-align: center">
-								<!-- <table class='table table-bordered m-table m-table--border-brand m-table--head-bg-brand'> -->
 								<table class="table table-bordered table-hover ">
 									<thead>
 										<tr style="background-color:#d9c1e9;">
 											<th>No</th>
-											<th>Budget name/GL Account</th>
-											<th>Description</th>
+											<th>Account Assignment</th>
+											<th>Profit Center</th>
+											<th>Material No.</th>
+											<th>Mat. Desc.</th>
+											<th>Asset No.</th>
+											<th>Amount</th>
+											<th>Currency</th>
 											<th>Qty</th>
 											<th>Unit</th>
-											<th>Est. Price</th>
-											<th>Currency</th>
-											<th>Delivery Date</th>
-											<th>Item Detail</th>
+											<th>Tax Rate(%)</th>
 										</tr>
 									</thead>
-									<tr *ngFor="let row of pr.pr_items; let index = index" style="vertical-align:middle">
-										<ng-container *ngIf="row.item_status == 'DEL' ">
-											<td style="vertical-align: middle" align="center" class="m--font-deleted">{{formatSAPItemNo(row.pr_item_no)}}</td>
-											<td style="vertical-align: middle" align="left" class="m--font-deleted">
-												<ng-container *ngIf="row.wbs_no != null && row.wbs_no != ''" >
-													{{row.wbs_no}} - {{row.wbs_name}}
-												</ng-container>
-												<ng-container *ngIf="row.wbs_no == null || row.wbs_no == ''" >
-													{{lefttrim(row.account_no,'0')}} - {{row.account_name}}
-												</ng-container>
-											</td>
-											<td style="vertical-align: middle" align="left" class="m--font-deleted">{{row.mat_desc}}</td>
-											<td style="vertical-align: middle" align="right" class="m--font-deleted">{{row.qty}}</td>
-											<td style="vertical-align: middle" align="center" class="m--font-deleted">{{row.unit}}</td>
-											<td style="vertical-align: middle" align="right" class="m--font-deleted">{{row.estimate_price | number:'1.2'}}</td>
-											<td style="vertical-align: middle" align="center" class="m--font-deleted">{{row.currency}}</td>
-											<td style="vertical-align: middle" align="center" class="m--font-deleted">{{row.delivery_date | date :'dd/MM/yyyy'}}</td>
-											<td style="vertical-align: middle" align="center">
-												<a href="#" (click)="showDetail(row)" data-toggle="modal" data-target="#m_modal_item_detail" class="m-btn m-btn--pill m-btn--hover-metal btn btn-sm btn-secondary" title="Item Detail">
-													<i class="fa fa-search-plus"></i>
-												</a>
-											</td>
-										</ng-container>
-										<ng-container *ngIf="row.item_status != 'DEL' ">
-											<td style="vertical-align: middle" align="center">{{formatSAPItemNo(row.pr_item_no)}}</td>
-											<td style="vertical-align: middle" align="left">
-												<ng-container *ngIf="row.wbs_no != null && row.wbs_no != ''" >
-													{{row.wbs_no}} - {{row.wbs_name}}
-												</ng-container>
-												<ng-container *ngIf="row.wbs_no == null || row.wbs_no == ''" >
-													{{lefttrim(row.account_no,'0')}} - {{row.account_name}}
-												</ng-container>
-											</td>
-											<td style="vertical-align: middle" align="left">{{row.mat_desc}}</td>
-											<td style="vertical-align: middle" align="right">{{row.qty}}</td>
-											<td style="vertical-align: middle" align="center">{{row.unit}}</td>
-											<td style="vertical-align: middle" align="right">{{row.estimate_price | number:'1.2'}}</td>
-											<td style="vertical-align: middle" align="center">{{row.currency}}</td>
-											<td style="vertical-align: middle" align="center">{{row.delivery_date | date :'dd/MM/yyyy'}}</td>
-											<td style="vertical-align: middle" align="center">
-												<a href="#" (click)="showDetail(row)" data-toggle="modal" data-target="#m_modal_item_detail" class="m-btn m-btn--pill m-btn--hover-metal btn btn-sm btn-secondary" title="Item Detail">
-													<i class="fa fa-search-plus"></i>
-												</a>
-											</td>
-										</ng-container>
-									</tr>
-									<tr>
-										<td style='text-align:right ' colspan='5'> Total</td>
-										<td style='text-align:right ' >{{pr.grand_total | number:'1.2'}}</td>
-										<td style='text-align:right ' colspan='3'></td>
+									<tr *ngFor="let row of pa.pa_items; let index = index">
+										<td style="vertical-align: middle" align="center" >{{formatSAPItemNo(row.matdoc_item)}}</td>
+										<td style="vertical-align: middle" align="left">{{getAccountAssignmentDesc(row)}}</td>
+										<td style="vertical-align: middle" align="center" >profit center</td>
+										<td style="vertical-align: middle" align="center" >{{row.mat_no}}</td>
+										<td style="vertical-align: middle" align="left" >{{row.mat_desc}}</td>
+										<td style="vertical-align: middle" align="center" >{{row.main_asset_no}}</td>
+										<td style="vertical-align: middle" align="right" >{{row.amount | number:'1.2'}}</td>
+										<td style="vertical-align: middle" align="center" >{{row.currency}}</td>
+										<td style="vertical-align: middle" align="right" >{{row.gr_qty}}</td>
+										<td style="vertical-align: middle" align="right" >{{row.unit}}</td>
+										<td style="vertical-align: middle" align="center" >tax rate</td>
 									</tr>
 								</table>
 							</div>
 						</div>
 					</div>
-					<!--end::m-widget5-->
 				</div>
 			</div>
 		</div>
 	</div>
-
 
 
 
@@ -526,7 +478,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="modalTitle" name="modalTitle">
-						Confirm {{action_type}} PR No. {{pr.pr_no}} ?
+						Confirm {{action_type}} Material Document No. {{pa.matdoc_no}} ?
 					</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">
@@ -584,93 +536,6 @@
 	</div>
 	<!--end::Modal-->
 
-	<!--begin::Modal-->
-	<div class="modal fade" id="m_modal_item_detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document" *ngIf="currentItem!=null">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="modalTitle" name="modalTitle">
-						<i class="fa fa-search-plus"></i>
-						Item Detail : PR {{pr.pr_no}} Item {{currentItem.pr_item_no}}
-					</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">
-							&times;
-						</span>
-					</button>
-				</div>
-				<div class="modal-body">
-						<table class="table-display" >
-							<tr class="table-display-thead-top-bottom  m--font-bolder">
-								<th colspan="2">Acc. & Budget</th>
-							</tr>
-							<tr>
-								<th style="vertical-align: top;">Budget's Name</th>
-								<td>{{currentItem.wbs_no}} - {{currentItem.wbs_name}}</td>
-							</tr>
-							<tr>
-								<th style="vertical-align: top;">Currency</th>
-								<td>{{currentItem.currency}}</td>
-							</tr>
-							<tr>
-								<th style="vertical-align: top;">Budget</th>
-								<td>{{currentItem.budget_amount | number:'1.2'}}</td>
-							</tr>
-							<tr>
-								<th style="vertical-align: top;">Commit</th>
-								<td>{{currentItem.budget_commit | number:'1.2'}}</td>
-							</tr>
-							<tr>
-								<th style="vertical-align: top;">Actual</th>
-								<td>{{currentItem.budget_actual | number:'1.2'}}</td>
-							</tr>
-							<tr>
-								<th style="vertical-align: top;">Remaining</th>
-								<td>{{currentItem.budget_remaining | number:'1.2'}}</td>
-							</tr>
-							<tr class="table-display-thead-top-bottom  m--font-bolder">
-								<th colspan="2">Item Text</th>
-							</tr>
-							<tr>
-								<th style="vertical-align: top;">Item Text</th>
-								<td>
-									<span>{{currentItem.item_text1}}</span>
-									<span *ngIf="currentItem.item_text2 != ''" ><br>{{currentItem.item_text2}}</span>
-									<span *ngIf="currentItem.item_text3 != ''" ><br>{{currentItem.item_text3}}</span>
-									<span *ngIf="currentItem.item_text4 != ''" ><br>{{currentItem.item_text4}}</span>
-								</td>
-							</tr>
-							<tr>
-								<th style="vertical-align: top;">Item Note</th>
-								<td>
-									<span>{{currentItem.item_note1}}</span>
-									<span *ngIf="currentItem.item_note2 != ''" ><br>{{currentItem.item_note2}}</span>
-									<span *ngIf="currentItem.item_note3 != ''" ><br>{{currentItem.item_note3}}</span>
-									<span *ngIf="currentItem.item_note4 != ''" ><br>{{currentItem.item_note4}}</span>
-								</td>
-							</tr>
-							<tr>
-								<th style="vertical-align: top;">Delivery Note</th>
-								<td>
-									<span>{{currentItem.delivery_note1}}</span>
-									<span *ngIf="currentItem.delivery_note2 != ''" ><br>{{currentItem.delivery_note2}}</span>
-									<span *ngIf="currentItem.delivery_note3 != ''" ><br>{{currentItem.delivery_note3}}</span>
-									<span *ngIf="currentItem.delivery_note4 != ''" ><br>{{currentItem.delivery_note4}}</span>
-								</td>
-							</tr>
-							<tr>
-								<th style="vertical-align: top;">Material PO Text</th>
-								<span>{{currentItem.po_text1}}</span>
-								<span *ngIf="currentItem.po_text2 != ''" ><br>{{currentItem.po_text2}}</span>
-								<span *ngIf="currentItem.po_text3 != ''" ><br>{{currentItem.po_text3}}</span>
-								<span *ngIf="currentItem.po_text4 != ''" ><br>{{currentItem.po_text4}}</span>
-							</tr>
-
-						</table>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!--end::Modal-->
 	</ng-container>
+
 </div>

@@ -1,11 +1,11 @@
-export class PMItem {
+export class PAItem {
     payment_itm_id: number;
     payment_id: number;
     matdoc_no: string;
+    matdoc_item: string;
     doc_year: string;
     item_status: string;
-    matdoc_item: string;
-    amount: number;
+    amount: string;
     movement_type: string;
     mat_no: string;
     mat_desc: string;
@@ -33,6 +33,7 @@ export class PMItem {
     account_entered_time: string;
     user_name: string;
     reference_no: string;
-    tcode: string;
     project_name: string;
+    tcode: string;
+    Tax_code: string;
 }  

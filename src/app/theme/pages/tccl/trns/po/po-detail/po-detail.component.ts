@@ -740,4 +740,12 @@ ad_user: value.ad_user,
         return DateUtil.toDisplayDateString(s);
     }
 
+    getAttachFileWidthClass() {
+        if (this.canApprove || this.canComment || this.canReview) {
+            return "col-12";
+        } else {
+            return "col-6";
+        }
+    }
+
 }

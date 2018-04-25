@@ -6,35 +6,38 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Http, Headers, Response } from '@angular/http';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import {
-    ATTACHMENT_DOC_GROUP_PR,
+    ATTACHMENT_DOC_GROUP_PA,
     API_ATTACHMENT_GET_DEL,
-    ROUTE_PR,
+    ROUTE_PA,
     C_DOC_STATUS_2,
-    ACTION_NAME
+    ACTION_NAME,
+    CATEGORY_CODE,
+    CATEGORY_NAME
 } from '../../../../../../app-constants';
-import { PR } from '../../../_models/trns/pr';
+import { PA } from '../../../_models/trns/pa';
+import { PAItem } from '../../../_models/trns/paitem';
 import { Attachment } from '../../../_models/trns/attachment';
 import { WorkflowAction } from '../../../_models/trns/workflowaction';
-import { PRService } from './../../../_services/trns/pr.service';
+import { PAService } from '../../../_services/trns/pa.service';
 import { AttachmentService } from '../../../_services/trns/attachment.service';
 import { WorkflowService } from '../../../_services/trns/workflow.service';
 import { concat } from 'rxjs/observable/concat';
 import { RequestOptions } from '@angular/http';
-import { ADUser } from '../../../_models/masters/aduser';
 import { UserService } from '../../../../../../auth/_services';
 import { ADUserService } from '../../../_services/masters/aduser.service';
 import { Subject } from 'rxjs';
 import { StringUtil } from '../../../../../../Util/stringutil';
+import { DateUtil } from '../../../../../../Util/dateutil';
 
 @Component({
-    selector: "trns-pr-detail",
-    templateUrl: "./pr-detail.component.html",
-    styleUrls: ["./pr-detail.component.css"]
+    selector: "trns-pa-detail",
+    templateUrl: "./pa-detail.component.html",
+    styleUrls: ["./pa-detail.component.css"]
 })
-export class PRDetailComponent extends PageBaseComponent implements OnInit, AfterViewInit {
+export class PADetailComponent extends PageBaseComponent implements OnInit, AfterViewInit {
     public form: FormGroup;
-    public pr: PR;
-    public fakepr: PR = new PR;
+    public pa: PA;
+    public fakepa: PA = new PA;
     public id: any;
     public wf_stage_resp_id: any;
     public canReview: boolean = false;
@@ -42,11 +45,13 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     public canComment: boolean = false;
     public isWaiting: boolean = false;
     public isDelegate: boolean = false;
-
     public urlattachment: String = API_ATTACHMENT_GET_DEL;
     public statusName: any = ACTION_NAME;
     public docStatus: Array<any> = C_DOC_STATUS_2;
     public currentItem: any;
+    public categoryCode: any = CATEGORY_CODE;
+    public categoryName: any = CATEGORY_NAME;
+    
     public attFile: any;
     public formData: FormData = new FormData();
     public fileList: FileList;
@@ -65,12 +70,15 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     public user_list: any = [];
 
     public dtSwitch: boolean[] = [];
+    public showPurchasingHistory: boolean = false;
+
+    public myUtil = new StringUtil;
 
     constructor(
         private _script: ScriptLoaderService,
         private _router: Router,
         private route: ActivatedRoute,
-        private _prService: PRService,
+        private _paService: PAService,
         private _attachmentService: AttachmentService,
         private _workflowService: WorkflowService,
         private _adUserService: ADUserService,
@@ -81,7 +89,6 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
             this.textSearchUser = md;
             this.searchUser(md);
         })
-
     }
 
     loadData() {
@@ -92,58 +99,57 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         });
 
         if (this.id != null && this.id != '0') {
-            this._prService.get<any>(this.id).subscribe(resp => {
+            this._paService.get<any>(this.id).subscribe(resp => {
                 // console.log(resp);
 
                 if (resp.is_error) {
-                    console.log(resp);
+                    // console.log(resp);
                     super.showError(resp.error_msg);
-                    this.fakepr = null;
+                    this.fakepa = null;
 
                     super.unblockui('#m-content');
 
                 } else {
+                    this.pa = resp.data;
 
-                    this.pr = resp.data;
+                    if (this.pa.worklist != null && this.pa.worklist.current_responsible != null) {
+                        this.wf_stage_resp_id = this.pa.worklist.current_responsible.wf_stage_resp_id;
 
-                    if (this.pr.worklist != null && this.pr.worklist.current_responsible != null) {
-                        this.wf_stage_resp_id = this.pr.worklist.current_responsible.wf_stage_resp_id;
-
-                        if (this.pr.worklist.current_responsible.resp_allow_action != null && this.pr.worklist.current_responsible.resp_allow_action.toLowerCase() == 'review') {
+                        if (this.pa.worklist.current_responsible.resp_allow_action != null && this.pa.worklist.current_responsible.resp_allow_action.toLowerCase() == 'review') {
                             this.canReview = true;
+                            // console.log(this.canReview);
                         }
 
-                        if (this.pr.worklist.current_responsible.resp_allow_action != null && this.pr.worklist.current_responsible.resp_allow_action.toLowerCase() == 'comment') {
+                        if (this.pa.worklist.current_responsible.resp_allow_action != null && this.pa.worklist.current_responsible.resp_allow_action.toLowerCase() == 'comment') {
                             this.canComment = true;
                         }
 
-                        if (this.pr.worklist.current_responsible.resp_allow_action == null || this.pr.worklist.current_responsible.resp_allow_action == '') {
+                        if (this.pa.worklist.current_responsible.resp_allow_action == null || this.pa.worklist.current_responsible.resp_allow_action == '') {
                             this.canApprove = true;
                         }
-                        // console.log(this.pr.worklist.current_responsible);
                     }
-                    if (this.pr.pr_attachment_items != null && this.pr.pr_attachment_items.length > 0) {
+                    if (this.pa.pa_attachment_items != null && this.pa.pa_attachment_items.length > 0) {
                         let index = 0;
-                        for (let row of this.pr.pr_attachment_items) {
+                        for (let row of this.pa.pa_attachment_items) {
                             // console.log(row);
                             let s = row.file_name.split('.');
 
                             if (s.length > 0) {
-                                this.pr.pr_attachment_items[index].file_extension = s[s.length - 1].toLowerCase().toString();
+                                this.pa.pa_attachment_items[index].file_extension = s[s.length - 1].toLowerCase().toString();
                             }
 
                             index++;
                         }
-                        // console.log(this.pr.pr_attachment_items);
+                        // console.log(this.po.po_attachment_items);
                     }
 
                     super.unblockui('#m-content');
-                    // console.log(this.pr.worklist);
+                    // console.log(this.po);
                 }
             },
                 error => {
                     super.showError(error);
-                    console.log('error');
+                    // console.log('error');
                     super.unblockui('#m-content');
                 },
                 () => {
@@ -154,23 +160,18 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
             //console.log(this.pr);
         }
 
-        // console.log(UtilService.formatSAPItemNo('00020'));
     }
 
     ngOnInit() {
-        super.blockui('#m-content');
         this.loadData();
-        super.unblockui('#m-content');
     }
 
     ngAfterViewInit() {
-        this._script.loadScripts('trns-pr-detail',
-            ['assets/tccl/trns/pr/pr-detail.js']);
+        this._script.loadScripts('trns-pa-detail',
+            ['assets/tccl/trns/pa/pa-detail.js']);
     }
 
     fileChange(event) {
-        super.blockui('#m-content');
-
         //ebugger;  
         this.fileList = event.target.files;
         // console.log(this.fileList);
@@ -196,21 +197,14 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                     super.showError("Wrong file format (only .pdf, .doc, .docx, .xls, .xlsx allowed) or file size larger than 50MB!");
                     this.attFile = null;
                     this.fileList = null;
-
-                    super.unblockui('#m-content');
                     return;
                 }
 
                 this.attFile.push(file.name);
-
-                if (index == this.fileList.length - 1) {
-                    super.unblockui('#m-content');
-                }
             }
             // console.log(this.attFile);
         } else {
             this.attFile = null;
-            super.unblockui('#m-content');
         }
     }
 
@@ -218,8 +212,8 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         super.blockui('#m-content');
 
         if (this.fileList.length > 0) {
-            this.formData.append("doc_group", ROUTE_PR.doc_group);
-            this.formData.append("doc_id", this.pr.pr_id.toString());
+            this.formData.append("doc_group", ROUTE_PA.doc_group);
+            this.formData.append("doc_id", this.pa.payment_id.toString());
             this.formData.append("create_user", this.getADUserLogin());
             this.formData.append("create_username", this.getFullNameUserLogin());
 
@@ -240,7 +234,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                 this.formData = new FormData();
                 super.unblockui('#m-content');
                 super.showsuccess('upload complete');
-                this.pr.pr_attachment_items = this.pr.pr_attachment_items || [];
+                this.pa.pa_attachment_items = this.pa.pa_attachment_items || [];
 
                 for (let index = 0; index < att.length; index++) {
                     let s = att[index].file_name.split('.');
@@ -248,9 +242,9 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                     if (s.length > 0) {
                         att[index].file_extension = s[s.length - 1].toLowerCase().toString();
                     }
-                    this.pr.pr_attachment_items.push(att[index]);
+                    this.pa.pa_attachment_items.push(att[index]);
                 }
-                // console.log(this.pr.pr_attachment_items);
+                // console.log(this.po.po_attachment_items);
             },
             error => {
                 super.unblockui('#m-content');
@@ -272,13 +266,13 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
             super.unblockui('#m-content');
             super.showsuccess('Remove file complete');
             //todo:: refresh file list
-            this.pr.pr_attachment_items.forEach((item, index) => {
-                if (item.attach_id === this.action_attach_file_id) this.pr.pr_attachment_items.splice(index, 1);
+            this.pa.pa_attachment_items.forEach((item, index) => {
+                if (item.attach_id === this.action_attach_file_id) this.pa.pa_attachment_items.splice(index, 1);
             });
         },
             error => {
                 super.showError(error);
-                console.log('error');
+                // console.log('error');
                 super.unblockui('#m-content');
             },
             () => {
@@ -303,25 +297,25 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         workflowaction.outcome = ACTION_NAME.reviewed;
         workflowaction.outcome_description = this.action_comment;
 
-        console.log(workflowaction);
+        // console.log(workflowaction);
 
         this._workflowService.review<any>(workflowaction).subscribe(
             resp => {
                 workflowaction = resp;
                 if (resp.is_error == false) {
-                    console.log(resp);
+                    // console.log(resp);
                     super.unblockui('#m-content');
                     super.showsuccess('Review completed');
                     this.navigate_home();
                 } else {
-                    console.log(resp);
+                    // console.log(resp);
                     super.showError(resp.error_msg);
                     super.unblockui('#m-content');
                 }
             },
             error => {
                 super.showError(error);
-                console.log(error);
+                // console.log(error);
                 super.unblockui('#m-content');
             },
             () => {
@@ -346,37 +340,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                     super.showsuccess('Approve completed');
                     this.navigate_home();
                 } else {
-                    console.log(resp);
-                    super.showError(resp.error_msg);
-                    super.unblockui('#m-content');
-                }
-            },
-            error => {
-                super.showError(error);
-                super.unblockui('#m-content');
-            },
-            () => {
-                super.unblockui('#m-content');
-            }
-        );
-    }
-
-    reject(workflowaction) {
-        super.blockui('#m-content');
-
-        workflowaction.outcome = ACTION_NAME.rejected
-        workflowaction.outcome_description = this.action_comment;
-
-        this._workflowService.reject<any>(workflowaction).subscribe(
-            resp => {
-                workflowaction = resp;
-                if (resp.is_error == false) {
-                    console.log(resp);
-                    super.unblockui('#m-content');
-                    super.showsuccess('Reject completed');
-                    this.navigate_home();
-                } else {
-                    console.log(resp);
+                    // console.log(resp);
                     super.showError(resp.error_msg);
                     super.unblockui('#m-content');
                 }
@@ -402,25 +366,25 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
             workflowaction.user_list.push(user);
         }
 
-        console.log(workflowaction);
+        // console.log(workflowaction);
 
         this._workflowService.waiting<any>(workflowaction).subscribe(
             resp => {
                 // console.log(resp);
                 if (resp.is_error == false) {
-                    console.log(resp);
+                    // console.log(resp);
                     super.unblockui('#m-content');
                     super.showsuccess('Update waiting completed');
                     this.navigate_home();
                 } else {
-                    console.log(resp);
+                    // console.log(resp);
                     super.showError(resp.error_msg);
                     super.unblockui('#m-content');
                 }
             },
             error => {
                 super.showError(error);
-                console.log(error);
+                // console.log(error);
                 super.unblockui('#m-content');
             },
             () => {
@@ -440,25 +404,25 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
             workflowaction.user_list.push(user);
         }
 
-        console.log(workflowaction);
+        // console.log(workflowaction);
 
         this._workflowService.delegate<any>(workflowaction).subscribe(
             resp => {
                 // console.log(resp);
                 if (resp.is_error == false) {
-                    console.log(resp);
+                    // console.log(resp);
                     super.unblockui('#m-content');
                     super.showsuccess('Update delegate completed');
                     this.navigate_home();
                 } else {
-                    console.log(resp);
+                    // console.log(resp);
                     super.showError(resp.error_msg);
                     super.unblockui('#m-content');
                 }
             },
             error => {
                 super.showError(error);
-                console.log(error);
+                // console.log(error);
                 super.unblockui('#m-content');
             },
             () => {
@@ -473,25 +437,25 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         workflowaction.outcome = ACTION_NAME.commented;
         workflowaction.outcome_description = this.action_comment;
 
-        console.log(workflowaction);
+        // console.log(workflowaction);
 
         this._workflowService.comment<any>(workflowaction).subscribe(
             resp => {
                 workflowaction = resp;
                 if (resp.is_error == false) {
-                    console.log(resp);
+                    // console.log(resp);
                     super.unblockui('#m-content');
                     super.showsuccess('Comment completed');
                     this.navigate_home();
                 } else {
-                    console.log(resp);
+                    // console.log(resp);
                     super.showError(resp.error_msg);
                     super.unblockui('#m-content');
                 }
             },
             error => {
                 super.showError(error);
-                console.log(error);
+                // console.log(error);
                 super.unblockui('#m-content');
             },
             () => {
@@ -502,12 +466,10 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
 
     performAction() {
         let workflowaction: WorkflowAction = new WorkflowAction;
-        workflowaction.workflow_id = this.pr.workflow_id;
+        workflowaction.workflow_id = this.pa.workflow_id;
         workflowaction.wf_stage_resp_id = this.wf_stage_resp_id;
         workflowaction.actor_user = super.getADUserLogin();
-        // console.log(super.getADUserLogin());
         workflowaction.actor_username = super.getFullNameUserLogin();
-        // console.log(super.getFullNameUserLogin());
 
         switch (this.action_type.toLowerCase().toString()) {
             case 'review':
@@ -515,9 +477,6 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                 break;
             case 'approve':
                 this.approve(workflowaction);
-                break;
-            case 'reject':
-                this.reject(workflowaction);
                 break;
             case 'waiting':
                 this.waiting(workflowaction);
@@ -532,13 +491,12 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     }
 
     navigate_list() {
-        this._router.navigate(['/trns/pr/list']);
+        this._router.navigate(['/trns/pa/list']);
     }
 
     navigate_home() {
         this._router.navigate(['/trns/worklist/my']);
     }
-
 
     searchUser(search) {
         if (search.length < 2) return;
@@ -546,7 +504,7 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         this.showDropDownUser = true;
         this._adUserService.search(search).subscribe(x => {
             this.userList = x
-            //  console.log(x);
+            // console.log(x);
         });
     }
 
@@ -560,10 +518,10 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         this.txtAdUserSelected = value.ad_user;
         this.txtAdUserNameSelected = value.fullname;
 
-        var user = {
+        var user = {            
             ad_user: value.ad_user,
-            ad_username: value.fullname        
-};
+            ad_username: value.fullname
+        };
         this.user_list.push(user);
 
         this.showDropDownUser = false;
@@ -621,8 +579,6 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     }
 
     getDisplayTRHead(pDescription, pStageLogsList): string {
-        // console.log(pDescription);
-        // console.log(pStageLogsList);
         if (pStageLogsList != null && pStageLogsList.length > 1) {
             return this.getDisplayTR('') + ' m--font-boldest';
         } else {
@@ -654,23 +610,23 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
     getDisplayIcon(index: number): string {
         this.setInitial(index);
 
-        if (this.pr.worklist.stage_list[index].stage_logs_list.length > 1) {
+        if (this.pa.worklist.stage_list[index].stage_logs_list.length > 1) {
             return this.dtSwitch[index] ? 'fa fa-minus' : 'fa fa-plus';
         } else {
             return '';
         }
     }
 
-    showDetail(pItem) {
-        this.currentItem = pItem;
-    }
-
     formatSAPItemNo(in_sap_item_no) {
         return StringUtil.formatSAPItemNo(in_sap_item_no);
     }
 
-    lefttrim(s,c) {
-        return StringUtil.lefttrim(s,c);
+    lefttrim(s, c) {
+        return StringUtil.lefttrim(s, c);
+    }
+
+    toDisplayDateString(s: string) {
+        return DateUtil.toDisplayDateString(s);
     }
 
     getAttachFileWidthClass() {
@@ -678,6 +634,17 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
             return "col-12";
         } else {
             return "col-6";
+        }
+    }
+
+    getAccountAssignmentDesc(paitem: any) {
+        //WBS -> Order number -> Cost center + GL Account
+        if (paitem.wbs_no != null && paitem.wbs_no != '') {
+            return paitem.wbs_no + '-' + paitem.wbs_name ;
+        } else if (paitem.order_no != null && paitem.order_no != '') {
+            return paitem.order_no ;
+        } else {
+            return paitem.costcenter + ' / ' + StringUtil.lefttrim(paitem.account_no,'0') + '-' + paitem.account_name ;
         }
     }
 
