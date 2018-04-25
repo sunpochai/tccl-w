@@ -17053,6 +17053,10 @@ code {
       padding: 0; }
   .m-portlet.m-portlet--collapsed .m-portlet__head .m-portlet__head-tools .m-portlet__nav .m-portlet__nav-item .m-portlet__nav-link > i.la-angle-down:before, .m-portlet.m-portlet--collapse .m-portlet__head .m-portlet__head-tools .m-portlet__nav .m-portlet__nav-item .m-portlet__nav-link > i.la-angle-down:before {
     content: "\f113"; }
+    /*sanchai add 26/04/2018 */
+    .m-portlet.m-portlet--collapsed .m-portlet__head .m-portlet__head-tools .m-portlet__nav .m-portlet__nav-item .m-portlet__nav-link > i.la-angle-up:before, .m-portlet.m-portlet--collapse .m-portlet__head .m-portlet__head-tools .m-portlet__nav .m-portlet__nav-item .m-portlet__nav-link > i.la-angle-up:before {
+      content: "\f110"; }
+   /*sanchai  end 26/04/2018 */
   .m-portlet.m-portlet--collapsed .m-portlet__head .m-portlet__head-tools .m-portlet__nav .m-portlet__nav-item .m-portlet__nav-link > i.la-plus:before, .m-portlet.m-portlet--collapse .m-portlet__head .m-portlet__head-tools .m-portlet__nav .m-portlet__nav-item .m-portlet__nav-link > i.la-plus:before {
     content: "\f28e"; }
   .m-portlet.m-portlet--collapsed > .m-form,
