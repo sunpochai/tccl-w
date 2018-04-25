@@ -128,7 +128,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLongTitle">
-					Confirm {{this.action_name}} ?
+					Confirm<!--  {{this.action_name}} --> ?
 				</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">
@@ -138,11 +138,11 @@
 			</div>
 			<div class="modal-body">
 				<p>
-					Confirm {{this.action_name}} : {{this.action_doc_group_name}} {{this.action_doc_no}}?
+					Confirm <!-- {{this.action_name}} :{{this.action_doc_group_name}} {{this.action_doc_no}}  --> ?
 				</p>
 			</div>
 			<div class="modal-footer">
-				<button type="button" (click)="performAction()" data-dismiss="modal" class="btn btn-success">
+				<button type="button" data-dismiss="modal" class="btn btn-success">
 					Yes
 				</button>
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">
