@@ -45,7 +45,7 @@ export class PA {
     no_last_appover: string;
     wf_workflow: any;
 
-    pa_items: Array<PAItem>;
+    trn_payment_item: Array<PAItem>;
     pa_attachment_items: Array<Attachment>;
     worklist: Workflow;
 }  

@@ -448,7 +448,7 @@
 											<th>Tax Rate(%)</th>
 										</tr>
 									</thead>
-									<tr *ngFor="let row of pa.pa_items; let index = index">
+									<tr *ngFor="let row of pa.trn_payment_item; let index = index">
 										<td style="vertical-align: middle" align="center" >{{formatSAPItemNo(row.matdoc_item)}}</td>
 										<td style="vertical-align: middle" align="left">{{getAccountAssignmentDesc(row)}}</td>
 										<td style="vertical-align: middle" align="center" >profit center</td>
