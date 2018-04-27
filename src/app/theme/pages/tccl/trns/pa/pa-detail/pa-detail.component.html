@@ -366,7 +366,7 @@
 									</tr>
 									<tr>
 										<td class="table-display-caption">Business Place</td>
-										<td class="table-display-value"></td>
+										<td class="table-display-value">{{pa.bu_text}}</td>
 									</tr>
 									<tr>
 										<td class="table-display-caption">Vendor</td>
@@ -414,7 +414,7 @@
 								</tr>
 								<tr>
 									<td class="table-display-caption">Delivery Note</td>
-									<td class="table-display-value"></td>
+									<td class="table-display-value">{{pa.deliver_note}}</td>
 								</tr>
 								<tr>
 									<td class="table-display-caption">Currency</td>
@@ -451,15 +451,15 @@
 									<tr *ngFor="let row of pa.trn_payment_item; let index = index">
 										<td style="vertical-align: middle" align="center" >{{formatSAPItemNo(row.matdoc_item)}}</td>
 										<td style="vertical-align: middle" align="left">{{getAccountAssignmentDesc(row)}}</td>
-										<td style="vertical-align: middle" align="center" >profit center</td>
-										<td style="vertical-align: middle" align="center" >{{row.mat_no}}</td>
+										<td style="vertical-align: middle" align="center" >{{row.profit_center}}</td>
+										<td style="vertical-align: middle" align="center" >{{lefttrim(row.mat_no,'0')}}</td>
 										<td style="vertical-align: middle" align="left" >{{row.mat_desc}}</td>
 										<td style="vertical-align: middle" align="center" >{{row.main_asset_no}}</td>
 										<td style="vertical-align: middle" align="right" >{{row.amount | number:'1.2'}}</td>
 										<td style="vertical-align: middle" align="center" >{{row.currency}}</td>
 										<td style="vertical-align: middle" align="right" >{{row.gr_qty}}</td>
 										<td style="vertical-align: middle" align="right" >{{row.unit}}</td>
-										<td style="vertical-align: middle" align="center" >tax rate</td>
+										<td style="vertical-align: middle" align="center" >{{row.Tax_code}}</td>
 									</tr>
 								</table>
 							</div>
