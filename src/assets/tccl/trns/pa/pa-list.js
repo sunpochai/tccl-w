@@ -95,7 +95,7 @@ var myDatatable = function( ) {
             return row.comp_code + ' ' + row.comp_name;
           }
         } , {
-          field: 'business_place',
+          field: 'bu_text',
           title: 'Business Place',
           sortable: true,
           // width: '150px',
@@ -119,7 +119,7 @@ var myDatatable = function( ) {
           sortable: true,
           // width: '150px',
         } , {
-          field: 'delivery_note',
+          field: 'deliver_note',
           title: 'Delivery Note',
           sortable: true,
           // width: '150px',
