@@ -70,10 +70,10 @@ var myDatatable = function( ) {
         }, {
           field: 'tracking_no',
           title: 'Tracking Number',
-        }, {
+        /* }, {
           field: 'doc_type',
           title: 'Doc Type',
-          textAlign: 'center',
+          textAlign: 'center', */
         }, {
           field: 'minimum_value',
           title: 'Minimum Value',
@@ -125,7 +125,7 @@ var myDatatable = function( ) {
     var query = datatable.getDataSourceQuery();
     
     query.route_name = $('#m_form_route_name').val();
-    query.doc_type = $('#m_form_doc_type').val();
+    // query.doc_type = $('#m_form_doc_type').val();
     query.tracking_no = $('#tracking_no').val();
 
     datatable.setDataSourceQuery(query);

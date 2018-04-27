@@ -235,7 +235,9 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
 
         if (this.routetype.doc_group == ROUTE_PR.doc_group) {
             this.routeapprove.minimum_value = 0;
-            this.routeapprove.maximum_value = 999999999999;
+            this.routeapprove.maximum_value = 999999999999.99;
+        } else if (this.routetype.doc_group == ROUTE_PA.doc_group) {
+            this.routeapprove.doc_type = 'NB';
         } else {
             this.routeapprove.account = 'A';
         }
