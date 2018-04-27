@@ -24,6 +24,7 @@ export class PA {
     change_date: string;
     header_text: string;
     bu: string;
+    bu_text: string;
     doc_type: string;
     doc_date: string;
     post_date: string;
@@ -38,6 +39,7 @@ export class PA {
     reason_line2: string;
     reason_line3: string;
     reason_line4: string;
+    deliver_note: string;
     interface_datetime: string;
     upload_status: string;
     upload_message: string;
@@ -45,7 +47,7 @@ export class PA {
     no_last_appover: string;
     wf_workflow: any;
 
-    pa_items: Array<PAItem>;
+    trn_payment_item: Array<PAItem>;
     pa_attachment_items: Array<Attachment>;
     worklist: Workflow;
 }  

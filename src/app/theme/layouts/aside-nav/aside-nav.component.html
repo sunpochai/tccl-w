@@ -12,7 +12,7 @@
 					<span class="m-menu__link-title">
 						<span class="m-menu__link-wrap">
 							<span class="m-menu__link-text">
-							Work List  
+							Work List 
 							</span>
 							<span class="m-menu__link-badge">
 
@@ -43,14 +43,14 @@
 					</span> 
 				</a>
 			</li>
-			<li class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }"  aria-haspopup="true" >
+		<!-- 	<li class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }"  aria-haspopup="true" >
 				<a  routerLink="/trns/pa/list"  class="m-menu__link m-menu__toggle">
 					<i class="m-menu__link-icon flaticon-folder-2"></i>
 					<span class="m-menu__link-text">
 						MIGO List
 					</span> 
 				</a>
-			</li>
+			</li> -->
 			<li *ngIf="isAdmin || isOwner" class="m-menu__section" >
 				<h4 class="m-menu__section-text">
 					Admin
@@ -112,16 +112,16 @@
 								</span>
 							</a>
 						</li>
-						<li class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }"  aria-haspopup="true" >
+						<!-- <li class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }"  aria-haspopup="true" >
 							<a  routerLink="/config/route/list/pa/pa" class="m-menu__link">
 								<i class="m-menu__link-bullet m-menu__link-bullet--dot">
 									<span></span>
 								</i>
 								<span class="m-menu__link-text">
 								  Payment Route  
-								</span>
+								</span> 
 							</a>
-						</li>
+						</li> -->
 						<li class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }"  aria-haspopup="true" >
 							<a  routerLink="/config/reviewer/list" class="m-menu__link">
 								<i class="m-menu__link-bullet m-menu__link-bullet--dot">
@@ -129,6 +129,16 @@
 								</i>
 								<span class="m-menu__link-text">
 									Reviewer  
+								</span>
+							</a>
+						</li>
+						<li class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }"  aria-haspopup="true" >
+							<a  routerLink="/masters/tracking/list" class="m-menu__link">
+								<i class="m-menu__link-bullet m-menu__link-bullet--dot">
+									<span></span>
+								</i>
+								<span class="m-menu__link-text">
+									Tracking
 								</span>
 							</a>
 						</li>
@@ -187,16 +197,7 @@
 								</span>
 							</a>
 						</li>
-						<li class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }"  aria-haspopup="true" >
-							<a  routerLink="/masters/tracking/list" class="m-menu__link">
-								<i class="m-menu__link-bullet m-menu__link-bullet--dot">
-									<span></span>
-								</i>
-								<span class="m-menu__link-text">
-									Tracking
-								</span>
-							</a>
-						</li>
+					
 					
 						<li *ngIf="isAdmin" class="m-menu__item" routerLinkActive="m-menu__item--active" routerLinkActiveOptions="{ exact: true }"  aria-haspopup="true" >
 							<a  routerLink="/config/user/maintain/maintain" class="m-menu__link">

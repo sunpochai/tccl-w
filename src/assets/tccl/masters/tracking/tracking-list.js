@@ -54,7 +54,7 @@ var myDatatable = function( ) {
           title: 'Tracking Code',
           width: 150,
           selector: false,
-          textAlign: 'center',
+          textAlign: 'left',
           sortable: 'asc'
         }, {   
           field: 'tracking_name',
@@ -70,7 +70,7 @@ var myDatatable = function( ) {
           type: 'datetime',
           template: function(row) {
             return toDisplayDateTime(row.update_datetime);
-          }
+          }   
         } , {
           field: 'Actions',
           width: 110,

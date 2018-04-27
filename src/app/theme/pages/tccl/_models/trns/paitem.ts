@@ -36,4 +36,5 @@ export class PAItem {
     project_name: string;
     tcode: string;
     Tax_code: string;
+    profit_center: string;
 }  

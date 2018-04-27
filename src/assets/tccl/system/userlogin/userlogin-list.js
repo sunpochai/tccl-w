@@ -88,7 +88,7 @@ var myDatatable = function( ) {
         } , {
           field: 'last_checkin_date',
           title: 'Last Checkin Date',
-          sortable: true,
+          sortable: 'desc',
           textAlign: 'center',
           // width: '65px',
           template: function(row) {

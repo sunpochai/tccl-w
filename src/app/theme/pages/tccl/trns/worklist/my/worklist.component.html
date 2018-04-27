@@ -179,11 +179,16 @@
 											</span>
 											<div class="m-widget5__info">
 												<span>{{row.plant_code}}-{{row.plant_name}}</span>
-												<span class="m-widget5__author" *ngIf="row.name=='PO'">
+												<span class="m-widget5__author" *ngIf="row.name=='PO' || row.name=='PA' ">
 													<i class="la la-ellipsis-v"></i> 
 													{{row.vendor_code}}-{{row.vendor_name}}
 												</span>
 											</div>
+											<ng-container *ngIf="row.name=='PA'">
+											<span class="m-widget5__desc">
+												Goods Receipient: {{row.requisitionerDesc}}
+											</span>
+											</ng-container>
 											<ng-container *ngIf="row.name=='PR'">
 											<span class="m-widget5__desc">
 												Requisitioner: {{row.requisitionerDesc}}
