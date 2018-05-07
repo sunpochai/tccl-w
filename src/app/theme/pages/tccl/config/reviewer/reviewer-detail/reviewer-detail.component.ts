@@ -44,7 +44,8 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
         { value: '1', name: 'Requisitioner' }, 
         { value: '2', name: 'Purchasing Group' }, 
         { value: '3', name: 'User ID' },
-        { value: '4', name: 'Goods Recipient' }
+        { value: '4', name: 'Goods Recipient' },
+        { value: '5', name: 'Plant (Last Payment Reviewer)' }
     ];
 
 

@@ -80,6 +80,8 @@ var myDatatable = function( ) {
               return 'User ID';
             } else if (row.sap_group=='4') {
               return 'Goods Recipient';
+            } else if (row.sap_group=='5') {
+              return 'Plant (Last Payment Reviewer)';
             } else {
               return 'N/A';
             }

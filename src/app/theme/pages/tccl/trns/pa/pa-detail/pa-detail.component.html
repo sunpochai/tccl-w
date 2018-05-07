@@ -415,14 +415,14 @@
 								<tr>
 									<td class="table-display-caption">Delivery Note</td>
 									<td class="table-display-value">{{pa.deliver_note}}</td>
-								</tr>
+								</tr><!-- 
 								<tr>
 									<td class="table-display-caption">Currency</td>
 									<td class="table-display-value">{{pa.currency}}</td>
-								</tr>
+								</tr> -->
 								<tr>
 									<td class="table-display-caption">Total</td>
-									<td class="table-display-value">{{ pa.amount | number:'1.2' }}</td>
+									<td class="table-display-value">{{ pa.amount | number:'1.2' }} {{pa.currency}}</td>
 								</tr>
 							</table>
 						</div>
@@ -442,7 +442,7 @@
 											<th>Mat. Desc.</th>
 											<th>Asset No.</th>
 											<th>Amount</th>
-											<th>Currency</th>
+											<th>Curr.</th>
 											<th>Qty</th>
 											<th>Unit</th>
 											<th>Tax Rate(%)</th>
