@@ -78,13 +78,22 @@ export class DelegateListComponent extends PageBaseComponent implements OnInit, 
     }
 
     clearForm() {
-        this.dateFrom = '';
-        this.dateTo = '';
-
+        // console.log('clrfrm');
         this.textSearchOwner = super.getFullNameUserLogin();
         this.txtOwnerSelected = super.getADUserLogin();
         this.textSearchADUser = this.txtOwnerSelected;
         this.txtOwnerNameSelected = super.getFullNameUserLogin();
+
+        // console.log('clrfrmx');
+        // console.log(this.dateFrom);
+        // this.dateFrom = '';
+        // this.dateTo = '';
+        // console.log(this.dateFrom);
+
+        var a = <HTMLInputElement>document.getElementById('dateFrom');
+        a.value = '';
+        var b = <HTMLInputElement>document.getElementById('dateTo');
+        b.value = '';
     }
 
     add() {

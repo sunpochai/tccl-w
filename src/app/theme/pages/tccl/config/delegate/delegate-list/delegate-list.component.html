@@ -61,7 +61,10 @@
 					<label class="col-form-label col-lg-2 col-sm-4">
 						Owner
 					</label>
-					<div class="col-lg-4 col-sm-8">
+					<div class="col-lg-2 col-sm-2">
+						<input id='textSearchADUser' disabled class=' form-control m-input' [(ngModel)]="textSearchADUser" name="textSearchADUser" type='text'  >
+					</div>
+					<div class="col-lg-4 col-sm-6">
 						<div class="width-half">
 							<input id='searchowner' [disabled]='canChangeUser==false' class=' form-control m-input' [(ngModel)]="textSearchOwner" name="owner" type='text' (ngModelChange)="onChangeSearchOwner($event);" autocomplete="off"  >
 							<input type='hidden' name='txtOwnerSelected' id='txtOwnerSelected' [(ngModel)]='txtOwnerSelected'>
@@ -72,7 +75,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="m--font-pale">{{textSearchADUser}}</div>
+							<!-- <div class="m--font-pale">{{textSearchADUser}}</div> -->
 						</div>  
 					</div>
 				</div>
