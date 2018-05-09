@@ -20,8 +20,8 @@ export class AuthenticationService {
         let headers = new Headers();
         headers.set('Content-Type', 'application/x-www-form-urlencoded');
         let opt = new RequestOptions({ headers: headers });
-
-        return this.http.post(API_AUTHEN_TOKEN, "username=" + username + "&password=" + password + "&grant_type=password", opt)
+ 
+        return this.http.post(API_AUTHEN_TOKEN, "username=" + username + "&password=" +  encodeURIComponent(password) + "&grant_type=password", opt)
             .map(response => response.json());
  
     }
