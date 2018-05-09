@@ -101,6 +101,7 @@ export class DelegateDetailComponent extends PageBaseComponent implements OnInit
 
                         this.textSearchOwner = this.delegate.ad_username;
                         this.txtOwnerSelected = this.delegate.ad_user;
+                        this.textSearchADUser = this.txtOwnerSelected;
                         this.txtOwnerNameSelected = this.delegate.ad_username;
 
                         this.start_date = DateUtil.toDisplayDate(this.delegate.start_date);

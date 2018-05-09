@@ -64,11 +64,11 @@ var myDatatable = function( ) {
       columns: [
         {
           field: 'ad_user',
-          title: 'Ad User',
+          title: 'Owner Ad User',
           sortable: 'asc'
         }, {
           field: 'ad_username',
-          title: 'Ad Username',
+          title: 'Owner Ad Username',
           selector: false,
         }, {
           field: 'start_date',
