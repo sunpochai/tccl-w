@@ -50,7 +50,10 @@ export class DelegateDetailComponent extends PageBaseComponent implements OnInit
     public txtSearchUserChanged: Subject<string> = new Subject<string>();
     public showDropDownUser = false;
 
+    public canChangeUser = super.CheckAdmin();
+
     public ownerList: any;
+    public textSearchADUser;
     public txtOwnerSelected;
     public txtOwnerNameSelected;
     public textSearchOwner: string;
@@ -121,6 +124,7 @@ export class DelegateDetailComponent extends PageBaseComponent implements OnInit
                 /** Default owner by AD User Login */
                 this.textSearchOwner = super.getFullNameUserLogin();
                 this.txtOwnerSelected = super.getADUserLogin();
+                this.textSearchADUser = this.txtOwnerSelected;
                 this.txtOwnerNameSelected = super.getFullNameUserLogin();
 
                 this.delegate.ad_user = this.txtOwnerSelected;
@@ -348,6 +352,7 @@ export class DelegateDetailComponent extends PageBaseComponent implements OnInit
     selectOwnerValue(value) {
         this.textSearchOwner = value.fullname
         this.txtOwnerSelected = value.ad_user;
+        this.textSearchADUser = this.txtOwnerSelected;
         this.txtOwnerNameSelected = value.fullname;
 
         this.delegate.ad_user = this.txtOwnerSelected;

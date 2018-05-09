@@ -58,12 +58,31 @@
 			<div class="m-portlet__body">
 				<!--begin: Search Form -->
 				<div class="form-group m-form__group row">
+					<label class="col-form-label col-lg-2 col-sm-4">
+						Owner
+					</label>
+					<div class="col-lg-4 col-sm-8">
+						<div class="width-half">
+							<input id='searchowner' [disabled]='canChangeUser==false' class=' form-control m-input' [(ngModel)]="textSearchOwner" name="owner" type='text' (ngModelChange)="onChangeSearchOwner($event);" autocomplete="off"  >
+							<input type='hidden' name='txtOwnerSelected' id='txtOwnerSelected' [(ngModel)]='txtOwnerSelected'>
+							<div clickOutside (clickOutside)="closeDropDownOwner()">
+								<div  *ngIf="showDropDownOwner" class='search-drop-down card'>
+									<div (click)='selectOwnerValue(s)' class='search-results ' *ngFor="let s of this.ownerList ">
+										{{s.fullname}}
+									</div>
+								</div>
+							</div>
+							<div class="m--font-pale">{{textSearchADUser}}</div>
+						</div>  
+					</div>
+				</div>
+				<div class="form-group m-form__group row">
 					<label class="col-lg-2 col-sm-4 col-form-label">
-						PR Date From:
+						Date From:
 					</label>
 					<div class="col-lg-4 col-sm-8">
 						<div class='input-group'>
-							<input type='text' class="form-control m-input" name='m_form_date_from' id='m_form_date_from'/>
+							<input type='text' class="form-control m-input" [(ngModel)]='dateFrom' name='dateFrom' id='dateFrom'/>
 							<div class="input-group-append">
 								<span class="input-group-text">
 									<i class="la la-calendar-check-o"></i>
@@ -72,11 +91,11 @@
 						</div>
 					</div>
 					<label class="col-lg-2 col-sm-4 col-form-label">
-						PR Date To:
+						Date To:
 					</label>
 					<div class="col-lg-4 col-sm-8">
 						<div class='input-group'>
-							<input type='text' class="form-control m-input" name='m_form_date_to' id='m_form_date_to'/>
+							<input type='text' class="form-control m-input" [(ngModel)]='dateTo' name='dateTo' id='dateTo'/>
 							<div class="input-group-append">
 								<span class="input-group-text">
 									<i class="la la-calendar-check-o"></i>
@@ -91,7 +110,7 @@
 							<i class="fa fa-search"></i>
 							Search
 						</button>
-						<button type="reset" class="btn btn-metal">
+						<button type="button" class="btn btn-metal" (click)="clearForm()">
 							<i class="fa fa-refresh"></i>
 							Clear
 						</button>
