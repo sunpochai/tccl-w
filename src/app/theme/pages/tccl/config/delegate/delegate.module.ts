@@ -26,6 +26,9 @@ const routes: Routes = [
                 "path": "list",
                 "component": DelegateListComponent
             }, {
+                "path": "list/:aduser",
+                "component": DelegateListComponent
+            }, {
                 "path": "detail/:id",
                 "component": DelegateDetailComponent
             }

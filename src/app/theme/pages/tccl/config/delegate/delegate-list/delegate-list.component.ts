@@ -25,6 +25,8 @@ declare var window: any
 export class DelegateListComponent extends PageBaseComponent implements OnInit, AfterViewInit {
     public action_delegate_id: string;
     public action_ad_user: string;
+
+    public parsedAdUser: string;
     
     public ownerList: any;
     public textSearchADUser: any;
@@ -58,10 +60,26 @@ export class DelegateListComponent extends PageBaseComponent implements OnInit, 
         window.my.namespace.prepare_del = this.prepare_del.bind(this);
         window.my.namespace.navigate_edit = this.navigate_edit.bind(this);
 
+        /* this.route.params.subscribe(params => {
+            this.parsedAdUser = params['aduser'] + '';
+        })
+
+        if (this.parsedAdUser != null && this.parsedAdUser != '') {
+            this.txtOwnerSelected = this.parsedAdUser;
+            this.textSearchADUser = this.parsedAdUser;
+            //this.textSearchOwner = ?
+            //this.txtOwnerNameSelected = ?
+        } else {
+            this.textSearchOwner = super.getFullNameUserLogin();
+            this.txtOwnerSelected = super.getADUserLogin();
+            this.textSearchADUser = this.txtOwnerSelected;
+            this.txtOwnerNameSelected = super.getFullNameUserLogin();
+        } */
         this.textSearchOwner = super.getFullNameUserLogin();
         this.txtOwnerSelected = super.getADUserLogin();
         this.textSearchADUser = this.txtOwnerSelected;
         this.txtOwnerNameSelected = super.getFullNameUserLogin();
+
     }
 
     ngAfterViewInit() {
