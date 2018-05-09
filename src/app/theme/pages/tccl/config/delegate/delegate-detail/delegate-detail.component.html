@@ -67,7 +67,7 @@
 					</label>
 					<div class="col-lg-4 col-sm-8">
 						<div class="width-half">
-							<input required id='searchowner' placeholder="Search for a user" class=' form-control m-input' [(ngModel)]="textSearchOwner" name="owner" type='text' (ngModelChange)="onChangeSearchOwner($event);" autocomplete="off"  >
+							<input required [disabled]="canChangeUser==false" id='searchowner' placeholder="Search for a user" class=' form-control m-input' [(ngModel)]="textSearchOwner" name="owner" type='text' (ngModelChange)="onChangeSearchOwner($event);" autocomplete="off"  >
 							<div clickOutside (clickOutside)="closeDropDownOwner()">
 								<div  *ngIf="showDropDownOwner" class='search-drop-down card'>
 									<div (click)='selectOwnerValue(s)' class='search-results ' *ngFor="let s of this.ownerList ">
@@ -75,6 +75,7 @@
 									</div>
 								</div>
 							</div>
+							<div class="m--font-pale">{{textSearchADUser}}</div>
 						</div>  
 					</div>
 				</div>

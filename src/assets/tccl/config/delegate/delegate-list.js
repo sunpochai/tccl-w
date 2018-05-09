@@ -113,7 +113,7 @@ var myDatatable = function( ) {
     });
 
     // datepicker
-    $('#m_form_date_from').datepicker({
+    $('#dateFrom').datepicker({
       todayHighlight: true,
       format: 'dd/mm/yyyy',
       templates: {
@@ -122,7 +122,7 @@ var myDatatable = function( ) {
       },
     });
 
-    $('#m_form_date_to').datepicker({
+    $('#dateTo').datepicker({
       todayHighlight: true,
       format: 'dd/mm/yyyy',
       templates: {
@@ -136,8 +136,11 @@ var myDatatable = function( ) {
   var search = function()  {
     var query = datatable.getDataSourceQuery();
 
-    query.start_date = toInternalDate($('#m_form_date_from').val());
-    query.end_date = toInternalDate($('#m_form_date_to').val());
+    query.start_date = toInternalDate($('#dateFrom').val());
+    query.end_date = toInternalDate($('#dateTo').val());
+
+    query.ad_username = toInternalDate($('#txtOwnerSelected').val());
+    //searchowner
 
     datatable.setDataSourceQuery(query);
     datatable.load();
