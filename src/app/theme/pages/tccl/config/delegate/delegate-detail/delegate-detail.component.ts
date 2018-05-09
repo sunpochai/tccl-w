@@ -50,7 +50,7 @@ export class DelegateDetailComponent extends PageBaseComponent implements OnInit
     public txtSearchUserChanged: Subject<string> = new Subject<string>();
     public showDropDownUser = false;
 
-    public canChangeUser = super.CheckAdmin();
+    public canChangeUser;
 
     public ownerList: any;
     public textSearchADUser;
@@ -101,6 +101,7 @@ export class DelegateDetailComponent extends PageBaseComponent implements OnInit
 
                         this.textSearchOwner = this.delegate.ad_username;
                         this.txtOwnerSelected = this.delegate.ad_user;
+                        this.textSearchADUser = this.txtOwnerSelected;
                         this.txtOwnerNameSelected = this.delegate.ad_username;
 
                         this.start_date = DateUtil.toDisplayDate(this.delegate.start_date);
@@ -135,6 +136,8 @@ export class DelegateDetailComponent extends PageBaseComponent implements OnInit
                 super.unblockui('#m_form_1');
             }
         });
+
+        this.canChangeUser = super.CheckAdmin() && this.id=='0'
     }
 
     ngAfterViewInit() {
@@ -214,7 +217,7 @@ export class DelegateDetailComponent extends PageBaseComponent implements OnInit
                 this.delegate = resp.data;
                 super.showsuccess('Delegate for user: ' + this.delegate.ad_user + ' create complete');
                 super.unblockui('#m_form_1');
-                this.navigate_list();
+                this.navigate_list(this.delegate.ad_user);
             } else {
                 super.showError(resp.error_msg);
                 super.unblockui('#m_form_1');
@@ -241,7 +244,7 @@ export class DelegateDetailComponent extends PageBaseComponent implements OnInit
                 this.delegate = resp.data;
                 super.showsuccess('Delegate for user: ' + this.delegate.ad_user + ' update complete');
                 super.unblockui('#m_form_1');
-                this.navigate_list();
+                this.navigate_list(this.delegate.ad_user);
             } else {
                 super.showError(resp.error_msg);
                 super.unblockui('#m_form_1');
@@ -331,8 +334,9 @@ export class DelegateDetailComponent extends PageBaseComponent implements OnInit
         console.log(this.delegate);
     }
 
-    navigate_list() {
-        this._router.navigate(['/config/delegate/list/']);
+    navigate_list(user) {
+        /* this._router.navigate(['/config/delegate/list/' + user ]); */
+        this._router.navigate(['/config/delegate/list/' ]);
     }
 
     searchOwner(search) {

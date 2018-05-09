@@ -5,7 +5,7 @@ var myDatatable = function( ) {
 
   var datatable;
 
-  var load = function( apiurl)  {
+  var load = function( apiurl,callback)  {
   	
     datatable = $('.m_datatables').mDatatable({
       // datasource definition 
@@ -64,11 +64,11 @@ var myDatatable = function( ) {
       columns: [
         {
           field: 'ad_user',
-          title: 'Ad User',
+          title: 'Owner Ad User',
           sortable: 'asc'
         }, {
           field: 'ad_username',
-          title: 'Ad Username',
+          title: 'Owner Ad Username',
           selector: false,
         }, {
           field: 'start_date',
@@ -130,7 +130,8 @@ var myDatatable = function( ) {
         rightArrow: '<i class="la la-angle-right"></i>'
       }
     });
-    
+
+    callback();    
   };
 
   var search = function()  {
@@ -146,10 +147,17 @@ var myDatatable = function( ) {
     datatable.load();
   };
 
+  var initial = function(apiurl)  {
+    load(apiurl, function() {
+      search();
+    });
+    
+  };
+  
   return {
     // public functions
     init: function(apiurl) {
-      load(apiurl);
+      initial(apiurl);
     },
     search: function() {
       search();
