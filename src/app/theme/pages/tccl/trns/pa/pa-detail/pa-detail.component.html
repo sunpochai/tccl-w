@@ -415,14 +415,14 @@
 								<tr>
 									<td class="table-display-caption">Delivery Note</td>
 									<td class="table-display-value">{{pa.deliver_note}}</td>
-								</tr>
+								</tr><!-- 
 								<tr>
 									<td class="table-display-caption">Currency</td>
 									<td class="table-display-value">{{pa.currency}}</td>
-								</tr>
+								</tr> -->
 								<tr>
 									<td class="table-display-caption">Total</td>
-									<td class="table-display-value">{{ pa.amount | number:'1.2' }}</td>
+									<td class="table-display-value">{{ pa.amount | number:'1.2' }} {{pa.currency}}</td>
 								</tr>
 							</table>
 						</div>
@@ -442,24 +442,39 @@
 											<th>Mat. Desc.</th>
 											<th>Asset No.</th>
 											<th>Amount</th>
-											<th>Currency</th>
+											<th>Curr.</th>
 											<th>Qty</th>
 											<th>Unit</th>
 											<th>Tax Rate(%)</th>
 										</tr>
 									</thead>
 									<tr *ngFor="let row of pa.trn_payment_item; let index = index">
-										<td style="vertical-align: middle" align="center" >{{formatSAPItemNo(row.matdoc_item)}}</td>
-										<td style="vertical-align: middle" align="left">{{getAccountAssignmentDesc(row)}}</td>
-										<td style="vertical-align: middle" align="center" >{{row.profit_center}}</td>
-										<td style="vertical-align: middle" align="center" >{{lefttrim(row.mat_no,'0')}}</td>
-										<td style="vertical-align: middle" align="left" >{{row.mat_desc}}</td>
-										<td style="vertical-align: middle" align="center" >{{row.main_asset_no}}</td>
-										<td style="vertical-align: middle" align="right" >{{row.amount | number:'1.2'}}</td>
-										<td style="vertical-align: middle" align="center" >{{row.currency}}</td>
-										<td style="vertical-align: middle" align="right" >{{row.gr_qty}}</td>
-										<td style="vertical-align: middle" align="right" >{{row.unit}}</td>
-										<td style="vertical-align: middle" align="center" >{{row.Tax_code}}</td>
+										<ng-container *ngIf="row.item_status == 'DEL' ">
+											<td class="m--font-deleted" style="vertical-align: middle" align="center" >{{formatSAPItemNo(row.matdoc_item)}}</td>
+											<td class="m--font-deleted" style="vertical-align: middle" align="left">{{getAccountAssignmentDesc(row)}}</td>
+											<td class="m--font-deleted" style="vertical-align: middle" align="center" >{{row.profit_center}}</td>
+											<td class="m--font-deleted" style="vertical-align: middle" align="center" >{{lefttrim(row.mat_no,'0')}}</td>
+											<td class="m--font-deleted" style="vertical-align: middle" align="left" >{{row.mat_desc}}</td>
+											<td class="m--font-deleted" style="vertical-align: middle" align="center" >{{row.main_asset_no}}</td>
+											<td class="m--font-deleted" style="vertical-align: middle" align="right" >{{row.amount | number:'1.2'}}</td>
+											<td class="m--font-deleted" style="vertical-align: middle" align="center" >{{row.currency}}</td>
+											<td class="m--font-deleted" style="vertical-align: middle" align="right" >{{row.gr_qty}}</td>
+											<td class="m--font-deleted" style="vertical-align: middle" align="right" >{{row.unit}}</td>
+											<td class="m--font-deleted" style="vertical-align: middle" align="center" >{{row.Tax_code}}</td>
+										</ng-container>
+										<ng-container *ngIf="row.item_status != 'DEL' ">
+											<td style="vertical-align: middle" align="center" >{{formatSAPItemNo(row.matdoc_item)}}</td>
+											<td style="vertical-align: middle" align="left">{{getAccountAssignmentDesc(row)}}</td>
+											<td style="vertical-align: middle" align="center" >{{row.profit_center}}</td>
+											<td style="vertical-align: middle" align="center" >{{lefttrim(row.mat_no,'0')}}</td>
+											<td style="vertical-align: middle" align="left" >{{row.mat_desc}}</td>
+											<td style="vertical-align: middle" align="center" >{{row.main_asset_no}}</td>
+											<td style="vertical-align: middle" align="right" >{{row.amount | number:'1.2'}}</td>
+											<td style="vertical-align: middle" align="center" >{{row.currency}}</td>
+											<td style="vertical-align: middle" align="right" >{{row.gr_qty}}</td>
+											<td style="vertical-align: middle" align="right" >{{row.unit}}</td>
+											<td style="vertical-align: middle" align="center" >{{row.Tax_code}}</td>
+										</ng-container>
 									</tr>
 								</table>
 							</div>
