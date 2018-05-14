@@ -88,6 +88,18 @@ var myDatatable = function( ) {
               return 'N/A';
             }
           }
+        }, {
+          field: 'cf_route_detail',
+          title: 'Approver',
+          textAlign: 'left',
+          template: function (row) {
+            var s = '';
+
+            row.cf_route_detail.forEach(function(element) {
+              s = s + element.ad_username + '<br>';
+            });
+            return s;
+          }
         },
         {
           field: 'Actions',
