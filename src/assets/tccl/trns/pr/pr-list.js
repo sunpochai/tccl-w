@@ -63,17 +63,11 @@ var myDatatable = function( ) {
 
       columns: [
         {   
-          field: 'doc_type',
-          title: 'Doc Type',
-          sortable: true,
-          textAlign: 'center',
-          width: '60px',
-        } , {   
           field: 'hasAttachment',
           title: 'Att.File',
           sortable: true,
           textAlign: 'center',
-          width: '60px',
+          width: '50px',
           template: function (row) {
             if (row.hasAttachment == true) {
               return '<i class="flaticon-tool-1"></i>';
@@ -81,6 +75,12 @@ var myDatatable = function( ) {
               return '';
             }
           }
+        } , {   
+          field: 'doc_type',
+          title: 'Doc Type',
+          sortable: true,
+          textAlign: 'center',
+          width: '60px',
         } , {
           field: 'pr_no',
           title: 'PR No.',

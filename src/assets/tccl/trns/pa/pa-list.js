@@ -68,7 +68,7 @@ var myDatatable = function( ) {
           title: 'Att.File',
           sortable: true,
           textAlign: 'center',
-          width: '60px',
+          width: '50px',
           template: function (row) {
             if (row.hasAttachment == true) {
               return '<i class="flaticon-tool-1"></i>';
