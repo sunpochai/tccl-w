@@ -64,6 +64,19 @@ var myDatatable = function( ) {
 
       columns: [
         {   
+          field: 'hasAttachment',
+          title: 'Att.File',
+          sortable: true,
+          textAlign: 'center',
+          width: '60px',
+          template: function (row) {
+            if (row.hasAttachment == true) {
+              return '<i class="flaticon-tool-1"></i>';
+            } else {
+              return '<i class="flaticon-tool-1"></i>';
+            }
+          }
+        } , {   
           field: 'matdoc_no',
           title: 'Mat.Doc No.',
           sortable: true,

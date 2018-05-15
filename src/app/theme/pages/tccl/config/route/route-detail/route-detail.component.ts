@@ -150,6 +150,8 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
             });
         } else {
             this.routeapprove = new RouteApprove();
+            this.routeapprove.tracking_no = '';
+            this.routeapprove.doc_type = '';
             // console.log(this.routeapprove);
             super.unblockui('#m_form_1');
         }

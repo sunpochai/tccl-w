@@ -69,6 +69,19 @@ var myDatatable = function( ) {
           sortable: true,
           textAlign: 'center',
           width: '60px',
+        } , {   
+          field: 'hasAttachment',
+          title: 'Att.File',
+          sortable: true,
+          textAlign: 'center',
+          width: '60px',
+          template: function (row) {
+            if (row.hasAttachment == true) {
+              return '<i class="flaticon-tool-1"></i>';
+            } else {
+              return '';
+            }
+          }
         } , {
           field: 'po_no',
           title: 'PO No.',
