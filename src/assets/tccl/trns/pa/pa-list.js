@@ -73,7 +73,7 @@ var myDatatable = function( ) {
             if (row.hasAttachment == true) {
               return '<i class="flaticon-tool-1"></i>';
             } else {
-              return '<i class="flaticon-tool-1"></i>';
+              return '';
             }
           }
         } , {   
