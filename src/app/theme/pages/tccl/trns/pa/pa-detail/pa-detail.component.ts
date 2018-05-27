@@ -133,7 +133,7 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
 
                 } else {
                     this.pa = resp.data;
-console.log(this.pa);
+// console.log(this.pa);
                     if (this.pa.worklist != null && this.pa.worklist.current_responsible != null) {
                         this.wf_stage_resp_id = this.pa.worklist.current_responsible.wf_stage_resp_id;
 
@@ -149,7 +149,7 @@ console.log(this.pa);
                         if (this.pa.worklist.current_responsible.resp_allow_action == null || this.pa.worklist.current_responsible.resp_allow_action == '') {
                             this.canApprove = true;
                         }
-console.log(this.canReview + ', ' + this.canApprove + ', ' + this.canComment + ', ' + this.canReassignApprover);
+// console.log(this.canReview + ', ' + this.canApprove + ', ' + this.canComment + ', ' + this.canReassignApprover);
                         //***** weeraya 23/05/2018
                         //If this.canReassignApprover is already TRUE then skip this block
                         /* if (!this.canReassignApprover && true) {
@@ -566,9 +566,9 @@ console.log(this.canReview + ', ' + this.canApprove + ', ' + this.canComment + '
         sl.actor_username = this.txtApproverUserNameSelected;
         sl.destination_user = sl.actor_user;
         sl.destination_username = sl.actor_username;
+        sl.stage_name = 'Approver';
         sl.stage_logs_list = new Array<WorkflowStageLog>();
-        sl.outcome = '';
-        sl.outcome_description = '';
+        sl.outcome = '?';
         sl.canReassignAdd = true;
         sl.canReassignDelete = true;
 
