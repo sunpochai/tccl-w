@@ -101,6 +101,25 @@
 				</div>
 				<div class="form-group m-form__group row" >
 					<label class="col-form-label col-lg-2 col-sm-3">
+						Email *
+					</label>
+					<div class="col-lg-10 col-sm-9">
+						<div class="m-radio-inline">
+							<label class="m-radio">
+								<input type="radio" [(ngModel)]="send_mail_flag"  name="send_mail_flag" value="Y">
+								Yes
+								<span></span>
+							</label>
+							<label class="m-radio">
+								<input type="radio" [(ngModel)]="send_mail_flag" name="send_mail_flag" value="N">
+								No
+								<span></span>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group m-form__group row" >
+					<label class="col-form-label col-lg-2 col-sm-3">
 						Reviewer *
 					</label>
 					<div class="col-lg-8 col-sm-8">

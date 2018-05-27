@@ -5,6 +5,7 @@ export class Reviewer {
     sap_group: number;
     ad_user: string;
     ad_username: string;
+    send_mail: boolean;
     create_user: string;
     create_username: string;
     create_datetime: Date;
