@@ -29,6 +29,8 @@ import { Subject } from 'rxjs';
 import { StringUtil } from '../../../../../../Util/stringutil';
 import { DateUtil } from '../../../../../../Util/dateutil';
 import { Workflow } from '../../../_models/trns/workflow';
+import { WorkflowStage } from '../../../_models/trns/workflowstage';
+import { WorkflowStageLog } from '../../../_models/trns/workflowstagelog';
 
 @Component({
     selector: "trns-pa-detail",
@@ -72,8 +74,15 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
     public txtAdUserSelected;
     public txtAdUserNameSelected;
     public txtSearchUserChanged: Subject<string> = new Subject<string>();
-    public showDropDownUser = false;
+    public showDropDownUser: boolean = false;
     public user_list: any = [];
+    
+    public showDropDownApprover: boolean = false;
+    public approverList: any;
+    public textSearchApprover: string;
+    public txtSearchApproverChanged: Subject<string> = new Subject<string>();
+    public txtApproverUserSelected: string;
+    public txtApproverUserNameSelected: string;
 
     public dtSwitch: boolean[] = [];
     public showPurchasingHistory: boolean = false;
@@ -95,6 +104,11 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
             this.textSearchUser = md;
             this.searchUser(md);
         })
+
+        this.txtSearchApproverChanged.debounceTime(500).distinctUntilChanged().subscribe(md => {
+            this.textSearchApprover = md;
+            this.searchApprover(md);
+        })    
     }
 
     loadData() {
@@ -150,13 +164,13 @@ console.log(this.canReview + ', ' + this.canApprove + ', ' + this.canComment + '
                             console.log('asdfffgg');
                             let index = 0;
                             for (let row of this.pa.worklist.stage_list) {
-                                if (index == 0) {
+                                if (row.stage_name.toLowerCase() == 'reviewer') {
                                     this.pa.worklist.stage_list[index].canReassignAdd = true;
                                     this.pa.worklist.stage_list[index].canReassignDelete = false;
                                 } else {
                                     this.pa.worklist.stage_list[index].canReassignAdd = true;
                                     this.pa.worklist.stage_list[index].canReassignDelete = true;
-                                }    
+                                }
                                 index++;
                             }
                         }
@@ -536,9 +550,68 @@ console.log(this.canReview + ', ' + this.canApprove + ', ' + this.canComment + '
         this.pa.worklist.stage_list.splice(this.action_reassign_index,1);
     }
 
+    prepareAddApprover(in_reassign_index) {
+        this.action_reassign_index = in_reassign_index;
+
+        this.textSearchApprover = '';
+        this.txtApproverUserSelected = '';
+        this.txtApproverUserNameSelected = '';
+    }
+
+    addApprover() {
+        // this.pa.worklist.stage_list.splice(this.action_reassign_index,1);
+        let sl: WorkflowStage = new WorkflowStage;
+        sl.workflow_id = this.pa.worklist.workflow_id;
+        sl.actor_user = this.txtApproverUserSelected;
+        sl.actor_username = this.txtApproverUserNameSelected;
+        sl.destination_user = sl.actor_user;
+        sl.destination_username = sl.actor_username;
+        sl.stage_logs_list = new Array<WorkflowStageLog>();
+        sl.outcome = '';
+        sl.outcome_description = '';
+        sl.canReassignAdd = true;
+        sl.canReassignDelete = true;
+
+        this.pa.worklist.stage_list.splice(this.action_reassign_index + 1,0,sl);
+        console.log(this.pa.worklist.stage_list);
+    }
+
     cancelReassign() {
         this.isAssigningNewApprover = false;
         this.loadData();
+    }
+
+    searchApprover(search) {
+        if (search.length < 2) return;
+        // console.log("search >>" + search);
+        this.showDropDownApprover = true;
+        this._adUserService.search(search).subscribe(x => {
+            this.approverList = x
+            // console.log(x);
+        });
+    }
+
+    onChangeSearchApprover(event) {
+        // console.log(event);
+        this.txtSearchApproverChanged.next(event);
+    }
+
+    selectApprover(value) {
+        this.textSearchApprover = value.fullname;
+        this.txtApproverUserSelected = value.ad_user;
+        this.txtApproverUserNameSelected = value.fullname;
+
+        var user = {            
+            ad_user: value.ad_user,
+            ad_username: value.fullname
+        };
+
+        this.showDropDownApprover = false;
+        // this.textSearchApprover = '';
+    }
+
+    closeDropDownApprover() {
+        this.showDropDownApprover = false;
     }
 
     performAction() {

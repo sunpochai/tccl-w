@@ -309,8 +309,11 @@
 												</td>
 												<td>
 													<div  *ngIf="isAssigningNewApprover && item.canReassignAdd" >
-														<a href="#" (click)="toggleReAssignApprover('')" data-toggle="tooltip" title="Add approver" >
+														<!-- <a href="#" (click)="toggleReAssignApprover('')" data-toggle="tooltip" title="Add approver" >
 															<i class="fa fa-plus-circle"></i>
+														</a> -->
+														<a href="#" (click)="prepareAddApprover(i)" data-toggle="modal" data-target="#m_modal_add_approver" class="m-btn m-btn--pill m-btn--hover-danger btn btn-sm btn-secondary" title="Remove this approver">
+															<i class="la la-plus"></i>
 														</a>
 													</div>
 												</td>
@@ -605,6 +608,52 @@
 		</div>
 	</div>
 	<!--end::Modal-->
+
+	<!--begin::Modal-->
+	<div class="modal fade" id="m_modal_add_approver" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="">
+                        Add approver
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="la la-remove"></span>
+                    </button>
+                </div>
+                <form class="m-form m-form--fit m-form--label-align-right">
+                    <div class="modal-body">
+                        <div class="form-group m-form__group row m--margin-top-20">
+                            <label class="col-form-label col-lg-3 col-sm-3">
+                                Approver name:
+                            </label>
+                            <div class="col-lg-9 col-sm-9">
+								<div class="width-half">
+									<input required id='textSearchApprover' placeholder="Search for a user" class=' form-control m-input' [(ngModel)]="textSearchApprover" name="user" type='text' (ngModelChange)="onChangeSearchApprover($event);" autocomplete="off" >
+									<div clickOutside (clickOutside)="closeDropDownApprover()">
+										<div  *ngIf="showDropDownApprover" class='search-drop-down card'>
+											<div (click)='selectApprover(s)' class='search-results ' *ngFor="let s of this.approverList ">
+												{{s.fullname}}
+											</div>
+										</div>
+									</div>
+								</div>  
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+						<button type="reset" [disabled]="txtApproverUserSelected == null || txtApproverUserSelected == ''" (click)="addApprover()" class="btn btn-success m-btn" data-dismiss="modal">
+                            Select
+                        </button>
+						<button type="reset" class="btn btn-metal m-btn" data-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--end::Modal-->
 
 	<!--begin::Modal-->
 	<div class="modal fade" id="m_modal_reassign" tabindex="-1" role="dialog" aria-hidden="true">
