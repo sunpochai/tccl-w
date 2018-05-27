@@ -47,9 +47,11 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
     public canApprove: boolean = false;
     public canComment: boolean = false;
     public canReassignApprover: boolean = false; //***** weeraya 23/05/2018
-    public isAssigningNewApprover: boolean = false; //***** weeraya 23/05/2018
+
     public isWaiting: boolean = false;
     public isDelegate: boolean = false;
+    public isAssigningNewApprover: boolean = false; //***** weeraya 23/05/2018
+
     public urlattachment: String = API_ATTACHMENT_GET_DEL;
     public statusName: any = ACTION_NAME;
     public docStatus: Array<any> = C_DOC_STATUS_2;
@@ -152,20 +154,29 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
 // console.log(this.canReview + ', ' + this.canApprove + ', ' + this.canComment + ', ' + this.canReassignApprover);
                         //***** weeraya 23/05/2018
                         //If this.canReassignApprover is already TRUE then skip this block
-                        /* if (!this.canReassignApprover && true) {
-                            this.canReassignApprover = true;
-                        } */
-                        if (true) {
+                        if (!this.canReassignApprover && true) {
                             this.canReassignApprover = true;
                         }
 
                         //Set the flag to display feature reassign approver in html page
-                        if (this.canReassignApprover = true) {
-                            console.log('asdfffgg');
+                        if (this.canReassignApprover == true) {
+                            // console.log('asdfffgg');
                             let index = 0;
+                            let firstadd: boolean = false;
                             for (let row of this.pa.worklist.stage_list) {
                                 if (row.stage_name.toLowerCase() == 'reviewer') {
-                                    this.pa.worklist.stage_list[index].canReassignAdd = true;
+                                    if (index == this.pa.worklist.stage_list.length - 1) {
+                                        // cannot add another approver after last reviewer 
+                                        this.pa.worklist.stage_list[index].canReassignAdd = false;
+                                    } else {
+                                        // only first reviewer can follow by approver
+                                        if (firstadd) {
+                                            this.pa.worklist.stage_list[index].canReassignAdd = false;
+                                        } else {
+                                            this.pa.worklist.stage_list[index].canReassignAdd = true;
+                                            firstadd = true;
+                                        }
+                                    }
                                     this.pa.worklist.stage_list[index].canReassignDelete = false;
                                 } else {
                                     this.pa.worklist.stage_list[index].canReassignAdd = true;
@@ -388,6 +399,36 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
                     this.navigate_home();
                 } else {
                     // console.log(resp);
+                    super.showError(resp.error_msg);
+                    super.unblockui('#m-content');
+                }
+            },
+            error => {
+                super.showError(error);
+                super.unblockui('#m-content');
+            },
+            () => {
+                super.unblockui('#m-content');
+            }
+        );
+    }
+
+    reject(workflowaction) {
+        super.blockui('#m-content');
+
+        workflowaction.outcome = ACTION_NAME.rejected
+        workflowaction.outcome_description = this.action_comment;
+
+        this._workflowService.reject<any>(workflowaction).subscribe(
+            resp => {
+                workflowaction = resp;
+                if (resp.is_error == false) {
+                    console.log(resp);
+                    super.unblockui('#m-content');
+                    super.showsuccess('Reject completed');
+                    this.navigate_home();
+                } else {
+                    console.log(resp);
                     super.showError(resp.error_msg);
                     super.unblockui('#m-content');
                 }
@@ -628,6 +669,9 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
             case 'approve':
                 this.approve(workflowaction);
                 break;
+            case 'reject':
+                this.reject(workflowaction);
+                break;
             case 'waiting':
                 this.waiting(workflowaction);
                 break;
@@ -636,6 +680,9 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
                 break;
             case 'comment':
                 this.comment(workflowaction);
+                break;
+            case 're-assign':
+                this.reassignApprover();
                 break;
         }
     }

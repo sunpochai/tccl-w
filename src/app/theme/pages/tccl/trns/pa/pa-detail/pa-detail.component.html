@@ -128,11 +128,14 @@
 						<div class="m-portlet__foot m-portlet__foot">
 							<div class="row">
 								<div class="col-lg-12 ml-lg-auto ">
-									<button type="button" [disabled]="heroForm.invalid" class="btn btn-info" (click)="prepareAction('Review')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canReview">
+									<button type="button" [disabled]="isAssigningNewApprover || heroForm.invalid" class="btn btn-info" (click)="prepareAction('Review')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canReview">
 										Review 
 									</button>
 									<button type="button" [disabled]="isWaiting || isDelegate || heroForm.invalid" class="btn btn-success" (click)="prepareAction('Approve')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
 										Approve 
+									</button>
+									<button type="button" [disabled]="isWaiting || isDelegate || heroForm.invalid" class="btn btn-danger" (click)="prepareAction('Reject')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+										Reject 
 									</button>
 									<ng-container *ngIf="isWaiting">
 										<button type="button" [disabled]="isWaiting==false || heroForm.invalid  || user_list==null || user_list.length < 1" class="btn btn-warning" (click)="prepareAction('Waiting')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
@@ -258,7 +261,7 @@
 								</a>
 							</li>
 							<li class="m-portlet__nav-item" *ngIf="isAssigningNewApprover" >
-								<a href="#" (click)="reassignApprover()"  >
+								<a href="#" (click)="prepareAction('Re-Assign')" data-toggle="modal" data-target="#m_modal_confirm" >
 									<i class="fa fa-check"></i>
 									Save changes
 								</a>
@@ -312,7 +315,7 @@
 														<!-- <a href="#" (click)="toggleReAssignApprover('')" data-toggle="tooltip" title="Add approver" >
 															<i class="fa fa-plus-circle"></i>
 														</a> -->
-														<a href="#" (click)="prepareAddApprover(i)" data-toggle="modal" data-target="#m_modal_add_approver" class="m-btn m-btn--pill m-btn--hover-danger btn btn-sm btn-secondary" title="Remove this approver">
+														<a href="#" (click)="prepareAddApprover(i)" data-toggle="modal" data-target="#m_modal_add_approver" class="m-btn m-btn--pill m-btn--hover-info btn btn-sm btn-secondary" title="Remove this approver">
 															<i class="la la-plus"></i>
 														</a>
 													</div>
@@ -356,15 +359,15 @@
 													</td>
 													<td>
 														<div  *ngIf="isAssigningNewApprover && item.canReassignAdd" >
-															<a href="#" (click)="toggleReAssignApprover('')" data-toggle="tooltip" title="Add approver" >
-																<i class="fa fa-plus-circle"></i>
+															<a href="#" (click)="prepareAddApprover(i)" data-toggle="modal" data-target="#m_modal_add_approver" class="m-btn m-btn--pill m-btn--hover-info btn btn-sm btn-secondary" title="Remove this approver">
+																<i class="la la-plus"></i>
 															</a>
 														</div>
 													</td>
 													<td>
 														<div  *ngIf="isAssigningNewApprover && item.canReassignDelete" >
-															<a href="#" (click)="toggleReAssignApprover('')" data-toggle="tooltip" title="Remove this approver" >
-																<i class="fa fa-minus-circle"></i>
+															<a href="#" (click)="prepareRemoveApprover(i, item.actor_username)" data-toggle="modal" data-target="#m_modal_reassign" class="m-btn m-btn--pill m-btn--hover-danger btn btn-sm btn-secondary" title="Remove this approver">
+																<i class="la la-trash"></i>
 															</a>
 														</div>
 													</td>
