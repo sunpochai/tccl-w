@@ -28,6 +28,7 @@ import { ADUserService } from '../../../_services/masters/aduser.service';
 import { Subject } from 'rxjs';
 import { StringUtil } from '../../../../../../Util/stringutil';
 import { DateUtil } from '../../../../../../Util/dateutil';
+import { Workflow } from '../../../_models/trns/workflow';
 
 @Component({
     selector: "trns-pa-detail",
@@ -43,6 +44,8 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
     public canReview: boolean = false;
     public canApprove: boolean = false;
     public canComment: boolean = false;
+    public canReassignApprover: boolean = false; //***** weeraya 23/05/2018
+    public isAssigningNewApprover: boolean = false; //***** weeraya 23/05/2018
     public isWaiting: boolean = false;
     public isDelegate: boolean = false;
     public urlattachment: String = API_ATTACHMENT_GET_DEL;
@@ -51,6 +54,9 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
     public currentItem: any;
     public categoryCode: any = CATEGORY_CODE;
     public categoryName: any = CATEGORY_NAME;
+
+    public action_reassign_index: number;
+    public action_reassign_name: String;
     
     public attFile: any;
     public formData: FormData = new FormData();
@@ -94,9 +100,11 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
     loadData() {
         super.blockui('#m-content');
 
-        this.route.params.subscribe(params => {
-            this.id = params['id'];
-        });
+        if (this.id==null || this.id=='0') {
+            this.route.params.subscribe(params => {
+                this.id = params['id'];
+            });
+        }
 
         if (this.id != null && this.id != '0') {
             this._paService.get<any>(this.id).subscribe(resp => {
@@ -111,13 +119,13 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
 
                 } else {
                     this.pa = resp.data;
-
+console.log(this.pa);
                     if (this.pa.worklist != null && this.pa.worklist.current_responsible != null) {
                         this.wf_stage_resp_id = this.pa.worklist.current_responsible.wf_stage_resp_id;
 
                         if (this.pa.worklist.current_responsible.resp_allow_action != null && this.pa.worklist.current_responsible.resp_allow_action.toLowerCase() == 'review') {
                             this.canReview = true;
-                            // console.log(this.canReview);
+                            this.canReassignApprover = true;
                         }
 
                         if (this.pa.worklist.current_responsible.resp_allow_action != null && this.pa.worklist.current_responsible.resp_allow_action.toLowerCase() == 'comment') {
@@ -126,6 +134,31 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
 
                         if (this.pa.worklist.current_responsible.resp_allow_action == null || this.pa.worklist.current_responsible.resp_allow_action == '') {
                             this.canApprove = true;
+                        }
+console.log(this.canReview + ', ' + this.canApprove + ', ' + this.canComment + ', ' + this.canReassignApprover);
+                        //***** weeraya 23/05/2018
+                        //If this.canReassignApprover is already TRUE then skip this block
+                        /* if (!this.canReassignApprover && true) {
+                            this.canReassignApprover = true;
+                        } */
+                        if (true) {
+                            this.canReassignApprover = true;
+                        }
+
+                        //Set the flag to display feature reassign approver in html page
+                        if (this.canReassignApprover = true) {
+                            console.log('asdfffgg');
+                            let index = 0;
+                            for (let row of this.pa.worklist.stage_list) {
+                                if (index == 0) {
+                                    this.pa.worklist.stage_list[index].canReassignAdd = true;
+                                    this.pa.worklist.stage_list[index].canReassignDelete = false;
+                                } else {
+                                    this.pa.worklist.stage_list[index].canReassignAdd = true;
+                                    this.pa.worklist.stage_list[index].canReassignDelete = true;
+                                }    
+                                index++;
+                            }
                         }
                     }
                     if (this.pa.pa_attachment_items != null && this.pa.pa_attachment_items.length > 0) {
@@ -464,6 +497,50 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
         );
     }
 
+    reassignApprover() {
+        super.blockui('#m-content');
+
+        this._workflowService.reassign<any>(this.pa.payment_id, this.pa.worklist).subscribe(
+            resp => {
+                let wf: Workflow  = resp;
+
+                if (resp.is_error == false) {
+                    // console.log(resp);
+                    super.unblockui('#m-content');
+                    super.showsuccess('Re-Assign completed');
+                    this.cancelReassign();
+                } else {
+                    // console.log(resp);
+                    super.showError(resp.error_msg);
+                    super.unblockui('#m-content');
+                    this.cancelReassign();
+                }
+            },
+            error => {
+                super.showError(error);
+                // console.log(error);
+                super.unblockui('#m-content');
+            },
+            () => {
+                super.unblockui('#m-content');
+            }
+        );
+    }
+
+    prepareRemoveApprover(in_reassign_index, in_reassign_name) {
+        this.action_reassign_name = in_reassign_name;
+        this.action_reassign_index = in_reassign_index;
+    }
+
+    removeApprover() {
+        this.pa.worklist.stage_list.splice(this.action_reassign_index,1);
+    }
+
+    cancelReassign() {
+        this.isAssigningNewApprover = false;
+        this.loadData();
+    }
+
     performAction() {
         let workflowaction: WorkflowAction = new WorkflowAction;
         workflowaction.workflow_id = this.pa.workflow_id;
@@ -646,6 +723,11 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
         } else {
             return paitem.costcenter + ' / ' + StringUtil.lefttrim(paitem.account_no,'0') + '-' + paitem.account_name ;
         }
+    }
+
+    //***** weeraya 23/05/2018 */
+    toggleReAssignApprover() {
+        this.isAssigningNewApprover = !this.isAssigningNewApprover;
     }
 
 }

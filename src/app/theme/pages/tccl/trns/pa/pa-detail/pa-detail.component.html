@@ -249,6 +249,28 @@
 							</h3>
 						</div>
 					</div>
+					<div class="m-portlet__head-tools">
+						<ul class="m-portlet__nav">
+							<li class="m-portlet__nav-item" *ngIf="canReassignApprover && !isAssigningNewApprover" >
+								<a href="#" (click)="toggleReAssignApprover('')"  >
+									<i class="fa fa-refresh"></i>
+									Re-Assign Approver
+								</a>
+							</li>
+							<li class="m-portlet__nav-item" *ngIf="isAssigningNewApprover" >
+								<a href="#" (click)="reassignApprover()"  >
+									<i class="fa fa-check"></i>
+									Save changes
+								</a>
+							</li>
+							<li class="m-portlet__nav-item" *ngIf="isAssigningNewApprover" >
+								<a href="#" (click)="cancelReassign()"  >
+									<i class="fa fa-close"></i>
+									Cancel
+								</a>
+							</li>
+						</ul>
+					</div>
 				</div>
 				<div class="m-portlet__body-lil">
 					<div class="row">
@@ -261,6 +283,8 @@
 											<td>Start - Finish</td>
 											<td>Duration</td>
 											<td style="text-align:center; width: 90px" >Action</td>
+											<td></td>
+											<td></td>
 										</tr>
 									</thead>
 									<ng-template ngFor let-item [ngForOf]="pa.worklist.stage_list" let-i="index" [ngForTrackBy]="trackByFn">
@@ -283,10 +307,27 @@
 												<td style="text-align: center;" >
 													<span [class]="getStatusDisplayClass(item.outcome)">{{item.outcome}}</span>
 												</td>
+												<td>
+													<div  *ngIf="isAssigningNewApprover && item.canReassignAdd" >
+														<a href="#" (click)="toggleReAssignApprover('')" data-toggle="tooltip" title="Add approver" >
+															<i class="fa fa-plus-circle"></i>
+														</a>
+													</div>
+												</td>
+												<td>
+													<div  *ngIf="isAssigningNewApprover && item.canReassignDelete" >
+														<!-- <a href="#" (click)="prepareRemoveFile(row.attach_id, row.file_name)" data-toggle="tooltip" title="Remove this approver" >
+															<i class="fa fa-minus-circle"></i>
+														</a> -->
+														<a href="#" (click)="prepareRemoveApprover(i, item.actor_username)" data-toggle="modal" data-target="#m_modal_reassign" class="m-btn m-btn--pill m-btn--hover-danger btn btn-sm btn-secondary" title="Remove this approver">
+															<i class="la la-trash"></i>
+														</a>
+													</div>
+												</td>
 											</tr>
 											<tr class="table-display-lastrow " *ngIf="item.stage_logs_list!=null && item.stage_logs_list.length <= 1 && item.outcome_description != null && item.outcome_description != ''">
 												<td></td>
-												<td colspan="4">
+												<td colspan="6">
 													&nbsp;&nbsp;&nbsp;
 													<i class="flaticon-chat-1"></i>
 													{{item.outcome_description}}
@@ -310,10 +351,24 @@
 													<td style="text-align: center;">
 														<span [class]="getStatusDisplayClass(row.activity)">{{row.activity}}</span>
 													</td>
+													<td>
+														<div  *ngIf="isAssigningNewApprover && item.canReassignAdd" >
+															<a href="#" (click)="toggleReAssignApprover('')" data-toggle="tooltip" title="Add approver" >
+																<i class="fa fa-plus-circle"></i>
+															</a>
+														</div>
+													</td>
+													<td>
+														<div  *ngIf="isAssigningNewApprover && item.canReassignDelete" >
+															<a href="#" (click)="toggleReAssignApprover('')" data-toggle="tooltip" title="Remove this approver" >
+																<i class="fa fa-minus-circle"></i>
+															</a>
+														</div>
+													</td>
 												</tr>
 												<tr class="table-display-lastrow" *ngIf="row.activity_description!=null && row.activity_description!=''">
 													<td>&nbsp;</td>
-													<td colspan="4">
+													<td colspan="6">
 														<span style="padding-left:2em">
 															<i class="flaticon-chat-1"></i>
 															{{row.activity_description}}
@@ -540,6 +595,38 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" (click)="removeFile()" data-dismiss="modal" class="btn btn-danger">
+						Yes
+					</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">
+						No
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--end::Modal-->
+
+	<!--begin::Modal-->
+	<div class="modal fade" id="m_modal_reassign" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">
+						Remove approver ?
+					</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">
+							&times;
+						</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>
+						Confirm remove : {{action_reassign_name}} ?
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" (click)="removeApprover()" data-dismiss="modal" class="btn btn-danger">
 						Yes
 					</button>
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">
