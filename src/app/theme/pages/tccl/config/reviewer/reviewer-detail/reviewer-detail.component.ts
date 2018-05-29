@@ -119,6 +119,7 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
         this.reviewer.update_user = super.getADUserLogin();
         this.reviewer.update_username = super.getFullNameUserLogin();
         this.reviewer.update_datetime = new Date();
+        this.reviewer.send_mail = (this.send_mail_flag=='Y');
 
         if (isInsert) {
             this.reviewer.create_user = this.reviewer.update_user;
@@ -227,7 +228,7 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
         if (this.input_sap_group != null
             && this.reviewer.ad_user != null && this.reviewer.ad_user != ''
             && this.reviewer.ad_username != null && this.reviewer.ad_username != ''
-            && this.send_mail_flag != null
+            && (this.input_sap_group!='5' || this.send_mail_flag != null)
         ) {
             return true;
         } else {
