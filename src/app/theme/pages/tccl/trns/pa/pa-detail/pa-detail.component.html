@@ -441,6 +441,10 @@
 										<td class="table-display-caption">Goods Receipient</td>
 										<td class="table-display-value">{{pa.goods_recipient}}</td>
 									</tr>
+									<tr *ngIf="pa.afp_no != null && pa.afp_no != ''">
+										<td class="table-display-caption">AFP No.</td>
+										<td class="table-display-value">{{pa.afp_no}}</td>
+									</tr>
 								</table>
 							</div>
 						</div>

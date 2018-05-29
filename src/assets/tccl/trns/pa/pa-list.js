@@ -85,6 +85,12 @@ var myDatatable = function( ) {
           template: function(row) {
             return '<a href="./trns/pa/detail/'+row.matdoc_no+'"  class="m-menu__link" title="Material Document Detail"> ' + row.matdoc_no + '</a>';
           }
+        } , {   
+          field: 'afp_no',
+          title: 'AFP No.',
+          sortable: true,
+          textAlign: 'center',
+          // width: '80px',
         } , {
           field: 'doc_year',
           title: 'Year',
@@ -208,8 +214,9 @@ var myDatatable = function( ) {
   var search = function()  {
     var query = datatable.getDataSourceQuery();
     
-    query.matdoc_no = $('#m_form_pa_no').val();
     query.doc_type = $('#m_form_doc_type').val();
+    query.matdoc_no = $('#m_form_pa_no').val();
+    query.afp_no = $('#m_form_afp_no').val();
     query.po_date_from = toInternalDate($('#m_form_date_from').val());
     query.po_date_to = toInternalDate($('#m_form_date_to').val());
     query.comp_code = $('#m_form_company').val();
