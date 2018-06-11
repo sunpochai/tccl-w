@@ -79,7 +79,7 @@ var myDatatable = function( ) {
         } , {   
           field: 'matdoc_no',
           title: 'Mat.Doc No.',
-          sortable: true,
+          sortable: 'desc',
           textAlign: 'center',
           width: '80px',
           template: function(row) {
@@ -90,7 +90,7 @@ var myDatatable = function( ) {
           title: 'AFP No.',
           sortable: true,
           textAlign: 'center',
-          // width: '80px',
+          // width: '80px',,
         } , {
           field: 'doc_year',
           title: 'Year',
@@ -101,7 +101,7 @@ var myDatatable = function( ) {
         }, {   
           field: 'doc_date',
           title: 'Doc. Date',
-          sortable: 'desc',
+          sortable: true,
           width: '80px',
           template: function(row) {
             return toDisplayDate(row.doc_date);
@@ -214,7 +214,7 @@ var myDatatable = function( ) {
   var search = function()  {
     var query = datatable.getDataSourceQuery();
     
-    query.doc_type = $('#m_form_doc_type').val();
+    query.doc_type = '';//$('#m_form_doc_type').val();
     query.matdoc_no = $('#m_form_pa_no').val();
     query.afp_no = $('#m_form_afp_no').val();
     query.po_date_from = toInternalDate($('#m_form_date_from').val());
