@@ -437,10 +437,6 @@
 										<td class="table-display-caption">Tracking</td>
 										<td class="table-display-value">{{pa.tracking_no}}</td>
 									</tr>
-									<tr>
-										<td class="table-display-caption">Goods Receipient</td>
-										<td class="table-display-value">{{pa.goods_recipient}}</td>
-									</tr>
 									<tr *ngIf="pa.afp_no != null && pa.afp_no != ''">
 										<td class="table-display-caption">AFP No.</td>
 										<td class="table-display-value">{{pa.afp_no}}</td>
@@ -480,15 +476,19 @@
 								<tr>
 									<td class="table-display-caption">Delivery Note</td>
 									<td class="table-display-value">{{pa.deliver_note}}</td>
-								</tr><!-- 
+								</tr>
 								<tr>
+									<td class="table-display-caption">Goods Receipient</td>
+									<td class="table-display-value">{{pa.goods_recipient}}</td>
+								</tr>
+								<!-- <tr>
 									<td class="table-display-caption">Currency</td>
 									<td class="table-display-value">{{pa.currency}}</td>
 								</tr> -->
-								<tr>
+								<!-- <tr>
 									<td class="table-display-caption">Total</td>
 									<td class="table-display-value">{{ pa.amount | number:'1.2' }} {{pa.currency}}</td>
-								</tr>
+								</tr> -->
 							</table>
 						</div>
 					</div>
@@ -540,6 +540,13 @@
 											<td style="vertical-align: middle" align="right" >{{row.unit}}</td>
 											<td style="vertical-align: middle" align="center" >{{row.Tax_code}}</td>
 										</ng-container>
+									</tr>
+									<tr>
+										<td colspan="5" style="vertical-align: middle" align="right"></td>
+										<td style="vertical-align: middle" align="center">Total</td>
+										<td style="vertical-align: middle" align="right" >{{pa.amount | number:'1.2'}}</td>
+										<td style="vertical-align: center" align="center" >{{pa.currency}}</td>
+										<td colspan="3"></td>
 									</tr>
 								</table>
 							</div>
