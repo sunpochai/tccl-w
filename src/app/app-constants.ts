@@ -71,6 +71,7 @@ export const API_PO_GET: string = API_BASE_URL + '/api/po'
 
 export const API_PA_LIST: string = API_BASE_URL + '/api/pa/list'
 export const API_PA_GET: string = API_BASE_URL + '/api/pa'
+export const API_PA_REASSIGN: string = API_BASE_URL + '/api/pa/updateresponsible'
 
 export const API_ATTACHMENT_GET_DEL: string = API_BASE_URL + '/api/attachment'
 export const API_ATTACHMENT_UPLOAD: string = API_BASE_URL + '/api/attachment/uploadfile'

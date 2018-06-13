@@ -48,6 +48,7 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
         { value: '5', name: 'Plant (Last Payment Reviewer)' }
     ];
 
+    public send_mail_flag: string;
 
     constructor(private _script: ScriptLoaderService,
         private _router: Router, private route: ActivatedRoute,
@@ -82,12 +83,17 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
                 this.textSearchUser = this.reviewer.ad_username;
                 this.textSearchADUser = this.reviewer.ad_user
 
+                if (this.reviewer.send_mail != null) {
+                    this.send_mail_flag = (this.reviewer.send_mail ? 'Y' : 'N');
+                }
+                
                 // console.log(this.reviewer);
                 // console.log(this.routetype);
                 super.unblockui('#m_form_1');
             });
         } else {
             this.reviewer = new Reviewer();
+            this.send_mail_flag = 'Y'; //default 'Yes'
             // console.log(this.routeapprove);
             super.unblockui('#m_form_1');
         }
@@ -113,6 +119,7 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
         this.reviewer.update_user = super.getADUserLogin();
         this.reviewer.update_username = super.getFullNameUserLogin();
         this.reviewer.update_datetime = new Date();
+        this.reviewer.send_mail = (this.send_mail_flag=='Y');
 
         if (isInsert) {
             this.reviewer.create_user = this.reviewer.update_user;
@@ -221,6 +228,7 @@ export class ReviewerDetailComponent extends PageBaseComponent implements OnInit
         if (this.input_sap_group != null
             && this.reviewer.ad_user != null && this.reviewer.ad_user != ''
             && this.reviewer.ad_username != null && this.reviewer.ad_username != ''
+            && (this.input_sap_group!='5' || this.send_mail_flag != null)
         ) {
             return true;
         } else {

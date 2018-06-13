@@ -78,6 +78,7 @@
 					</label>
 					<div class="col-lg-4 col-sm-8">
 						<select required class="form-control m-input" [(ngModel)]="routeapprove.tracking_no" name="tracking_no">
+							<option></option>
 							<option value={{item.tracking_code}} *ngFor="let item of trackingNumberList ">
 								{{item.tracking_code}}
 							</option>

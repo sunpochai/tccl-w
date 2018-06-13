@@ -30,7 +30,7 @@ export class PAListComponent extends PageBaseComponent implements OnInit, AfterV
     public dateFrom: any;
     public dateTo: any;
     public m_form_pa_no;
-    public m_form_doc_type;
+    // public m_form_doc_type;
     public m_form_company;
     public m_form_plant;
     public chkStatusAll = false;
@@ -105,7 +105,7 @@ export class PAListComponent extends PageBaseComponent implements OnInit, AfterV
 
     clearForm() {
         this.m_form_pa_no = '';
-        this.m_form_doc_type = '';
+        // this.m_form_doc_type = '';
         this.m_form_company = '';
         this.m_form_plant = '';
         this.dateFrom = '';

@@ -28,6 +28,9 @@ import { ADUserService } from '../../../_services/masters/aduser.service';
 import { Subject } from 'rxjs';
 import { StringUtil } from '../../../../../../Util/stringutil';
 import { DateUtil } from '../../../../../../Util/dateutil';
+import { Workflow } from '../../../_models/trns/workflow';
+import { WorkflowStage } from '../../../_models/trns/workflowstage';
+import { WorkflowStageLog } from '../../../_models/trns/workflowstagelog';
 
 @Component({
     selector: "trns-pa-detail",
@@ -43,14 +46,21 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
     public canReview: boolean = false;
     public canApprove: boolean = false;
     public canComment: boolean = false;
+    public canReassignApprover: boolean = false; //***** weeraya 23/05/2018
+
     public isWaiting: boolean = false;
     public isDelegate: boolean = false;
+    public isAssigningNewApprover: boolean = false; //***** weeraya 23/05/2018
+
     public urlattachment: String = API_ATTACHMENT_GET_DEL;
     public statusName: any = ACTION_NAME;
     public docStatus: Array<any> = C_DOC_STATUS_2;
     public currentItem: any;
     public categoryCode: any = CATEGORY_CODE;
     public categoryName: any = CATEGORY_NAME;
+
+    public action_reassign_index: number;
+    public action_reassign_name: String;
     
     public attFile: any;
     public formData: FormData = new FormData();
@@ -66,8 +76,15 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
     public txtAdUserSelected;
     public txtAdUserNameSelected;
     public txtSearchUserChanged: Subject<string> = new Subject<string>();
-    public showDropDownUser = false;
+    public showDropDownUser: boolean = false;
     public user_list: any = [];
+    
+    public showDropDownApprover: boolean = false;
+    public approverList: any;
+    public textSearchApprover: string;
+    public txtSearchApproverChanged: Subject<string> = new Subject<string>();
+    public txtApproverUserSelected: string;
+    public txtApproverUserNameSelected: string;
 
     public dtSwitch: boolean[] = [];
     public showPurchasingHistory: boolean = false;
@@ -89,14 +106,21 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
             this.textSearchUser = md;
             this.searchUser(md);
         })
+
+        this.txtSearchApproverChanged.debounceTime(500).distinctUntilChanged().subscribe(md => {
+            this.textSearchApprover = md;
+            this.searchApprover(md);
+        })    
     }
 
     loadData() {
         super.blockui('#m-content');
 
-        this.route.params.subscribe(params => {
-            this.id = params['id'];
-        });
+        if (this.id==null || this.id=='0') {
+            this.route.params.subscribe(params => {
+                this.id = params['id'];
+            });
+        }
 
         if (this.id != null && this.id != '0') {
             this._paService.get<any>(this.id).subscribe(resp => {
@@ -111,13 +135,13 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
 
                 } else {
                     this.pa = resp.data;
-
+// console.log(this.pa);
                     if (this.pa.worklist != null && this.pa.worklist.current_responsible != null) {
                         this.wf_stage_resp_id = this.pa.worklist.current_responsible.wf_stage_resp_id;
 
                         if (this.pa.worklist.current_responsible.resp_allow_action != null && this.pa.worklist.current_responsible.resp_allow_action.toLowerCase() == 'review') {
                             this.canReview = true;
-                            // console.log(this.canReview);
+                            this.canReassignApprover = true;
                         }
 
                         if (this.pa.worklist.current_responsible.resp_allow_action != null && this.pa.worklist.current_responsible.resp_allow_action.toLowerCase() == 'comment') {
@@ -126,6 +150,40 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
 
                         if (this.pa.worklist.current_responsible.resp_allow_action == null || this.pa.worklist.current_responsible.resp_allow_action == '') {
                             this.canApprove = true;
+                        }
+// console.log(this.canReview + ', ' + this.canApprove + ', ' + this.canComment + ', ' + this.canReassignApprover);
+                        //***** weeraya 23/05/2018
+                        //If this.canReassignApprover is already TRUE then skip this block
+                        if (!this.canReassignApprover && true) {
+                            this.canReassignApprover = true;
+                        }
+
+                        //Set the flag to display feature reassign approver in html page
+                        if (this.canReassignApprover == true) {
+                            // console.log('asdfffgg');
+                            let index = 0;
+                            let firstadd: boolean = false;
+                            for (let row of this.pa.worklist.stage_list) {
+                                if (row.stage_name.toLowerCase() == 'reviewer') {
+                                    if (index == this.pa.worklist.stage_list.length - 1) {
+                                        // cannot add another approver after last reviewer 
+                                        this.pa.worklist.stage_list[index].canReassignAdd = false;
+                                    } else {
+                                        // only first reviewer can follow by approver
+                                        if (firstadd) {
+                                            this.pa.worklist.stage_list[index].canReassignAdd = false;
+                                        } else {
+                                            this.pa.worklist.stage_list[index].canReassignAdd = true;
+                                            firstadd = true;
+                                        }
+                                    }
+                                    this.pa.worklist.stage_list[index].canReassignDelete = false;
+                                } else {
+                                    this.pa.worklist.stage_list[index].canReassignAdd = true;
+                                    this.pa.worklist.stage_list[index].canReassignDelete = true;
+                                }
+                                index++;
+                            }
                         }
                     }
                     if (this.pa.pa_attachment_items != null && this.pa.pa_attachment_items.length > 0) {
@@ -355,6 +413,36 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
         );
     }
 
+    reject(workflowaction) {
+        super.blockui('#m-content');
+
+        workflowaction.outcome = ACTION_NAME.rejected
+        workflowaction.outcome_description = this.action_comment;
+
+        this._workflowService.reject<any>(workflowaction).subscribe(
+            resp => {
+                workflowaction = resp;
+                if (resp.is_error == false) {
+                    console.log(resp);
+                    super.unblockui('#m-content');
+                    super.showsuccess('Reject completed');
+                    this.navigate_home();
+                } else {
+                    console.log(resp);
+                    super.showError(resp.error_msg);
+                    super.unblockui('#m-content');
+                }
+            },
+            error => {
+                super.showError(error);
+                super.unblockui('#m-content');
+            },
+            () => {
+                super.unblockui('#m-content');
+            }
+        );
+    }
+
     waiting(workflowaction) {
         super.blockui('#m-content');
 
@@ -464,6 +552,109 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
         );
     }
 
+    reassignApprover() {
+        super.blockui('#m-content');
+
+        this._workflowService.reassign<any>(this.pa.payment_id, this.pa.worklist).subscribe(
+            resp => {
+                let wf: Workflow  = resp;
+
+                if (resp.is_error == false) {
+                    // console.log(resp);
+                    super.unblockui('#m-content');
+                    super.showsuccess('Re-Assign completed');
+                    this.cancelReassign();
+                } else {
+                    // console.log(resp);
+                    super.showError(resp.error_msg);
+                    super.unblockui('#m-content');
+                    this.cancelReassign();
+                }
+            },
+            error => {
+                super.showError(error);
+                // console.log(error);
+                super.unblockui('#m-content');
+            },
+            () => {
+                super.unblockui('#m-content');
+            }
+        );
+    }
+
+    prepareRemoveApprover(in_reassign_index, in_reassign_name) {
+        this.action_reassign_name = in_reassign_name;
+        this.action_reassign_index = in_reassign_index;
+    }
+
+    removeApprover() {
+        this.pa.worklist.stage_list.splice(this.action_reassign_index,1);
+    }
+
+    prepareAddApprover(in_reassign_index) {
+        this.action_reassign_index = in_reassign_index;
+
+        this.textSearchApprover = '';
+        this.txtApproverUserSelected = '';
+        this.txtApproverUserNameSelected = '';
+    }
+
+    addApprover() {
+        // this.pa.worklist.stage_list.splice(this.action_reassign_index,1);
+        let sl: WorkflowStage = new WorkflowStage;
+        sl.workflow_id = this.pa.worklist.workflow_id;
+        sl.actor_user = this.txtApproverUserSelected;
+        sl.actor_username = this.txtApproverUserNameSelected;
+        sl.destination_user = sl.actor_user;
+        sl.destination_username = sl.actor_username;
+        sl.stage_name = 'Approver';
+        sl.stage_logs_list = new Array<WorkflowStageLog>();
+        sl.outcome = '?';
+        sl.canReassignAdd = true;
+        sl.canReassignDelete = true;
+
+        this.pa.worklist.stage_list.splice(this.action_reassign_index + 1,0,sl);
+        console.log(this.pa.worklist.stage_list);
+    }
+
+    cancelReassign() {
+        this.isAssigningNewApprover = false;
+        this.loadData();
+    }
+
+    searchApprover(search) {
+        if (search.length < 2) return;
+        // console.log("search >>" + search);
+        this.showDropDownApprover = true;
+        this._adUserService.search(search).subscribe(x => {
+            this.approverList = x
+            // console.log(x);
+        });
+    }
+
+    onChangeSearchApprover(event) {
+        // console.log(event);
+        this.txtSearchApproverChanged.next(event);
+    }
+
+    selectApprover(value) {
+        this.textSearchApprover = value.fullname;
+        this.txtApproverUserSelected = value.ad_user;
+        this.txtApproverUserNameSelected = value.fullname;
+
+        var user = {            
+            ad_user: value.ad_user,
+            ad_username: value.fullname
+        };
+
+        this.showDropDownApprover = false;
+        // this.textSearchApprover = '';
+    }
+
+    closeDropDownApprover() {
+        this.showDropDownApprover = false;
+    }
+
     performAction() {
         let workflowaction: WorkflowAction = new WorkflowAction;
         workflowaction.workflow_id = this.pa.workflow_id;
@@ -478,6 +669,9 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
             case 'approve':
                 this.approve(workflowaction);
                 break;
+            case 'reject':
+                this.reject(workflowaction);
+                break;
             case 'waiting':
                 this.waiting(workflowaction);
                 break;
@@ -486,6 +680,9 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
                 break;
             case 'comment':
                 this.comment(workflowaction);
+                break;
+            case 're-assign':
+                this.reassignApprover();
                 break;
         }
     }
@@ -646,6 +843,11 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
         } else {
             return paitem.costcenter + ' / ' + StringUtil.lefttrim(paitem.account_no,'0') + '-' + paitem.account_name ;
         }
+    }
+
+    //***** weeraya 23/05/2018 */
+    toggleReAssignApprover() {
+        this.isAssigningNewApprover = !this.isAssigningNewApprover;
     }
 
 }

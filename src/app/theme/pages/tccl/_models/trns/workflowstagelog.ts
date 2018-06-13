@@ -9,4 +9,6 @@ export class WorkflowStageLog {
     activity_description: string;
     start_datetime: Date;
     finish_datetime: Date;
+    canReassignAdd: boolean; //use in html to manage display feature only
+    canReassignDelete: boolean; //use in html to manage display feature only
 }

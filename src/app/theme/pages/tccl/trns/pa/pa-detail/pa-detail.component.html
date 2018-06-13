@@ -128,11 +128,14 @@
 						<div class="m-portlet__foot m-portlet__foot">
 							<div class="row">
 								<div class="col-lg-12 ml-lg-auto ">
-									<button type="button" [disabled]="heroForm.invalid" class="btn btn-info" (click)="prepareAction('Review')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canReview">
+									<button type="button" [disabled]="isAssigningNewApprover || heroForm.invalid" class="btn btn-info" (click)="prepareAction('Review')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canReview">
 										Review 
 									</button>
 									<button type="button" [disabled]="isWaiting || isDelegate || heroForm.invalid" class="btn btn-success" (click)="prepareAction('Approve')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
 										Approve 
+									</button>
+									<button type="button" [disabled]="isWaiting || isDelegate || heroForm.invalid" class="btn btn-danger" (click)="prepareAction('Reject')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
+										Reject 
 									</button>
 									<ng-container *ngIf="isWaiting">
 										<button type="button" [disabled]="isWaiting==false || heroForm.invalid  || user_list==null || user_list.length < 1" class="btn btn-warning" (click)="prepareAction('Waiting')" data-toggle="modal" data-target="#m_modal_confirm" *ngIf="canApprove">
@@ -249,6 +252,28 @@
 							</h3>
 						</div>
 					</div>
+					<div class="m-portlet__head-tools">
+						<ul class="m-portlet__nav">
+							<li class="m-portlet__nav-item" *ngIf="canReassignApprover && !isAssigningNewApprover" >
+								<a href="#" (click)="toggleReAssignApprover('')"  >
+									<i class="fa fa-refresh"></i>
+									Re-Assign Approver
+								</a>
+							</li>
+							<li class="m-portlet__nav-item" *ngIf="isAssigningNewApprover" >
+								<a href="#" (click)="prepareAction('Re-Assign')" data-toggle="modal" data-target="#m_modal_confirm" >
+									<i class="fa fa-check"></i>
+									Save changes
+								</a>
+							</li>
+							<li class="m-portlet__nav-item" *ngIf="isAssigningNewApprover" >
+								<a href="#" (click)="cancelReassign()"  >
+									<i class="fa fa-close"></i>
+									Cancel
+								</a>
+							</li>
+						</ul>
+					</div>
 				</div>
 				<div class="m-portlet__body-lil">
 					<div class="row">
@@ -261,6 +286,8 @@
 											<td>Start - Finish</td>
 											<td>Duration</td>
 											<td style="text-align:center; width: 90px" >Action</td>
+											<td></td>
+											<td></td>
 										</tr>
 									</thead>
 									<ng-template ngFor let-item [ngForOf]="pa.worklist.stage_list" let-i="index" [ngForTrackBy]="trackByFn">
@@ -283,10 +310,30 @@
 												<td style="text-align: center;" >
 													<span [class]="getStatusDisplayClass(item.outcome)">{{item.outcome}}</span>
 												</td>
+												<td>
+													<div  *ngIf="isAssigningNewApprover && item.canReassignAdd" >
+														<!-- <a href="#" (click)="toggleReAssignApprover('')" data-toggle="tooltip" title="Add approver" >
+															<i class="fa fa-plus-circle"></i>
+														</a> -->
+														<a href="#" (click)="prepareAddApprover(i)" data-toggle="modal" data-target="#m_modal_add_approver" class="m-btn m-btn--pill m-btn--hover-info btn btn-sm btn-secondary" title="Remove this approver">
+															<i class="la la-plus"></i>
+														</a>
+													</div>
+												</td>
+												<td>
+													<div  *ngIf="isAssigningNewApprover && item.canReassignDelete" >
+														<!-- <a href="#" (click)="prepareRemoveFile(row.attach_id, row.file_name)" data-toggle="tooltip" title="Remove this approver" >
+															<i class="fa fa-minus-circle"></i>
+														</a> -->
+														<a href="#" (click)="prepareRemoveApprover(i, item.actor_username)" data-toggle="modal" data-target="#m_modal_reassign" class="m-btn m-btn--pill m-btn--hover-danger btn btn-sm btn-secondary" title="Remove this approver">
+															<i class="la la-trash"></i>
+														</a>
+													</div>
+												</td>
 											</tr>
 											<tr class="table-display-lastrow " *ngIf="item.stage_logs_list!=null && item.stage_logs_list.length <= 1 && item.outcome_description != null && item.outcome_description != ''">
 												<td></td>
-												<td colspan="4">
+												<td colspan="6">
 													&nbsp;&nbsp;&nbsp;
 													<i class="flaticon-chat-1"></i>
 													{{item.outcome_description}}
@@ -310,10 +357,24 @@
 													<td style="text-align: center;">
 														<span [class]="getStatusDisplayClass(row.activity)">{{row.activity}}</span>
 													</td>
+													<td>
+														<div  *ngIf="isAssigningNewApprover && item.canReassignAdd" >
+															<a href="#" (click)="prepareAddApprover(i)" data-toggle="modal" data-target="#m_modal_add_approver" class="m-btn m-btn--pill m-btn--hover-info btn btn-sm btn-secondary" title="Remove this approver">
+																<i class="la la-plus"></i>
+															</a>
+														</div>
+													</td>
+													<td>
+														<div  *ngIf="isAssigningNewApprover && item.canReassignDelete" >
+															<a href="#" (click)="prepareRemoveApprover(i, item.actor_username)" data-toggle="modal" data-target="#m_modal_reassign" class="m-btn m-btn--pill m-btn--hover-danger btn btn-sm btn-secondary" title="Remove this approver">
+																<i class="la la-trash"></i>
+															</a>
+														</div>
+													</td>
 												</tr>
 												<tr class="table-display-lastrow" *ngIf="row.activity_description!=null && row.activity_description!=''">
 													<td>&nbsp;</td>
-													<td colspan="4">
+													<td colspan="6">
 														<span style="padding-left:2em">
 															<i class="flaticon-chat-1"></i>
 															{{row.activity_description}}
@@ -376,9 +437,9 @@
 										<td class="table-display-caption">Tracking</td>
 										<td class="table-display-value">{{pa.tracking_no}}</td>
 									</tr>
-									<tr>
-										<td class="table-display-caption">Goods Receipient</td>
-										<td class="table-display-value">{{pa.goods_recipient}}</td>
+									<tr *ngIf="pa.afp_no != null && pa.afp_no != ''">
+										<td class="table-display-caption">AFP No.</td>
+										<td class="table-display-value">{{pa.afp_no}}</td>
 									</tr>
 								</table>
 							</div>
@@ -415,15 +476,19 @@
 								<tr>
 									<td class="table-display-caption">Delivery Note</td>
 									<td class="table-display-value">{{pa.deliver_note}}</td>
-								</tr><!-- 
+								</tr>
 								<tr>
+									<td class="table-display-caption">Goods Receipient</td>
+									<td class="table-display-value">{{pa.goods_recipient}}</td>
+								</tr>
+								<!-- <tr>
 									<td class="table-display-caption">Currency</td>
 									<td class="table-display-value">{{pa.currency}}</td>
 								</tr> -->
-								<tr>
+								<!-- <tr>
 									<td class="table-display-caption">Total</td>
 									<td class="table-display-value">{{ pa.amount | number:'1.2' }} {{pa.currency}}</td>
-								</tr>
+								</tr> -->
 							</table>
 						</div>
 					</div>
@@ -475,6 +540,13 @@
 											<td style="vertical-align: middle" align="right" >{{row.unit}}</td>
 											<td style="vertical-align: middle" align="center" >{{row.Tax_code}}</td>
 										</ng-container>
+									</tr>
+									<tr>
+										<td colspan="5" style="vertical-align: middle" align="right"></td>
+										<td style="vertical-align: middle" align="center">Total</td>
+										<td style="vertical-align: middle" align="right" >{{pa.amount | number:'1.2'}}</td>
+										<td style="vertical-align: center" align="center" >{{pa.currency}}</td>
+										<td colspan="3"></td>
 									</tr>
 								</table>
 							</div>
@@ -540,6 +612,84 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" (click)="removeFile()" data-dismiss="modal" class="btn btn-danger">
+						Yes
+					</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">
+						No
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--end::Modal-->
+
+	<!--begin::Modal-->
+	<div class="modal fade" id="m_modal_add_approver" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="">
+                        Add approver
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true" class="la la-remove"></span>
+                    </button>
+                </div>
+                <form class="m-form m-form--fit m-form--label-align-right">
+                    <div class="modal-body">
+                        <div class="form-group m-form__group row m--margin-top-20">
+                            <label class="col-form-label col-lg-3 col-sm-3">
+                                Approver name:
+                            </label>
+                            <div class="col-lg-9 col-sm-9">
+								<div class="width-half">
+									<input required id='textSearchApprover' placeholder="Search for a user" class=' form-control m-input' [(ngModel)]="textSearchApprover" name="user" type='text' (ngModelChange)="onChangeSearchApprover($event);" autocomplete="off" >
+									<div clickOutside (clickOutside)="closeDropDownApprover()">
+										<div  *ngIf="showDropDownApprover" class='search-drop-down card'>
+											<div (click)='selectApprover(s)' class='search-results ' *ngFor="let s of this.approverList ">
+												{{s.fullname}}
+											</div>
+										</div>
+									</div>
+								</div>  
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+						<button type="reset" [disabled]="txtApproverUserSelected == null || txtApproverUserSelected == ''" (click)="addApprover()" class="btn btn-success m-btn" data-dismiss="modal">
+                            Select
+                        </button>
+						<button type="reset" class="btn btn-metal m-btn" data-dismiss="modal">
+                            Close
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--end::Modal-->
+
+	<!--begin::Modal-->
+	<div class="modal fade" id="m_modal_reassign" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">
+						Remove approver ?
+					</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">
+							&times;
+						</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>
+						Confirm remove : {{action_reassign_name}} ?
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" (click)="removeApprover()" data-dismiss="modal" class="btn btn-danger">
 						Yes
 					</button>
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">

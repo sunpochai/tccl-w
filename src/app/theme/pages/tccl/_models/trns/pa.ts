@@ -45,6 +45,7 @@ export class PA {
     upload_message: string;
     upload_datetime: string;
     no_last_appover: string;
+    afp_no: string;
     wf_workflow: any;
 
     trn_payment_item: Array<PAItem>;
