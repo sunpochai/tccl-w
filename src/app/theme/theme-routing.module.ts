@@ -2,44 +2,19 @@ import { NgModule } from '@angular/core';
 import { ThemeComponent } from './theme.component';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from "../auth/_guards/auth.guard";
-
+import { AuthGuardDataOwner } from '../auth/_guards/auth.guard.admin.dataowner';
+import { AuthGuardAdmin } from '../auth/_guards/auth.guard.admin';
+ 
+ 
 const routes: Routes = [
     {
         "path": "",
         "component": ThemeComponent,
-        "canActivate": [AuthGuard],
+        "canActivate": [AuthGuardAdmin],
         "children": [
-            {
-                "path": "index",
-                "redirectTo": "trns\/worklist\/my",
-            },
-            {
-                "path": "masters\/tracking",
-                "loadChildren": ".\/pages\/tccl\/masters\/tracking\/tracking.module#TrackingModule"
-            },
-            {
-                "path": "masters\/company",
-                "loadChildren": ".\/pages\/tccl\/masters\/company\/company.module#CompanyModule"
-            },
-            {
-                "path": "masters\/plant",
-                "loadChildren": ".\/pages\/tccl\/masters\/plant\/plant.module#PlantModule"
-            },
-            {
-                "path": "masters\/doctype",
-                "loadChildren": ".\/pages\/tccl\/masters\/doctype\/doctype.module#DocTypeModule"
-            },
-            {
-                "path": "config\/route",
-                "loadChildren": ".\/pages\/tccl\/config\/route\/route.module#RouteApproveModule"
-            },
-            {
-                "path": "config\/reviewer",
-                "loadChildren": ".\/pages\/tccl\/config\/reviewer\/reviewer.module#ReviewerModule"
-            },
-            {
-                "path": "config\/delegate",
-                "loadChildren": ".\/pages\/tccl\/config\/delegate\/delegate.module#DelegateModule"
+            { 
+                "path": "system\/userlock",
+                "loadChildren": ".\/pages\/tccl\/system\/userlock\/userlock.module#UserLockModule"
             },
             {
                 "path": "config\/user",
@@ -49,14 +24,62 @@ const routes: Routes = [
                 "path": "monitor\/outbound",
                 "loadChildren": ".\/pages\/tccl\/monitor\/outbound\/outbound.module#OutboundModule"
             },
-            {
-                "path": "system\/userlock",
-                "loadChildren": ".\/pages\/tccl\/system\/userlock\/userlock.module#UserLockModule"
-            },
+           
             {
                 "path": "system\/userlogin",
                 "loadChildren": ".\/pages\/tccl\/system\/userlogin\/userlogin.module#UserLoginModule"
+            },  {
+                "path": "masters\/doctype",
+                "loadChildren": ".\/pages\/tccl\/masters\/doctype\/doctype.module#DocTypeModule"
             },
+        ]
+    },
+    {
+        "path": "",
+        "component": ThemeComponent,
+        "canActivate": [AuthGuardDataOwner],
+        "children": [
+            {
+                "path": "masters\/tracking",
+                "loadChildren": ".\/pages\/tccl\/masters\/tracking\/tracking.module#TrackingModule"
+            },    
+            {
+                "path": "masters\/company",
+                "loadChildren": ".\/pages\/tccl\/masters\/company\/company.module#CompanyModule"
+            },
+            {
+                "path": "config\/route",
+                "loadChildren": ".\/pages\/tccl\/config\/route\/route.module#RouteApproveModule"
+            },
+            {
+                "path": "config\/reviewer",
+                "loadChildren": ".\/pages\/tccl\/config\/reviewer\/reviewer.module#ReviewerModule"
+            },
+        ]
+    },
+   
+    {
+        "path": "",
+        "component": ThemeComponent,
+        "canActivate": [AuthGuard],
+        "children": [
+            {
+                "path": "index",
+                "redirectTo": "trns\/worklist\/my",
+            },
+           
+        
+            {
+                "path": "masters\/plant",
+                "loadChildren": ".\/pages\/tccl\/masters\/plant\/plant.module#PlantModule"
+            },
+          
+            
+            {
+                "path": "config\/delegate",
+                "loadChildren": ".\/pages\/tccl\/config\/delegate\/delegate.module#DelegateModule"
+            },
+            
             {
                 "path": "trns\/worklist",
                 "loadChildren": ".\/pages\/tccl\/trns\/worklist\/worklist.module#WorklistModule"
@@ -69,7 +92,7 @@ const routes: Routes = [
                 "path": "trns\/po",
                 "loadChildren": ".\/pages\/tccl\/trns\/po\/po.module#POModule"
             },
-            {
+            {  
                 "path": "trns\/pa",
                 "loadChildren": ".\/pages\/tccl\/trns\/pa\/pa.module#PAModule"
             },
@@ -656,6 +679,10 @@ const routes: Routes = [
     {
         "path": "snippets\/pages\/errors\/error-6",
         "loadChildren": ".\/pages\/self-layout-blank\/snippets\/pages\/errors\/errors-error-6\/errors-error-6.module#ErrorsError6Module"
+    },
+    {
+        "path": "accessdenied",
+        "loadChildren": ".\/pages\/self-layout-blank\/snippets\/pages\/errors\/errors-error-1\/errors-error-1.module#ErrorsError1Module"
     },
     {
         "path": "**",
