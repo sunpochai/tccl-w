@@ -14,11 +14,11 @@ export class AuthGuardAdmin implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
         var profile: User = JSON.parse(localStorage.getItem('currentUser'));
-       debugger
+        
         if( profile.roles!=null && 
         profile.roles.length > 0 &&
         profile.roles[0] != 'ADMIN')
-        {
+        {   
             this._router.navigate(['/accessdenied'], { queryParams: { returnUrl: state.url } });
             return false;
         }else{
