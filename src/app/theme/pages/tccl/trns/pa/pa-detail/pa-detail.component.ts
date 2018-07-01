@@ -841,7 +841,11 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
         } else if (paitem.order_no != null && paitem.order_no != '') {
             return paitem.order_no ;
         } else {
-            return paitem.costcenter + ' / ' + StringUtil.lefttrim(paitem.account_no,'0') + '-' + paitem.account_name ;
+            var tmp = paitem.costcenter + ' / ' + StringUtil.lefttrim(paitem.account_no,'0') + '-' + paitem.account_name ;
+            if (tmp == ' / ' + '-')
+                return '' ;
+            else
+                return tmp ;
         }
     }
 
