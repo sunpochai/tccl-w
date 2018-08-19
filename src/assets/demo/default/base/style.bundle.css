@@ -23249,8 +23249,11 @@ body.m-portlet--fullscreen {
 
 .m-form .m-form__group {
   margin-bottom: 0;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  /* weeraya 19/08/2018
   padding-top: 10px;
-  padding-bottom: 10px;
+  padding-bottom: 10px; */
   /* weeraya 26/03/2018
   padding-top: 15px;
   padding-bottom: 15px; */ }
@@ -23308,7 +23311,9 @@ body.m-portlet--fullscreen {
   display: inline-block; }
 
 .m-form .m-form__section {
-  margin: 40px 0 40px 0; }
+  margin: 20px 0 20px 0;
+  /* weeraya 19/08/2018
+  margin: 40px 0 40px 0; */ }
   .m-form .m-form__section:first-child, .m-form .m-form__section.m-form__section--first {
     margin-top: 0; }
   .m-form .m-form__section:last-child, .m-form .m-form__section.m-form__section--last {

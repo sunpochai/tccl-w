@@ -73,6 +73,12 @@ export const API_PA_LIST: string = API_BASE_URL + '/api/pa/list'
 export const API_PA_GET: string = API_BASE_URL + '/api/pa'
 export const API_PA_REASSIGN: string = API_BASE_URL + '/api/pa/updateresponsible'
 
+export const API_NON_PO_LIST: string = API_BASE_URL + '/api/PANonPo/list'
+export const API_NON_PO_GET: string = API_BASE_URL + '/api/PANonPo'
+export const API_NON_PO_SAVE: string = API_BASE_URL + '/api/PANonPo/save'
+export const API_NON_PO_SEND_APPROVE: string = API_BASE_URL + '/api/PANonPo/send'
+export const API_NON_PO_REASSIGN: string = API_BASE_URL + '/api/PANonPo/updateresponsible'
+
 export const API_ATTACHMENT_GET_DEL: string = API_BASE_URL + '/api/attachment'
 export const API_ATTACHMENT_UPLOAD: string = API_BASE_URL + '/api/attachment/uploadfile'
 
