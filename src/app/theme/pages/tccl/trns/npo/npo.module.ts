@@ -29,6 +29,8 @@ import { NPODetailComponent } from './npo-detail/npo-detail.component';
 import { NPOUpdDetailComponent } from './npo-upd-detail/npo-upd-detail.component';
 import { AttachmentService } from '../../_services/trns/attachment.service';
 import { WorkflowService } from '../../_services/trns/workflow.service';
+import { CompanyService } from '../../_services/masters/company.service';
+import { PlantService } from '../../_services/masters/plant.service';
 
 
 const routes: Routes = [
@@ -66,7 +68,9 @@ const routes: Routes = [
         ADUserService,
         FormBuilder,
         AttachmentService,
-        WorkflowService
+        WorkflowService,
+        CompanyService,
+        PlantService
     ]
 })
 export class NPOModule {

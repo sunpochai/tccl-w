@@ -491,7 +491,7 @@
 											<th>WBS</th>
 										</tr>
 									</thead>
-									<tr *ngFor="let row of npo.trn_payment_item; let index = index">
+									<tr *ngFor="let row of npo.trn_payment_n_item; let index = index">
 										<ng-container *ngIf="row.item_status == 'DEL' ">
 											<td class="m--font-deleted" style="vertical-align: middle" align="center" >{{index+1}}</td>
 											<td class="m--font-deleted" style="vertical-align: middle" align="left">{{row.inv_no}}</td>

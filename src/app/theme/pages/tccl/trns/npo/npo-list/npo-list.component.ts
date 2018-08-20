@@ -1,125 +1,129 @@
-import { ActivatedRoute, Router } from '@angular/router';
-
+import { Router } from '@angular/router';
 import { PageBaseComponent } from './../../../pagebase.component';
 
 import * as app from './../../../../../../app-constants';
 import { ScriptLoaderService } from './../../../../../../_services/script-loader.service';
 import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { constructDependencies } from '@angular/core/src/di/reflective_provider';
-import { API_ROUTE_PR_LIST, API_ROUTE_PO_LIST, API_ROUTE_PA_LIST, ROUTE_PR, ROUTE_PO, ROUTE_PA } from './../../../../../../app-constants';
-import { RouteApproveService } from '../../../_services/config/routeapprove.service';
-import { DocType } from '../../../_models/masters/doctype';
+import { NPOService } from './../../../_services/trns/npo.service';
+import { API_NON_PO_LIST, C_DOC_STATUS_2 } from './../../../../../../app-constants';
 import { DocTypeService } from '../../../_services/masters/doctype.service';
-import { TrackingService } from '../../../_services/masters/tracking.service';
-import { Tracking } from '../../../_models/masters/tracking';
+import { CompanyService } from '../../../_services/masters/company.service';
+import { DocType } from '../../../_models/masters/doctype';
+import { PlantService } from '../../../_services/masters/plant.service';
+import { Company } from '../../../_models/masters/company';
+import { Plant } from '../../../_models/masters/plant';
+import { DateUtil } from '../../../../../../Util/dateutil';
 
 declare var myDatatable: any;
-declare var window: any
+declare var window: any;
 
 @Component({
     selector: "trns-npo-list",
     templateUrl: "./npo-list.component.html",
-    encapsulation: ViewEncapsulation.None,
+    encapsulation: ViewEncapsulation.None
 })
 export class NPOListComponent extends PageBaseComponent implements OnInit, AfterViewInit {
     public doctypeList: Array<DocType>;
-    public trackingNumberList: Array<Tracking>;
-    public action_npo_id: string;
-    public action_npo_number: string;
-    constructor(private _router: Router, private route: ActivatedRoute,
+    public docStatus: Array<any> = C_DOC_STATUS_2;
+
+    public dateFrom: any;
+    public dateTo: any;
+    public m_form_npo_no;
+    public m_form_afp_no;
+    // public m_form_doc_type;
+    public m_form_company;
+    public m_form_plant;
+    public chkStatusAll = false;
+    public chkStatusWaitReview = true;
+    public chkStatusWaitApprove = true;
+    public chkStatusApproved = false;
+    public chkStatusCanceled = false;
+
+    constructor(private _router: Router,
         private _script: ScriptLoaderService,
-        private _npoService: RouteApproveService,
         private _doctypeService: DocTypeService,
-        private _trackingService: TrackingService) {
+        private _companyService: CompanyService,
+        private _plantService: PlantService) {
         super();
     }
 
     ngOnInit() {
         window.my = window.my || {};
+        window.my.docStatus = this.docStatus;
         window.my.namespace = window.my.namespace || {};
-        window.my.namespace.del = this.del.bind(this);
-        window.my.namespace.prepare_del = this.prepare_del.bind(this);
         window.my.namespace.navigate_edit = this.navigate_edit.bind(this);
 
-        this._doctypeService.getall().subscribe(resp => {
-            this.doctypeList = resp;
-            // console.log(resp);
+        this._doctypeService.getall().subscribe(data => {
+            this.doctypeList = data;
+            // console.log(data);
         });
-
-
-        this._trackingService.getall().subscribe(resp => {
-            this.trackingNumberList = resp;
-            // console.log(resp);
-        });
-        
     }
 
     ngAfterViewInit() {
-        this._script.loadScripts('config-route-list', ['assets/tccl/trns/npo/npo-list.js']);
-        // console.log('ngAfterViewInit');
-        this.load(API_ROUTE_PR_LIST);
+        this._script.loadScripts('trns-npo-list',
+            ['assets/tccl/trns/npo/npo-list.js']);
+        this.load();
     }
 
-    load(api_list) {
+    load() {
         super.blockui('#m-content');
         jQuery(document).ready(function() {
-            // console.log(doc_group);
-            myDatatable.init(api_list);
+            myDatatable.init(API_NON_PO_LIST);
         });
+
         super.unblockui('#m-content');
     }
 
-    add() {
-        this._router.navigate(['/trns/npo/detail/0']);
-    }
-
-    prepare_del(routeId, routeName) {
-        this.action_npo_id = routeId;
-        this.action_npo_number = routeName;
-        // console.log(this.action_route_id);
-        // console.log(this.action_route_name);
-    }
-
-    del() {
-        super.blockui('#m-content');
-        this._npoService.del<any>(this.action_npo_id.toString()).subscribe(resp => {
-            if (resp.is_error == false) {
-                super.showsuccess(this.action_npo_number + ' delete complete');
-                myDatatable.reload();
-                super.unblockui('#m-content');
-            } else {
-                super.showError(resp.error_msg);
-                super.unblockui('#m-content');
-            }
-        },
-            error => {
-                super.showError(error);
-                super.unblockui('#m-content');
-                // console.log('error');
-            },
-            () => {
-                super.unblockui('#m-content');
-                // console.log('done');
-            });
-    }
-
     navigate_edit(npoId) {
-        if (npoId == '') {
-            this._router.navigate(['/trns/npo/detail/0']);
-        } else {
-            this._router.navigate(['/trns/npo/detail/' + npoId]);
-        }
+        this._router.navigate(['/trns/npo/detail/' + npoId]);
     }
 
-    navigate_list() {
-        this._router.navigate(['/trns/npo/list/']);
-    }
 
     search() {
-        // console.log('do search');
         super.blockui('#m-content');
+        
+        if (this.dateFrom != null && this.dateFrom != '' && this.dateTo != null && this.dateTo != '') {
+            console.log(this.dateFrom);
+            console.log(this.dateTo);
+
+            var date_from = DateUtil.toInternalDate(this.dateFrom);
+            var date_to = DateUtil.toInternalDate(this.dateTo);
+    
+            console.log(date_from.getTime());
+            console.log(date_to.getTime());
+    
+            if (date_from.getTime() > date_to.getTime()) {
+                super.showError('Invalid date range!');
+                super.unblockui('#m-content');
+                return;
+            }
+        }
+
         myDatatable.search();
         super.unblockui('#m-content');
     }
 
+    clearForm() {
+        this.m_form_npo_no = '';
+        // this.m_form_doc_type = '';
+        this.m_form_afp_no = '';
+        this.m_form_company = '';
+        this.m_form_plant = '';
+        this.dateFrom = '';
+        this.dateTo = '';
+
+        this.chkStatusAll = false;
+        this.chkStatusWaitReview = true;
+        this.chkStatusWaitApprove = true;
+        this.chkStatusApproved = false;
+        this.chkStatusCanceled = false;
+    }
+
+    toggleStatusAll() {
+        this.chkStatusWaitReview = this.chkStatusAll;
+        this.chkStatusWaitApprove = this.chkStatusAll;
+        this.chkStatusApproved = this.chkStatusAll;
+        this.chkStatusCanceled = this.chkStatusAll;
+    }
 }   

@@ -96,7 +96,7 @@
 							<input required minlength="4" maxlength="10" [(ngModel)]="npo.plant_code" type="text" class="form-control form-control-sm m-input" name="plant_code" value="{{npo.plant_code}}" placeholder="รหัส"  >
 						</div>
 						<div class="col-lg-7 col-sm-6">
-							<input required minlength="4" maxlength="255" [(ngModel)]="npo.plant_code" type="text" class="form-control form-control-sm m-input" name="plant_name" value="{{npo.plant_name}}" placeholder="ชื่อสาขา"  >
+							<input required minlength="4" maxlength="255" [(ngModel)]="npo.plant_name" type="text" class="form-control form-control-sm m-input" name="plant_name" value="{{npo.plant_name}}" placeholder="ชื่อสาขา"  >
 						</div>
 						<!-- <div class="col-lg-4 col-sm-8">
 							<select required class="form-control m-input" [(ngModel)]="npo.tracking_no" name="tracking_no">
@@ -175,7 +175,7 @@
 							จำนวนเงิน
 						</label>
 						<div class="col-lg-4 col-sm-3">
-							<input [(ngModel)]="npo.advances_amount" type="number" class="form-control form-control-sm m-input" name="advances_amount" value="{{npo.advances_amount | number:'1.2'}}"   >
+							<input [(ngModel)]="npo.advances_amount" type="number" class="form-control form-control-sm m-input" name="advances_amount" value="{{npo.advances_amount | number:'16.2'}}"   >
 						</div>
 					</div>
 					<div class="form-group m-form__group row" *ngIf="npo!=null && npo.route_id != null">
@@ -211,7 +211,7 @@
 					<ul class="m-portlet__nav">
 						<li class="m-portlet__nav-item">
 							<a href="#" (click)="prepareAddItem()" class="m-portlet__nav-link btn btn-brand m-btn" data-toggle="modal" data-target="#m_modal_add_item">
-								<i class="fa fa-cart-plus"></i>
+								<i class="fa fa-plus"></i>
 								<span>
 									Add
 								</span>
@@ -359,17 +359,31 @@
                             </label>
                             <div class="col-lg-4 col-sm-9">
 								<div class="width-half">
-									<input required maxlength="40" type="text" id='txt_inv_no' name="txt_inv_no" [(ngModel)]="action_npo_item.inv_no" placeholder="" class=' form-control m-input' autocomplete="off" >
+									<input required maxlength="40" type="text" name="txt_inv_no" [(ngModel)]="action_npo_item.inv_no" placeholder="" class=' form-control m-input' autocomplete="off" >
 								</div>  
                             </div>
-                            <label class="col-form-label col-lg-2 col-sm-3">
+                            <!-- <label class="col-form-label col-lg-2 col-sm-3">
                                 Invoice date:
                             </label>
                             <div class="col-lg-4 col-sm-9">
 								<div class="width-half">
 									<input required type="date" id='inv_date' name="txt_inv_date" [(ngModel)]="action_npo_item.inv_date" placeholder="" class=' form-control m-input' autocomplete="off" >
 								</div>  
-                            </div>
+							</div> -->
+							
+							<label class="col-form-label col-lg-2 col-sm-3">
+								Invoice date:
+							</label>
+							<div class="col-lg-4 col-sm-9">
+								<div class='input-group'>
+									<input required type='text' class="form-control m-input" [(ngModel)]="action_npo_item.inv_date" name="txt_inv_date"  autocomplete="off"/>
+									<div class="input-group-append">
+										<span class="input-group-text">
+											<i class="la la-calendar-check-o"></i>
+										</span>
+									</div>
+								</div>					
+							</div>
                         </div>
                         <div class="form-group m-form__group row">
                             <label class="col-form-label col-lg-2 col-sm-3">
