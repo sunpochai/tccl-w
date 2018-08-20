@@ -1,9 +1,17 @@
 //Service URL 
 //export const API_BASE_URL: string =  'https://portal.tccland.com:8090/OASRESTApi'
+<<<<<<< HEAD
 //export const API_BASE_URL: string = 'http://202.60.207.137/WebRESTApi'
 //export const API_BASE_URL: string = 'http://sunpochai.thddns.net:5555'
 export const API_BASE_URL: string = 'http://localhost:65179/' 
 //export const API_BASE_URL: string = 'http://192.168.1.12:5555'     
+=======
+// export const API_BASE_URL: string = 'http://202.60.207.137/WebRESTApi'
+// export const API_BASE_URL: string = 'http://sunpochai.thddns.net:5555'
+//export const API_BASE_URL: string = 'http://localhost:65179/'
+export const API_BASE_URL: string = 'http://192.168.1.99:5555'
+// export const API_BASE_URL: string = 'http://192.168.1.12:5555'
+>>>>>>> 660cce4928a20a2e5cc5a7072662f36a45283218
 export const API_AUTHEN_TOKEN: string = API_BASE_URL + '/token' 
 export const API_AUTHEN_CHECKIN: string = API_BASE_URL + '/api/authen/checkin'
 export const API_AUTHEN_CHECKOUT: string = API_BASE_URL + '/api/authen/checkout'
@@ -98,10 +106,12 @@ export const API_USERLOGIN_LIST: string = API_BASE_URL + '/api/userslogin/list'
 export const ROUTE_PR: any = { "display_name":"PR", "name": "pr", "doc_group": 1 }
 export const ROUTE_PO: any = { "display_name":"PO", "name": "po", "doc_group": 2 }
 export const ROUTE_PA: any = { "display_name":"Payment", "name": "pa", "doc_group": 3 }
+export const ROUTE_NPO: any = { "display_name":"Non-PO", "name": "npo", "doc_group": 4 }
 export const DOCUMENT_GROUP: any = [
     ROUTE_PR,
     ROUTE_PO,
-    ROUTE_PA
+    ROUTE_PA,
+    ROUTE_NPO
 ]
 
 export const C_ACCOUNT_TYPE_ACCOUNT_NAME: string = 'Account';
