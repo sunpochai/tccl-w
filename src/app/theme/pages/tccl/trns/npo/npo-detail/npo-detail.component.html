@@ -406,6 +406,18 @@
 							</h3>
 						</div>
 					</div>
+					<div class="m-portlet__head-tools">
+						<ul class="m-portlet__nav">
+							<li class="m-portlet__nav-item" *ngIf="npo!=null" >
+								<a routerLink="/trns/npo/update/{{npo.payment_n_id}}" >
+									<span >
+										<i class="fa fa-pencil"></i>
+										Edit
+									</span>
+								</a>
+							</li>
+						</ul>
+					</div>
 				</div>
 				<div class="m-portlet__body-lil">
 					<div class="row">
@@ -491,7 +503,7 @@
 											<th>WBS</th>
 										</tr>
 									</thead>
-									<tr *ngFor="let row of npo.trn_payment_item; let index = index">
+									<tr *ngFor="let row of npo.trn_payment_n_item; let index = index">
 										<ng-container *ngIf="row.item_status == 'DEL' ">
 											<td class="m--font-deleted" style="vertical-align: middle" align="center" >{{index+1}}</td>
 											<td class="m--font-deleted" style="vertical-align: middle" align="left">{{row.inv_no}}</td>

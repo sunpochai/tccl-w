@@ -26,6 +26,7 @@ import { NPO } from '../../../_models/trns/npo';
 import { NPOItem } from '../../../_models/trns/npoitem';
 import { NPOService } from '../../../_services/trns/npo.service';
 
+declare var myData: any;
 
 @Component({
     selector: "trns-npo-detail",
@@ -118,8 +119,21 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
     }
 
     ngAfterViewInit() {
-        /* this._script.loadScripts('trns-npo-detail',
-            ['assets/tccl/trns/npo/npo-upd-detail.js']); */
+        this._script.loadScripts('trns-npo-upd-detail',
+            ['assets/tccl/trns/npo/npo-upd-detail.js']);
+        this.load();
+    }
+
+    load() {
+        super.blockui('#m_form_1');
+        jQuery(document).ready(function() {
+            setTimeout(
+                function() {
+                    myData.init();
+                }, 1200
+            );
+        });
+        super.unblockui('#m_form_1');
     }
 
     save() {
@@ -312,6 +326,10 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
 
     navigate_list() {
         this._router.navigate(['/trns/npo/list/']);
+    }
+
+    navigate_detail() {
+        this._router.navigate(['/trns/npo/detail/' + this.npo.payment_n_id]);
     }
 
 /*     searchUser(search) {
