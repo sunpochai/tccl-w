@@ -328,6 +328,10 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
         this._router.navigate(['/trns/npo/list/']);
     }
 
+    navigate_detail() {
+        this._router.navigate(['/trns/npo/detail/' + this.npo.payment_n_id]);
+    }
+
 /*     searchUser(search) {
         if (search.length < 2) return;
         // console.log("search >>" + search);

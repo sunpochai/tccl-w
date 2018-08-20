@@ -406,6 +406,18 @@
 							</h3>
 						</div>
 					</div>
+					<div class="m-portlet__head-tools">
+						<ul class="m-portlet__nav">
+							<li class="m-portlet__nav-item" *ngIf="npo!=null" >
+								<a routerLink="/trns/npo/update/{{npo.payment_n_id}}" >
+									<span >
+										<i class="fa fa-pencil"></i>
+										Edit
+									</span>
+								</a>
+							</li>
+						</ul>
+					</div>
 				</div>
 				<div class="m-portlet__body-lil">
 					<div class="row">
