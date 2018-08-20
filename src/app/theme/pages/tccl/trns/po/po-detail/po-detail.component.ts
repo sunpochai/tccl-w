@@ -203,13 +203,13 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
                 var iFileSize = file.size;
                 // var iConvert = (file.size / 1048576).toFixed(2);
 
-                if ( !( sFileExtension === "pdf"
-                     || sFileExtension === "doc" 
-                     || sFileExtension === "docx" 
-                     || sFileExtension === "xls" 
-                     || sFileExtension === "xlsx" )
-                     || iFileSize > (1048576*50) ) {
-                    
+                if (!(sFileExtension === "pdf"
+                    || sFileExtension === "doc"
+                    || sFileExtension === "docx"
+                    || sFileExtension === "xls"
+                    || sFileExtension === "xlsx")
+                    || iFileSize > (1048576 * 50)) {
+
                     super.showError("Wrong file format (only .pdf, .doc, .docx, .xls, .xlsx allowed) or file size larger than 50MB!");
                     this.attFile = null;
                     this.fileList = null;
@@ -567,8 +567,8 @@ export class PODetailComponent extends PageBaseComponent implements OnInit, Afte
         this.txtAdUserSelected = value.ad_user;
         this.txtAdUserNameSelected = value.fullname;
 
-        var user = {            
-ad_user: value.ad_user,
+        var user = {
+            ad_user: value.ad_user,
             ad_username: value.fullname
         };
         this.user_list.push(user);
@@ -716,7 +716,7 @@ ad_user: value.ad_user,
     //     pritem.budget_commit = 149895;
     //     pritem.budget_actual = 110240;
     //     pritem.budget_remaining = 37765;
-        
+
     //     return pritem;
     // }
 
@@ -725,7 +725,7 @@ ad_user: value.ad_user,
     }
 
     getPHSwitchCaption() {
-        return (this.showPurchasingHistory)?'Collapse':'Expand';
+        return (this.showPurchasingHistory) ? 'Collapse' : 'Expand';
     }
 
     formatSAPItemNo(in_sap_item_no) {

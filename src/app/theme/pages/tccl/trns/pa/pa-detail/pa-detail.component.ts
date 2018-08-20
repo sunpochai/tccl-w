@@ -61,7 +61,7 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
 
     public action_reassign_index: number;
     public action_reassign_name: String;
-    
+
     public attFile: any;
     public formData: FormData = new FormData();
     public fileList: FileList;
@@ -78,7 +78,7 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
     public txtSearchUserChanged: Subject<string> = new Subject<string>();
     public showDropDownUser: boolean = false;
     public user_list: any = [];
-    
+
     public showDropDownApprover: boolean = false;
     public approverList: any;
     public textSearchApprover: string;
@@ -110,13 +110,13 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
         this.txtSearchApproverChanged.debounceTime(500).distinctUntilChanged().subscribe(md => {
             this.textSearchApprover = md;
             this.searchApprover(md);
-        })    
+        })
     }
 
     loadData() {
         super.blockui('#m-content');
 
-        if (this.id==null || this.id=='0') {
+        if (this.id == null || this.id == '0') {
             this.route.params.subscribe(params => {
                 this.id = params['id'];
             });
@@ -135,7 +135,7 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
 
                 } else {
                     this.pa = resp.data;
-// console.log(this.pa);
+                    // console.log(this.pa);
                     if (this.pa.worklist != null && this.pa.worklist.current_responsible != null) {
                         this.wf_stage_resp_id = this.pa.worklist.current_responsible.wf_stage_resp_id;
 
@@ -151,7 +151,7 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
                         if (this.pa.worklist.current_responsible.resp_allow_action == null || this.pa.worklist.current_responsible.resp_allow_action == '') {
                             this.canApprove = true;
                         }
-// console.log(this.canReview + ', ' + this.canApprove + ', ' + this.canComment + ', ' + this.canReassignApprover);
+                        // console.log(this.canReview + ', ' + this.canApprove + ', ' + this.canComment + ', ' + this.canReassignApprover);
                         //***** weeraya 23/05/2018
                         //If this.canReassignApprover is already TRUE then skip this block
                         if (!this.canReassignApprover && true) {
@@ -245,13 +245,13 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
                 var iFileSize = file.size;
                 // var iConvert = (file.size / 1048576).toFixed(2);
 
-                if ( !( sFileExtension === "pdf"
-                     || sFileExtension === "doc" 
-                     || sFileExtension === "docx" 
-                     || sFileExtension === "xls" 
-                     || sFileExtension === "xlsx" )
-                     || iFileSize > (1048576*50) ) {
-                    
+                if (!(sFileExtension === "pdf"
+                    || sFileExtension === "doc"
+                    || sFileExtension === "docx"
+                    || sFileExtension === "xls"
+                    || sFileExtension === "xlsx")
+                    || iFileSize > (1048576 * 50)) {
+
                     super.showError("Wrong file format (only .pdf, .doc, .docx, .xls, .xlsx allowed) or file size larger than 50MB!");
                     this.attFile = null;
                     this.fileList = null;
@@ -557,7 +557,7 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
 
         this._workflowService.reassign<any>(this.pa.payment_id, this.pa.worklist).subscribe(
             resp => {
-                let wf: Workflow  = resp;
+                let wf: Workflow = resp;
 
                 if (resp.is_error == false) {
                     // console.log(resp);
@@ -588,7 +588,7 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
     }
 
     removeApprover() {
-        this.pa.worklist.stage_list.splice(this.action_reassign_index,1);
+        this.pa.worklist.stage_list.splice(this.action_reassign_index, 1);
     }
 
     prepareAddApprover(in_reassign_index) {
@@ -613,7 +613,7 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
         sl.canReassignAdd = true;
         sl.canReassignDelete = true;
 
-        this.pa.worklist.stage_list.splice(this.action_reassign_index + 1,0,sl);
+        this.pa.worklist.stage_list.splice(this.action_reassign_index + 1, 0, sl);
         console.log(this.pa.worklist.stage_list);
     }
 
@@ -642,7 +642,7 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
         this.txtApproverUserSelected = value.ad_user;
         this.txtApproverUserNameSelected = value.fullname;
 
-        var user = {            
+        var user = {
             ad_user: value.ad_user,
             ad_username: value.fullname
         };
@@ -715,7 +715,7 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
         this.txtAdUserSelected = value.ad_user;
         this.txtAdUserNameSelected = value.fullname;
 
-        var user = {            
+        var user = {
             ad_user: value.ad_user,
             ad_username: value.fullname
         };
@@ -837,15 +837,15 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
     getAccountAssignmentDesc(paitem: any) {
         //WBS -> Order number -> Cost center + GL Account
         if (paitem.wbs_no != null && paitem.wbs_no != '') {
-            return paitem.wbs_no + '-' + paitem.wbs_name ;
+            return paitem.wbs_no + '-' + paitem.wbs_name;
         } else if (paitem.order_no != null && paitem.order_no != '') {
-            return paitem.order_no ;
+            return paitem.order_no;
         } else {
-            var tmp = paitem.costcenter + ' / ' + StringUtil.lefttrim(paitem.account_no,'0') + '-' + paitem.account_name ;
+            var tmp = paitem.costcenter + ' / ' + StringUtil.lefttrim(paitem.account_no, '0') + '-' + paitem.account_name;
             if (tmp == ' / ' + '-')
-                return '' ;
+                return '';
             else
-                return tmp ;
+                return tmp;
         }
     }
 

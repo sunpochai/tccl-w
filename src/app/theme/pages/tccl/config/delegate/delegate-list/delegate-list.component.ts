@@ -27,7 +27,7 @@ export class DelegateListComponent extends PageBaseComponent implements OnInit, 
     public action_ad_user: string;
 
     public parsedAdUser: string;
-    
+
     public ownerList: any;
     public textSearchADUser: any;
     public txtOwnerSelected;
@@ -186,7 +186,7 @@ export class DelegateListComponent extends PageBaseComponent implements OnInit, 
 
         this.showDropDownOwner = false;
     }
-    
+
     search() {
         super.blockui('#m-content');
 
@@ -196,10 +196,10 @@ export class DelegateListComponent extends PageBaseComponent implements OnInit, 
 
             var date_from = DateUtil.toInternalDate(this.dateFrom);
             var date_to = DateUtil.toInternalDate(this.dateTo);
-    
+
             // console.log(date_from.getTime());
             // console.log(date_to.getTime());
-    
+
             if (date_from.getTime() > date_to.getTime()) {
                 super.showError('Invalid date range!');
                 super.unblockui('#m-content');

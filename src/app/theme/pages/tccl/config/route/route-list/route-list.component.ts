@@ -54,8 +54,8 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
             this.trackingNumberList = resp;
             // console.log(resp);
         });
-        
-        
+
+
         this.route.params.subscribe(params => {
             // console.log(params['routetype']);
             //routetype: string ('pr','po','pa')

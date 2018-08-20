@@ -32,7 +32,7 @@ const routes: Routes = [
         "component": DefaultComponent,
         "children": [
             {
-                "path": "list", 
+                "path": "list",
                 "component": NPOListComponent
             }, {
                 "path": "detail/:id", //id:any ('npo' <-- add new record ,id <-- get old record)

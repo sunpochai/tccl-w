@@ -22,12 +22,12 @@ const routes: Routes = [
         "path": "",
         "component": DefaultComponent,
         "children": [{
-                "path": "list",
-                "component": UserLockListComponent
-            }, {
-                "path": "detail/:id",
-                "component": UserLockDetailComponent
-            }
+            "path": "list",
+            "component": UserLockListComponent
+        }, {
+            "path": "detail/:id",
+            "component": UserLockDetailComponent
+        }
         ]
     }
 ];

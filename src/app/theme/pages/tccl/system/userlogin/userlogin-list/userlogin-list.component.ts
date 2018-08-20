@@ -49,9 +49,9 @@ export class UserLoginListComponent extends PageBaseComponent implements OnInit,
         var dd_from = $('#register_date_from').val().toString().split('/');
         var dd_to = $('#register_date_to').val().toString().split('/');
 
-        var date_from = new Date(parseInt(dd_from[2]),parseInt(dd_from[1]),parseInt(dd_from[0]));
-        var date_to = new Date(parseInt(dd_to[2]),parseInt(dd_to[1]),parseInt(dd_to[0]));
- 
+        var date_from = new Date(parseInt(dd_from[2]), parseInt(dd_from[1]), parseInt(dd_from[0]));
+        var date_to = new Date(parseInt(dd_to[2]), parseInt(dd_to[1]), parseInt(dd_to[0]));
+
         if (date_from.getTime() > date_to.getTime()) {
             super.showError('Invalid registered date range!');
             super.unblockui('#m-content');
@@ -61,9 +61,9 @@ export class UserLoginListComponent extends PageBaseComponent implements OnInit,
         dd_from = $('#last_checkin_date_from').val().toString().split('/');
         dd_to = $('#last_checkin_date_to').val().toString().split('/');
 
-        date_from = new Date(parseInt(dd_from[2]),parseInt(dd_from[1]),parseInt(dd_from[0]));
-        date_to = new Date(parseInt(dd_to[2]),parseInt(dd_to[1]),parseInt(dd_to[0]));
- 
+        date_from = new Date(parseInt(dd_from[2]), parseInt(dd_from[1]), parseInt(dd_from[0]));
+        date_to = new Date(parseInt(dd_to[2]), parseInt(dd_to[1]), parseInt(dd_to[0]));
+
         if (date_from.getTime() > date_to.getTime()) {
             super.showError('Invalid last checkin date range!');
             super.unblockui('#m-content');

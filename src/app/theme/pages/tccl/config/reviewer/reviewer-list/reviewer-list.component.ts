@@ -21,8 +21,8 @@ export class ReviewerListComponent extends PageBaseComponent implements OnInit, 
     public action_review_id: any;
     public action_sap_code: any;
     public sap_group: any = [
-        { value: '1', name: 'Requisitioner' }, 
-        { value: '2', name: 'Purchasing Group' }, 
+        { value: '1', name: 'Requisitioner' },
+        { value: '2', name: 'Purchasing Group' },
         { value: '3', name: 'User ID' },
         { value: '4', name: 'Goods Recipient' },
         { value: '5', name: 'Plant (Last Payment Reviewer)' }

@@ -266,7 +266,7 @@ export class NPODetailComponent extends PageBaseComponent implements OnInit, Aft
             } */
         }
         console.log(this.action_npo_item);
-        
+
         this.action_npo_item.payment_n_id = this.npo.payment_n_id;
         this.action_npo_item.item_status = 'CRT';
 
@@ -311,32 +311,32 @@ export class NPODetailComponent extends PageBaseComponent implements OnInit, Aft
         this._router.navigate(['/trns/npo/list/']);
     }
 
-/*     searchUser(search) {
-        if (search.length < 2) return;
-        // console.log("search >>" + search);
-        this.showDropDownUser = true;
-        this._adUserService.search(search).subscribe(x => {
-            this.userList = x
-        });
-    }
-
-    onChangeSearchUser(event) {
-        // console.log(event);
-        this.txtSearchUserChanged.next(event);
-    }
-
-    selectUserValue(value) {
-        this.textSearchUser = value.fullname
-        this.txtAdUserSelected = value.ad_user;
-        this.txtAdUserNameSelected = value.fullname;
-        this.showDropDownUser = false;
-    }
-
-    closeDropDown() {
-        //this.showDropDownTracking = false;
-        this.showDropDownUser = false;
-    }
- */
+    /*     searchUser(search) {
+            if (search.length < 2) return;
+            // console.log("search >>" + search);
+            this.showDropDownUser = true;
+            this._adUserService.search(search).subscribe(x => {
+                this.userList = x
+            });
+        }
+    
+        onChangeSearchUser(event) {
+            // console.log(event);
+            this.txtSearchUserChanged.next(event);
+        }
+    
+        selectUserValue(value) {
+            this.textSearchUser = value.fullname
+            this.txtAdUserSelected = value.ad_user;
+            this.txtAdUserNameSelected = value.fullname;
+            this.showDropDownUser = false;
+        }
+    
+        closeDropDown() {
+            //this.showDropDownTracking = false;
+            this.showDropDownUser = false;
+        }
+     */
     toggleAdvances_payment() {
         if (this.advances_payment == true) {
             /* this.maxValPlaceholder = "Maximum Value Unlimited"

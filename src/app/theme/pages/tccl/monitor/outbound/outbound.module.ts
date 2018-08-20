@@ -23,9 +23,9 @@ const routes: Routes = [
             {
                 "path": "list",
                 "component": OutboundListComponent
-/*             }, {
-                "path": "detail/:id",
-                "component": PRDetailComponent */
+                /*             }, {
+                                "path": "detail/:id",
+                                "component": PRDetailComponent */
             }
         ]
     }

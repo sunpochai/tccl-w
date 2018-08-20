@@ -8,15 +8,15 @@ declare let mLayout: any;
     templateUrl: "./aside-nav.component.html",
     encapsulation: ViewEncapsulation.None,
 })
-export class AsideNavComponent extends PageBaseComponent  implements OnInit, AfterViewInit {
+export class AsideNavComponent extends PageBaseComponent implements OnInit, AfterViewInit {
 
-  isAdmin:boolean;
-  isOwner:boolean;
+    isAdmin: boolean;
+    isOwner: boolean;
     constructor() {
-super();
+        super();
     }
     ngOnInit() {
-        this.isAdmin = true ;
+        this.isAdmin = true;
         this.isOwner = true;
 
         this.isAdmin = this.CheckAdmin();

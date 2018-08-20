@@ -65,9 +65,9 @@ export class OutboundListComponent extends PageBaseComponent implements OnInit, 
         var dd_from = $('#m_form_date_from').val().toString().split('/');
         var dd_to = $('#m_form_date_to').val().toString().split('/');
 
-        var date_from = new Date(parseInt(dd_from[2]),parseInt(dd_from[1]),parseInt(dd_from[0]));
-        var date_to = new Date(parseInt(dd_to[2]),parseInt(dd_to[1]),parseInt(dd_to[0]));
- 
+        var date_from = new Date(parseInt(dd_from[2]), parseInt(dd_from[1]), parseInt(dd_from[0]));
+        var date_to = new Date(parseInt(dd_to[2]), parseInt(dd_to[1]), parseInt(dd_to[0]));
+
         if (date_from.getTime() > date_to.getTime()) {
             super.showError('Invalid date range!');
             super.unblockui('#m-content');
@@ -82,10 +82,10 @@ export class OutboundListComponent extends PageBaseComponent implements OnInit, 
         this.action_name = action;
         this.action_doc_group = doc_group;
 
-        switch (doc_group+'') {
-            case ROUTE_PR.doc_group+'': this.action_doc_group_name = ROUTE_PR.name.toUpperCase(); break;
-            case ROUTE_PO.doc_group+'': this.action_doc_group_name = ROUTE_PO.name.toUpperCase(); break;
-            case ROUTE_PA.doc_group+'': this.action_doc_group_name = ROUTE_PA.name.toUpperCase(); break;
+        switch (doc_group + '') {
+            case ROUTE_PR.doc_group + '': this.action_doc_group_name = ROUTE_PR.name.toUpperCase(); break;
+            case ROUTE_PO.doc_group + '': this.action_doc_group_name = ROUTE_PO.name.toUpperCase(); break;
+            case ROUTE_PA.doc_group + '': this.action_doc_group_name = ROUTE_PA.name.toUpperCase(); break;
             default: this.action_doc_group_name = 'N/A';
         }
 

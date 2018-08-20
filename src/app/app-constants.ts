@@ -1,22 +1,22 @@
 //Service URL 
 //export const API_BASE_URL: string =  'https://portal.tccland.com:8090/OASRESTApi'
 // export const API_BASE_URL: string = 'http://202.60.207.137/WebRESTApi'
-//export const API_BASE_URL: string = 'http://sunpochai.thddns.net:5555'
+export const API_BASE_URL: string = 'http://sunpochai.thddns.net:5555'
 //export const API_BASE_URL: string = 'http://localhost:65179/'
-export const API_BASE_URL: string = 'http://192.168.1.99:5555'
+//export const API_BASE_URL: string = 'http://192.168.1.99:5555'
 // export const API_BASE_URL: string = 'http://192.168.1.12:5555'
-export const API_AUTHEN_TOKEN: string = API_BASE_URL + '/token' 
+export const API_AUTHEN_TOKEN: string = API_BASE_URL + '/token'
 export const API_AUTHEN_CHECKIN: string = API_BASE_URL + '/api/authen/checkin'
 export const API_AUTHEN_CHECKOUT: string = API_BASE_URL + '/api/authen/checkout'
 export const API_AUTHEN_VERIFY: string = API_BASE_URL + '/api/authen/wverify'
-   
+
 export const API_COMPANY_GETALL: string = API_BASE_URL + '/api/company/getall' //list all item (use with dropdown)
 export const API_COMPANY_LIST: string = API_BASE_URL + '/api/company/list' //search item (use with search page)
 export const API_COMPANY_GET: string = API_BASE_URL + '/api/company'
 export const API_COMPANY_PUT: string = API_BASE_URL + '/api/company'
 export const API_COMPANY_DEL: string = API_BASE_URL + '/api/company'
 export const API_COMPANY_INSERT: string = API_BASE_URL + '/api/company/insert'
-  
+
 export const API_DOCTYPE_GETALL: string = API_BASE_URL + '/api/doctype/getall' //list all item (use with dropdown)
 export const API_DOCTYPE_LIST: string = API_BASE_URL + '/api/doctype/list' //search item (use with search page)
 export const API_DOCTYPE_GET_PUT_DEL: string = API_BASE_URL + '/api/doctype'
@@ -96,9 +96,9 @@ export const API_USERLOCK_INSERT: string = API_BASE_URL + '/api/userslock/insert
 export const API_USERLOGIN_LIST: string = API_BASE_URL + '/api/userslogin/list'
 
 //Model status code
-export const ROUTE_PR: any = { "display_name":"PR", "name": "pr", "doc_group": 1 }
-export const ROUTE_PO: any = { "display_name":"PO", "name": "po", "doc_group": 2 }
-export const ROUTE_PA: any = { "display_name":"Payment", "name": "pa", "doc_group": 3 }
+export const ROUTE_PR: any = { "display_name": "PR", "name": "pr", "doc_group": 1 }
+export const ROUTE_PO: any = { "display_name": "PO", "name": "po", "doc_group": 2 }
+export const ROUTE_PA: any = { "display_name": "Payment", "name": "pa", "doc_group": 3 }
 export const DOCUMENT_GROUP: any = [
     ROUTE_PR,
     ROUTE_PO,

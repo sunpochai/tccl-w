@@ -33,7 +33,7 @@ export class AuthComponent implements OnInit {
         { read: ViewContainerRef }) alertSignup: ViewContainerRef;
     @ViewChild('alertForgotPass',
         { read: ViewContainerRef }) alertForgotPass: ViewContainerRef;
-  
+
     constructor(
         private _router: Router,
         private _script: ScriptLoaderService,
@@ -59,7 +59,7 @@ export class AuthComponent implements OnInit {
     }
 
     signin() {
- 
+
         this.loading = true;
         this._authService.login(this.model.ad_user, this.model.password).subscribe(
             data => {

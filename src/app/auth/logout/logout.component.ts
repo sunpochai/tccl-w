@@ -10,17 +10,17 @@ import { PageBaseComponent } from "../../theme/pages/tccl/pagebase.component";
     encapsulation: ViewEncapsulation.None,
 })
 
-export class LogoutComponent extends  PageBaseComponent implements OnInit {
+export class LogoutComponent extends PageBaseComponent implements OnInit {
 
     constructor(private _router: Router,
         private _authService: AuthenticationService) {
-            super();
+        super();
     }
 
     ngOnInit(): void {
         Helpers.setLoading(true);
         // reset login status
-        this._authService.logout(this.currentUser.token,this.currentUser.ad_user);
+        this._authService.logout(this.currentUser.token, this.currentUser.ad_user);
         this._router.navigate(['/login']);
-    } 
+    }
 }

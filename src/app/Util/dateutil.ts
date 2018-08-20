@@ -54,7 +54,7 @@ export class DateUtil {
      *  Weeraya 10/04/2018
      */
     public static toDisplayDateString(in_date: string) {
-        var mydate = (in_date+'').split('-');
+        var mydate = (in_date + '').split('-');
 
         if (mydate.length < 3) {
             return in_date;
@@ -74,7 +74,7 @@ export class DateUtil {
      */
     public static getCurrentMonthFirstDate() {
         var d = new Date();
-        var mydate = new Date(d.getFullYear(),d.getMonth(),1);
+        var mydate = new Date(d.getFullYear(), d.getMonth(), 1);
         console.log(mydate);
         return mydate;
     }
@@ -85,7 +85,7 @@ export class DateUtil {
      */
     public static getCurrentMonthLastDate() {
         var d = new Date();
-        var mydate = new Date(d.getFullYear(),d.getMonth()+1,0);
+        var mydate = new Date(d.getFullYear(), d.getMonth() + 1, 0);
         console.log(mydate);
         return mydate;
     }

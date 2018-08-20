@@ -137,7 +137,7 @@ export class DelegateDetailComponent extends PageBaseComponent implements OnInit
             }
         });
 
-        this.canChangeUser = super.CheckAdmin() && this.id=='0'
+        this.canChangeUser = super.CheckAdmin() && this.id == '0'
     }
 
     ngAfterViewInit() {
@@ -336,7 +336,7 @@ export class DelegateDetailComponent extends PageBaseComponent implements OnInit
 
     navigate_list(user) {
         /* this._router.navigate(['/config/delegate/list/' + user ]); */
-        this._router.navigate(['/config/delegate/list/' ]);
+        this._router.navigate(['/config/delegate/list/']);
     }
 
     searchOwner(search) {

@@ -103,17 +103,17 @@ export class POListComponent extends PageBaseComponent implements OnInit, AfterV
 
     search() {
         super.blockui('#m-content');
-        
+
         if (this.dateFrom != null && this.dateFrom != '' && this.dateTo != null && this.dateTo != '') {
             console.log(this.dateFrom);
             console.log(this.dateTo);
 
             var date_from = DateUtil.toInternalDate(this.dateFrom);
             var date_to = DateUtil.toInternalDate(this.dateTo);
-    
+
             console.log(date_from.getTime());
             console.log(date_to.getTime());
-    
+
             if (date_from.getTime() > date_to.getTime()) {
                 super.showError('Invalid date range!');
                 super.unblockui('#m-content');

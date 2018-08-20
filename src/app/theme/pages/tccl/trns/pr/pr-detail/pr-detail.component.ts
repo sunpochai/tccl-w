@@ -186,13 +186,13 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
                 var iFileSize = file.size;
                 // var iConvert = (file.size / 1048576).toFixed(2);
 
-                if ( !( sFileExtension === "pdf"
-                     || sFileExtension === "doc" 
-                     || sFileExtension === "docx" 
-                     || sFileExtension === "xls" 
-                     || sFileExtension === "xlsx" )
-                     || iFileSize > (1048576*50) ) {
-                    
+                if (!(sFileExtension === "pdf"
+                    || sFileExtension === "doc"
+                    || sFileExtension === "docx"
+                    || sFileExtension === "xls"
+                    || sFileExtension === "xlsx")
+                    || iFileSize > (1048576 * 50)) {
+
                     super.showError("Wrong file format (only .pdf, .doc, .docx, .xls, .xlsx allowed) or file size larger than 50MB!");
                     this.attFile = null;
                     this.fileList = null;
@@ -562,8 +562,8 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
 
         var user = {
             ad_user: value.ad_user,
-            ad_username: value.fullname        
-};
+            ad_username: value.fullname
+        };
         this.user_list.push(user);
 
         this.showDropDownUser = false;
@@ -669,8 +669,8 @@ export class PRDetailComponent extends PageBaseComponent implements OnInit, Afte
         return StringUtil.formatSAPItemNo(in_sap_item_no);
     }
 
-    lefttrim(s,c) {
-        return StringUtil.lefttrim(s,c);
+    lefttrim(s, c) {
+        return StringUtil.lefttrim(s, c);
     }
 
     getAttachFileWidthClass() {

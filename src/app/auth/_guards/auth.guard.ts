@@ -8,29 +8,30 @@ import { User } from "../_models";
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-    constructor(private _router: Router, private _authenService:AuthenticationService) {
+    constructor(private _router: Router, private _authenService: AuthenticationService) {
     }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | boolean {
         var profile: User = JSON.parse(localStorage.getItem('currentUser'));
-  
-        if(profile==null){
+
+        if (profile == null) {
 
             this._router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
             return false;
         }
-  
+
         return this._authenService.verify().map(data => {
             console.log("verify >> pass");
-            return   true;
+            return true;
         }).catch(e => {
             console.log("verify >> catch");
-            if(e.status !=null && e.status == '401'){
+            if (e.status != null && e.status == '401') {
                 console.log("verify >> 401");
-                localStorage.removeItem('currentUser'); 
+                localStorage.removeItem('currentUser');
                 this._router.navigate(['/login'], { queryParams: { returnUrl: state.url } });
-            } 
-        return Observable.of(e); });
-       
+            }
+            return Observable.of(e);
+        });
+
     }
 }
