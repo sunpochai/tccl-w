@@ -65,16 +65,24 @@
 					</div>
 					<div class="form-group m-form__group row">
 						<label class="col-form-label col-lg-2 col-sm-3">
-							AFP No.
+							Doc. No.
 						</label>
 						<div class="col-lg-3 col-sm-3">
-							<input disabled="disabled" [(ngModel)]="npo.afp_no" type="text" class="form-control form-control-sm m-input" name="afp_no" value="{{npo.afp_no}}" placeholder=""  >
+							<input disabled="disabled" [(ngModel)]="npo.doc_no" type="text" class="form-control form-control-sm m-input" name="doc_no" placeholder=""  >
 						</div>
 						<label class="col-form-label col-lg-2 col-sm-3">
 							วันที่
 						</label>
 						<div class="col-lg-3 col-sm-3">
 							<input disabled="disabled" [(ngModel)]="npo.doc_date" type="text" class="form-control form-control-sm m-input" name="doc_date" value="{{npo.doc_date}}"   >
+						</div>
+					</div>
+					<div class="form-group m-form__group row">
+						<label class="col-form-label col-lg-2 col-sm-3">
+							AFP No.
+						</label>
+						<div class="col-lg-3 col-sm-3">
+							<input disabled="disabled" [(ngModel)]="npo.afp_no" type="text" class="form-control form-control-sm m-input" name="afp_no" value="{{npo.afp_no}}" placeholder=""  >
 						</div>
 					</div>
 					<div class="form-group m-form__group row" >
@@ -112,7 +120,7 @@
 							ชื่อเจ้าของทรัพย์ *   
 						</label>
 						<div class="col-lg-3 col-sm-3">
-							<input required minlength="4" maxlength="10" [(ngModel)]="npo.comp_code" type="text" class="form-control form-control-sm m-input" name="comp_code" value="{{npo.comp_code}}" placeholder="รหัส"  >
+							<input required minlength="4" maxlength="4" [(ngModel)]="npo.comp_code" type="text" class="form-control form-control-sm m-input" name="comp_code" value="{{npo.comp_code}}" placeholder="รหัส"  >
 						</div>
 						<div class="col-lg-7 col-sm-6">
 							<input required minlength="4" maxlength="255" [(ngModel)]="npo.comp_name" type="text" class="form-control form-control-sm m-input" name="comp_name" value="{{npo.comp_name}}" placeholder="ชื่อเจ้าของทรัพย์"  >
@@ -291,12 +299,15 @@
 			<div class="m-portlet__foot m-portlet__foot--fit">
 				<div class="m-form__actions m-form__actions">
 					<div class="row">
-						<div class="col-5"></div>
-						<div class="col-7 ml-lg-auto">
+						<div class="col-4"></div>
+						<div class="col-8 ml-lg-auto">
 							<button type="button" [disabled]="heroForm.invalid " class="btn btn-success" data-toggle="modal" data-target="#m_modal_confirm">
 								Save 
 							</button>
-							<button type="reset" (click)="navigate_detail()" class="btn btn-secondary">
+							<button type="button" [disabled]="npo.payment_n_id==0 || npo.payment_n_id==null " class="btn btn-info" data-toggle="modal" data-target="#m_modal_send">
+								Send Approve 
+							</button>
+							<button type="reset" (click)="navigate_back()" class="btn btn-secondary">
 								Cancel
 							</button>
 						</div>
@@ -329,6 +340,37 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" (click)="save()" data-dismiss="modal" class="btn btn-success">
+						Yes 
+					</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">
+						No
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="m_modal_send" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">
+						Confirm send approve ?
+					</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">
+							&times;
+						</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>
+						Doc. No. {{npo.doc_no}}, Subject: {{npo.subject}} ? 
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" (click)="send()" data-dismiss="modal" class="btn btn-success">
 						Yes 
 					</button>
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">

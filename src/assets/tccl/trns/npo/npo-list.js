@@ -77,19 +77,28 @@ var myDatatable = function( ) {
             }
           }
         } , {   
-          field: 'afp_no',
-          title: 'AFP No.',
+          field: 'doc_no',
+          title: 'Doc. No.',
           sortable: true,
           textAlign: 'center',
-          // width: '80px',,
+          template: function (row) {
+            return '<a href="./trns/npo/detail/'+row.payment_n_id+'"  class="m-menu__link" title="Non-PO Detail"> ' + row.doc_no + '</a>';
+          }
         } , {   
           field: 'doc_date',
           title: 'Doc. Date',
+          textAlign: 'center',
           sortable: true,
           width: '80px',
           template: function(row) {
             return toDisplayDate(row.doc_date);
           }
+        } , {
+          field: 'subject',
+          title: 'Subject',
+          selector: false,
+          textAlign: 'left',
+          sortable: true
         } , {
           field: 'comp_code',
           title: 'Company',
@@ -118,48 +127,12 @@ var myDatatable = function( ) {
           template: function (row) {
             return row.vendor_code.replace(/^0+/, '') + ' - ' + row.vendor_name;
           }
-        /* } , {
-          field: 'header_text',
-          title: 'Header Text',
-          sortable: true,
-          // width: '150px', */
-        /* } , {
-          field: 'deliver_note',
-          title: 'Delivery Note',
-          sortable: true,
-          // width: '150px', */
-        /* }, {
-          field: 'grand_total',
-          title: 'Total',
-          type: 'number',
-          textAlign: 'right',
-          sortable: true,
-          width: '80px',
-          template: function (row) {
-            var parts = (row.grand_total).toFixed(2).split(".");
-            var num = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",") + (parts[1] ? "." + parts[1] : ".00");
-            return num;
-          } */
-        /* } , {
-          field: 'currency',
-          title: 'Currency',
+        } , {   
+          field: 'afp_no',
+          title: 'AFP No.',
           sortable: true,
           textAlign: 'center',
-          width: '60px', */
-        } , {
-          field: 'subject',
-          title: 'Subject',
-          selector: false,
-          textAlign: 'center',
-          sortable: true,
-          // width: '80px',
-          template: function (row) {
-            return '<a href="./trns/npo/detail/'+row.payment_n_id+'"  class="m-menu__link" title="Non-PO Detail"> ' + row.subject + '</a>';
-          }
-        /* } , {
-          field: 'goods_recipient',
-          title: 'Goods Receipient',
-          sortable: true, */
+          // width: '80px',,
         } , {
           field: 'c_doc_status',
           title: 'Status',
@@ -203,6 +176,7 @@ var myDatatable = function( ) {
     query.doc_type = '';//$('#m_form_doc_type').val();
     // query.matdoc_no = $('#m_form_pa_no').val();
     query.afp_no = $('#m_form_afp_no').val();
+    query.doc_no = $('#m_form_doc_no').val();
     query.doc_date_from = toInternalDate($('#m_form_date_from').val());
     query.doc_date_to = toInternalDate($('#m_form_date_to').val());
     query.comp_code = $('#m_form_company').val();

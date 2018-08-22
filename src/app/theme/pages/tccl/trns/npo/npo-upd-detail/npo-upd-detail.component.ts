@@ -1,12 +1,10 @@
 import { PageBaseComponent } from './../../../pagebase.component';
-// import { CompanyService } from './../../../_services/masters/company.service';
 import { Helpers } from './../../../../../../helpers';
 import { Component, OnInit, AfterViewInit, ViewEncapsulation } from '@angular/core';
 import { ScriptLoaderService } from '../../../../../../_services/script-loader.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { SortPipe } from '../../../../../../_pipe/sort';
-// import { Company } from '../../../_models/masters/company';
 import {
     FormGroup,
     FormBuilder,
@@ -14,9 +12,6 @@ import {
     FormControl
 } from '@angular/forms';
 import { API_USER_LIST, API_TRACKING_GET_PUT_DEL, C_DOC_STATUS_REVIEWED } from '../../../../../../app-constants';
-// import { DocType } from '../../../_models/masters/doctype';
-// import { DocTypeService } from '../../../_services/masters/doctype.service';
-// import { RouteApproveDetail } from '../../../_models/config/routeapprovedetail';
 import { forEach } from '@angular/router/src/utils/collection';
 import { Tracking } from '../../../_models/masters/tracking';
 import { TrackingService } from '../../../_services/masters/tracking.service';
@@ -48,18 +43,6 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
     public action_type: any;
     public action_index: number;
 
-    /* public maxValPlaceholder: string = "Enter Maximum Value";
-    public maxValCaption: string = "*";
-    public unlimit_maximum;
-    public last_approver: string; */
-
-    // public userList: any;
-    // public txtAdUserSelected;
-    // public txtAdUserNameSelected;
-    // public textSearchUser: string;
-    // public txtSearchUserChanged: Subject<string> = new Subject<string>();
-    // public showDropDownUser = false;
-
     public sortBy = 'tracking_code';
     public sortType = -1;
 
@@ -70,11 +53,6 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
         private _trackingService: TrackingService,
         private _adUserService: ADUserService) {
         super();
-
-        // this.txtSearchUserChanged.debounceTime(500).distinctUntilChanged().subscribe(md => {
-        //     this.textSearchUser = md;
-        //     this.searchUser(md);
-        // })
     }
 
 
@@ -188,8 +166,9 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
             console.log(resp);
             if (resp.is_error == false) {
                 this.npo = resp.data;
-                super.showsuccess('Non-PO created successful: ' + this.npo.subject);
+                super.showsuccess('Non-PO created successful: ' + this.npo.doc_no);
                 super.unblockui('#m_form_1');
+                this.navigate_upd(this.npo.payment_n_id);
                 // this.navigate_list();
             } else {
                 super.showError(resp.error_msg);
@@ -215,9 +194,37 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
             console.log(resp);
             if (resp.is_error == false) {
                 this.npo = resp.data;
-                super.showsuccess('Non-PO updated successful: ' + this.npo.subject);
+                super.showsuccess('Non-PO updated successful: ' + this.npo.doc_no);
                 super.unblockui('#m_form_1');
                 // this.navigate_list();
+                this.navigate_upd(this.npo.payment_n_id);
+            } else {
+                super.showError(resp.error_msg);
+                super.unblockui('#m_form_1');
+            }
+        },
+            error => {
+                super.showError(error);
+                super.unblockui('#m_form_1');
+            },
+            () => {
+                super.unblockui('#m_form_1');
+            });
+    }
+
+    send() {
+        super.blockui('#m_form_1');
+
+        this.fillData(false);
+
+        this._npoService.sendApprove<any>(this.npo).subscribe(resp => {
+            console.log(resp);
+            if (resp.is_error == false) {
+                this.npo = resp.data;
+                super.showsuccess('Send approve successful: ' + this.npo.doc_no);
+                super.unblockui('#m_form_1');
+                // this.navigate_list();
+                this.navigate_detail();
             } else {
                 super.showError(resp.error_msg);
                 super.unblockui('#m_form_1');
@@ -332,32 +339,20 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
         this._router.navigate(['/trns/npo/detail/' + this.npo.payment_n_id]);
     }
 
-/*     searchUser(search) {
-        if (search.length < 2) return;
-        // console.log("search >>" + search);
-        this.showDropDownUser = true;
-        this._adUserService.search(search).subscribe(x => {
-            this.userList = x
-        });
+    navigate_back() {
+        console.log(this.npo.payment_n_id);
+        if (this.npo.payment_n_id != 0 && this.npo.payment_n_id != null) {
+            console.log(this.npo.payment_n_id);
+            this.navigate_detail();
+        } else {
+            this.navigate_list();
+        }
     }
 
-    onChangeSearchUser(event) {
-        // console.log(event);
-        this.txtSearchUserChanged.next(event);
+    navigate_upd(in_npo_id) {
+        this._router.navigate(['/trns/npo/update/' + in_npo_id]);
     }
 
-    selectUserValue(value) {
-        this.textSearchUser = value.fullname
-        this.txtAdUserSelected = value.ad_user;
-        this.txtAdUserNameSelected = value.fullname;
-        this.showDropDownUser = false;
-    }
-
-    closeDropDown() {
-        //this.showDropDownTracking = false;
-        this.showDropDownUser = false;
-    }
- */
     toggleAdvances_payment() {
         if (this.advances_payment == true) {
             /* this.maxValPlaceholder = "Maximum Value Unlimited"
