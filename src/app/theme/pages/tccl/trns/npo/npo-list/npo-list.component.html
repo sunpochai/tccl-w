@@ -1,0 +1,206 @@
+<!-- BEGIN: Subheader -->
+<div class="m-subheader" appunwraptag="">
+	<div class="d-flex align-items-center">
+		<div class="mr-auto">
+			<h3 class="m-subheader__title m-subheader__title--separator">
+				Non-PO Payment
+			</h3>
+			<ul class="m-subheader__breadcrumbs m-nav m-nav--inline">
+				<li class="m-nav__item">
+					<a routerLink="/trns/worklist/my" class="m-nav__link">
+						<span class="m-nav__link-text">
+							<i class="la la-home"></i>
+						</span>
+					</a>
+				</li>
+				<li class="m-nav__separator">
+					-
+				</li>
+				<li class="m-nav__item">
+					<a routerLink="/trns/npo/list" class="m-nav__link">
+						<span class="m-nav__link-text">
+							Non-PO Payment
+						</span>
+					</a>
+				</li>
+			</ul>
+			
+					
+		</div>
+		<a routerLink="/trns/npo/update/0" >
+			<span >
+				<i class="fa fa-plus"></i>
+				New Non-PO Payment
+			</span>
+		</a>
+	 
+	</div>
+</div>
+<!-- END: Subheader -->
+<div class="m-content" id="m-content">
+
+	<div class="m-portlet m-portlet--head-sm m-portlet--collapsed" data-portlet="true" id="m_portlet_search">
+		<div class="m-portlet__head">
+			<div class="m-portlet__head-caption">
+				<div class="m-portlet__head-title">
+					<span class="m-portlet__head-icon">
+						<i class="flaticon-search"></i>
+					</span>
+					<h3 class="m-portlet__head-text">
+						Search
+					</h3>
+				</div>
+			</div>
+			<div class="m-portlet__head-tools">
+				<ul class="m-portlet__nav">
+					<li class="m-portlet__nav-item">
+						<a href=""  data-portlet-tool="toggle" class="m-portlet__nav-link m-portlet__nav-link--icon">
+							<i class="la la-angle-up"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!--begin::Form-->
+		<form class="m-form m-form--fit m-form--label-align-right">
+			<div class="m-portlet__body">
+				<!-- <div class="form-group m-form__group row">
+					<label class="col-lg-2 col-sm-4 col-form-label">
+						Doc Type:
+					</label>
+					<div class="col-lg-4 col-sm-8 ">
+						<select class="form-control m-input" [(ngModel)]="m_form_doc_type" id="m_form_doc_type" name="m_form_doc_type">
+							<option value="">
+								All
+							</option>
+							<ng-container *ngFor="let row of doctypeList; let index = index">
+								<option value="{{row.doc_type_code}}">
+									{{row.doc_type_desc}}
+								</option>
+							</ng-container>
+						</select>
+					</div>
+				</div> -->
+				<div class="form-group m-form__group row">
+					<!-- <label class="col-lg-2 col-sm-4 col-form-label">
+						MatDoc. No.:
+					</label>
+					<div class="col-lg-4 col-sm-8" >
+						<input type="text" maxlength="20" class="form-control m-input" [(ngModel)]="m_form_pa_no" id="m_form_pa_no" name="m_form_pa_no">
+					</div> -->
+					<label class="col-lg-2 col-sm-4 col-form-label">
+						Doc. No.:
+					</label>
+					<div class="col-lg-4 col-sm-8" >
+						<input type="text" maxlength="20" class="form-control m-input" [(ngModel)]="m_form_doc_no" id="m_form_doc_no" name="m_form_doc_no">
+					</div>
+					<label class="col-lg-2 col-sm-4 col-form-label">
+						AFP No.:
+					</label>
+					<div class="col-lg-4 col-sm-8" >
+						<input type="text" maxlength="20" class="form-control m-input" [(ngModel)]="m_form_afp_no" id="m_form_afp_no" name="m_form_afp_no">
+					</div>
+				</div>
+				<div class="form-group m-form__group row">
+					<label class="col-lg-2 col-sm-4 col-form-label">
+						Doc. Date From:
+					</label>
+					<div class="col-lg-4 col-sm-8">
+						<div class='input-group'>
+							<input type='text' class="form-control m-input" [(ngModel)]="dateFrom" name="m_form_date_from" id='m_form_date_from'/>
+							<div class="input-group-append">
+								<span class="input-group-text">
+									<i class="la la-calendar-check-o"></i>
+								</span>
+							</div>
+						</div>
+					</div>
+					<label class="col-lg-2 col-sm-4 col-form-label">
+						Doc. Date To:
+					</label>
+					<div class="col-lg-4 col-sm-8">
+						<div class='input-group'>
+							<input type='text' class="form-control m-input" [(ngModel)]="dateTo" name="m_form_date_to" id='m_form_date_to'/>
+							<div class="input-group-append">
+								<span class="input-group-text">
+									<i class="la la-calendar-check-o"></i>
+								</span>
+							</div>
+						</div>					
+					</div>
+				</div>
+				<div class="form-group m-form__group row">
+					<label class="col-lg-2 col-sm-4 col-form-label">
+						Company:
+					</label>
+					<div class="col-lg-4 col-sm-8">
+						<input type="text" maxlength="50" class="form-control m-input" [(ngModel)]="m_form_company" id="m_form_company" name="m_form_company">
+					</div>
+					<label class="col-lg-2 col-sm-4 col-form-label">
+						Plant:
+					</label>
+					<div class="col-lg-4 col-sm-8">
+						<input type="text" maxlength="50" class="form-control m-input" [(ngModel)]="m_form_plant" id="m_form_plant" name="m_form_plant">
+					</div>
+				</div>
+				<div class="form-group m-form__group row">
+					<label class="col-lg-2 col-sm-4 col-form-label">
+						Status:
+					</label>
+					<div class="col-lg-10 col-sm-8">
+						<div class="m-checkbox-inline">
+							<label class="m-checkbox">
+								<input type="checkbox" id="chkStatusAll" name="chkStatusAll" [(ngModel)]="chkStatusAll" (ngModelChange)="toggleStatusAll()"  >
+								All
+								<span></span>
+							</label>
+							<label class="m-checkbox">
+								<input type="checkbox" id="chkStatusWaitReview" name="chkStatusWaitReview" [(ngModel)]="chkStatusWaitReview"  >
+								{{docStatus[1].name}}
+								<span></span>
+							</label>
+							<label class="m-checkbox">
+								<input type="checkbox" id="chkStatusWaitApprove" name="chkStatusWaitApprove" [(ngModel)]="chkStatusWaitApprove"  >
+								{{docStatus[2].name}}
+								<span></span>
+							</label>
+							<label class="m-checkbox">
+								<input type="checkbox" id="chkStatusApproved" name="chkStatusApproved" [(ngModel)]="chkStatusApproved"  >
+								{{docStatus[3].name}}
+								<span></span>
+							</label>
+							<label class="m-checkbox">
+								<input type="checkbox" id="chkStatusCanceled" name="chkStatusCanceled" [(ngModel)]="chkStatusCanceled"  >
+								{{docStatus[9].name}}
+								<span></span>
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="form-group m-form__group row">
+					<div class="col-lg-12 col-sm-12 " >
+						<button type="button" class="btn btn-brand" (click)="search()">
+							<i class="fa fa-search"></i>
+							Search
+						</button>
+						<button type="button" class="btn btn-metal" (click)="clearForm()">
+							<i class="fa fa-refresh"></i>
+							Clear
+						</button>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+
+	<div class="m-portlet m-portlet--mobile">
+		<form>
+			<div class="m-portlet__body">
+				<!--begin: Datatable -->
+				<div class="m_datatable" id="ajax_data"></div>
+				<!--end: Datatable -->
+			</div>
+		</form>
+	</div>
+</div>
