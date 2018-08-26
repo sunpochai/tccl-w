@@ -65,16 +65,24 @@
 					</div>
 					<div class="form-group m-form__group row">
 						<label class="col-form-label col-lg-2 col-sm-3">
-							AFP No.
+							Doc. No.
 						</label>
 						<div class="col-lg-3 col-sm-3">
-							<input disabled="disabled" [(ngModel)]="npo.afp_no" type="text" class="form-control form-control-sm m-input" name="afp_no" value="{{npo.afp_no}}" placeholder=""  >
+							<input disabled="disabled" [(ngModel)]="npo.doc_no" type="text" class="form-control form-control-sm m-input" name="doc_no" placeholder=""  >
 						</div>
 						<label class="col-form-label col-lg-2 col-sm-3">
 							วันที่
 						</label>
 						<div class="col-lg-3 col-sm-3">
-							<input disabled="disabled" [(ngModel)]="npo.doc_date" type="text" class="form-control form-control-sm m-input" name="doc_date" value="{{npo.doc_date}}"   >
+							<input disabled="disabled" [(ngModel)]="doc_date" type="text" class="form-control form-control-sm m-input" name="doc_date"  >
+						</div>
+					</div>
+					<div class="form-group m-form__group row">
+						<label class="col-form-label col-lg-2 col-sm-3">
+							AFP No.
+						</label>
+						<div class="col-lg-3 col-sm-3">
+							<input disabled="disabled" [(ngModel)]="npo.afp_no" type="text" class="form-control form-control-sm m-input" name="afp_no" placeholder=""  >
 						</div>
 					</div>
 					<div class="form-group m-form__group row" >
@@ -82,10 +90,10 @@
 							หน่วยธุรกิจ *   
 						</label> 
 						<div class="col-lg-3 col-sm-3">
-							<input required minlength="4" maxlength="10" [(ngModel)]="npo.bu_code" type="text" class="form-control form-control-sm m-input" name="bu_code" value="{{npo.bu_code}}" placeholder="รหัส"  >
+							<input required minlength="4" maxlength="10" [(ngModel)]="npo.bu_code" type="text" class="form-control form-control-sm m-input" name="bu_code" placeholder="รหัส"  >
 						</div>
 						<div class="col-lg-7 col-sm-6">
-							<input required minlength="4" maxlength="255" [(ngModel)]="npo.bu_name" type="text" class="form-control form-control-sm m-input" name="bu_name" value="{{npo.bu_name}}" placeholder="ชื่อหน่วยธุรกิจ"  >
+							<input required minlength="4" maxlength="255" [(ngModel)]="npo.bu_name" type="text" class="form-control form-control-sm m-input" name="bu_name" placeholder="ชื่อหน่วยธุรกิจ"  >
 						</div>
 					</div>
 					<div class="form-group m-form__group row">
@@ -93,10 +101,10 @@
 							สาขา *   
 						</label>
 						<div class="col-lg-3 col-sm-3">
-							<input required minlength="4" maxlength="10" [(ngModel)]="npo.plant_code" type="text" class="form-control form-control-sm m-input" name="plant_code" value="{{npo.plant_code}}" placeholder="รหัส"  >
+							<input required minlength="4" maxlength="10" [(ngModel)]="npo.plant_code" type="text" class="form-control form-control-sm m-input" name="plant_code" placeholder="รหัส"  >
 						</div>
 						<div class="col-lg-7 col-sm-6">
-							<input required minlength="4" maxlength="255" [(ngModel)]="npo.plant_name" type="text" class="form-control form-control-sm m-input" name="plant_name" value="{{npo.plant_name}}" placeholder="ชื่อสาขา"  >
+							<input required minlength="4" maxlength="255" [(ngModel)]="npo.plant_name" type="text" class="form-control form-control-sm m-input" name="plant_name" placeholder="ชื่อสาขา"  >
 						</div>
 						<!-- <div class="col-lg-4 col-sm-8">
 							<select required class="form-control m-input" [(ngModel)]="npo.tracking_no" name="tracking_no">
@@ -112,10 +120,10 @@
 							ชื่อเจ้าของทรัพย์ *   
 						</label>
 						<div class="col-lg-3 col-sm-3">
-							<input required minlength="4" maxlength="10" [(ngModel)]="npo.comp_code" type="text" class="form-control form-control-sm m-input" name="comp_code" value="{{npo.comp_code}}" placeholder="รหัส"  >
+							<input required minlength="4" maxlength="4" [(ngModel)]="npo.comp_code" type="text" class="form-control form-control-sm m-input" name="comp_code" placeholder="รหัส"  >
 						</div>
 						<div class="col-lg-7 col-sm-6">
-							<input required minlength="4" maxlength="255" [(ngModel)]="npo.comp_name" type="text" class="form-control form-control-sm m-input" name="comp_name" value="{{npo.comp_name}}" placeholder="ชื่อเจ้าของทรัพย์"  >
+							<input required minlength="4" maxlength="255" [(ngModel)]="npo.comp_name" type="text" class="form-control form-control-sm m-input" name="comp_name" placeholder="ชื่อเจ้าของทรัพย์"  >
 						</div>
 					</div>
 					<div class="form-group m-form__group row" >
@@ -123,7 +131,7 @@
 							เรื่อง *
 						</label>
 						<div class="col-lg-10 col-sm-9">
-							<input required  maxlength="255" [(ngModel)]="npo.subject" type="text" class="form-control form-control-sm m-input" name="subject" value="{{npo.subject}}" placeholder=""  >
+							<input required  maxlength="255" [(ngModel)]="npo.subject" type="text" class="form-control form-control-sm m-input" name="subject" placeholder=""  >
 						</div>
 					</div>
 					<div class="form-group m-form__group row" >
@@ -131,10 +139,24 @@
 							จ่ายให้ *
 						</label>
 						<div class="col-lg-3 col-sm-3">
-							<input required minlength="4" maxlength="10" [(ngModel)]="npo.vendor_code" type="text" class="form-control form-control-sm m-input" name="vendor_code" value="{{npo.vendor_code}}" placeholder="รหัส"  >
+							<input required minlength="4" maxlength="10" [(ngModel)]="npo.vendor_code" type="text" class="form-control form-control-sm m-input" name="vendor_code" placeholder="รหัส"  >
 						</div>
 						<div class="col-lg-7 col-sm-6">
-							<input required minlength="4" maxlength="255" [(ngModel)]="npo.vendor_name" type="text" class="form-control form-control-sm m-input" name="vendor_name" value="{{npo.vendor_name}}" placeholder="ชื่อผู้เบิก หรือ ผู้ขาย"  >
+							<input required minlength="4" maxlength="255" [(ngModel)]="npo.vendor_name" type="text" class="form-control form-control-sm m-input" name="vendor_name" placeholder="ชื่อผู้เบิก หรือ ผู้ขาย"  >
+						</div>
+					</div>
+					<div class="form-group m-form__group row" >
+						<label class="col-form-label col-lg-2 col-sm-3">
+							Tracking No. *
+						</label>
+						<div class="col-lg-3 col-sm-3">
+							<!-- <input required minlength="4" maxlength="10" [(ngModel)]="npo.non_tracking_no" type="text" class="form-control form-control-sm m-input" name="non_tracking_no" placeholder="Tracking number"  > -->
+							<select required class="form-control form-control-sm m-input" [(ngModel)]="npo.non_tracking_no" name="tracking_no">
+								<option></option>
+								<option value={{item.tracking_code}} *ngFor="let item of trackingNumberList ">
+									{{item.tracking_code}}
+								</option>
+							</select>
 						</div>
 					</div>
 					<div class="form-group m-form__group row" >
@@ -169,16 +191,16 @@
 							อ้างถึง AFP No.
 						</label>
 						<div class="col-lg-4 col-sm-3">
-							<input [(ngModel)]="npo.advances_ref_afp_no" type="text" class="form-control form-control-sm m-input" name="advances_ref_afp_no" value="{{npo.advances_ref_afp_no}}" placeholder=""  >
+							<input [(ngModel)]="npo.afp_ref" type="text" class="form-control form-control-sm m-input" name="advances_ref_afp_no" placeholder=""  >
 						</div>
 						<label class="col-form-label col-lg-2 col-sm-3">
 							จำนวนเงิน
 						</label>
 						<div class="col-lg-4 col-sm-3">
-							<input [(ngModel)]="npo.advances_amount" type="number" class="form-control form-control-sm m-input" name="advances_amount" value="{{npo.advances_amount | number:'16.2'}}"   >
+							<input [(ngModel)]="npo.advances_amt" type="number" class="form-control form-control-sm m-input" name="advances_amount"   >
 						</div>
 					</div>
-					<div class="form-group m-form__group row" *ngIf="npo!=null && npo.route_id != null">
+					<div class="form-group m-form__group row" *ngIf="false">
 						<div class="col-lg-12">
 							<span class="m-form__help">
 								Created at {{npo.create_date  | date:'dd/MM/yyyy HH:mm:ss'}} by {{npo.create_user}} 
@@ -291,12 +313,15 @@
 			<div class="m-portlet__foot m-portlet__foot--fit">
 				<div class="m-form__actions m-form__actions">
 					<div class="row">
-						<div class="col-5"></div>
-						<div class="col-7 ml-lg-auto">
+						<div class="col-4"></div>
+						<div class="col-8 ml-lg-auto">
 							<button type="button" [disabled]="heroForm.invalid " class="btn btn-success" data-toggle="modal" data-target="#m_modal_confirm">
 								Save 
 							</button>
-							<button type="reset" (click)="navigate_detail()" class="btn btn-secondary">
+							<button type="button" [disabled]="npo.payment_n_id==0 || npo.payment_n_id==null " class="btn btn-info" data-toggle="modal" data-target="#m_modal_send">
+								Send Approve 
+							</button>
+							<button type="reset" (click)="navigate_back()" class="btn btn-secondary">
 								Cancel
 							</button>
 						</div>
@@ -339,6 +364,37 @@
 		</div>
 	</div>
 
+	<!-- Modal -->
+	<div class="modal fade" id="m_modal_send" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">
+						Confirm send approve ?
+					</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">
+							&times;
+						</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>
+						Doc. No. {{npo.doc_no}}, Subject: {{npo.subject}} ? 
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" (click)="send()" data-dismiss="modal" class="btn btn-success">
+						Yes 
+					</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">
+						No
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<!--begin::Modal-->
 	<div class="modal fade" id="m_modal_add_item" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -362,21 +418,13 @@
 									<input required maxlength="40" type="text" name="txt_inv_no" [(ngModel)]="action_npo_item.inv_no" placeholder="" class=' form-control m-input' autocomplete="off" >
 								</div>  
                             </div>
-                            <!-- <label class="col-form-label col-lg-2 col-sm-3">
-                                Invoice date:
-                            </label>
-                            <div class="col-lg-4 col-sm-9">
-								<div class="width-half">
-									<input required type="date" id='inv_date' name="txt_inv_date" [(ngModel)]="action_npo_item.inv_date" placeholder="" class=' form-control m-input' autocomplete="off" >
-								</div>  
-							</div> -->
 							
 							<label class="col-form-label col-lg-2 col-sm-3">
 								Invoice date:
 							</label>
 							<div class="col-lg-4 col-sm-9">
 								<div class='input-group'>
-									<input required type='text' class="form-control m-input" [(ngModel)]="action_npo_item.inv_date" name="txt_inv_date"  autocomplete="off"/>
+									<input required type='text' class="form-control m-input" [(ngModel)]="action_npo_item.inv_date" name="txt_inv_date" id="txt_inv_date"  autocomplete="off"/>
 									<div class="input-group-append">
 										<span class="input-group-text">
 											<i class="la la-calendar-check-o"></i>

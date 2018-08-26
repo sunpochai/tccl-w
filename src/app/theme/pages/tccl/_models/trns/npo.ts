@@ -5,6 +5,7 @@ import { NPOItem } from './npoitem';
 export class NPO {
     payment_n_id: number;
 
+    doc_no: string;
     c_doc_status: number;
     cur_resp_user: string;
     cur_resp_username: string;

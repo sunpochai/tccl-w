@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Http, Response } from "@angular/http";
 import "rxjs/add/operator/map";
-import { API_TRACKING_SEARCH, API_TRACKING_LIST, API_TRACKING_GET_PUT_DEL, API_TRACKING_INSERT, API_TRACKING_GETALL } from "../../../../../app-constants";
+import { API_TRACKING_SEARCH, API_TRACKING_LIST, API_TRACKING_GET_PUT_DEL, API_TRACKING_INSERT, API_TRACKING_GETALL, API_TRACKING_GET_NPO_ALL } from "../../../../../app-constants";
 import { TokenBaseService } from "../tokenbase.service";
 import { Tracking } from "../../_models/masters/tracking";
 
@@ -19,6 +19,11 @@ export class TrackingService extends TokenBaseService {
 
     public getall() {
         return this.http.get(API_TRACKING_GETALL, super.jwt())
+            .map((response: Response) => response.json());
+    }
+
+    public getnpoall() {
+        return this.http.get(API_TRACKING_GET_NPO_ALL, super.jwt())
             .map((response: Response) => response.json());
     }
 

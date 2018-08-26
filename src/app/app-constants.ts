@@ -27,6 +27,7 @@ export const API_PLANT_GET_PUT_DEL: string = API_BASE_URL + '/api/plant'
 export const API_PLANT_INSERT: string = API_BASE_URL + '/api/plant/insert'
 
 export const API_TRACKING_GETALL: string = API_BASE_URL + '/api/tracking/getall' //list all item (use with dropdown)
+export const API_TRACKING_GET_NPO_ALL: string = API_BASE_URL + '/api/tracking/getnpoall' //list all item using with NPO only
 export const API_TRACKING_LIST: string = API_BASE_URL + '/api/tracking/list'
 export const API_TRACKING_SEARCH: string = API_BASE_URL + '/api/tracking/list2'
 export const API_TRACKING_GET_PUT_DEL: string = API_BASE_URL + '/api/tracking'
