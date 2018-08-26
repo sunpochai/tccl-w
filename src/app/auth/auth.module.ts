@@ -13,6 +13,9 @@ import { AlertService } from './_services/alert.service';
 import { AuthenticationService } from './_services/authentication.service';
 import { UserService } from './_services/user.service';
 import { fakeBackendProvider } from './_helpers/index';
+import { AuthGuardAdmin } from './_guards/auth.guard.admin';
+import { AuthGuardDataOwner } from './_guards/auth.guard.admin.dataowner';
+ 
 
 @NgModule({
     declarations: [
@@ -27,7 +30,9 @@ import { fakeBackendProvider } from './_helpers/index';
         AuthRoutingModule,
     ],
     providers: [
-        AuthGuard,
+        AuthGuard,  
+        AuthGuardAdmin,
+        AuthGuardDataOwner,
         AlertService,
         AuthenticationService,
         UserService,
