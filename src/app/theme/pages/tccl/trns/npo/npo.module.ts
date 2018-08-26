@@ -1,4 +1,3 @@
-import { ClickOutsideDirective } from './../../../../../_directives/dropdown.directive';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 import {
@@ -13,8 +12,6 @@ import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutModule } from '../../../../layouts/layout.module';
 import { AlertService } from '../../../../../auth/_services/index';
-import { SearchFilterPipe } from '../../../../../_pipe/filter-pipe';
-import { LetterBoldPipe } from '../../../../../_pipe/letter-bold.pipe';
 import { PipesModule } from '../../../../../_pipe/pipes.module';
 
 import { RouteApproveService } from '../../_services/config/routeapprove.service';
@@ -58,8 +55,8 @@ const routes: Routes = [
     ], exports: [
         RouterModule
     ], declarations: [
-        NPOListComponent, NPODetailComponent, NPOUpdDetailComponent, 
-        ClickOutsideDirective, SearchFilterPipe, LetterBoldPipe
+        NPOListComponent, NPODetailComponent, NPOUpdDetailComponent
+        
     ], providers: [
         RouteApproveService,
         NPOService,

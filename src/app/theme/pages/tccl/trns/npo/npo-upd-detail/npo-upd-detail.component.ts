@@ -11,7 +11,7 @@ import {
     Validators,
     FormControl
 } from '@angular/forms';
-import { API_USER_LIST, API_TRACKING_GET_PUT_DEL, C_DOC_STATUS_REVIEWED } from '../../../../../../app-constants';
+import { API_USER_LIST, C_DOC_STATUS_REVIEWED } from '../../../../../../app-constants';
 import { forEach } from '@angular/router/src/utils/collection';
 import { Tracking } from '../../../_models/masters/tracking';
 import { TrackingService } from '../../../_services/masters/tracking.service';
@@ -20,11 +20,12 @@ import { ADUserService } from '../../../_services/masters/aduser.service';
 import { NPO } from '../../../_models/trns/npo';
 import { NPOItem } from '../../../_models/trns/npoitem';
 import { NPOService } from '../../../_services/trns/npo.service';
+import { DateUtil } from '../../../../../../Util/dateutil';
 
 declare var myData: any;
 
 @Component({
-    selector: "trns-npo-detail",
+    selector: "trns-npo-upd-detail",
     templateUrl: "./npo-upd-detail.component.html",
     styleUrls: ["./npo-upd-detail.component.css"]
 
@@ -36,6 +37,8 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
     public id: any;
     public action_name: string;
     public trackingNumberList: Array<Tracking>;
+
+    public doc_date: string;
 
     public advances_payment: boolean;
 
@@ -59,11 +62,13 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
     ngOnInit() {
         super.blockui('#m_form_1');
 
-        this._trackingService.getall().subscribe(resp => {
+        this._trackingService.getnpoall().subscribe(resp => {
             this.trackingNumberList = resp;
             // console.log(resp);
             // console.log(this.trackingNumberList);
         });
+
+        console.log('ngOnInit');
 
         this.route.params.subscribe(params => {
             //id:any ('0' <-- add new record ,id <-- get old record)
@@ -84,6 +89,9 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
                     super.unblockui('#m-content');
                 } else {
                     this.npo = resp.data;
+                    console.log(this.npo.doc_date);
+                    this.doc_date = DateUtil.toDisplayDate(this.npo.doc_date);
+                    console.log(this.doc_date);
                     console.log(this.npo);
                     super.unblockui('#m_form_1');
                 }
@@ -97,6 +105,7 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
     }
 
     ngAfterViewInit() {
+        // console.log('ngAfterViewInit')
         this._script.loadScripts('trns-npo-upd-detail',
             ['assets/tccl/trns/npo/npo-upd-detail.js']);
         this.load();
@@ -104,13 +113,17 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
 
     load() {
         super.blockui('#m_form_1');
+        // console.log('load'); //1
         jQuery(document).ready(function() {
+            // alert('in LOAD (ts)'); //3
             setTimeout(
                 function() {
+                    // alert('settimeout (ts)'); //4
                     myData.init();
                 }, 1200
             );
         });
+        // console.log('in load'); //2
         super.unblockui('#m_form_1');
     }
 
@@ -121,6 +134,8 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
 
         // console.log(this.routeapprove);
         // console.log(this.routeapprove.number_approver_sap);
+
+        // this.npo.doc_date = DateUtil.toInternalDate(this.doc_date);
 
         if (this.npo.payment_n_id != null && this.npo.payment_n_id != 0) {
             this.update();
@@ -166,6 +181,7 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
             console.log(resp);
             if (resp.is_error == false) {
                 this.npo = resp.data;
+                this.doc_date = DateUtil.toDisplayDate(this.npo.doc_date);
                 super.showsuccess('Non-PO created successful: ' + this.npo.doc_no);
                 super.unblockui('#m_form_1');
                 this.navigate_upd(this.npo.payment_n_id);
@@ -189,6 +205,8 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
         super.blockui('#m_form_1');
 
         this.fillData(false);
+
+        console.log(this.npo);
 
         this._npoService.save<any>(this.npo).subscribe(resp => {
             console.log(resp);
@@ -296,6 +314,8 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
 
         this.npo.trn_payment_n_item.push(this.action_npo_item);
 
+        this.updateGrandTotal();
+
         console.log(this.npo.trn_payment_n_item);
     }
 
@@ -305,12 +325,15 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
         this.action_npo_item.item_status = 'CHG';
         this.npo.trn_payment_n_item[this.action_index] = this.action_npo_item;
 
+        this.updateGrandTotal();
+
         console.log(this.npo.trn_payment_n_item);
     }
 
     removeItem() {
         //item_status='DEL'
         this.npo.trn_payment_n_item[this.action_index].item_status = 'DEL';
+        this.updateGrandTotal();
 
         /* let tempNPOItems: Array<NPOItem> = new Array<NPOItem>();
         let index: number = 0;
@@ -329,6 +352,12 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
         }
         // console.log(tempNPOItems);
         this.npo.trn_payment_n_item = tempNPOItems; */
+    }
+
+    updateGrandTotal() {
+        for (let row of this.npo.trn_payment_n_item) {
+            this.npo.grand_total = this.npo.grand_total + row.amount;
+        }
     }
 
     navigate_list() {

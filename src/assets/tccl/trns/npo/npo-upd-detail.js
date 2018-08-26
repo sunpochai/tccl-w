@@ -2,6 +2,7 @@
  
 
 var myData = function () {
+    //  alert('mydata(js)');
     var demos = function () {
         $('#txt_inv_date').datepicker({
             todayHighlight: true,
@@ -16,12 +17,14 @@ var myData = function () {
     return {
         // public functions
         init: function() {
+            // alert('init (js)');
             demos(); 
         }
     };
 }();
 
 jQuery(document).ready(function() {    
+    // alert('ready');
     setTimeout(
         function() 
         {
