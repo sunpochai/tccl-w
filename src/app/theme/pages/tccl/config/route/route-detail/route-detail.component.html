@@ -101,11 +101,11 @@
 					</label>
 					<div class="col-lg-4 col-sm-8">
 						<select required class="form-control m-input" [(ngModel)]="routeapprove.doc_type" name="doc_type">
-							<option></option>
+							<option ></option>
 							<option value="{{row.doc_type_code}}" *ngFor="let row of doctypeList; ">
 								{{row.doc_type_desc}}
 							</option>
-						</select>
+					  	</select>
 					</div>
 					<ng-container *ngIf="routetype.name=='pr'">
 						<label class="col-form-label col-lg-2 col-sm-4">

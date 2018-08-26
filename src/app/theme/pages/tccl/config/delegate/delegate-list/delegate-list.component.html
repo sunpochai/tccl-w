@@ -68,7 +68,7 @@
 						<div class="width-half">
 							<input id='searchowner' [disabled]='canChangeUser==false' class=' form-control m-input' [(ngModel)]="textSearchOwner" name="owner" type='text' (ngModelChange)="onChangeSearchOwner($event);" autocomplete="off"  >
 							<input type='hidden' name='txtOwnerSelected' id='txtOwnerSelected' [(ngModel)]='txtOwnerSelected'>
-							<div clickOutside (clickOutside)="closeDropDownOwner()">
+							<div  >
 								<div  *ngIf="showDropDownOwner" class='search-drop-down card'>
 									<div (click)='selectOwnerValue(s)' class='search-results ' *ngFor="let s of this.ownerList ">
 										{{s.fullname}}
