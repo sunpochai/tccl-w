@@ -105,8 +105,9 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
         jQuery(document).ready(function() {
             setTimeout(
                 function() {
+                    // alert('test')
                     myData.init();
-                }, 1500
+                }, 1200
             );
         });
         super.unblockui('#m_form_1');
@@ -411,9 +412,9 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
             this.inv_date==null||this.inv_date==''||
             this.action_npo_item.amount==null||this.action_npo_item.amount<=0
         ) {
-            return 0;
+            return 'True';
         } else {
-            return 1;
+            return 'False';
         }
         // return this.action_npo_item.inv_no==null || this.action_npo_item.inv_desc==null || this.action_npo_item.amount==null || this.inv_date == null;
     }

@@ -55,4 +55,10 @@ export class WorkflowService extends TokenBaseService {
         return this.http.post(API_PA_REASSIGN, JSON.stringify({ payment_id: in_payment_id, workflow: in_workflow }), super.jwt())
             .map((response: Response) => response.json());
     }
+
+    public reassignNpo<T>(in_payment_n_id: number, in_workflow: Workflow) {
+
+        return this.http.post(API_PA_REASSIGN, JSON.stringify({ payment_n_id: in_payment_n_id, workflow: in_workflow }), super.jwt())
+            .map((response: Response) => response.json());
+    }
 }

@@ -303,8 +303,11 @@
 							<button type="button" [disabled]="heroForm.invalid " class="btn btn-success" data-toggle="modal" data-target="#m_modal_confirm">
 								Save 
 							</button>
-							<button type="button" [disabled]="npo.payment_n_id==0 || npo.payment_n_id==null " class="btn btn-info" data-toggle="modal" data-target="#m_modal_send">
+							<button *ngIf="npo.workflow_id==null || npo.workflow_id==''" type="button" [disabled]="npo.payment_n_id==0 || npo.payment_n_id==null " class="btn btn-info" data-toggle="modal" data-target="#m_modal_send">
 								Send Approve 
+							</button>
+							<button *ngIf="npo.workflow_id!=null && npo.workflow_id!=''" type="button" [disabled]="npo.payment_n_id==0 || npo.payment_n_id==null " class="btn btn-info" data-toggle="modal" data-target="#m_modal_send">
+								Re-Send Approve 
 							</button>
 							<button type="reset" (click)="navigate_back()" class="btn btn-secondary">
 								Cancel
@@ -434,7 +437,7 @@
 							</label>
 							<div class="col-lg-4 col-sm-9">
 								<div class="width-half">
-									<input required maxlength="40" type="text" name="txt_inv_no" [(ngModel)]="action_npo_item.inv_no" placeholder="" class=' form-control form-control-sm m-input' autocomplete="off" >
+									<input required maxlength="40" type="text" name="txt_inv_no" [(ngModel)]="action_npo_item.inv_no" class=' form-control form-control-sm m-input' autocomplete="off" >
 								</div>  
 							</div>
 							
@@ -443,7 +446,7 @@
 							</label>
 							<div class="col-lg-4 col-sm-9">
 								<div class='input-group'>
-									<input type='text' class="form-control m-input" [(ngModel)]="inv_date"  name='m_form_date_from' id='m_form_date_from' />
+									<input required type='text' class="form-control m-input" [(ngModel)]="inv_date" #datePickerStart (blur)="inv_date = datePickerStart.value" name='m_form_date_from' id='m_form_date_from'/>
 									<div class="input-group-append">
 										<span class="input-group-text">
 											<i class="la la-calendar-check-o"></i>

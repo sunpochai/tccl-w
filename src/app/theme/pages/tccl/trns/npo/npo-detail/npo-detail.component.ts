@@ -555,18 +555,20 @@ export class NPODetailComponent extends PageBaseComponent implements OnInit, Aft
 
     reassignApprover() {
         super.blockui('#m-content');
+        console.log(this.npo.payment_n_id);
+        console.log(this.npo.worklist);
 
-        this._workflowService.reassign<any>(this.npo.payment_n_id, this.npo.worklist).subscribe(
+        this._workflowService.reassignNpo<any>(this.npo.payment_n_id, this.npo.worklist).subscribe(
             resp => {
                 let wf: Workflow  = resp;
 
                 if (resp.is_error == false) {
-                    // console.log(resp);
+                    console.log(resp);
                     super.unblockui('#m-content');
                     super.showsuccess('Re-Assign completed');
                     this.cancelReassign();
                 } else {
-                    // console.log(resp);
+                    console.log(resp);
                     super.showError(resp.error_msg);
                     super.unblockui('#m-content');
                     this.cancelReassign();
@@ -574,7 +576,7 @@ export class NPODetailComponent extends PageBaseComponent implements OnInit, Aft
             },
             error => {
                 super.showError(error);
-                // console.log(error);
+                console.log(error);
                 super.unblockui('#m-content');
             },
             () => {
@@ -853,6 +855,13 @@ export class NPODetailComponent extends PageBaseComponent implements OnInit, Aft
     //***** weeraya 23/05/2018 */
     toggleReAssignApprover() {
         this.isAssigningNewApprover = !this.isAssigningNewApprover;
+    }
+
+    canUpdate() {
+        if (this.npo == null) 
+            return false;
+
+        return super.getADUserLogin() == this.npo.create_user;
     }
 
 }
