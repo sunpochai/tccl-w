@@ -402,7 +402,7 @@
 						<div class="m-portlet__head-title">
 							<h3 class="m-portlet__head-text">
 								<i class="flaticon-folder-2"></i>
-								MatDoc. No. {{npo.matdoc_no}}/{{npo.doc_year}}
+								Document No. {{npo.doc_no}}
 							</h3>
 						</div>
 					</div>
@@ -448,7 +448,7 @@
 
 									<tr>
 										<td class="table-display-caption">Tracking</td>
-										<td class="table-display-value">{{npo.tracking_no}}</td>
+										<td class="table-display-value">{{npo.non_tracking_no}}</td>
 									</tr>
 								</table>
 							</div>
@@ -526,14 +526,12 @@
 											<td style="vertical-align: middle" align="left" >{{row.io}}</td>
 											<td style="vertical-align: middle" align="left" >{{row.wbs}}</td>
 										</ng-container>
-									</tr><!-- 
-									<tr style="background-color:#F0F0F0;">
-										<td colspan="5" style="vertical-align: middle" align="right"></td>
-										<td style="vertical-align: middle" align="right">Total</td>
-										<td style="vertical-align: middle" align="right" >{{npo.amount | number:'1.2'}}</td>
-										<td style="vertical-align: center" align="center" >{{npo.currency}}</td>
-										<td colspan="3"></td>
-									</tr> -->
+									</tr>
+									<tr>
+										<td colspan="4" style="vertical-align: middle" align="right">Total</td>
+										<td style="vertical-align: middle" align="right" >{{npo.grand_total | number:'1.2'}}</td>
+										<td colspan="4"></td>
+									</tr>
 								</table>
 							</div>
 						</div>

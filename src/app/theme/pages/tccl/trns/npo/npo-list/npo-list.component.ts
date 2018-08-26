@@ -29,7 +29,7 @@ export class NPOListComponent extends PageBaseComponent implements OnInit, After
 
     public dateFrom: any;
     public dateTo: any;
-    public m_form_npo_no;
+    public m_form_doc_no;
     public m_form_afp_no;
     // public m_form_doc_type;
     public m_form_company;
@@ -105,7 +105,7 @@ export class NPOListComponent extends PageBaseComponent implements OnInit, After
     }
 
     clearForm() {
-        this.m_form_npo_no = '';
+        this.m_form_doc_no = '';
         // this.m_form_doc_type = '';
         this.m_form_afp_no = '';
         this.m_form_company = '';
