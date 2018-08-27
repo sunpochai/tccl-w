@@ -14,7 +14,7 @@ import {
 } from '@angular/forms';
 import { RouteApproveService } from '../../../_services/config/routeapprove.service';
 import { RouteApprove } from '../../../_models/config/routeapprove';
-import { ROUTE_PR, ROUTE_PO, ROUTE_PA, API_USER_LIST, API_TRACKING_GET_PUT_DEL, C_DOC_STATUS_REVIEWED } from '../../../../../../app-constants';
+import { ROUTE_PR, ROUTE_PO, ROUTE_PA, API_USER_LIST, API_TRACKING_GET_PUT_DEL, C_DOC_STATUS_REVIEWED, ROUTE_NPO } from '../../../../../../app-constants';
 import { DocType } from '../../../_models/masters/doctype';
 import { DocTypeService } from '../../../_services/masters/doctype.service';
 import { RouteApproveDetail } from '../../../_models/config/routeapprovedetail';
@@ -90,32 +90,37 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
 
     ngOnInit() {
         super.blockui('#m_form_1');
-
-        this._doctypeService.getall().subscribe(data => {
-            this.doctypeList = data;
-            // console.log(data);
-        });
-
-        this._trackingService.getall().subscribe(resp => {
-            this.trackingNumberList = resp;
-
-            // console.log(resp);
-            // console.log(this.trackingNumberList);
-        });
-
         this.route.params.subscribe(params => {
-            //id:any ('pr','po','pa' <-- add new record ,id <-- get old record)
-
+            //id:any ('pr','po','pa','npo' <-- add new record ,id <-- get old record)
             if (params['id'] + '' == ROUTE_PR.name) {
                 this.routetype = ROUTE_PR;
             } else if (params['id'] + '' == ROUTE_PO.name) {
                 this.routetype = ROUTE_PO;
             } else if (params['id'] + '' == ROUTE_PA.name) {
                 this.routetype = ROUTE_PA;
+            } else if (params['id'] + '' == ROUTE_NPO.name) {
+                this.routetype = ROUTE_NPO;
             } else {
                 this.id = params['id'];
             }
         });
+
+        this._doctypeService.getall().subscribe(data => {
+            this.doctypeList = data;
+            // console.log(data);
+        });
+
+        if (this.routetype == ROUTE_NPO) {
+            this._trackingService.getnpoall().subscribe(resp => {
+                this.trackingNumberList = resp;
+                // console.log(data);
+            });
+        } else {
+            this._trackingService.getall().subscribe(resp => {
+                this.trackingNumberList = resp;
+                // console.log(data);
+            });
+        }
 
         if (this.id != null && this.id != '0') {
             this._routeapproveService.get<RouteApprove>(this.id).subscribe(data => {
@@ -238,7 +243,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
         if (this.routetype.doc_group == ROUTE_PR.doc_group) {
             this.routeapprove.minimum_value = 0;
             this.routeapprove.maximum_value = 999999999999.99;
-        } else if (this.routetype.doc_group == ROUTE_PA.doc_group) {
+        } else if (this.routetype.doc_group == ROUTE_PA.doc_group || this.routetype.doc_group == ROUTE_NPO.doc_group) {
             this.routeapprove.doc_type = 'NB';
         } else {
             this.routeapprove.account = 'A';
