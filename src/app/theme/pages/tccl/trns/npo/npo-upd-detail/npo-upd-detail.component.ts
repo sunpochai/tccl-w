@@ -39,7 +39,7 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
     public trackingNumberList: Array<Tracking>;
 
     public doc_date: string;
-    public inv_date: string;
+    public txt_inv_date: string;
 
     public advances_payment: boolean;
     // public showDetail: boolean = false;
@@ -242,7 +242,7 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
 
     clearItem() {
         this.action_npo_item = new NPOItem;
-        this.inv_date = '';
+        this.txt_inv_date = '';
     }
 
     prepareAddItem() {
@@ -264,7 +264,7 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
         // console.log(this.npo.trn_payment_n_item[rowIndex]);
         this.action_npo_item = Object.assign({}, this.npo.trn_payment_n_item[rowIndex]);
         // console.log(this.action_npo_item);
-        this.inv_date = DateUtil.toDisplayDate(this.action_npo_item.inv_date);
+        this.txt_inv_date = DateUtil.toDisplayDate(this.action_npo_item.inv_date);
         
         // this.showDetail = true;
     }
@@ -309,7 +309,7 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
         
         this.action_npo_item.payment_n_id = this.npo.payment_n_id;
         this.action_npo_item.item_status = 'CRT';
-        this.action_npo_item.inv_date = DateUtil.toInternalDate(this.inv_date);
+        this.action_npo_item.inv_date = DateUtil.toInternalDate(this.txt_inv_date);
 
         this.npo.trn_payment_n_item.push(this.action_npo_item);
 
@@ -324,7 +324,7 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
 
         // console.log(this.action_npo_item);
         this.action_npo_item.item_status = 'CHG';
-        this.action_npo_item.inv_date = DateUtil.toInternalDate(this.inv_date);
+        this.action_npo_item.inv_date = DateUtil.toInternalDate(this.txt_inv_date);
 
         this.npo.trn_payment_n_item[this.action_index] = this.action_npo_item;
         // console.log(this.npo.trn_payment_n_item);
@@ -409,7 +409,7 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
         // console.log('getSaveItemStatus')
         if (this.action_npo_item.inv_no==null||this.action_npo_item.inv_no==''||
             this.action_npo_item.inv_desc==null||this.action_npo_item.inv_desc==''||
-            this.inv_date==null||this.inv_date==''||
+            this.txt_inv_date==null||this.txt_inv_date==''||
             this.action_npo_item.amount==null||this.action_npo_item.amount<=0
         ) {
             return 'True';

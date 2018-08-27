@@ -37,6 +37,7 @@ export const API_TRACKING_INSERT: string = API_BASE_URL + '/api/tracking/insert'
 export const API_ROUTE_PR_LIST: string = API_BASE_URL + '/api/route/prlist'
 export const API_ROUTE_PO_LIST: string = API_BASE_URL + '/api/route/polist'
 export const API_ROUTE_PA_LIST: string = API_BASE_URL + '/api/route/palist'
+export const API_ROUTE_NPO_LIST: string = API_BASE_URL + '/api/route/npolist'
 export const API_ROUTE_GET_PUT_DEL: string = API_BASE_URL + '/api/route'
 export const API_ROUTE_INSERT: string = API_BASE_URL + '/api/route/insert'
 
