@@ -446,7 +446,7 @@
 							</label>
 							<div class="col-lg-4 col-sm-9">
 								<div class="input-group date" >
-									<input type="text" class="form-control form-control-sm m-input" [(ngModel)]="txt_inv_date" #datePickerStart (blur)="txt_inv_date = datePickerStart.value" readonly placeholder="Select date" name="m_form_inv_date"/>
+									<input type="text" class="form-control form-control-sm m-input" [(ngModel)]="txt_inv_date" #datePicker (blur)="txt_inv_date=datePicker.value" readonly placeholder="Select date" name="m_form_inv_date"/>
 									<div class="input-group-append">
 										<span class="input-group-text">
 											<i class="la la-calendar-check-o"></i>

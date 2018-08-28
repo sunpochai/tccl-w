@@ -1,5 +1,5 @@
 var BootstrapDatepicker = function () {
-  
+
   //== Private functions
   var demos = function () {
 
@@ -24,5 +24,9 @@ var BootstrapDatepicker = function () {
 }();
 
 jQuery(document).ready(function() {    
-  BootstrapDatepicker.init();
+  setTimeout(
+      function() {
+          BootstrapDatepicker.init();
+      }, 1200
+  );
 });

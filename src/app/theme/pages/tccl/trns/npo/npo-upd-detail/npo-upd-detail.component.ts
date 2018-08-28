@@ -22,7 +22,7 @@ import { NPOItem } from '../../../_models/trns/npoitem';
 import { NPOService } from '../../../_services/trns/npo.service';
 import { DateUtil } from '../../../../../../Util/dateutil';
 
-declare var myData: any;
+
 declare var BootstrapDatepicker: any;
 
 @Component({
@@ -102,16 +102,13 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
     }
 
     load() {
-        super.blockui('#m_form_1');
-        /* jQuery(document).ready(function() {
+        super.blockui('#m_form_1');        
+        jQuery(document).ready(function() {    
             setTimeout(
                 function() {
-                    myData.init();
+                    BootstrapDatepicker.init();
                 }, 1200
             );
-        }); */
-        jQuery(document).ready(function() {    
-            BootstrapDatepicker.init();
         });
         super.unblockui('#m_form_1');
     }
@@ -264,12 +261,8 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
         this.action_type = 'edit';
         this.action_index = rowIndex;
         
-        // console.log(this.npo.trn_payment_n_item[rowIndex]);
         this.action_npo_item = Object.assign({}, this.npo.trn_payment_n_item[rowIndex]);
-        // console.log(this.action_npo_item);
         this.txt_inv_date = DateUtil.toDisplayDate(this.action_npo_item.inv_date);
-        
-        // this.showDetail = true;
     }
 
     prepareRemoveItem(rowIndex: number) {
