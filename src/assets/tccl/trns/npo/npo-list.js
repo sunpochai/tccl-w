@@ -152,6 +152,7 @@ var myDatatable = function( ) {
     $('#m_form_date_from').datepicker({
       todayHighlight: true,
       format: 'dd/mm/yyyy',
+      orientation: "bottom left",
       templates: {
         leftArrow: '<i class="la la-angle-left"></i>',
         rightArrow: '<i class="la la-angle-right"></i>'
@@ -161,6 +162,7 @@ var myDatatable = function( ) {
     $('#m_form_date_to').datepicker({
       todayHighlight: true,
       format: 'dd/mm/yyyy',
+      orientation: "bottom left",
       templates: {
         leftArrow: '<i class="la la-angle-left"></i>',
         rightArrow: '<i class="la la-angle-right"></i>'

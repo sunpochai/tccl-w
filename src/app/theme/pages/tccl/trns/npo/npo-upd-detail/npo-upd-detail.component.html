@@ -146,7 +146,7 @@
 							<select required class="form-control form-control-sm m-input" [(ngModel)]="npo.non_tracking_no" name="tracking_no">
 								<option></option>
 								<option value={{item.tracking_code}} *ngFor="let item of trackingNumberList ">
-									{{item.tracking_code}}
+									{{item.tracking_name}}
 								</option>
 							</select>
 						</div>
@@ -446,7 +446,7 @@
 							</label>
 							<div class="col-lg-4 col-sm-9">
 								<div class="input-group date" >
-									<input type="text" class="form-control form-control-sm m-input" [(ngModel)]="txt_inv_date" #datePicker (blur)="txt_inv_date=datePicker.value" readonly placeholder="Select date" name="m_form_inv_date"/>
+									<input type="text" class="form-control form-control-sm m-input" [(ngModel)]="txt_inv_date" readonly placeholder="Select date" name="m_form_inv_date"/>
 									<div class="input-group-append">
 										<span class="input-group-text">
 											<i class="la la-calendar-check-o"></i>
@@ -517,7 +517,7 @@
 						</div>
 					</div>
                     <div class="modal-footer">
-						<button type="reset" [disabled]="heroForm2.invalid" (click)="itemAction()" class="btn btn-success m-btn" data-dismiss="modal">
+						<button type="button" [disabled]="heroForm2.invalid" (click)="itemAction()" class="btn btn-success m-btn" data-dismiss="modal">
                             Save item
                         </button>
 						<button type="reset" class="btn btn-metal m-btn" data-dismiss="modal">

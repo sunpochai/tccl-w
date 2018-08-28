@@ -84,6 +84,7 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
                     super.unblockui('#m-content');
                 } else {
                     this.npo = resp.data;
+                    console.log(this.npo);
                     this.doc_date = DateUtil.toDisplayDate(this.npo.doc_date);
                     super.unblockui('#m_form_1');
                 }
@@ -359,7 +360,9 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
     updateGrandTotal() {
         this.npo.grand_total = 0;
         for (let row of this.npo.trn_payment_n_item) {
-            this.npo.grand_total = this.npo.grand_total + row.amount;
+            if (row.item_status!='DEL') {
+                this.npo.grand_total = this.npo.grand_total + row.amount;
+            }
         }
     }
 
