@@ -135,6 +135,9 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
                     case ROUTE_PA.doc_group:
                         this.routetype = ROUTE_PA;
                         break;
+                    case ROUTE_NPO.doc_group:
+                        this.routetype = ROUTE_NPO;
+                        break;
                 }
 
                 this.last_approver = this.routeapprove.number_approver_sap + '';
