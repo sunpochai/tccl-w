@@ -23,6 +23,7 @@ import { NPOService } from '../../../_services/trns/npo.service';
 import { DateUtil } from '../../../../../../Util/dateutil';
 
 declare var myData: any;
+declare var BootstrapDatepicker: any;
 
 @Component({
     selector: "trns-npo-upd-detail",
@@ -44,7 +45,7 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
     public advances_payment: boolean;
     // public showDetail: boolean = false;
 
-    public action_npo_item: NPOItem;
+    public action_npo_item: NPOItem = new NPOItem;
     public action_type: any;
     public action_index: number;
 
@@ -102,13 +103,15 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
 
     load() {
         super.blockui('#m_form_1');
-        jQuery(document).ready(function() {
+        /* jQuery(document).ready(function() {
             setTimeout(
                 function() {
-                    // alert('test')
                     myData.init();
                 }, 1200
             );
+        }); */
+        jQuery(document).ready(function() {    
+            BootstrapDatepicker.init();
         });
         super.unblockui('#m_form_1');
     }
@@ -305,7 +308,7 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
                 }
             } */
         }
-        console.log(this.action_npo_item);
+        // console.log(this.txt_inv_date);
         
         this.action_npo_item.payment_n_id = this.npo.payment_n_id;
         this.action_npo_item.item_status = 'CRT';
@@ -418,6 +421,10 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
         }
         // return this.action_npo_item.inv_no==null || this.action_npo_item.inv_desc==null || this.action_npo_item.amount==null || this.inv_date == null;
     }
-    
+ 
+    onChangeStartDate(event) {
+        console.log(event);
+    }
+   
 
 }
