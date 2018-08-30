@@ -100,7 +100,7 @@ var myDatatable = function( ) {
             return '\<a   href="javascript:navigate_edit(\''+ row.review_id +'\')"  class="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit">\
               <i class="la la-edit"></i>\
             </a>\
-            <a href="#" onclick="prepare_del(\''+ row.review_id +'\', \'' + row.sap_code + '\'); " data-toggle="modal" data-target="#m_modal_confirm" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Delete">\
+            <a href="#" onclick="prepare_del(\''+ row.review_id +'\', \'' + escape(row.sap_code) + '\'); " data-toggle="modal" data-target="#m_modal_confirm" class="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Delete">\
               <i class="la la-trash"></i>\
             </a>\
           	';

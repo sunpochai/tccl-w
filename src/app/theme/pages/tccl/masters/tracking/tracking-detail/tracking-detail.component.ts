@@ -21,6 +21,7 @@ export class TrackingDetailComponent extends PageBaseComponent implements OnInit
     public tracking: Tracking;
     public id: any;
     public action_type: any;
+    public chk_non_po = false;
     constructor(private _script: ScriptLoaderService,
         private _router: Router, private route: ActivatedRoute,
         private _trackingService: TrackingService, private formBuilder: FormBuilder) {
@@ -40,6 +41,7 @@ export class TrackingDetailComponent extends PageBaseComponent implements OnInit
             this._trackingService.get<Tracking>(this.id).subscribe(data => {
                 this.tracking = data;
                 this.action_type = 'update';
+                this.chk_non_po = this.tracking.npo_flag;
                 console.log(this.tracking);
                 super.unblockui('#m_form_1');
             });
@@ -64,6 +66,8 @@ export class TrackingDetailComponent extends PageBaseComponent implements OnInit
         this.tracking.update_user = super.getADUserLogin();
         this.tracking.update_username = super.getFullNameUserLogin();
         this.tracking.update_datetime = this.tracking.create_datetime;
+        this.tracking.npo_flag = this.chk_non_po;
+        console.log(this.tracking);
         this._trackingService.create<Tracking>(this.tracking).subscribe(resp => {
             this.tracking = resp;
             super.showsuccess(this.tracking.tracking_code + ' create complete');
@@ -93,6 +97,8 @@ export class TrackingDetailComponent extends PageBaseComponent implements OnInit
         this.tracking.update_user = super.getADUserLogin();
         this.tracking.update_username = super.getFullNameUserLogin();
         this.tracking.update_datetime = new Date();
+        this.tracking.npo_flag = this.chk_non_po;
+        console.log(this.tracking);
         this._trackingService.put<Tracking>(this.tracking).subscribe(resp => {
             this.tracking = resp;
             super.showsuccess(this.tracking.tracking_code + ' update complete');
@@ -111,4 +117,15 @@ export class TrackingDetailComponent extends PageBaseComponent implements OnInit
         this._router.navigate(['/masters/tracking/list']);
     }
 
+    toggleNonPO() {
+        /* if (this.maxValPlaceholder == "Enter Maximum Value") {
+            this.maxValPlaceholder = "Maximum Value Unlimited"
+            this.maxValCaption = "";
+            this.routeapprove.maximum_value = null;
+        } else {
+            this.maxValPlaceholder = "Enter Maximum Value"
+            this.maxValCaption = "*";
+        } */
+
+    }
 }

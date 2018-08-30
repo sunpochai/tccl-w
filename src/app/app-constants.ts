@@ -1,5 +1,6 @@
 //Service URL 
 //export const API_BASE_URL: string =  'https://portal.tccland.com:8090/OASRESTApi'
+<<<<<<< HEAD
 // export const API_BASE_URL: string = 'http://202.60.207.137/WebRESTApi'
 export const API_BASE_URL: string = 'http://sunpochai.thddns.net:5555'
 //export const API_BASE_URL: string = 'http://localhost:65179/'
@@ -10,6 +11,17 @@ export const API_AUTHEN_CHECKIN: string = API_BASE_URL + '/api/authen/checkin'
 export const API_AUTHEN_CHECKOUT: string = API_BASE_URL + '/api/authen/checkout'
 export const API_AUTHEN_VERIFY: string = API_BASE_URL + '/api/authen/wverify'
 
+=======
+//export const API_BASE_URL: string = 'http://202.60.207.137/WebRESTApi'
+//export const API_BASE_URL: string = 'http://sunpochai.thddns.net:5555'
+export const API_BASE_URL: string = 'http://localhost:65179/' 
+//export const API_BASE_URL: string = 'http://192.168.1.12:5555'     
+export const API_AUTHEN_TOKEN: string = API_BASE_URL + '/token' 
+export const API_AUTHEN_CHECKIN: string = API_BASE_URL + '/api/authen/checkin'
+export const API_AUTHEN_CHECKOUT: string = API_BASE_URL + '/api/authen/checkout'
+export const API_AUTHEN_VERIFY: string = API_BASE_URL + '/api/authen/wverify'
+     
+>>>>>>> 42426b4ab2078f7c94c45d1aa9d0131c89abe2dd
 export const API_COMPANY_GETALL: string = API_BASE_URL + '/api/company/getall' //list all item (use with dropdown)
 export const API_COMPANY_LIST: string = API_BASE_URL + '/api/company/list' //search item (use with search page)
 export const API_COMPANY_GET: string = API_BASE_URL + '/api/company'
@@ -28,6 +40,7 @@ export const API_PLANT_GET_PUT_DEL: string = API_BASE_URL + '/api/plant'
 export const API_PLANT_INSERT: string = API_BASE_URL + '/api/plant/insert'
 
 export const API_TRACKING_GETALL: string = API_BASE_URL + '/api/tracking/getall' //list all item (use with dropdown)
+export const API_TRACKING_GET_NPO_ALL: string = API_BASE_URL + '/api/tracking/getnpoall' //list all item using with NPO only
 export const API_TRACKING_LIST: string = API_BASE_URL + '/api/tracking/list'
 export const API_TRACKING_SEARCH: string = API_BASE_URL + '/api/tracking/list2'
 export const API_TRACKING_GET_PUT_DEL: string = API_BASE_URL + '/api/tracking'
@@ -36,6 +49,7 @@ export const API_TRACKING_INSERT: string = API_BASE_URL + '/api/tracking/insert'
 export const API_ROUTE_PR_LIST: string = API_BASE_URL + '/api/route/prlist'
 export const API_ROUTE_PO_LIST: string = API_BASE_URL + '/api/route/polist'
 export const API_ROUTE_PA_LIST: string = API_BASE_URL + '/api/route/palist'
+export const API_ROUTE_NPO_LIST: string = API_BASE_URL + '/api/route/npolist'
 export const API_ROUTE_GET_PUT_DEL: string = API_BASE_URL + '/api/route'
 export const API_ROUTE_INSERT: string = API_BASE_URL + '/api/route/insert'
 
@@ -96,13 +110,21 @@ export const API_USERLOCK_INSERT: string = API_BASE_URL + '/api/userslock/insert
 export const API_USERLOGIN_LIST: string = API_BASE_URL + '/api/userslogin/list'
 
 //Model status code
+<<<<<<< HEAD
 export const ROUTE_PR: any = { "display_name": "PR", "name": "pr", "doc_group": 1 }
 export const ROUTE_PO: any = { "display_name": "PO", "name": "po", "doc_group": 2 }
 export const ROUTE_PA: any = { "display_name": "Payment", "name": "pa", "doc_group": 3 }
+=======
+export const ROUTE_PR: any = { "display_name":"PR", "name": "pr", "doc_group": 1 }
+export const ROUTE_PO: any = { "display_name":"PO", "name": "po", "doc_group": 2 }
+export const ROUTE_PA: any = { "display_name":"Payment", "name": "pa", "doc_group": 3 }
+export const ROUTE_NPO: any = { "display_name":"Non-PO", "name": "npo", "doc_group": 4 }
+>>>>>>> 42426b4ab2078f7c94c45d1aa9d0131c89abe2dd
 export const DOCUMENT_GROUP: any = [
     ROUTE_PR,
     ROUTE_PO,
-    ROUTE_PA
+    ROUTE_PA,
+    ROUTE_NPO
 ]
 
 export const C_ACCOUNT_TYPE_ACCOUNT_NAME: string = 'Account';

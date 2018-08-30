@@ -6,7 +6,7 @@ import * as app from './../../../../../../app-constants';
 import { ScriptLoaderService } from './../../../../../../_services/script-loader.service';
 import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { constructDependencies } from '@angular/core/src/di/reflective_provider';
-import { API_ROUTE_PR_LIST, API_ROUTE_PO_LIST, API_ROUTE_PA_LIST, ROUTE_PR, ROUTE_PO, ROUTE_PA } from './../../../../../../app-constants';
+import { API_ROUTE_PR_LIST, API_ROUTE_PO_LIST, API_ROUTE_PA_LIST, ROUTE_PR, ROUTE_PO, ROUTE_PA, ROUTE_NPO, API_ROUTE_NPO_LIST } from './../../../../../../app-constants';
 import { RouteApproveService } from '../../../_services/config/routeapprove.service';
 import { DocType } from '../../../_models/masters/doctype';
 import { DocTypeService } from '../../../_services/masters/doctype.service';
@@ -43,6 +43,7 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
         window.my.namespace.del = this.del.bind(this);
         window.my.namespace.prepare_del = this.prepare_del.bind(this);
         window.my.namespace.navigate_edit = this.navigate_edit.bind(this);
+<<<<<<< HEAD
 
         this._doctypeService.getall().subscribe(resp => {
             this.doctypeList = resp;
@@ -56,9 +57,12 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
         });
 
 
+=======
+        
+>>>>>>> 42426b4ab2078f7c94c45d1aa9d0131c89abe2dd
         this.route.params.subscribe(params => {
             // console.log(params['routetype']);
-            //routetype: string ('pr','po','pa')
+            //routetype: string ('pr','po','pa','npo')
             switch (params['routetype']) {
                 case ROUTE_PR.name:
                     this.routetype = ROUTE_PR;
@@ -72,11 +76,32 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
                     this.routetype = ROUTE_PA;
                     this.api_list = API_ROUTE_PA_LIST;
                     break;
+                case ROUTE_NPO.name:
+                    this.routetype = ROUTE_NPO;
+                    this.api_list = API_ROUTE_NPO_LIST;
+                    break;
             }
             this.scriptpath = 'assets/tccl/config/route/route-' + this.routetype.name + '-list.js';
             // console.log(this.routetype);
             // console.log(this.scriptpath);
         });
+
+        this._doctypeService.getall().subscribe(resp => {
+            this.doctypeList = resp;
+            // console.log(resp);
+        });
+        
+        if (this.routetype == ROUTE_NPO) {
+            this._trackingService.getnpoall().subscribe(resp => {
+                this.trackingNumberList = resp;
+                // console.log(resp);
+            });
+        } else {
+            this._trackingService.getall().subscribe(resp => {
+                this.trackingNumberList = resp;
+                // console.log(resp);
+            });
+        }
     }
 
     ngAfterViewInit() {

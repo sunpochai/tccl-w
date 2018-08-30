@@ -80,7 +80,13 @@
 						<select required class="form-control m-input" [(ngModel)]="routeapprove.tracking_no" name="tracking_no">
 							<option></option>
 							<option value={{item.tracking_code}} *ngFor="let item of trackingNumberList ">
-								{{item.tracking_code}}
+								<ng-container *ngIf="routetype.name!='npo'">
+									{{item.tracking_code}}
+								</ng-container>
+								<ng-container *ngIf="routetype.name=='npo'">
+									{{item.tracking_name}}
+								</ng-container>
+								
 							</option>
 						</select>
 						<!-- <div class="width-half">
@@ -101,11 +107,11 @@
 					</label>
 					<div class="col-lg-4 col-sm-8">
 						<select required class="form-control m-input" [(ngModel)]="routeapprove.doc_type" name="doc_type">
-							<option></option>
+							<option ></option>
 							<option value="{{row.doc_type_code}}" *ngFor="let row of doctypeList; ">
 								{{row.doc_type_desc}}
 							</option>
-						</select>
+					  	</select>
 					</div>
 					<ng-container *ngIf="routetype.name=='pr'">
 						<label class="col-form-label col-lg-2 col-sm-4">
@@ -146,7 +152,7 @@
 						</div>
 					</ng-container> -->
 				</div>
-				<div class="form-group m-form__group row" *ngIf="routetype.name=='po' || routetype.name=='pa'">
+				<div class="form-group m-form__group row" *ngIf="routetype.name=='po' || routetype.name=='pa' || routetype.name=='npo'">
 					<label class="col-form-label col-lg-2 col-sm-4">
 						Minimum Value *
 					</label>
@@ -166,7 +172,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="form-group m-form__group row" *ngIf="routetype.name=='po' || routetype.name=='pa'">
+				<div class="form-group m-form__group row" *ngIf="routetype.name=='po' || routetype.name=='pa' || routetype.name=='npo'">
 					<label class="col-form-label col-lg-2 col-sm-4">
 						Maximum Value {{maxValCaption}}
 					</label>

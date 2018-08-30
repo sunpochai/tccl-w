@@ -1,4 +1,3 @@
-import { ClickOutsideDirective } from './../../../../../_directives/dropdown.directive';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 import {
@@ -11,19 +10,24 @@ import { DefaultComponent } from './../../../default/default.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
-import { NPOListComponent } from './npo-list/npo-list.component';
-import { NPODetailComponent } from './npo-detail/npo-detail.component';
 import { LayoutModule } from '../../../../layouts/layout.module';
 import { AlertService } from '../../../../../auth/_services/index';
+import { PipesModule } from '../../../../../_pipe/pipes.module';
+
 import { RouteApproveService } from '../../_services/config/routeapprove.service';
 import { DocTypeService } from '../../_services/masters/doctype.service';
 import { TrackingService } from '../../_services/masters/tracking.service';
-import { SearchFilterPipe } from '../../../../../_pipe/filter-pipe';
-import { LetterBoldPipe } from '../../../../../_pipe/letter-bold.pipe';
 import { UserService } from '../../../../../auth/_services/user.service';
 import { ADUserService } from '../../_services/masters/aduser.service';
-import { PipesModule } from '../../../../../_pipe/pipes.module';
+
 import { NPOService } from '../../_services/trns/npo.service';
+import { NPOListComponent } from './npo-list/npo-list.component';
+import { NPODetailComponent } from './npo-detail/npo-detail.component';
+import { NPOUpdDetailComponent } from './npo-upd-detail/npo-upd-detail.component';
+import { AttachmentService } from '../../_services/trns/attachment.service';
+import { WorkflowService } from '../../_services/trns/workflow.service';
+import { CompanyService } from '../../_services/masters/company.service';
+import { PlantService } from '../../_services/masters/plant.service';
 
 
 const routes: Routes = [
@@ -37,6 +41,9 @@ const routes: Routes = [
             }, {
                 "path": "detail/:id", //id:any ('npo' <-- add new record ,id <-- get old record)
                 "component": NPODetailComponent
+            }, {
+                "path": "update/:id", //id:any ('npo' <-- add new record ,id <-- get old record)
+                "component": NPOUpdDetailComponent
             }
         ]
     }
@@ -48,15 +55,19 @@ const routes: Routes = [
     ], exports: [
         RouterModule
     ], declarations: [
-        NPOListComponent,
-        NPODetailComponent, ClickOutsideDirective, SearchFilterPipe, LetterBoldPipe
+        NPOListComponent, NPODetailComponent, NPOUpdDetailComponent
+        
     ], providers: [
         RouteApproveService,
         NPOService,
         DocTypeService,
         TrackingService,
         ADUserService,
-        FormBuilder
+        FormBuilder,
+        AttachmentService,
+        WorkflowService,
+        CompanyService,
+        PlantService
     ]
 })
 export class NPOModule {

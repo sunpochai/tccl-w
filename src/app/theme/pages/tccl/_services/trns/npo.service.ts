@@ -24,15 +24,15 @@ export class NPOService extends TokenBaseService {
             .map((response: Response) => <T>response.json());
     }
 
-    public save<T>(in_npo_id: number, in_npo: NPO) {
+    public save<T>(in_npo: NPO) {
 
-        return this.http.post(API_NON_PO_SAVE, JSON.stringify({ npo_id: in_npo_id, npo: in_npo }), super.jwt())
+        return this.http.post(API_NON_PO_SAVE, in_npo, super.jwt())
             .map((response: Response) => response.json());
     }
 
-    public sendApprove<T>(in_npo_id: number, in_npo: NPO) {
+    public sendApprove<T>(in_npo: NPO) {
 
-        return this.http.post(API_NON_PO_SEND_APPROVE, JSON.stringify({ npo_id: in_npo_id, npo: in_npo }), super.jwt())
+        return this.http.post(API_NON_PO_SEND_APPROVE, in_npo, super.jwt())
             .map((response: Response) => response.json());
     }
 

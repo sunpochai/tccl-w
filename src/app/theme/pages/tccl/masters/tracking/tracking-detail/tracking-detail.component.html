@@ -79,6 +79,19 @@
 							<input required maxlength="50" [(ngModel)]="tracking.tracking_name" type="text" class="form-control m-input " name="tracking_name" placeholder="Enter Tracking Name">
 						</div>
 					</div> 
+					<div class="form-group m-form__group row">
+						<label class="col-form-label col-lg-3 col-sm-12">
+						</label>
+						<div class="col-lg-6 col-md-9 col-sm-12">
+							<div class="m-checkbox-inline ">
+								<label class="m-checkbox">
+									<input type="checkbox" [(ngModel)]="chk_non_po" name="chk_non_po" (click)="toggleNonPO()" >
+									Non-PO
+									<span></span>
+								</label>
+							</div>
+						</div>
+					</div>
 					<div class="form-group m-form__group row first" *ngIf='id != 0'>
 						<div class="col-lg-12">
 							<span class="m-form__help">
