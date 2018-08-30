@@ -36,6 +36,7 @@ export class WorklistComponent extends PageBaseComponent implements OnInit, Afte
     public showPR: boolean = true;
     public showPO: boolean = true;
     public showPA: boolean = true;
+    public showNPO: boolean = true;
     public showSearch: boolean = false;
     public m_text_search: any;
     public m_list_doctype: any;
@@ -111,21 +112,31 @@ export class WorklistComponent extends PageBaseComponent implements OnInit, Afte
                 this.showPR = true;
                 this.showPO = false;
                 this.showPA = false;
+                this.showNPO = false;
                 break;
             case 'po':
                 this.showPR = false;
                 this.showPO = true;
                 this.showPA = false;
+                this.showNPO = false;
                 break;
             case 'pa':
                 this.showPR = false;
                 this.showPO = false;
                 this.showPA = true;
+                this.showNPO = false;
+                break;
+            case 'npo':
+                this.showPR = false;
+                this.showPO = false;
+                this.showPA = false;
+                this.showNPO = true;
                 break;
             default:
                 this.showPR = true;
                 this.showPO = true;
                 this.showPA = true;
+                this.showNPO = true;
                 break;
         }
 
@@ -195,7 +206,8 @@ export class WorklistComponent extends PageBaseComponent implements OnInit, Afte
                 return (
                     (this.showPR && item.name.toLowerCase() == 'pr') ||
                     (this.showPO && item.name.toLowerCase() == 'po') ||
-                    (this.showPA && item.name.toLowerCase() == 'pa')
+                    (this.showPA && item.name.toLowerCase() == 'pa') ||
+                    (this.showNPO && item.name.toLowerCase() == 'npo')
                 );
             }
         )
