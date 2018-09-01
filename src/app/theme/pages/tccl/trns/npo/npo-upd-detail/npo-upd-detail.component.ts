@@ -241,6 +241,32 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
             });
     }
 
+    cancel() {
+        super.blockui('#m_form_1');
+
+        this.fillData(false);
+
+        this._npoService.cancel<any>(this.npo).subscribe(resp => {
+            console.log(resp);
+            if (resp.is_error == false) {
+                this.npo = resp.data;
+                super.showsuccess('Cancel Non-PO successful: ' + this.npo.doc_no);
+                super.unblockui('#m_form_1');
+                this.navigate_detail();
+            } else {
+                super.showError(resp.error_msg);
+                super.unblockui('#m_form_1');
+            }
+        },
+            error => {
+                super.showError(error);
+                super.unblockui('#m_form_1');
+            },
+            () => {
+                super.unblockui('#m_form_1');
+            });
+    }
+
     clearItem() {
         this.action_npo_item = new NPOItem;
         this.txt_inv_date = '';
