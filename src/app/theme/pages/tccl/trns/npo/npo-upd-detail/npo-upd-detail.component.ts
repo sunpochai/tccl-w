@@ -274,11 +274,6 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
         this.action_npo_item = this.npo.trn_payment_n_item[rowIndex];
     }
 
-    cancelItem() {
-        // this.showDetail = false;
-        this.clearItem();
-    }
-
     itemAction() {
         console.log('itemaction')
         if (this.action_type == "remove") {
@@ -311,9 +306,8 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
         this.npo.trn_payment_n_item.push(this.action_npo_item);
 
         this.updateGrandTotal();
-        this.clearItem();
 
-        console.log(this.npo.trn_payment_n_item);
+        // console.log(this.npo.trn_payment_n_item);
     }
 
     editItem() {
@@ -327,7 +321,6 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
         // console.log(this.npo.trn_payment_n_item);
 
         this.updateGrandTotal();
-        this.clearItem();
         // this.showDetail = false;
 
         // console.log(this.npo.trn_payment_n_item);
