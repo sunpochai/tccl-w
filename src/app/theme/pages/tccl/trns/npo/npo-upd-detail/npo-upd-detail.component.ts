@@ -22,7 +22,8 @@ import { NPOItem } from '../../../_models/trns/npoitem';
 import { NPOService } from '../../../_services/trns/npo.service';
 import { DateUtil } from '../../../../../../Util/dateutil';
 
-declare var myData: any;
+
+declare var BootstrapDatepicker: any;
 
 @Component({
     selector: "trns-npo-upd-detail",
@@ -44,7 +45,7 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
     public advances_payment: boolean;
     // public showDetail: boolean = false;
 
-    public action_npo_item: NPOItem;
+    public action_npo_item: NPOItem = new NPOItem;
     public action_type: any;
     public action_index: number;
 
@@ -83,6 +84,7 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
                     super.unblockui('#m-content');
                 } else {
                     this.npo = resp.data;
+                    console.log(this.npo);
                     this.doc_date = DateUtil.toDisplayDate(this.npo.doc_date);
                     super.unblockui('#m_form_1');
                 }
@@ -101,12 +103,11 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
     }
 
     load() {
-        super.blockui('#m_form_1');
-        jQuery(document).ready(function() {
+        super.blockui('#m_form_1');        
+        jQuery(document).ready(function() {    
             setTimeout(
                 function() {
-                    // alert('test')
-                    myData.init();
+                    BootstrapDatepicker.init();
                 }, 1200
             );
         });
@@ -240,6 +241,32 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
             });
     }
 
+    cancel() {
+        super.blockui('#m_form_1');
+
+        this.fillData(false);
+
+        this._npoService.cancel<any>(this.npo).subscribe(resp => {
+            console.log(resp);
+            if (resp.is_error == false) {
+                this.npo = resp.data;
+                super.showsuccess('Cancel Non-PO successful: ' + this.npo.doc_no);
+                super.unblockui('#m_form_1');
+                this.navigate_detail();
+            } else {
+                super.showError(resp.error_msg);
+                super.unblockui('#m_form_1');
+            }
+        },
+            error => {
+                super.showError(error);
+                super.unblockui('#m_form_1');
+            },
+            () => {
+                super.unblockui('#m_form_1');
+            });
+    }
+
     clearItem() {
         this.action_npo_item = new NPOItem;
         this.txt_inv_date = '';
@@ -261,12 +288,8 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
         this.action_type = 'edit';
         this.action_index = rowIndex;
         
-        // console.log(this.npo.trn_payment_n_item[rowIndex]);
         this.action_npo_item = Object.assign({}, this.npo.trn_payment_n_item[rowIndex]);
-        // console.log(this.action_npo_item);
         this.txt_inv_date = DateUtil.toDisplayDate(this.action_npo_item.inv_date);
-        
-        // this.showDetail = true;
     }
 
     prepareRemoveItem(rowIndex: number) {
@@ -275,11 +298,6 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
         this.action_type = 'remove';
         this.action_index = rowIndex;
         this.action_npo_item = this.npo.trn_payment_n_item[rowIndex];
-    }
-
-    cancelItem() {
-        // this.showDetail = false;
-        this.clearItem();
     }
 
     itemAction() {
@@ -305,7 +323,7 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
                 }
             } */
         }
-        console.log(this.action_npo_item);
+        // console.log(this.txt_inv_date);
         
         this.action_npo_item.payment_n_id = this.npo.payment_n_id;
         this.action_npo_item.item_status = 'CRT';
@@ -314,9 +332,8 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
         this.npo.trn_payment_n_item.push(this.action_npo_item);
 
         this.updateGrandTotal();
-        this.clearItem();
 
-        console.log(this.npo.trn_payment_n_item);
+        // console.log(this.npo.trn_payment_n_item);
     }
 
     editItem() {
@@ -330,7 +347,6 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
         // console.log(this.npo.trn_payment_n_item);
 
         this.updateGrandTotal();
-        this.clearItem();
         // this.showDetail = false;
 
         // console.log(this.npo.trn_payment_n_item);
@@ -363,7 +379,9 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
     updateGrandTotal() {
         this.npo.grand_total = 0;
         for (let row of this.npo.trn_payment_n_item) {
-            this.npo.grand_total = this.npo.grand_total + row.amount;
+            if (row.item_status!='DEL') {
+                this.npo.grand_total = this.npo.grand_total + row.amount;
+            }
         }
     }
 
@@ -418,6 +436,10 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
         }
         // return this.action_npo_item.inv_no==null || this.action_npo_item.inv_desc==null || this.action_npo_item.amount==null || this.inv_date == null;
     }
-    
+ 
+    onChangeStartDate(event) {
+        console.log(event);
+    }
+   
 
 }

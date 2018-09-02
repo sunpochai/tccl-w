@@ -80,7 +80,13 @@
 						<select required class="form-control m-input" [(ngModel)]="routeapprove.tracking_no" name="tracking_no">
 							<option></option>
 							<option value={{item.tracking_code}} *ngFor="let item of trackingNumberList ">
-								{{item.tracking_code}}
+								<ng-container *ngIf="routetype.name!='npo'">
+									{{item.tracking_code}}
+								</ng-container>
+								<ng-container *ngIf="routetype.name=='npo'">
+									{{item.tracking_name}}
+								</ng-container>
+								
 							</option>
 						</select>
 						<!-- <div class="width-half">

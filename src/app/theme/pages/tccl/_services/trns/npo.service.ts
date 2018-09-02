@@ -36,5 +36,11 @@ export class NPOService extends TokenBaseService {
             .map((response: Response) => response.json());
     }
 
+    public cancel<T>(in_npo: NPO) {
+
+        return this.http.post(API_NON_PO_SEND_APPROVE, in_npo, super.jwt())
+            .map((response: Response) => response.json());
+    }
+
 
 }

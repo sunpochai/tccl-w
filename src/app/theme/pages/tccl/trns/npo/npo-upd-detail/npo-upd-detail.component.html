@@ -146,7 +146,7 @@
 							<select required class="form-control form-control-sm m-input" [(ngModel)]="npo.non_tracking_no" name="tracking_no">
 								<option></option>
 								<option value={{item.tracking_code}} *ngFor="let item of trackingNumberList ">
-									{{item.tracking_code}}
+									{{item.tracking_name}}
 								</option>
 							</select>
 						</div>
@@ -183,7 +183,7 @@
 							<input [(ngModel)]="npo.advances_amt" type="number" class="form-control form-control-sm m-input" name="advances_amount"   >
 						</div>
 					</div>
-					<div class="form-group m-form__group row" *ngIf="false">
+					<div class="form-group m-form__group row" *ngIf="npo != null && npo.payment_n_id != null && npo.payment_n_id != ''">
 						<div class="col-lg-12">
 							<span class="m-form__help">
 								Created at {{npo.create_date  | date:'dd/MM/yyyy HH:mm:ss'}} by {{npo.create_user}} 
@@ -298,16 +298,19 @@
 			<div class="m-portlet__foot m-portlet__foot--fit">
 				<div class="m-form__actions m-form__actions">
 					<div class="row">
-						<div class="col-4"></div>
-						<div class="col-8 ml-lg-auto">
+						<div class="col-lg-3 col-md-1 col-sm-1"></div>
+						<div class="col-lg-9 col-md-11 col-sm-11">
 							<button type="button" [disabled]="heroForm.invalid " class="btn btn-success" data-toggle="modal" data-target="#m_modal_confirm">
 								Save 
 							</button>
 							<button *ngIf="npo.workflow_id==null || npo.workflow_id==''" type="button" [disabled]="npo.payment_n_id==0 || npo.payment_n_id==null " class="btn btn-info" data-toggle="modal" data-target="#m_modal_send">
-								Send Approve 
+								Save & Send Approve 
 							</button>
 							<button *ngIf="npo.workflow_id!=null && npo.workflow_id!=''" type="button" [disabled]="npo.payment_n_id==0 || npo.payment_n_id==null " class="btn btn-info" data-toggle="modal" data-target="#m_modal_send">
-								Re-Send Approve 
+								Save & Re-Send Approve 
+							</button>
+							<button *ngIf="npo.workflow_id!=null && npo.workflow_id!=''" type="button" [disabled]="npo.payment_n_id==0 || npo.payment_n_id==null " class="btn btn-danger" data-toggle="modal" data-target="#m_modal_cancel">
+								Cancel Non-PO
 							</button>
 							<button type="reset" (click)="navigate_back()" class="btn btn-secondary">
 								Cancel
@@ -358,7 +361,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLongTitle">
-						Confirm send approve ?
+						Confirm save & send approve ?
 					</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">
@@ -383,6 +386,36 @@
 		</div>
 	</div>
 
+	<!-- Modal -->
+	<div class="modal fade" id="m_modal_cancel" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">
+						Confirm cancel Non-PO document ?
+					</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">
+							&times;
+						</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>
+						Doc. No. {{npo.doc_no}}, Subject: {{npo.subject}} ? 
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" (click)="cancel()" data-dismiss="modal" class="btn btn-success">
+						Yes 
+					</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">
+						No
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	
 	<!--begin::Modal-->
 	<div class="modal fade" id="m_modal_remove_item" tabindex="-1" role="dialog" aria-hidden="true">
@@ -417,19 +450,20 @@
 	</div>
 	<!--end::Modal-->
 	
+
 	<!--begin::Modal-->
-	<div class="modal fade" id="m_modal_add_item" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal fade" id="m_modal_add_item" tabindex="-1" role="dialog" aria-labelledby="itemModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-lg" role="document">
-			<div class="modal-content" *ngIf="action_npo_item != null">
+			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="">
+					<h5 class="modal-title" id="itemModalLabel">
 						Item
 					</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true" class="la la-remove"></span>
 					</button>
 				</div>
-				<form class="m-form m-form--fit m-form--label-align-right">
+				<form  #heroForm2="ngForm" class="m-form m-form--fit m-form--label-align-right" id="m_form_2">
 					<div class="modal-body">
 						<div class="form-group m-form__group row m--margin-top-10">
 							<label class="col-form-label col-lg-2 col-sm-3">
@@ -440,13 +474,12 @@
 									<input required maxlength="40" type="text" name="txt_inv_no" [(ngModel)]="action_npo_item.inv_no" class=' form-control form-control-sm m-input' autocomplete="off" >
 								</div>  
 							</div>
-							
 							<label class="col-form-label col-lg-2 col-sm-3">
 								Invoice date:
 							</label>
 							<div class="col-lg-4 col-sm-9">
-								<div class='input-group'>
-									<input required type='text' class="form-control m-input" [(ngModel)]="txt_inv_date" #datePickerStart (blur)="txt_inv_date = datePickerStart.value" name='m_form_date_from' id='m_form_date_from'/>
+								<div class="input-group date" >
+									<input type="text" class="form-control form-control-sm m-input" [(ngModel)]="txt_inv_date" #datePickerStart (blur)="txt_inv_date = datePickerStart.value" readonly placeholder="Select date" name="m_form_inv_date"/>
 									<div class="input-group-append">
 										<span class="input-group-text">
 											<i class="la la-calendar-check-o"></i>
@@ -517,7 +550,7 @@
 						</div>
 					</div>
                     <div class="modal-footer">
-						<button type="reset" (click)="itemAction()" class="btn btn-success m-btn" data-dismiss="modal">
+						<button type="reset" [disabled]="false" (click)="itemAction()" class="btn btn-success m-btn" data-dismiss="modal">
                             Save item
                         </button>
 						<button type="reset" class="btn btn-metal m-btn" data-dismiss="modal">
@@ -529,7 +562,6 @@
 		</div>
 	</div>
 	<!--end::Modal-->
-
 	
 
 </div>
