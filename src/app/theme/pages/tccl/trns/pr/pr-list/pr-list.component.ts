@@ -26,7 +26,7 @@ declare var window: any;
 export class PRListComponent extends PageBaseComponent implements OnInit, AfterViewInit {
     public doctypeList: Array<DocType>;
     public docStatus: Array<any> = C_DOC_STATUS_2;
-    
+
     public dateFrom: any;
     public dateTo: any;
     public m_form_pr_no;
@@ -39,7 +39,7 @@ export class PRListComponent extends PageBaseComponent implements OnInit, AfterV
     public chkStatusApproved = false;
     public chkStatusRejected = false;
     public chkStatusCanceled = false;
-    
+
     constructor(private _router: Router,
         private _script: ScriptLoaderService,
         private _doctypeService: DocTypeService,
@@ -74,7 +74,7 @@ export class PRListComponent extends PageBaseComponent implements OnInit, AfterV
 
     load() {
         super.blockui('#m-content');
-        jQuery(document).ready(function() {
+        jQuery(document).ready(function () {
             myDatatable.init(API_PR_LIST);
         });
 
@@ -87,7 +87,7 @@ export class PRListComponent extends PageBaseComponent implements OnInit, AfterV
 
     search() {
         super.blockui('#m-content');
-        
+
         // var date_from = new Date(parseInt(dd_from[2]),parseInt(dd_from[1]),parseInt(dd_from[0]));
         // var date_to = new Date(parseInt(dd_to[2]),parseInt(dd_to[1]),parseInt(dd_to[0]));
 
@@ -97,10 +97,10 @@ export class PRListComponent extends PageBaseComponent implements OnInit, AfterV
 
             var date_from = DateUtil.toInternalDate(this.dateFrom);
             var date_to = DateUtil.toInternalDate(this.dateTo);
-    
+
             console.log(date_from.getTime());
             console.log(date_to.getTime());
-    
+
             if (date_from.getTime() > date_to.getTime()) {
                 super.showError('Invalid date range!');
                 super.unblockui('#m-content');
@@ -119,7 +119,7 @@ export class PRListComponent extends PageBaseComponent implements OnInit, AfterV
         this.m_form_plant = '';
         this.dateFrom = '';
         this.dateTo = '';
-    
+
         this.chkStatusAll = false;
         this.chkStatusWaitReview = true;
         this.chkStatusWaitApprove = true;
