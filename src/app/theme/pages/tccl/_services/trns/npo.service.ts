@@ -1,3 +1,4 @@
+import { API_NON_PO_CANCEL } from './../../../../../app-constants';
 import { TokenBaseService } from './../tokenbase.service';
 import { Injectable } from "@angular/core";
 import { Http, Headers, Response, RequestOptions } from "@angular/http";
@@ -38,7 +39,7 @@ export class NPOService extends TokenBaseService {
 
     public cancel<T>(in_npo: NPO) {
 
-        return this.http.post(API_NON_PO_SEND_APPROVE, in_npo, super.jwt())
+        return this.http.post(API_NON_PO_CANCEL, in_npo, super.jwt())
             .map((response: Response) => response.json());
     }
 

@@ -415,11 +415,15 @@
 										Edit
 									</span>
 								</a>
+							</li><li class="m-portlet__nav-item" *ngIf="npo!=null && canUpdate()" >
+							
+								<button (click)="print()">print</button>
+							 
 							</li>
 						</ul>
 					</div>
 				</div>
-				<div class="m-portlet__body-lil">
+				<div class="m-portlet__body-lil" >
 					<div class="row">
 						<div class="col-xl-5 col-sm-12">
 							<div class="table-responsive">

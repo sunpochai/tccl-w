@@ -441,5 +441,5 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
         console.log(event);
     }
    
-
+  
 }
