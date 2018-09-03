@@ -237,7 +237,7 @@
 								<th>Invoice Date</th>
 								<th>Description</th>
 								<th>Amount</th>
-								<th>CCA</th>
+								<th>Cost Center</th>
 								<th>GL Account</th>
 								<th>IO</th>
 								<th>WBS</th>
@@ -300,16 +300,16 @@
 					<div class="row">
 						<div class="col-lg-3 col-md-1 col-sm-1"></div>
 						<div class="col-lg-9 col-md-11 col-sm-11">
-							<button type="button" [disabled]="heroForm.invalid " class="btn btn-success" data-toggle="modal" data-target="#m_modal_confirm">
+							<button *ngIf="npo.payment_n_id!=0 && npo.payment_n_id!=null" type="button" [disabled]="heroForm.invalid " class="btn btn-success" data-toggle="modal" data-target="#m_modal_confirm">
 								Save 
 							</button>
-							<button *ngIf="npo.workflow_id==null || npo.workflow_id==''" type="button" [disabled]="npo.payment_n_id==0 || npo.payment_n_id==null " class="btn btn-info" data-toggle="modal" data-target="#m_modal_send">
+							<button *ngIf="npo.workflow_id==null || npo.workflow_id==''" type="button" [disabled]="heroForm.invalid" class="btn btn-info" data-toggle="modal" data-target="#m_modal_send">
 								Save & Send Approve 
 							</button>
-							<button *ngIf="npo.workflow_id!=null && npo.workflow_id!=''" type="button" [disabled]="npo.payment_n_id==0 || npo.payment_n_id==null " class="btn btn-info" data-toggle="modal" data-target="#m_modal_send">
+							<button *ngIf="npo.workflow_id!=null && npo.workflow_id!=''" type="button" [disabled]="heroForm.invalid || npo.payment_n_id==0 || npo.payment_n_id==null " class="btn btn-info" data-toggle="modal" data-target="#m_modal_send">
 								Save & Re-Send Approve 
 							</button>
-							<button *ngIf="npo.workflow_id!=null && npo.workflow_id!=''" type="button" [disabled]="npo.payment_n_id==0 || npo.payment_n_id==null " class="btn btn-danger" data-toggle="modal" data-target="#m_modal_cancel">
+							<button *ngIf="npo.workflow_id!=null && npo.workflow_id!=''" type="button" [disabled]="heroForm.invalid || npo.payment_n_id==0 || npo.payment_n_id==null " class="btn btn-danger" data-toggle="modal" data-target="#m_modal_cancel">
 								Cancel Non-PO
 							</button>
 							<button type="reset" (click)="navigate_back()" class="btn btn-secondary">
@@ -370,8 +370,11 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<p>
+					<p *ngIf="npo.doc_no!=null && npo.doc_no!=''">
 						Doc. No. {{npo.doc_no}}, Subject: {{npo.subject}} ? 
+					</p>
+					<p *ngIf="npo.doc_no==null || npo.doc_no==''">
+						Subject: {{npo.subject}} ? 
 					</p>
 				</div>
 				<div class="modal-footer">
@@ -479,7 +482,7 @@
 							</label>
 							<div class="col-lg-4 col-sm-9">
 								<div class="input-group date" >
-									<input type="text" class="form-control form-control-sm m-input" [(ngModel)]="txt_inv_date" #datePickerStart (blur)="txt_inv_date = datePickerStart.value" readonly placeholder="Select date" name="m_form_inv_date"/>
+									<input required type="text" class="form-control form-control-sm m-input" [(ngModel)]="txt_inv_date" #datePickerStart (blur)="txt_inv_date = datePickerStart.value" readonly placeholder="Select date" name="m_form_inv_date"/>
 									<div class="input-group-append">
 										<span class="input-group-text">
 											<i class="la la-calendar-check-o"></i>
@@ -510,7 +513,7 @@
 						</div>
 						<div class="form-group m-form__group row m--margin-top-10">
 							<label class="col-form-label col-lg-2 col-sm-3">
-								CCA:
+								Cost Center:
 							</label>
 							<div class="col-lg-10 col-sm-9">
 								<div class="width-half">
@@ -550,7 +553,7 @@
 						</div>
 					</div>
                     <div class="modal-footer">
-						<button type="reset" [disabled]="false" (click)="itemAction()" class="btn btn-success m-btn" data-dismiss="modal">
+						<button type="reset" [disabled]="heroForm2.invalid" (click)="itemAction()" class="btn btn-success m-btn" data-dismiss="modal">
                             Save item
                         </button>
 						<button type="reset" class="btn btn-metal m-btn" data-dismiss="modal">

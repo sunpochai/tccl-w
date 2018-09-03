@@ -3,7 +3,7 @@ import { TokenBaseService } from './../tokenbase.service';
 import { Injectable } from "@angular/core";
 import { Http, Headers, Response, RequestOptions } from "@angular/http";
 import "rxjs/add/operator/map";
-import { API_NON_PO_LIST, API_NON_PO_GET, API_NON_PO_SAVE, API_NON_PO_SEND_APPROVE, API_NON_PO_REASSIGN } from "../../../../../app-constants";
+import { API_NON_PO_LIST, API_NON_PO_GET, API_NON_PO_SAVE, API_NON_PO_SEND_APPROVE, API_NON_PO_REASSIGN, API_NON_PO_CANCEL } from "../../../../../app-constants";
 import { NPO } from '../../_models/trns/npo';
 
 @Injectable()
