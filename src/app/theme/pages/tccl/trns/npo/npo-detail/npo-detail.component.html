@@ -415,11 +415,11 @@
 										Edit
 									</span>
 								</a>
-							</li><li class="m-portlet__nav-item" *ngIf="npo!=null && canUpdate()" >
+							<!-- </li><li class="m-portlet__nav-item" *ngIf="npo!=null && canUpdate()" >
 							
 								<button (click)="print()">print</button>
 							 
-							</li>
+							</li> -->
 						</ul>
 					</div>
 				</div>
@@ -525,10 +525,10 @@
 											<td style="vertical-align: middle" align="center" >{{row.inv_date | date :'dd/MM/yyyy'}}</td>
 											<td style="vertical-align: middle" align="left" >{{row.inv_desc}}</td>
 											<td style="vertical-align: middle" align="right" >{{row.amount | number:'1.2'}}</td>
-											<td style="vertical-align: middle" align="left" >{{row.cca}}</td>
-											<td style="vertical-align: middle" align="left" >{{row.acct}}</td>
-											<td style="vertical-align: middle" align="left" >{{row.io}}</td>
-											<td style="vertical-align: middle" align="left" >{{row.wbs}}</td>
+											<td style="vertical-align: middle" align="center" >{{row.cca}}</td>
+											<td style="vertical-align: middle" align="center" >{{row.acct}}</td>
+											<td style="vertical-align: middle" align="center" >{{row.io}}</td>
+											<td style="vertical-align: middle" align="center" >{{row.wbs}}</td>
 										</ng-container>
 									</tr>
 									<tr>
