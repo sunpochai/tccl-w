@@ -21,6 +21,7 @@ import { NPO } from '../../../_models/trns/npo';
 import { NPOItem } from '../../../_models/trns/npoitem';
 import { NPOService } from '../../../_services/trns/npo.service';
 import { DateUtil } from '../../../../../../Util/dateutil';
+import { StringUtil } from '../../../../../../Util/stringutil';
 
 
 declare var BootstrapDatepicker: any;
@@ -143,10 +144,15 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
         this.npo.change_user = super.getADUserLogin();//super.getFullNameUserLogin();
         this.npo.change_date = new Date();
 
+
+        this.npo.create_user = this.npo.change_user;
+        this.npo.create_username = this.getFullNameUserLogin();
+  
         if (isCreate) {
             this.npo.create_user = this.npo.change_user;
+            this.npo.create_username = this.getFullNameUserLogin();
             this.npo.create_date = this.npo.change_date;
-        }
+        }   
 
         console.log(this.npo);
 
@@ -157,7 +163,7 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
             this.npo.trn_payment_n_item[index].create_datetime = this.npo.update_datetime;
         } */
 
-    }
+    }  
 
     create() {
         super.blockui('#m_form_1');

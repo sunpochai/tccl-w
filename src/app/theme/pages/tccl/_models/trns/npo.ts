@@ -30,6 +30,7 @@ export class NPO {
     change_user: string;
     create_date: Date;
     create_user: string;
+    create_username: string;
     print_count: number;
     print_user: string;
     advances_amt: number;
