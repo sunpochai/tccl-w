@@ -89,10 +89,10 @@
 						<label class="col-form-label col-lg-2 col-sm-3">
 							หน่วยธุรกิจ *   
 						</label> 
-						<div class="col-lg-3 col-sm-3">
+						<!-- <div class="col-lg-3 col-sm-3">
 							<input required minlength="4" maxlength="10" [(ngModel)]="npo.bu_code" type="text" class="form-control form-control-sm m-input" name="bu_code" placeholder="รหัส"  >
-						</div>
-						<div class="col-lg-7 col-sm-6">
+						</div> -->
+						<div class="col-lg-10 col-sm-9">
 							<input required minlength="4" maxlength="255" [(ngModel)]="npo.bu_name" type="text" class="form-control form-control-sm m-input" name="bu_name" placeholder="ชื่อหน่วยธุรกิจ"  >
 						</div>
 					</div>
@@ -130,10 +130,10 @@
 						<label class="col-form-label col-lg-2 col-sm-3">
 							จ่ายให้ *
 						</label>
-						<div class="col-lg-3 col-sm-3">
+						<!-- <div class="col-lg-3 col-sm-3">
 							<input required minlength="4" maxlength="10" [(ngModel)]="npo.vendor_code" type="text" class="form-control form-control-sm m-input" name="vendor_code" placeholder="รหัส"  >
-						</div>
-						<div class="col-lg-7 col-sm-6">
+						</div> -->
+						<div class="col-lg-10 col-sm-9">
 							<input required minlength="4" maxlength="255" [(ngModel)]="npo.vendor_name" type="text" class="form-control form-control-sm m-input" name="vendor_name" placeholder="ชื่อผู้เบิก หรือ ผู้ขาย"  >
 						</div>
 					</div>
@@ -250,7 +250,7 @@
 								<td class="m--font-deleted" style="vertical-align: middle" align="left">{{row.inv_no}}</td>
 								<td class="m--font-deleted" style="vertical-align: middle" align="center" >{{toDisplayDate(row.inv_date)}}</td>
 								<td class="m--font-deleted" style="vertical-align: middle" align="left" >{{row.inv_desc}}</td>
-								<td class="m--font-deleted" style="vertical-align: middle" align="right" >{{row.amount | number:'1.2'}}</td>
+								<td class="m--font-deleted" style="vertical-align: middle" align="right" >{{row.amount | number:'1.5'}}</td>
 								<td class="m--font-deleted" style="vertical-align: middle" align="left" >{{row.cca}}</td>
 								<td class="m--font-deleted" style="vertical-align: middle" align="left" >{{row.acct}}</td>
 								<td class="m--font-deleted" style="vertical-align: middle" align="left" >{{row.io}}</td>
@@ -263,7 +263,7 @@
 								<td style="vertical-align: middle" align="left">{{row.inv_no}}</td>
 								<td style="vertical-align: middle" align="center" >{{toDisplayDate(row.inv_date)}}</td>
 								<td style="vertical-align: middle" align="left" >{{row.inv_desc}}</td>
-								<td style="vertical-align: middle" align="right" >{{row.amount | number:'1.2'}}</td>
+								<td style="vertical-align: middle" align="right" >{{row.amount | number:'1.5'}}</td>
 								<td style="vertical-align: middle" align="center" >{{row.cca}}</td>
 								<td style="vertical-align: middle" align="center" >{{row.acct}}</td>
 								<td style="vertical-align: middle" align="center" >{{row.io}}</td>
@@ -280,7 +280,7 @@
 						</tr>
 						<tr *ngIf="npo.trn_payment_n_item!=null && npo.trn_payment_n_item.length>0" >
 							<td style="vertical-align: middle" align="right" colspan="4">Total amount</td>
-							<td style="vertical-align: middle" align="right">{{npo.grand_total | number:'1.2'}}</td>
+							<td style="vertical-align: middle" align="right">{{npo.grand_total | number:'1.5'}}</td>
 							<td colspan="5"></td>
 						</tr>
 						<tr *ngIf="npo.trn_payment_n_item==null || npo.trn_payment_n_item.length==0">
@@ -517,7 +517,7 @@
 							</label>
 							<div class="col-lg-10 col-sm-9">
 								<div class="width-half">
-									<input maxlength="255" type="text" id='txt_cca' name="txt_cca" [(ngModel)]="action_npo_item.cca" placeholder="" class=' form-control form-control-sm m-input' autocomplete="off" >
+									<input maxlength="10" type="text" id='txt_cca' name="txt_cca" [(ngModel)]="action_npo_item.cca" placeholder="" class=' form-control form-control-sm m-input' autocomplete="off" >
 								</div>  
 							</div>
 						</div>
@@ -527,7 +527,7 @@
 							</label>
 							<div class="col-lg-10 col-sm-9">
 								<div class="width-half">
-									<input maxlength="255" type="text" id='txt_acct' name="txt_acct" [(ngModel)]="action_npo_item.acct" placeholder="" class=' form-control form-control-sm m-input' autocomplete="off" >
+									<input maxlength="9" type="text" id='txt_acct' name="txt_acct" [(ngModel)]="action_npo_item.acct" placeholder="" class=' form-control form-control-sm m-input' autocomplete="off" >
 								</div>  
 							</div>
 						</div>

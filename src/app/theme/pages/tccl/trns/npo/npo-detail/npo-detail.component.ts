@@ -858,25 +858,35 @@ export class NPODetailComponent extends PageBaseComponent implements OnInit, Aft
     }
 
     canUpdate() {
-        if (this.npo == null) 
+        if (this.npo == null) {
             return false;
+        }
 
         return super.getADUserLogin() == this.npo.create_user;
     }
+
+    canPrint() {
+        if (this.npo == null) {
+            return false;
+        }
+
+        return false;//super.getADUserLogin() == this.npo.create_user;
+    }
+
     print(): void {
-        let printContents, popupWin;
+        let printContents, popupWin, npo_detail;
         printContents = document.getElementById('print-section').innerHTML;
         popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
         popupWin.document.open();
         popupWin.document.write(`
           <html>
             <head>
-              <title>Print tab</title>
+              <title>Non PO</title>
               <style>
               //........Customized style.......
               </style>
             </head>
-        <body onload="window.print();window.close()">${printContents}</body>
+            <body onload="window.print();window.close()">${printContents}</body>
           </html>`
         );
         popupWin.document.close();
