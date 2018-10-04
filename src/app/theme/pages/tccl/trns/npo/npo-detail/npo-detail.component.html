@@ -417,8 +417,8 @@
 								</a>
 							</li>
 							<li class="m-portlet__nav-item" *ngIf="npo!=null && canPrint()" >
-								<!-- <button (click)="print()">print</button> -->
-								<button type="button" (click)="print()" class="btn btn-primary" >
+								<!-- <button type="button" (click)="print();" class="btn btn-primary" > -->
+								<button type="button" (click)="printReport();" class="btn btn-primary" >
 									<i class="la la-print"></i>
 									Print 
 								</button>
@@ -426,7 +426,7 @@
 						</ul>
 					</div>
 				</div>
-				<div class="m-portlet__body-lil" id="print-section">
+				<div class="m-portlet__body-lil" >
 					<div class="row">
 						<div class="col-xl-5 col-sm-12">
 							<div class="table-responsive">
@@ -546,6 +546,145 @@
 						</div>
 					</div>
 				</div>
+
+				<!-- this section is for print only -->
+				<!-- start ::: print-section -->
+				<div id="print-section" style="display:none">
+					<table style="width:95%; padding: 5px;">
+						<tr><td colspan="11"></td><td colspan="2">{{printMsg}}</td></tr>
+						<tr>
+							<td style="width:8%"></td>
+							<td style="width:8%"></td>
+							<td style="width:8%"></td>
+							<td style="width:8%"></td>
+							<td style="width:8%"></td>
+							<td style="width:8%"></td>
+							<td style="width:4%"></td>
+							<td style="width:8%"></td>
+							<td style="width:8%"></td>
+							<td style="width:8%"></td>
+							<td style="width:8%"></td>
+							<td style="width:8%"></td>
+							<td style="width:8%"></td>
+						</tr>
+						<tr>
+							<td colspan="2">หน่วยธุรกิจ: </td>
+							<td colspan="4" class="table-underline">{{npo.bu_name}}</td>
+							<td></td>
+							<td colspan="1">สาขา: </td>
+							<td colspan="5" class="table-underline">{{npo.plant_code}} {{npo.plant_name}}</td>
+						</tr>
+						<tr>
+							<td colspan="2">ชื่อเจ้าของทรัพย์: </td>
+							<td colspan="4" class="table-underline">{{npo.comp_code}} {{npo.comp_name}}</td>
+							<td></td>
+							<td colspan="1">AFP No.: </td>
+							<td colspan="5" class="table-underline">{{npo.afp_no}}</td>
+						</tr>
+						<tr>
+							<td colspan="1">เรื่อง: </td>
+							<td colspan="5" class="table-underline">{{npo.subject}}</td>
+							<td></td>
+							<td colspan="1">วันที่: </td>
+							<td colspan="5" class="table-underline">{{ printDatetime | date :'dd/MM/yyyy' }}</td>
+						</tr>
+						<tr>
+							<td colspan="1" >จ่ายให้: </td>
+							<td colspan="5" class="table-underline">{{npo.vendor_name}}</td>
+						</tr>
+						<tr>
+							<td colspan="1">หมายเหตุ: </td>
+							<td colspan="12" class="table-underline">{{npo.remark}}</td>
+						</tr>
+						<tr>
+							<td colspan="13">กรณีคืนเงินทดรองจ่าย: </td>
+						</tr>
+						<tr>
+							<td colspan="2">อ้างถึง AFP No. </td>
+							<td colspan="4" class="table-underline">{{npo.afp_ref}}</td>
+							<td></td>
+							<td colspan="3">จำนวนเงินเบิกทดรองจ่าย: </td>
+							<td colspan="3" class="table-underline">{{npo.advances_amt | number:'1.5'}}</td>
+						</tr>
+						<!-- <tr>
+							<td class="table-display-caption">Tracking</td>
+							<td class="table-display-value">{{npo.non_tracking_no}}</td>
+						</tr> -->
+					</table>
+					<br>
+					<div style="text-align: center">
+						<table style="width:90%" class="table-bordered ">
+							<thead>
+								<tr style="background-color:#d9c1e9;">
+									<th>No</th>
+									<th>Invoice No.</th>
+									<th>Invoice Date</th>
+									<th>Invoice Desc.</th>
+									<th>Amount</th>
+									<th>Cost Center</th>
+									<th>GL Account</th>
+									<th>IO</th>
+									<th>WBS</th>
+								</tr>
+							</thead>
+							<tr *ngFor="let row of npo.trn_payment_n_item; let index = index">
+								<ng-container *ngIf="row.item_status == 'DEL' ">
+									<td class="m--font-deleted" style="vertical-align: middle" align="center" >{{index+1}}</td>
+									<td class="m--font-deleted" style="vertical-align: middle" align="left">{{row.inv_no}}</td>
+									<td class="m--font-deleted" style="vertical-align: middle" align="center" >{{row.inv_date | date :'dd/MM/yyyy'}}</td>
+									<td class="m--font-deleted" style="vertical-align: middle" align="left" >{{row.inv_desc}}</td>
+									<td class="m--font-deleted" style="vertical-align: middle" align="right" >{{row.amount | number:'1.5'}}</td>
+									<td class="m--font-deleted" style="vertical-align: middle" align="left" >{{row.cca}}</td>
+									<td class="m--font-deleted" style="vertical-align: middle" align="left" >{{row.acct}}</td>
+									<td class="m--font-deleted" style="vertical-align: middle" align="left" >{{row.io}}</td>
+									<td class="m--font-deleted" style="vertical-align: middle" align="left" >{{row.wbs}}</td>
+								</ng-container>
+								<ng-container *ngIf="row.item_status != 'DEL' ">
+									<td style="vertical-align: middle" align="center" >{{index+1}}</td>
+									<td style="vertical-align: middle" align="left">{{row.inv_no}}</td>
+									<td style="vertical-align: middle" align="center" >{{row.inv_date | date :'dd/MM/yyyy'}}</td>
+									<td style="vertical-align: middle" align="left" >{{row.inv_desc}}</td>
+									<td style="vertical-align: middle" align="right" >{{row.amount | number:'1.5'}}</td>
+									<td style="vertical-align: middle" align="center" >{{row.cca}}</td>
+									<td style="vertical-align: middle" align="center" >{{row.acct}}</td>
+									<td style="vertical-align: middle" align="center" >{{row.io}}</td>
+									<td style="vertical-align: middle" align="center" >{{row.wbs}}</td>
+								</ng-container>
+							</tr>
+							<!-- <tr>
+								<td colspan="4" style="vertical-align: middle" align="right">Total</td>
+								<td style="vertical-align: middle" align="right" >{{npo.grand_total | number:'1.5'}}</td>
+								<td colspan="4"></td>
+							</tr> -->
+						</table>
+					</div>
+					<div>
+						<br>
+						<br>
+						<table style="width:50%">
+							<tr>
+								<td style="width:20%">ผู้จัดทำ:</td>
+								<td class="table-underline" >{{npo.create_username}}</td>
+							</tr>
+							<!-- <tr>
+								<td>ผู้สนับสนุน:</td>
+								<td class="table-underline"></td>
+							</tr> -->
+							<ng-container *ngIf="npo!=null && npo.worklist!=null">
+								<ng-container *ngFor="let row of npo.worklist.stage_list; let index = index">
+									<tr *ngIf="row.stage_name == 'Approver'">
+										<td>ผู้อนุมัติ:</td>
+										<td class="table-underline">{{row.actor_username}}</td>
+									</tr>
+								</ng-container>
+							</ng-container>
+						</table>
+						 <u></u>
+					</div>
+				</div>
+				<!-- end ::: print-section -->
+
+
 			</div>
 		</div>
 	</div>

@@ -216,9 +216,14 @@
 												Subject: {{row.subject}}
 											</span>	
 										</div>
-										<div class="m-widget5__stats1">
+										<div class="m-widget5__stats1" *ngIf="row.name!='NPO'">
 											<span class="m-widget5__sales">
 												{{row.grand_total | number:'1.2'}}&nbsp;{{row.currency}}
+											</span>
+										</div>
+										<div class="m-widget5__stats1" *ngIf="row.name=='NPO'">
+											<span class="m-widget5__sales">
+												{{row.grand_total | number:'1.2'}}&nbsp;THB
 											</span>
 										</div>
 									</div>

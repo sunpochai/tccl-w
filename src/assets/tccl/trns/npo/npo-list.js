@@ -111,7 +111,8 @@ var myDatatable = function( ) {
           title: 'Business Unit',
           sortable: true,
           template: function (row) {
-            return row.bu_code + ' ' + row.bu_name;
+            // return row.bu_code + ' ' + row.bu_name;
+            return row.bu_name;
           }
         } , {
           field: 'plant_name',
@@ -125,7 +126,8 @@ var myDatatable = function( ) {
           title: 'Vendor/Payee',
           sortable: true,
           template: function (row) {
-            return row.vendor_code.replace(/^0+/, '') + ' - ' + row.vendor_name;
+            // return row.vendor_code.replace(/^0+/, '') + ' - ' + row.vendor_name;
+            return row.vendor_name;
           }
         } , {   
           field: 'afp_no',
