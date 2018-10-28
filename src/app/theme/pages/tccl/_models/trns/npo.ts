@@ -1,6 +1,7 @@
 import { Attachment } from './attachment';
 import { Workflow } from './workflow';
 import { NPOItem } from './npoitem';
+import { NPOBudget } from './npobudget';
 
 export class NPO {
     payment_n_id: number;
@@ -39,6 +40,7 @@ export class NPO {
     wf_workflow: any;
 
     trn_payment_n_item: Array<NPOItem>;
+    trn_payment_n_budget: Array<NPOBudget>;
     pa_attachment_items: Array<Attachment>;
     worklist: Workflow;
 }  

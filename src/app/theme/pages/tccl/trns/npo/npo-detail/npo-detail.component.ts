@@ -877,12 +877,12 @@ export class NPODetailComponent extends PageBaseComponent implements OnInit, Aft
     }
 
     canPrint() {
+        // return true;
         if (this.npo == null) {
             return false;
         }
 
         return (this.npo.afp_no!=null && this.npo.afp_no!='');
-        // return true;//super.getADUserLogin() == this.npo.create_user;
     }
     
     print() {
@@ -989,6 +989,16 @@ export class NPODetailComponent extends PageBaseComponent implements OnInit, Aft
           </html>`
         );
         popupWin.document.close();
+    }
+
+    getDisplayBudgetDate(): string {
+        if (this.npo.trn_payment_n_budget == null || this.npo.trn_payment_n_budget.length <= 0)
+            return 'n/a';
+        
+        if (this.npo.trn_payment_n_budget[0].check_date == null)
+            return 'n/a';
+        else 
+            return DateUtil.toDisplayDate(this.npo.trn_payment_n_budget[0].check_date);
     }
 
 }

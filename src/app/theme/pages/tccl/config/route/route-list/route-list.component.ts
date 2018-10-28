@@ -12,6 +12,7 @@ import { DocType } from '../../../_models/masters/doctype';
 import { DocTypeService } from '../../../_services/masters/doctype.service';
 import { TrackingService } from '../../../_services/masters/tracking.service';
 import { Tracking } from '../../../_models/masters/tracking';
+import { RouteCriteria } from '../../../_models/config/routecriteria';
 
 declare var myDatatable: any;
 declare var window: any
@@ -29,6 +30,7 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
     public trackingNumberList: Array<Tracking>;
     public action_route_id: string;
     public action_route_name: string;
+    public routeSearchCriteria: RouteCriteria = new RouteCriteria;
     constructor(private _router: Router, private route: ActivatedRoute,
         private _script: ScriptLoaderService,
         private _routeapproveService: RouteApproveService,
@@ -66,8 +68,39 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
                     break;
             }
             this.scriptpath = 'assets/tccl/config/route/route-' + this.routetype.name + '-list.js';
-            // console.log(this.routetype);
-            // console.log(this.scriptpath);
+
+            /** 
+             * manage search criteria when BACK from detail page
+             * weeraya 16/10/2018
+             */
+            let tmp_m = params['m'];
+            if (tmp_m != null && tmp_m == 'back') {
+                /**
+                 * go back from detail page
+                 * 1.read from local storage
+                 * 2.if exists then remove key
+                 */
+                let tmp_criteria = JSON.parse(localStorage.getItem('routeSearchCriteria'));
+                console.log(tmp_criteria);
+
+                if (tmp_criteria != null && tmp_criteria != '') {
+                    console.log('-');
+                    this.routeSearchCriteria = tmp_criteria;
+                    localStorage.removeItem('routeSearchCriteria');
+                }
+            } else {
+                /**
+                 * init
+                 * 1.if local storage exists then remove key
+                 */
+                let tmp_criteria = JSON.parse(localStorage.getItem('routeSearchCriteria'));
+                console.log(tmp_criteria);
+
+                if (tmp_criteria != null && tmp_criteria != '') {
+                    console.log('*');
+                    localStorage.removeItem('routeSearchCriteria');
+                }
+            }
         });
 
         this._doctypeService.getall().subscribe(resp => {
@@ -152,6 +185,16 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
     search() {
         // console.log('do search');
         super.blockui('#m-content');
+        // this.routeSearchCriteria.ms_doctype = '';
+        // this.routeSearchCriteria.route_name = $('#m_form_route_name').val();
+        // this.routeSearchCriteria.tracking_no
+        // this.routeSearchCriteria.doc_type
+        localStorage.setItem('routeSearchCriteria',JSON.stringify({
+            'doc_type' : this.routeSearchCriteria.doc_type,
+            'ms_doctype' : this.routeSearchCriteria.ms_doctype,
+            'route_name' : this.routeSearchCriteria.route_name,
+            'tracking_no' : this.routeSearchCriteria.tracking_no
+        }));
         myDatatable.search();
         super.unblockui('#m-content');
     }

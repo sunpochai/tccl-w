@@ -22,6 +22,7 @@ import { NPOItem } from '../../../_models/trns/npoitem';
 import { NPOService } from '../../../_services/trns/npo.service';
 import { DateUtil } from '../../../../../../Util/dateutil';
 import { StringUtil } from '../../../../../../Util/stringutil';
+import { NPOBudget } from '../../../_models/trns/npobudget';
 
 
 declare var BootstrapDatepicker: any;
@@ -389,6 +390,51 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
                 this.npo.grand_total = this.npo.grand_total + row.amount;
             }
         }
+        this.updateBudget();
+    }
+
+    updateBudget() {
+        this.npo.trn_payment_n_budget = new Array<NPOBudget>();
+        let firstRow = true;
+        let index = 0;
+        let tmpBudget;
+        for (let row of this.npo.trn_payment_n_item) {
+            if (row.item_status!='DEL') {
+                if (firstRow) {
+                    tmpBudget = new NPOBudget();
+                    tmpBudget.payment_n_id = this.npo.payment_n_id;
+                    tmpBudget.cca = row.cca;
+                    tmpBudget.acct = row.acct;
+                    tmpBudget.wbs = row.wbs;
+                    tmpBudget.amount = row.amount;
+                    this.npo.trn_payment_n_budget.push(tmpBudget);
+                    firstRow = false;
+                } else {
+                    index = 0;
+                    for (let rowBudget of this.npo.trn_payment_n_budget) {
+                        if (row.cca == rowBudget.cca && row.acct == rowBudget.acct) {
+                            rowBudget.amount = rowBudget.amount + row.amount;
+                            break;
+                        } else {
+                            if (index == this.npo.trn_payment_n_budget.length-1) {
+                                // last row
+                                tmpBudget = new NPOBudget();
+                                tmpBudget.payment_n_id = this.npo.payment_n_id;
+                                tmpBudget.cca = row.cca;
+                                tmpBudget.acct = row.acct;
+                                tmpBudget.wbs = row.wbs;
+                                tmpBudget.amount = row.amount;
+                                this.npo.trn_payment_n_budget.push(tmpBudget);
+                                break;
+                            } else {
+                                // continue;
+                            }
+                        }
+                        index++;
+                    }
+                }
+            }
+        }
     }
 
     navigate_list() {
@@ -445,6 +491,16 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
  
     onChangeStartDate(event) {
         console.log(event);
+    }
+
+    getDisplayBudgetDate(): string {
+        if (this.npo.trn_payment_n_budget == null || this.npo.trn_payment_n_budget.length <= 0)
+            return 'n/a';
+        
+        if (this.npo.trn_payment_n_budget[0].check_date == null)
+            return 'n/a';
+        else 
+            return DateUtil.toDisplayDate(this.npo.trn_payment_n_budget[0].check_date);
     }
    
   

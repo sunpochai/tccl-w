@@ -543,6 +543,32 @@
 									</tr>
 								</table>
 							</div>
+							<div class="table-responsive" style="text-align: center">
+								<div align="left">ข้อมูลงบประมาณ ณ {{getDisplayBudgetDate()}}</div>
+								<table class="table table-bordered table-hover ">
+									<thead>
+										<tr style="background-color:#d9c1e9;">
+											<th>CCA.GL acct</th>
+											<th>WBS</th>
+											<th>งบประมาณ</th>
+											<th>งบประมาณคงเหลือยกมา</th>
+											<th>ค่าใช้จ่าย</th>
+											<th>งบประมาณคงเหลือยกไป</th>
+										</tr>
+									</thead>
+									<tr *ngFor="let row of npo.trn_payment_n_budget; let index = index">
+										<td style="vertical-align: middle" align="left">{{row.cca}}.{{row.acct}}</td>
+										<td style="vertical-align: middle" align="left" >{{row.wbs}}</td>
+										<td *ngIf="row.check_date==null" style="vertical-align: middle" align="right" >n/a</td>
+										<td *ngIf="row.check_date!=null" style="vertical-align: middle" align="right" >{{row.budget | number:'1.2'}}</td>
+										<td *ngIf="row.check_date==null" style="vertical-align: middle" align="right" >n/a</td>
+										<td *ngIf="row.check_date!=null" style="vertical-align: middle" align="right" >{{row.available | number:'1.2'}}</td>
+										<td style="vertical-align: middle" align="right" >{{row.amount | number:'1.2'}}</td>
+										<td *ngIf="row.check_date==null" style="vertical-align: middle" align="right" >n/a</td>
+										<td *ngIf="row.check_date!=null" style="vertical-align: middle" align="right" >{{row.remain | number:'1.2'}}</td>
+									</tr>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -656,6 +682,33 @@
 								<td style="vertical-align: middle" align="right" >{{npo.grand_total | number:'1.5'}}</td>
 								<td colspan="4"></td>
 							</tr> -->
+						</table>
+					</div>
+					<br>
+					<div style="text-align: center">
+						<div align="left">ข้อมูลงบประมาณ ณ {{getDisplayBudgetDate()}}</div>
+						<table style="width:90%" class="table-bordered ">
+							<thead>
+								<tr style="background-color:#d9c1e9;">
+									<th>CCA.GL acct</th>
+									<th>WBS</th>
+									<th>งบประมาณ</th>
+									<th>งบประมาณคงเหลือยกมา</th>
+									<th>ค่าใช้จ่าย</th>
+									<th>งบประมาณคงเหลือยกไป</th>
+								</tr>
+							</thead>
+							<tr *ngFor="let row of npo.trn_payment_n_budget; let index = index">
+								<td style="vertical-align: middle" align="left">{{row.cca}}.{{row.acct}}</td>
+								<td style="vertical-align: middle" align="left" >{{row.wbs}}</td>
+								<td *ngIf="row.check_date==null" style="vertical-align: middle" align="right" >n/a</td>
+								<td *ngIf="row.check_date!=null" style="vertical-align: middle" align="right" >{{row.budget | number:'1.2'}}</td>
+								<td *ngIf="row.check_date==null" style="vertical-align: middle" align="right" >n/a</td>
+								<td *ngIf="row.check_date!=null" style="vertical-align: middle" align="right" >{{row.available | number:'1.2'}}</td>
+								<td style="vertical-align: middle" align="right" >{{row.amount | number:'1.2'}}</td>
+								<td *ngIf="row.check_date==null" style="vertical-align: middle" align="right" >n/a</td>
+								<td *ngIf="row.check_date!=null" style="vertical-align: middle" align="right" >{{row.remain | number:'1.2'}}</td>
+							</tr>
 						</table>
 					</div>
 					<div>
