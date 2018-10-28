@@ -66,7 +66,10 @@ var myDatatable = function( ) {
           field: 'route_name',
           title: 'Route Name',
           selector: false,
-          sortable: 'asc'
+          sortable: 'asc',
+          template: function (row) {
+            return '<a href="./config/route/detail/' + row.route_id + '" >' + row.route_name + '</a>';
+          }
         }, {
           field: 'tracking_no',
           title: 'Tracking Number',

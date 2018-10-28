@@ -31,16 +31,16 @@ const routes: Routes = [
         "component": DefaultComponent,
         "children": [
             {
-                "path": "list/pr/:routetype", //routetype:string ('pr','po','pa','npo')
+                "path": "list/pr/:routetype/:m", //routetype:string ('pr','po','pa','npo')
                 "component": RouteApproveListComponent
             }, {
-                "path": "list/po/:routetype", //routetype:string ('pr','po','pa','npo')
+                "path": "list/po/:routetype/:m", //routetype:string ('pr','po','pa','npo')
                 "component": RouteApproveListComponent
             }, {
-                "path": "list/pa/:routetype", //routetype:string ('pr','po','pa','npo')
+                "path": "list/pa/:routetype/:m", //routetype:string ('pr','po','pa','npo')
                 "component": RouteApproveListComponent
             }, {
-                "path": "list/npo/:routetype", //routetype:string ('pr','po','pa','npo')
+                "path": "list/npo/:routetype/:m", //routetype:string ('pr','po','pa','npo')
                 "component": RouteApproveListComponent
             }, {
                 "path": "detail/:id", //id:any ('pr','po','pa','npo' <-- add new record ,id <-- get old record)
