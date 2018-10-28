@@ -172,6 +172,10 @@ var myDatatable = function( ) {
     init: function(apiurl) {
       load(apiurl);
     },
+    initandsearch: function(apiurl) {
+      load(apiurl);
+      search();
+    },
     search: function() {
       search();
     },

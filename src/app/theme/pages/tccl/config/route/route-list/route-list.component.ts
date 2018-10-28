@@ -31,6 +31,13 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
     public action_route_id: string;
     public action_route_name: string;
     public routeSearchCriteria: RouteCriteria = new RouteCriteria;
+
+    // search criteria
+    public m_form_route_name;
+    public tracking_no;
+    public m_form_doc_type;
+    public loadCriteriaFlag = false;
+
     constructor(private _router: Router, private route: ActivatedRoute,
         private _script: ScriptLoaderService,
         private _routeapproveService: RouteApproveService,
@@ -74,31 +81,40 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
              * weeraya 16/10/2018
              */
             let tmp_m = params['m'];
+            // console.log(tmp_m);
             if (tmp_m != null && tmp_m == 'back') {
                 /**
                  * go back from detail page
                  * 1.read from local storage
                  * 2.if exists then remove key
                  */
+                
                 let tmp_criteria = JSON.parse(localStorage.getItem('routeSearchCriteria'));
-                console.log(tmp_criteria);
+                // console.log(tmp_criteria);
 
                 if (tmp_criteria != null && tmp_criteria != '') {
-                    console.log('-');
+                    // console.log('-');
                     this.routeSearchCriteria = tmp_criteria;
                     localStorage.removeItem('routeSearchCriteria');
+
+                    this.loadCriteria();
+                    this.loadCriteriaFlag = true;
+                    // this.search();
                 }
             } else {
                 /**
                  * init
                  * 1.if local storage exists then remove key
+                 * 2.clear search criteria data
                  */
                 let tmp_criteria = JSON.parse(localStorage.getItem('routeSearchCriteria'));
-                console.log(tmp_criteria);
+                // console.log(tmp_criteria);
 
-                if (tmp_criteria != null && tmp_criteria != '') {
-                    console.log('*');
+                if (tmp_criteria != null) {
+                    // console.log('*');
                     localStorage.removeItem('routeSearchCriteria');
+                    this.routeSearchCriteria = new RouteCriteria;
+                    this.loadCriteria;
                 }
             }
         });
@@ -121,10 +137,20 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
         }
     }
 
+    loadCriteria() {
+        this.m_form_route_name = this.routeSearchCriteria.route_name;
+        this.tracking_no = this.routeSearchCriteria.tracking_no;
+        this.m_form_doc_type = this.routeSearchCriteria.doc_type;
+    }
+
     ngAfterViewInit() {
         this._script.loadScripts('config-route-list', [this.scriptpath]);
         // console.log('ngAfterViewInit');
-        this.load(this.api_list, this.routetype.doc_group);
+        if (this.loadCriteriaFlag) {
+            this.load2(this.api_list, this.routetype.doc_group);
+        } else {
+            this.load(this.api_list, this.routetype.doc_group);
+        }
     }
 
     load(api_list, doc_group) {
@@ -132,6 +158,15 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
         jQuery(document).ready(function() {
             // console.log(doc_group);
             myDatatable.init(api_list, doc_group);
+        });
+        super.unblockui('#m-content');
+    }
+
+    load2(api_list, doc_group) {
+        super.blockui('#m-content');
+        jQuery(document).ready(function() {
+            // console.log(doc_group);
+            myDatatable.initandsearch(api_list, doc_group);
         });
         super.unblockui('#m-content');
     }
@@ -179,22 +214,20 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
     }
 
     navigate_list() {
-        this._router.navigate(['/config/route/list/' + this.routetype.name + '/' + this.routetype.name]);
+        this._router.navigate(['/config/route/list/' + this.routetype.name + '/' + this.routetype.name + '/init']);
     }
 
     search() {
-        // console.log('do search');
         super.blockui('#m-content');
-        // this.routeSearchCriteria.ms_doctype = '';
-        // this.routeSearchCriteria.route_name = $('#m_form_route_name').val();
-        // this.routeSearchCriteria.tracking_no
-        // this.routeSearchCriteria.doc_type
-        localStorage.setItem('routeSearchCriteria',JSON.stringify({
-            'doc_type' : this.routeSearchCriteria.doc_type,
-            'ms_doctype' : this.routeSearchCriteria.ms_doctype,
-            'route_name' : this.routeSearchCriteria.route_name,
-            'tracking_no' : this.routeSearchCriteria.tracking_no
-        }));
+        
+        this.routeSearchCriteria.route_name = this.m_form_route_name;
+        this.routeSearchCriteria.tracking_no = this.tracking_no;
+        this.routeSearchCriteria.doc_type = this.m_form_doc_type;
+        // console.log(this.routeSearchCriteria);
+
+        localStorage.setItem('routeSearchCriteria',JSON.stringify(this.routeSearchCriteria));
+        // console.log(JSON.parse(localStorage.getItem('routeSearchCriteria')));
+
         myDatatable.search();
         super.unblockui('#m-content');
     }
