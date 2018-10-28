@@ -377,8 +377,11 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
         this.routeapprove.cf_route_detail = tempApprovers;
     }
 
-    navigate_list() {
+    navigate_back() {
         this._router.navigate(['/config/route/list/' + this.routetype.name + '/' + this.routetype.name + '/back']);
+    }
+    navigate_list() {
+        this._router.navigate(['/config/route/list/' + this.routetype.name + '/' + this.routetype.name + '/init']);
     }
 
 
