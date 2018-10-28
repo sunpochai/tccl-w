@@ -45,7 +45,6 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
     public txt_inv_date: string;
 
     public advances_payment: boolean;
-    // public showDetail: boolean = false;
 
     public action_npo_item: NPOItem = new NPOItem;
     public action_type: any;
@@ -54,6 +53,13 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
     public sortBy = 'tracking_code';
     public sortType = -1;
 
+    // Tracking search
+    public trackingList: any;
+    public textSearchTracking: string;
+    public textSearchTrackingDisplay: string;
+    public txtSearchTrackingChanged: Subject<string> = new Subject<string>();
+    public showDropDownTracking = false;
+
     constructor(private _script: ScriptLoaderService,
         private _router: Router, private route: ActivatedRoute,
         private _npoService: NPOService,
@@ -61,15 +67,20 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
         private _trackingService: TrackingService,
         private _adUserService: ADUserService) {
         super();
+        
+        this.txtSearchTrackingChanged.debounceTime(500).distinctUntilChanged().subscribe(md => {
+            this.textSearchTracking = md;
+            this.searchTracking(md);
+        })
     }
 
 
     ngOnInit() {
         super.blockui('#m_form_1');
 
-        this._trackingService.getnpoall().subscribe(resp => {
+        /* this._trackingService.getnpoall().subscribe(resp => {
             this.trackingNumberList = resp;
-        });
+        }); */
 
         this.route.params.subscribe(params => {
             //id:any ('0' <-- add new record ,id <-- get old record)
@@ -86,6 +97,10 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
                     super.unblockui('#m-content');
                 } else {
                     this.npo = resp.data;
+
+                    this.textSearchTracking = this.npo.non_tracking_no;
+                    this.textSearchTrackingDisplay = this.npo.non_tracking_no;
+
                     console.log(this.npo);
                     this.doc_date = DateUtil.toDisplayDate(this.npo.doc_date);
                     super.unblockui('#m_form_1');
@@ -114,6 +129,32 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
             );
         });
         super.unblockui('#m_form_1');
+    }
+
+    searchTracking(search) {
+        if (search.length < 2) return;
+        // console.log("search >>" + search);
+        this.showDropDownTracking = true;
+        this._trackingService.search(search,true).subscribe(x => {
+            this.trackingList = x
+        });
+    }
+
+    onChangeSearchTracking(event) {
+        // console.log(event);
+        this.txtSearchTrackingChanged.next(event);
+    }
+
+    selectTrackingValue(value) {
+        this.npo.non_tracking_no = value.tracking_code;
+
+        this.textSearchTracking = value.tracking_code;
+        this.textSearchTrackingDisplay = value.tracking_code;
+        this.closeDropDown();
+    }
+
+    closeDropDown() {
+        this.showDropDownTracking = false;
     }
 
     save() {
