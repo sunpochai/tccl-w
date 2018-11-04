@@ -141,15 +141,26 @@
 						<label class="col-form-label col-lg-2 col-sm-3">
 							Tracking No. *
 						</label>
-						<div class="col-lg-3 col-sm-3">
-							<!-- <input required minlength="4" maxlength="10" [(ngModel)]="npo.non_tracking_no" type="text" class="form-control form-control-sm m-input" name="non_tracking_no" placeholder="Tracking number"  > -->
+						<div class="col-lg-10 col-sm-9">
+							<div class="width-half">
+								<input required id='searchtracking' placeholder="Search for tracking number" class=' form-control m-input' [(ngModel)]="textSearchTracking" name="tracking" type='text' (ngModelChange)="onChangeSearchTracking($event);" autocomplete="off" >
+								<div clickOutside (clickOutside)="closeDropDown()">
+									<div  *ngIf="showDropDownTracking" class='search-drop-down card'>
+										<div (click)='selectTrackingValue(s)' class='search-results ' *ngFor="let s of this.trackingList ">
+											{{s.tracking_code}}
+										</div>
+									</div>
+								</div>
+							</div>  
+						</div>
+						<!-- <div class="col-lg-3 col-sm-3">
 							<select required class="form-control form-control-sm m-input" [(ngModel)]="npo.non_tracking_no" name="tracking_no">
 								<option></option>
 								<option value={{item.tracking_code}} *ngFor="let item of trackingNumberList ">
 									{{item.tracking_name}}
 								</option>
 							</select>
-						</div>
+						</div> -->
 					</div>
 					<div class="form-group m-form__group row" >
 						<label class="col-form-label col-lg-2 col-sm-3">
