@@ -191,6 +191,11 @@ export class NPODetailComponent extends PageBaseComponent implements OnInit, Aft
                                     this.npo.worklist.stage_list[index].canReassignAdd = true;
                                     this.npo.worklist.stage_list[index].canReassignDelete = true;
                                 }
+
+                                // 05/11/2018 cannot delete route from config
+                                if (row.is_config) {
+                                    this.npo.worklist.stage_list[index].canReassignDelete = false;
+                                }
                                 index++;
                             }
                         }

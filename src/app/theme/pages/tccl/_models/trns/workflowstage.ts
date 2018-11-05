@@ -16,6 +16,7 @@ export class WorkflowStage {
     finish_datetime: Date;
     due_datetime: Date;
     warn_datetime: Date;
+    is_config: boolean;
     canReassignAdd: boolean; //use in html to manage display feature only
     canReassignDelete: boolean; //use in html to manage display feature only
     stage_logs_list: Array<WorkflowStageLog>;
