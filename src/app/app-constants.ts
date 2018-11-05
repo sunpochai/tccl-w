@@ -40,6 +40,7 @@ export const API_ROUTE_PA_LIST: string = API_BASE_URL + '/api/route/palist'
 export const API_ROUTE_NPO_LIST: string = API_BASE_URL + '/api/route/npolist'
 export const API_ROUTE_GET_PUT_DEL: string = API_BASE_URL + '/api/route'
 export const API_ROUTE_INSERT: string = API_BASE_URL + '/api/route/insert'
+export const API_ROUTE_UPLOAD: string = API_BASE_URL + '/api/uploadroute/upload'
 
 export const API_REVIEWER_LIST: string = API_BASE_URL + '/api/reviewer/list'
 export const API_REVIEWER_SEARCH: string = API_BASE_URL + '/api/reviewer/list2'

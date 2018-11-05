@@ -1,3 +1,4 @@
+import { RouteUploadComponent } from './upload/route-upload.component';
 import { ClickOutsideDirective } from './../../../../../_directives/dropdown.directive';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
@@ -45,8 +46,11 @@ const routes: Routes = [
             }, {
                 "path": "detail/:id", //id:any ('pr','po','pa','npo' <-- add new record ,id <-- get old record)
                 "component": RouteApproveDetailComponent
+            }, {
+                "path": "upload", 
+                "component": RouteUploadComponent
             }
-        ]
+        ] 
     }
 ];
 @NgModule({
@@ -56,11 +60,12 @@ const routes: Routes = [
     ], exports: [
         RouterModule
     ], declarations: [
+        RouteUploadComponent, 
         RouteApproveListComponent,
         RouteApproveDetailComponent, ClickOutsideDirective, SearchFilterPipe, LetterBoldPipe
     ], providers: [
         RouteApproveService,
-        DocTypeService,
+        DocTypeService, 
         TrackingService,
         ADUserService,
         FormBuilder
