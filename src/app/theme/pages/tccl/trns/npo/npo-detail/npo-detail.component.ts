@@ -35,6 +35,10 @@ import { WorkflowStageLog } from '../../../_models/trns/workflowstagelog';
 import { WindowRef } from '../../../../../../_services/WindowRef';
 // import { Injectable } from '@angular/core';
  
+// declare var printModule: any;
+// declare var window: any;
+// declare var printReport: any;
+
 @Component({
     selector: "trns-npo-detail",
     templateUrl: "./npo-detail.component.html",
@@ -238,12 +242,17 @@ export class NPODetailComponent extends PageBaseComponent implements OnInit, Aft
     }
 
     ngOnInit() {
+        // window.my = window.my || {};
+        // window.my.namespace = window.my.namespace || {};
+        // window.my.namespace.print = this.print.bind(this);
+        // window.my.namespace.printReport = this.printReport.bind(this);
+
         this.loadData();
     }
 
     ngAfterViewInit() {
-        /* this._script.loadScripts('trns-npo-detail',
-            ['assets/tccl/trns/npo/npo-detail.js']); */
+        this._script.loadScripts('trns-npo-detail',
+            ['assets/tccl/trns/npo/npo-detail.js']);
     }
 
     fileChange(event) {
@@ -881,13 +890,21 @@ export class NPODetailComponent extends PageBaseComponent implements OnInit, Aft
         return super.getADUserLogin() == this.npo.create_user;
     }
 
+    showPrint() {
+        return true;
+        // if (this.npo == null) {
+        //     return false;
+        // }
+
+        // return (this.npo.afp_no!=null && this.npo.afp_no!='');
+    }
+
     canPrint() {
-        // return true;
-        if (this.npo == null) {
+        if (!this.showPrint) {
             return false;
         }
 
-        return (this.npo.afp_no!=null && this.npo.afp_no!='');
+        return this.npo.can_print
     }
     
     print() {
@@ -904,7 +921,8 @@ export class NPODetailComponent extends PageBaseComponent implements OnInit, Aft
                 // console.log(this.printMsg);
                 super.showsuccess('Update status print completed');
                 super.unblockui('#m-content');
-                 this.printReport();
+                this.printReport();
+                // new printReport();
             } else {
                 super.showError(resp.error_msg);
                 super.unblockui('#m-content');
@@ -918,14 +936,21 @@ export class NPODetailComponent extends PageBaseComponent implements OnInit, Aft
                 super.unblockui('#m-content');
             });
     }
+
+    openOther() {
+        //I called Api using service
+        let scope=this;
+        setTimeout(function() { scope.printReport(); }, 3000);
+    }
     
     printReport(): void {
         // console.log('printreport');
         let printContents, popupWin;
         printContents = document.getElementById('print-section').innerHTML;
-          
+        
         popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
-        console.log("popupWin " + popupWin);
+        
+        // console.log("popupWin " + popupWin);
         popupWin.document.open(); 
         // <link rel="stylesheet" href="assets/demo/default/base/style.bundle.css" type="text/css" media="print" />
         popupWin.document.write(`
@@ -994,6 +1019,33 @@ export class NPODetailComponent extends PageBaseComponent implements OnInit, Aft
           </html>`
         );
         popupWin.document.close();
+    }
+
+    canCheckBudget() {
+        return true;
+    }
+    
+    checkBudget() {
+        super.blockui('#m-content');
+        this._npoService.checkBudget<any>(this.npo).subscribe(resp => {
+            console.log(resp);
+            if (resp.is_error == false) {
+                this.npo = resp.data;
+                super.showsuccess('Non-PO budget checked successful: ' + this.npo.doc_no);
+                super.unblockui('#m-content');
+            } else {
+                super.showError(resp.error_msg);
+                super.unblockui('#m-content');
+            }
+        },
+        error => {
+            // alert(error);
+            super.showError(error);
+            super.unblockui('#m-content');
+        },
+        () => {
+            super.unblockui('#m-content');
+        });
     }
 
     getDisplayBudgetDate(): string {

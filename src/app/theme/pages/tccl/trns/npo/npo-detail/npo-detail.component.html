@@ -416,11 +416,16 @@
 									</span>
 								</a>
 							</li>
-							<li class="m-portlet__nav-item" *ngIf="npo!=null && canPrint()" >
-								<!-- <button type="button" (click)="print();" class="btn btn-primary" > -->
-								<button type="button" (click)="printReport();" class="btn btn-primary" >
+							<li class="m-portlet__nav-item" *ngIf="npo!=null && showPrint()" >
+								<button type="button" (click)="print();" class="btn btn-primary" [disabled]="canPrint()" >
 									<i class="la la-print"></i>
 									Print 
+								</button>
+							</li>
+							<li class="m-portlet__nav-item" *ngIf="npo!=null && canCheckBudget()" >
+								<button type="button" (click)="checkBudget();" class="btn btn-primary" >
+									<i class="la la-refresh"></i>
+									Check Budget
 								</button>
 							</li>
 						</ul>
@@ -544,7 +549,9 @@
 								</table>
 							</div>
 							<div class="table-responsive" style="text-align: center">
-								<div align="left">ข้อมูลงบประมาณ ณ {{getDisplayBudgetDate()}}</div>
+								<div align="left">
+									ข้อมูลงบประมาณ ณ {{getDisplayBudgetDate()}}
+								</div>
 								<table class="table table-bordered table-hover ">
 									<thead>
 										<tr style="background-color:#d9c1e9;">

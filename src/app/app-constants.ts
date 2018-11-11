@@ -84,6 +84,7 @@ export const API_NON_PO_SEND_APPROVE: string = API_BASE_URL + '/api/PANonPo/send
 export const API_NON_PO_CANCEL: string = API_BASE_URL + '/api/PANonPo/cancel'
 export const API_NON_PO_REASSIGN: string = API_BASE_URL + '/api/PANonPo/updateresponsible'
 export const API_NON_PO_PRINT: string = API_BASE_URL + '/api/PANonPo/print'
+export const API_NON_PO_CHECK_BUDGET: string = API_BASE_URL + '/api/PANonPo/CheckBudget'
 
 export const API_ATTACHMENT_GET_DEL: string = API_BASE_URL + '/api/attachment'
 export const API_ATTACHMENT_UPLOAD: string = API_BASE_URL + '/api/attachment/uploadfile'

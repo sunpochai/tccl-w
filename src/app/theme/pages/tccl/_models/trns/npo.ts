@@ -38,6 +38,7 @@ export class NPO {
     bu_code: string;
     bu_name: string;
     wf_workflow: any;
+    can_print: boolean;
 
     trn_payment_n_item: Array<NPOItem>;
     trn_payment_n_budget: Array<NPOBudget>;
