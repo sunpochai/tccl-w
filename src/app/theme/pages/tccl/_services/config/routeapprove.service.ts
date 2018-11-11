@@ -44,10 +44,10 @@ export class RouteApproveService extends TokenBaseService {
             .map((response: Response) => <T>response.json());
     }
 
-    public upload(formData: FormData) {
+    public async upload(formData: FormData) {
         let headers = new Headers()
         headers.set('Authorization', 'Bearer ' + super.getToken());
-        return this.http.post(API_ROUTE_UPLOAD, formData, new RequestOptions({ headers: headers }))
+        return await this.http.post(API_ROUTE_UPLOAD, formData, new RequestOptions({ headers: headers }))
             .map((response: Response) => response.json());
     }
 }

@@ -55,7 +55,7 @@ export class RouteUploadComponent extends PageBaseComponent implements OnInit, A
             ['assets/tccl/config/route/route-detail.js']); */
     }
 
-    uploadFile() {
+  async  uploadFile() {
         super.blockui('#m-content');
  
           //  this.formData.append("doc_group", ROUTE_PA.doc_group);
@@ -68,21 +68,22 @@ export class RouteUploadComponent extends PageBaseComponent implements OnInit, A
                 this.formData.append("file_" + index.toString(), file, file.name);
             } */
             // console.log(this.attFile);
-           
-
-        this._routeapproveService.upload(this.formData).subscribe(
-            data => {
-                let att = data;
-                // console.log(att);  
-                this.formData = new FormData();
-                super.unblockui('#m-content');
-                super.showsuccess('upload complete');
-            },
-            error => {
-                super.unblockui('#m-content');
-                super.showError(error);
-            }
-        );  
+       let resp  = await   this._routeapproveService.upload(this.formData);
+       
+       resp.windowToggle
+    //    await this._routeapproveService.upload(this.formData).subscribe(
+    //         data => {
+    //             let att = data;
+    //             // console.log(att);  
+    //             this.formData = new FormData();
+    //             super.unblockui('#m-content');
+    //             super.showsuccess('upload complete');
+    //         },
+    //         error => {
+    //             super.unblockui('#m-content');
+    //             super.showError(error);
+    //         }
+    //     );  
 
         super.unblockui('#m-content');
     }
