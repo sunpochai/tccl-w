@@ -1055,7 +1055,7 @@ export class NPODetailComponent extends PageBaseComponent implements OnInit, Aft
         if (this.npo.trn_payment_n_budget[0].check_date == null)
             return 'n/a';
         else 
-            return DateUtil.toDisplayDate(this.npo.trn_payment_n_budget[0].check_date);
+            return DateUtil.toDisplayDateTime(this.npo.trn_payment_n_budget[0].check_date);
     }
 
 }
