@@ -154,6 +154,14 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
                     this.maxValPlaceholder = "Maximum Value Unlimited";
                 }
 
+                //call again to get NPO tracking list (replace other type tracking list)
+                if (this.routetype == ROUTE_NPO) {
+                    this._trackingService.getnpoall().subscribe(resp => {
+                        this.trackingNumberList = resp;
+                        // console.log(data);
+                    });
+                }        
+
                 super.unblockui('#m_form_1');
             });
         } else {
@@ -163,6 +171,7 @@ export class RouteApproveDetailComponent extends PageBaseComponent implements On
             // console.log(this.routeapprove);
             super.unblockui('#m_form_1');
         }
+
     }
 
     ngAfterViewInit() {
