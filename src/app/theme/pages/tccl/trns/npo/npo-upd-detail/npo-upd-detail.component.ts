@@ -453,7 +453,7 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
                 } else {
                     index = 0;
                     for (let rowBudget of this.npo.trn_payment_n_budget) {
-                        if (row.cca == rowBudget.cca && row.acct == rowBudget.acct) {
+                        if (row.cca == rowBudget.cca && row.acct == rowBudget.acct && row.wbs == rowBudget.wbs) {
                             rowBudget.amount = rowBudget.amount + row.amount;
                             break;
                         } else {
