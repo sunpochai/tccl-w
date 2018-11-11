@@ -478,6 +478,42 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
         }
     }
 
+    canUpdate() {
+        if (this.npo == null) {
+            return false;
+        }
+
+        return super.getADUserLogin() == this.npo.create_user;
+    }
+
+    canCheckBudget() {
+        return (this.npo!=null && this.npo.payment_n_id>0);
+    }
+    
+    checkBudget() {
+        // console.log('check budget ts');
+        super.blockui('#m_form_1');
+        this._npoService.checkBudget<any>(this.npo).subscribe(resp => {
+            console.log(resp);
+            if (resp.is_error == false) {
+                this.npo = resp.data;
+                super.showsuccess('Non-PO budget checked successful: ' + this.npo.doc_no);
+                super.unblockui('#m_form_1');
+            } else {
+                super.showError(resp.error_msg);
+                super.unblockui('#m_form_1');
+            }
+        },
+        error => {
+            // alert(error);
+            super.showError(error);
+            super.unblockui('#m_form_1');
+        },
+        () => {
+            super.unblockui('#m_form_1');
+        });
+    }
+
     navigate_list() {
         this._router.navigate(['/trns/npo/list/']);
     }
@@ -541,7 +577,7 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
         if (this.npo.trn_payment_n_budget[0].check_date == null)
             return 'n/a';
         else 
-            return DateUtil.toDisplayDate(this.npo.trn_payment_n_budget[0].check_date);
+            return DateUtil.toDisplayDateTime(this.npo.trn_payment_n_budget[0].check_date);
     }
    
   
