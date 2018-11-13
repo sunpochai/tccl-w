@@ -66,6 +66,9 @@ var myDatatable = function( ) {
           field: 'route_name',
           title: 'Route Name',
           selector: false,
+          template: function (row) {
+            return '<a href="./config/route/detail/' + row.route_id + '" >' + row.route_name + '</a>';
+          }
         }, {
           field: 'tracking_no',
           title: 'Tracking Number',
@@ -128,6 +131,12 @@ var myDatatable = function( ) {
     query.route_name = $('#m_form_route_name').val();
     query.doc_type = $('#m_form_doc_type').val();
     query.tracking_no = $('#tracking_no').val();
+    
+    // query.route_name = document.getElementsByName("m_form_route_name").value;
+    // query.doc_type = document.getElementsByName("m_form_doc_type").value;
+    // query.tracking_no = document.getElementsByName("tracking_no").value;
+
+    // alert(document.getElementsByName("m_form_route_name").value);
 
     datatable.setDataSourceQuery(query);
     datatable.load();
@@ -137,6 +146,10 @@ var myDatatable = function( ) {
     // public functions
     init: function(apiurl) {
       load(apiurl);
+    },
+    initandsearch: function(apiurl) {
+      load(apiurl);
+      search();
     },
     search: function() {
       search();

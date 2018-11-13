@@ -66,6 +66,9 @@ var myDatatable = function( ) {
           field: 'route_name',
           title: 'Route Name',
           selector: false,
+          template: function (row) {
+            return '<a href="./config/route/detail/' + row.route_id + '" >' + row.route_name + '</a>';
+          }
         }, {
           field: 'tracking_no',
           title: 'Tracking Number',
@@ -168,6 +171,10 @@ var myDatatable = function( ) {
     // public functions
     init: function(apiurl) {
       load(apiurl);
+    },
+    initandsearch: function(apiurl) {
+      load(apiurl);
+      search();
     },
     search: function() {
       search();

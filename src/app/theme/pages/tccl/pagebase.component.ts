@@ -12,7 +12,7 @@ export class PageBaseComponent {
 
     constructor() {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-
+        
     }
     protected showsuccess(msg: string) {
         myBundle.showSuccess(msg);

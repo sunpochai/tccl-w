@@ -182,6 +182,11 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
                                     this.pa.worklist.stage_list[index].canReassignAdd = true;
                                     this.pa.worklist.stage_list[index].canReassignDelete = true;
                                 }
+
+                                // 05/11/2018 cannot delete route from config
+                                if (row.is_config) {
+                                    this.pa.worklist.stage_list[index].canReassignDelete = false;
+                                }
                                 index++;
                             }
                         }

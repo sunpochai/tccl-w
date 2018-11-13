@@ -12,8 +12,8 @@ export class TrackingService extends TokenBaseService {
         super();
     }
 
-    public search(textSearch) {
-        return this.http.post(API_TRACKING_SEARCH, JSON.stringify({ textSearch: textSearch, }), super.jwt())
+    public search(textSearch, isNpo) {
+        return this.http.post(API_TRACKING_SEARCH, JSON.stringify({ textSearch: textSearch, is_npo_tracking: isNpo}), super.jwt())
             .map((response: Response) => response.json());
     }
 

@@ -89,10 +89,10 @@
 						<label class="col-form-label col-lg-2 col-sm-3">
 							หน่วยธุรกิจ *   
 						</label> 
-						<div class="col-lg-3 col-sm-3">
+						<!-- <div class="col-lg-3 col-sm-3">
 							<input required minlength="4" maxlength="10" [(ngModel)]="npo.bu_code" type="text" class="form-control form-control-sm m-input" name="bu_code" placeholder="รหัส"  >
-						</div>
-						<div class="col-lg-7 col-sm-6">
+						</div> -->
+						<div class="col-lg-10 col-sm-9">
 							<input required minlength="4" maxlength="255" [(ngModel)]="npo.bu_name" type="text" class="form-control form-control-sm m-input" name="bu_name" placeholder="ชื่อหน่วยธุรกิจ"  >
 						</div>
 					</div>
@@ -130,10 +130,10 @@
 						<label class="col-form-label col-lg-2 col-sm-3">
 							จ่ายให้ *
 						</label>
-						<div class="col-lg-3 col-sm-3">
+						<!-- <div class="col-lg-3 col-sm-3">
 							<input required minlength="4" maxlength="10" [(ngModel)]="npo.vendor_code" type="text" class="form-control form-control-sm m-input" name="vendor_code" placeholder="รหัส"  >
-						</div>
-						<div class="col-lg-7 col-sm-6">
+						</div> -->
+						<div class="col-lg-10 col-sm-9">
 							<input required minlength="4" maxlength="255" [(ngModel)]="npo.vendor_name" type="text" class="form-control form-control-sm m-input" name="vendor_name" placeholder="ชื่อผู้เบิก หรือ ผู้ขาย"  >
 						</div>
 					</div>
@@ -141,15 +141,26 @@
 						<label class="col-form-label col-lg-2 col-sm-3">
 							Tracking No. *
 						</label>
-						<div class="col-lg-3 col-sm-3">
-							<!-- <input required minlength="4" maxlength="10" [(ngModel)]="npo.non_tracking_no" type="text" class="form-control form-control-sm m-input" name="non_tracking_no" placeholder="Tracking number"  > -->
+						<div class="col-lg-10 col-sm-9">
+							<div class="width-half">
+								<input required id='searchtracking' placeholder="Search for tracking number" class=' form-control m-input' [(ngModel)]="textSearchTracking" name="tracking" type='text' (ngModelChange)="onChangeSearchTracking($event);" autocomplete="off" >
+								<div clickOutside (clickOutside)="closeDropDown()">
+									<div  *ngIf="showDropDownTracking" class='search-drop-down card'>
+										<div (click)='selectTrackingValue(s)' class='search-results ' *ngFor="let s of this.trackingList ">
+											{{s.tracking_code}}
+										</div>
+									</div>
+								</div>
+							</div>  
+						</div>
+						<!-- <div class="col-lg-3 col-sm-3">
 							<select required class="form-control form-control-sm m-input" [(ngModel)]="npo.non_tracking_no" name="tracking_no">
 								<option></option>
 								<option value={{item.tracking_code}} *ngFor="let item of trackingNumberList ">
 									{{item.tracking_name}}
 								</option>
 							</select>
-						</div>
+						</div> -->
 					</div>
 					<div class="form-group m-form__group row" >
 						<label class="col-form-label col-lg-2 col-sm-3">
@@ -214,6 +225,12 @@
 				</div>
 				<div class="m-portlet__head-tools">
 					<ul class="m-portlet__nav">
+						<li class="m-portlet__nav-item" *ngIf="npo!=null && canCheckBudget()" >
+							<button type="button" (click)="checkBudget();" class="btn btn-info" >
+								<i class="la la-refresh"></i>
+								Check Budget
+							</button>
+						</li>
 						<li class="m-portlet__nav-item">
 							<a href="#" (click)="prepareAddItem()" class="m-portlet__nav-link btn btn-brand m-btn" data-toggle="modal" data-target="#m_modal_add_item">
 								<i class="fa fa-plus"></i>
@@ -237,7 +254,7 @@
 								<th>Invoice Date</th>
 								<th>Description</th>
 								<th>Amount</th>
-								<th>CCA</th>
+								<th>Cost Center</th>
 								<th>GL Account</th>
 								<th>IO</th>
 								<th>WBS</th>
@@ -264,10 +281,10 @@
 								<td style="vertical-align: middle" align="center" >{{toDisplayDate(row.inv_date)}}</td>
 								<td style="vertical-align: middle" align="left" >{{row.inv_desc}}</td>
 								<td style="vertical-align: middle" align="right" >{{row.amount | number:'1.2'}}</td>
-								<td style="vertical-align: middle" align="left" >{{row.cca}}</td>
-								<td style="vertical-align: middle" align="left" >{{row.acct}}</td>
-								<td style="vertical-align: middle" align="left" >{{row.io}}</td>
-								<td style="vertical-align: middle" align="left" >{{row.wbs}}</td>
+								<td style="vertical-align: middle" align="center" >{{row.cca}}</td>
+								<td style="vertical-align: middle" align="center" >{{row.acct}}</td>
+								<td style="vertical-align: middle" align="center" >{{row.io}}</td>
+								<td style="vertical-align: middle" align="center" >{{row.wbs}}</td>
 								<td>
 									<a href="#" (click)="prepareEditItem(index)"  data-toggle="modal" data-target="#m_modal_add_item" class="m-btn m-btn--pill m-btn--hover-info btn btn-sm btn-secondary" title="Edit">
 										<i class="la la-pencil"></i>
@@ -288,6 +305,34 @@
 						</tr>
 					</table>
 				</div>
+
+				
+				<div class="table-responsive" style="text-align: center" *ngIf="npo.trn_payment_n_budget!=null && npo.trn_payment_n_budget.length>0">
+					<div align="left">ข้อมูลงบประมาณ ณ {{getDisplayBudgetDate()}}</div>
+					<table class="table table-bordered table-hover ">
+						<thead>
+							<tr style="background-color:#d9c1e9;">
+								<th>CCA.GL acct</th>
+								<th>WBS</th>
+								<th>งบประมาณ</th>
+								<th>งบประมาณคงเหลือยกมา</th>
+								<th>ค่าใช้จ่าย</th>
+								<th>งบประมาณคงเหลือยกไป</th>
+							</tr>
+						</thead>
+						<tr *ngFor="let row of npo.trn_payment_n_budget; let index = index">
+							<td style="vertical-align: middle" align="left">{{row.cca}}.{{row.acct}}</td>
+							<td style="vertical-align: middle" align="left" >{{row.wbs}}</td>
+							<td *ngIf="row.check_date==null" style="vertical-align: middle" align="right" >n/a</td>
+							<td *ngIf="row.check_date!=null" style="vertical-align: middle" align="right" >{{row.budget | number:'1.2'}}</td>
+							<td *ngIf="row.check_date==null" style="vertical-align: middle" align="right" >n/a</td>
+							<td *ngIf="row.check_date!=null" style="vertical-align: middle" align="right" >{{row.available | number:'1.2'}}</td>
+							<td style="vertical-align: middle" align="right" >{{row.amount | number:'1.2'}}</td>
+							<td *ngIf="row.check_date==null" style="vertical-align: middle" align="right" >n/a</td>
+							<td *ngIf="row.check_date!=null" style="vertical-align: middle" align="right" >{{row.remain | number:'1.2'}}</td>
+						</tr>
+					</table>
+				</div>
 			</div>
 			<!--end:: Portlet Body-->
 		</div>
@@ -298,16 +343,19 @@
 			<div class="m-portlet__foot m-portlet__foot--fit">
 				<div class="m-form__actions m-form__actions">
 					<div class="row">
-						<div class="col-4"></div>
-						<div class="col-8 ml-lg-auto">
-							<button type="button" [disabled]="heroForm.invalid " class="btn btn-success" data-toggle="modal" data-target="#m_modal_confirm">
+						<div class="col-lg-3 col-md-1 col-sm-1"></div>
+						<div class="col-lg-9 col-md-11 col-sm-11">
+							<button *ngIf="npo.payment_n_id!=0 && npo.payment_n_id!=null" type="button" [disabled]="heroForm.invalid || !canUpdate()" class="btn btn-success" data-toggle="modal" data-target="#m_modal_confirm">
 								Save 
 							</button>
-							<button *ngIf="npo.workflow_id==null || npo.workflow_id==''" type="button" [disabled]="npo.payment_n_id==0 || npo.payment_n_id==null " class="btn btn-info" data-toggle="modal" data-target="#m_modal_send">
-								Send Approve 
+							<button *ngIf="npo.workflow_id==null || npo.workflow_id==''" type="button" [disabled]="heroForm.invalid || !canUpdate()" class="btn btn-info" data-toggle="modal" data-target="#m_modal_send">
+								Save & Send Approve 
 							</button>
-							<button *ngIf="npo.workflow_id!=null && npo.workflow_id!=''" type="button" [disabled]="npo.payment_n_id==0 || npo.payment_n_id==null " class="btn btn-info" data-toggle="modal" data-target="#m_modal_send">
-								Re-Send Approve 
+							<button *ngIf="npo.workflow_id!=null && npo.workflow_id!=''" type="button" [disabled]="heroForm.invalid || npo.payment_n_id==0 || npo.payment_n_id==null || !canUpdate() " class="btn btn-info" data-toggle="modal" data-target="#m_modal_send">
+								Save & Re-Send Approve 
+							</button>
+							<button *ngIf="npo.workflow_id!=null && npo.workflow_id!=''" type="button" [disabled]="heroForm.invalid || npo.payment_n_id==0 || npo.payment_n_id==null || !canUpdate() " class="btn btn-danger" data-toggle="modal" data-target="#m_modal_cancel">
+								Cancel Non-PO
 							</button>
 							<button type="reset" (click)="navigate_back()" class="btn btn-secondary">
 								Cancel
@@ -358,7 +406,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLongTitle">
-						Confirm send approve ?
+						Confirm save & send approve ?
 					</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">
@@ -367,8 +415,11 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<p>
+					<p *ngIf="npo.doc_no!=null && npo.doc_no!=''">
 						Doc. No. {{npo.doc_no}}, Subject: {{npo.subject}} ? 
+					</p>
+					<p *ngIf="npo.doc_no==null || npo.doc_no==''">
+						Subject: {{npo.subject}} ? 
 					</p>
 				</div>
 				<div class="modal-footer">
@@ -383,6 +434,36 @@
 		</div>
 	</div>
 
+	<!-- Modal -->
+	<div class="modal fade" id="m_modal_cancel" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">
+						Confirm cancel Non-PO document ?
+					</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">
+							&times;
+						</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<p>
+						Doc. No. {{npo.doc_no}}, Subject: {{npo.subject}} ? 
+					</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" (click)="cancel()" data-dismiss="modal" class="btn btn-success">
+						Yes 
+					</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">
+						No
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	
 	<!--begin::Modal-->
 	<div class="modal fade" id="m_modal_remove_item" tabindex="-1" role="dialog" aria-hidden="true">
@@ -446,7 +527,7 @@
 							</label>
 							<div class="col-lg-4 col-sm-9">
 								<div class="input-group date" >
-									<input type="text" class="form-control form-control-sm m-input" [(ngModel)]="txt_inv_date" readonly placeholder="Select date" name="m_form_inv_date"/>
+									<input required type="text" class="form-control form-control-sm m-input" [(ngModel)]="txt_inv_date" #datePickerStart (blur)="txt_inv_date = datePickerStart.value" readonly placeholder="Select date" name="m_form_inv_date"/>
 									<div class="input-group-append">
 										<span class="input-group-text">
 											<i class="la la-calendar-check-o"></i>
@@ -477,11 +558,11 @@
 						</div>
 						<div class="form-group m-form__group row m--margin-top-10">
 							<label class="col-form-label col-lg-2 col-sm-3">
-								CCA:
+								Cost Center:
 							</label>
 							<div class="col-lg-10 col-sm-9">
 								<div class="width-half">
-									<input maxlength="255" type="text" id='txt_cca' name="txt_cca" [(ngModel)]="action_npo_item.cca" placeholder="" class=' form-control form-control-sm m-input' autocomplete="off" >
+									<input maxlength="10" type="text" id='txt_cca' name="txt_cca" [(ngModel)]="action_npo_item.cca" placeholder="" class=' form-control form-control-sm m-input' autocomplete="off" >
 								</div>  
 							</div>
 						</div>
@@ -491,7 +572,7 @@
 							</label>
 							<div class="col-lg-10 col-sm-9">
 								<div class="width-half">
-									<input maxlength="255" type="text" id='txt_acct' name="txt_acct" [(ngModel)]="action_npo_item.acct" placeholder="" class=' form-control form-control-sm m-input' autocomplete="off" >
+									<input maxlength="9" type="text" id='txt_acct' name="txt_acct" [(ngModel)]="action_npo_item.acct" placeholder="" class=' form-control form-control-sm m-input' autocomplete="off" >
 								</div>  
 							</div>
 						</div>
@@ -517,7 +598,7 @@
 						</div>
 					</div>
                     <div class="modal-footer">
-						<button type="button" [disabled]="heroForm2.invalid" (click)="itemAction()" class="btn btn-success m-btn" data-dismiss="modal">
+						<button type="reset" [disabled]="heroForm2.invalid" (click)="itemAction()" class="btn btn-success m-btn" data-dismiss="modal">
                             Save item
                         </button>
 						<button type="reset" class="btn btn-metal m-btn" data-dismiss="modal">

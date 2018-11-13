@@ -32,12 +32,19 @@ import { DateUtil } from '../../../../../../Util/dateutil';
 import { Workflow } from '../../../_models/trns/workflow';
 import { WorkflowStage } from '../../../_models/trns/workflowstage';
 import { WorkflowStageLog } from '../../../_models/trns/workflowstagelog';
+import { WindowRef } from '../../../../../../_services/WindowRef';
+// import { Injectable } from '@angular/core';
+ 
+// declare var printModule: any;
+// declare var window: any;
+// declare var printReport: any;
 
 @Component({
     selector: "trns-npo-detail",
     templateUrl: "./npo-detail.component.html",
     styleUrls: ["./npo-detail.component.css"]
 })
+
 export class NPODetailComponent extends PageBaseComponent implements OnInit, AfterViewInit {
     public form: FormGroup;
     public npo: NPO;
@@ -92,6 +99,10 @@ export class NPODetailComponent extends PageBaseComponent implements OnInit, Aft
 
     public myUtil = new StringUtil;
 
+    /** 05/10/2018 */
+    public printDatetime: Date;
+    public printMsg: String;
+     
     constructor(
         private _script: ScriptLoaderService,
         private _router: Router,
@@ -100,7 +111,8 @@ export class NPODetailComponent extends PageBaseComponent implements OnInit, Aft
         private _attachmentService: AttachmentService,
         private _workflowService: WorkflowService,
         private _adUserService: ADUserService,
-        private formBuilder: FormBuilder) {
+        private formBuilder: FormBuilder,
+        private winRef: WindowRef) {
         super();
 
         this.txtSearchUserChanged.debounceTime(500).distinctUntilChanged().subscribe(md => {
@@ -183,6 +195,11 @@ export class NPODetailComponent extends PageBaseComponent implements OnInit, Aft
                                     this.npo.worklist.stage_list[index].canReassignAdd = true;
                                     this.npo.worklist.stage_list[index].canReassignDelete = true;
                                 }
+
+                                // 05/11/2018 cannot delete route from config
+                                if (row.is_config) {
+                                    this.npo.worklist.stage_list[index].canReassignDelete = false;
+                                }
                                 index++;
                             }
                         }
@@ -219,15 +236,23 @@ export class NPODetailComponent extends PageBaseComponent implements OnInit, Aft
             //console.log(this.pr);
         }
 
+        let mydate = new Date();
+        let dd = new Date(mydate.getFullYear(), mydate.getMonth(), mydate.getDate())
+        this.printDatetime = dd;
     }
 
     ngOnInit() {
+        // window.my = window.my || {};
+        // window.my.namespace = window.my.namespace || {};
+        // window.my.namespace.print = this.print.bind(this);
+        // window.my.namespace.printReport = this.printReport.bind(this);
+
         this.loadData();
     }
 
     ngAfterViewInit() {
-        /* this._script.loadScripts('trns-npo-detail',
-            ['assets/tccl/trns/npo/npo-detail.js']); */
+        this._script.loadScripts('trns-npo-detail',
+            ['assets/tccl/trns/npo/npo-detail.js']);
     }
 
     fileChange(event) {
@@ -899,10 +924,179 @@ export class NPODetailComponent extends PageBaseComponent implements OnInit, Aft
     }
 
     canUpdate() {
-        if (this.npo == null) 
+        if (this.npo == null) {
             return false;
+        }
 
         return super.getADUserLogin() == this.npo.create_user;
+    }
+
+    showPrint() {
+        return true;
+        // if (this.npo == null) {
+        //     return false;
+        // }
+
+        // return (this.npo.afp_no!=null && this.npo.afp_no!='');
+    }
+
+    canPrint() {
+        if (!this.showPrint) {
+            return false;
+        }
+
+        return this.npo.can_print
+    }
+    
+    print() {
+        super.blockui('#m-content');
+        // console.log(this.printMsg);
+        this.printMsg="aabb";
+        // console.log(this.printMsg);
+        this._npoService.print<any>(this.npo,super.getADUserLogin()).subscribe(resp => {
+            // console.log(this.printMsg);
+            console.log(resp);
+            if (resp.is_error == false) {
+                this.printDatetime = resp.print_datetime;
+                this.printMsg = resp.print_msg;
+                // console.log(this.printMsg);
+                super.showsuccess('Update status print completed');
+                super.unblockui('#m-content');
+                this.printReport();
+                // new printReport();
+            } else {
+                super.showError(resp.error_msg);
+                super.unblockui('#m-content');
+            }
+        },
+            error => {
+                super.showError(error);
+                super.unblockui('#m-content');
+            },
+            () => {
+                super.unblockui('#m-content');
+            });
+    }
+
+    openOther() {
+        //I called Api using service
+        let scope=this;
+        setTimeout(function() { scope.printReport(); }, 3000);
+    }
+    
+    printReport(): void {
+        // console.log('printreport');
+        let printContents, popupWin;
+        printContents = document.getElementById('print-section').innerHTML;
+        
+        popupWin = window.open('', '_blank', 'top=0,left=0,height=100%,width=auto');
+        
+        // console.log("popupWin " + popupWin);
+        popupWin.document.open(); 
+        // <link rel="stylesheet" href="assets/demo/default/base/style.bundle.css" type="text/css" media="print" />
+        popupWin.document.write(`
+          <html>
+            <head>
+              <title>Non PO</title>
+              <style @media="print">
+                @page {
+                    margin: 2cm;
+                }
+
+                header nav, footer {
+                    display: none;
+                    }
+
+                body {
+                    font: 16pt Poppins, Georgia, "Times New Roman", Times, serif;
+                    line-height: 1;
+                    min-width: 992px ; }
+
+                .m--font-deleted {
+                    color: #f4516c !important ; 
+                    text-decoration: line-through; }
+
+                .table {
+                    font: 16pt Poppins, Georgia, "Times New Roman", Times, serif;
+                    border-collapse: collapse; 
+                    background-color: #000; }
+                .table td,
+                .table th {
+                    background-color: #fff ; }
+                
+                .table-bordered {
+                    border-collapse: collapse; 
+                    border: 1px solid #000000; }
+                .table-bordered th,
+                .table-bordered td {
+                    //font: 16pt Poppins, Georgia, "Times New Roman", Times, serif;
+                    border: 1px solid #000000; }
+                .table-bordered thead th,
+                .table-bordered thead td {
+                    border-bottom-width: 2px; }
+
+                .table-underline {
+                    padding: 0px 0px 0px 5px;
+                    border-bottom: solid black;
+                    border-bottom-width: 1px; }
+
+                .table-display {
+                    width: 100%;
+                    max-width: 100%;
+                    border: 5px;
+                    text-align: left;
+                    background-color: transparent; }
+                .table-display-caption {
+                    //font: 16pt Poppins, Georgia, "Times New Roman", Times, serif;
+                    color: #888888;
+                    padding: 5px;
+                    text-align: left;
+                    vertical-align: middle; }
+
+                  
+              </style>
+            </head>
+            <body onload="window.print();window.close();">${printContents}</body>
+          </html>`
+        );
+        popupWin.document.close();
+    }
+
+    canCheckBudget() {
+        return true;
+    }
+    
+    checkBudget() {
+        super.blockui('#m-content');
+        this._npoService.checkBudget<any>(this.npo).subscribe(resp => {
+            console.log(resp);
+            if (resp.is_error == false) {
+                this.npo = resp.data;
+                super.showsuccess('Non-PO budget checked successful: ' + this.npo.doc_no);
+                super.unblockui('#m-content');
+            } else {
+                super.showError(resp.error_msg);
+                super.unblockui('#m-content');
+            }
+        },
+        error => {
+            // alert(error);
+            super.showError(error);
+            super.unblockui('#m-content');
+        },
+        () => {
+            super.unblockui('#m-content');
+        });
+    }
+
+    getDisplayBudgetDate(): string {
+        if (this.npo.trn_payment_n_budget == null || this.npo.trn_payment_n_budget.length <= 0)
+            return 'n/a';
+        
+        if (this.npo.trn_payment_n_budget[0].check_date == null)
+            return 'n/a';
+        else 
+            return DateUtil.toDisplayDateTime(this.npo.trn_payment_n_budget[0].check_date);
     }
 
 }

@@ -1,3 +1,4 @@
+import { API_ROUTE_UPLOAD } from './../../../../../app-constants';
 import { TokenBaseService } from './../tokenbase.service';
 import { Injectable } from "@angular/core";
 import { Http, Headers, Response, RequestOptions } from "@angular/http";
@@ -41,5 +42,12 @@ export class RouteApproveService extends TokenBaseService {
     public del<T>(id: string) {
         return this.http.delete(API_ROUTE_GET_PUT_DEL + '/' + id, super.jwt())
             .map((response: Response) => <T>response.json());
+    }
+
+    public upload(formData: FormData) {
+        let headers = new Headers()
+        headers.set('Authorization', 'Bearer ' + super.getToken());
+        return this.http.post(API_ROUTE_UPLOAD, formData, new RequestOptions({ headers: headers }))
+            .map((response: Response) => response.json());
     }
 }
