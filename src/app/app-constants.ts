@@ -9,7 +9,7 @@ export const API_AUTHEN_TOKEN: string = API_BASE_URL + '/token'
 export const API_AUTHEN_CHECKIN: string = API_BASE_URL + '/api/authen/checkin'
 export const API_AUTHEN_CHECKOUT: string = API_BASE_URL + '/api/authen/checkout'
 export const API_AUTHEN_VERIFY: string = API_BASE_URL + '/api/authen/wverify'
-                      
+                        
 export const API_COMPANY_GETALL: string = API_BASE_URL + '/api/company/getall' //list all item (use with dropdown)
 export const API_COMPANY_LIST: string = API_BASE_URL + '/api/company/list' //search item (use with search page)
 export const API_COMPANY_GET: string = API_BASE_URL + '/api/company'

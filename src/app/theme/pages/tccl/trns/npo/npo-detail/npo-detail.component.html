@@ -570,9 +570,11 @@
 										<td *ngIf="row.check_date!=null" style="vertical-align: middle" align="right" >{{row.budget | number:'1.2'}}</td>
 										<td *ngIf="row.check_date==null" style="vertical-align: middle" align="right" >n/a</td>
 										<td *ngIf="row.check_date!=null" style="vertical-align: middle" align="right" >{{row.available | number:'1.2'}}</td>
-										<td style="vertical-align: middle" align="right" >{{row.amount | number:'1.2'}}</td>
+										<td *ngIf="row.amount <= row.available "style="vertical-align: middle;color:green" align="right" >{{row.amount | number:'1.2'}}</td>
+										<td *ngIf="row.amount > row.available " style="vertical-align: middle;color:red"   align="right" >{{row.amount | number:'1.2'}}</td>
 										<td *ngIf="row.check_date==null" style="vertical-align: middle" align="right" >n/a</td>
-										<td *ngIf="row.check_date!=null" style="vertical-align: middle" align="right" >{{row.remain | number:'1.2'}}</td>
+										<td *ngIf="row.check_date!=null && row.amount <= row.available" style="vertical-align: middle" align="right" >{{row.remain | number:'1.2'}}</td>
+										<td *ngIf="row.check_date!=null && row.amount > row.available"  style="vertical-align: middle;color:red" align="center" >Budget ไม่พอ</td>
 									</tr>
 								</table>
 							</div>
