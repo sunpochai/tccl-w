@@ -14,6 +14,8 @@ import { PlantService } from '../../../_services/masters/plant.service';
 import { Company } from '../../../_models/masters/company';
 import { Plant } from '../../../_models/masters/plant';
 import { DateUtil } from '../../../../../../Util/dateutil';
+import { Tracking } from '../../../_models/masters/tracking';
+import { TrackingService } from '../../../_services/masters/tracking.service';
 
 declare var myDatatable: any;
 declare var window: any;
@@ -26,6 +28,7 @@ declare var window: any;
 export class PRListComponent extends PageBaseComponent implements OnInit, AfterViewInit {
     public doctypeList: Array<DocType>;
     public docStatus: Array<any> = C_DOC_STATUS_2;
+    /* public trackingNumberList: Array<Tracking>; */
 
     public dateFrom: any;
     public dateTo: any;
@@ -33,6 +36,8 @@ export class PRListComponent extends PageBaseComponent implements OnInit, AfterV
     public m_form_doc_type;
     public m_form_company;
     public m_form_plant;
+    public m_form_tracking_no;
+    public m_form_requisitioner;
     public chkStatusAll = false;
     public chkStatusWaitReview = true;
     public chkStatusWaitApprove = true;
@@ -44,7 +49,8 @@ export class PRListComponent extends PageBaseComponent implements OnInit, AfterV
         private _script: ScriptLoaderService,
         private _doctypeService: DocTypeService,
         private _companyService: CompanyService,
-        private _plantService: PlantService) {
+        private _plantService: PlantService/* ,
+        private _trackingService: TrackingService */) {
         super();
     }
 
@@ -61,6 +67,11 @@ export class PRListComponent extends PageBaseComponent implements OnInit, AfterV
             this.doctypeList = data;
             // console.log(data);
         });
+        
+       /*  this._trackingService.getall().subscribe(resp => {
+            this.trackingNumberList = resp;
+            // console.log(data);
+        }); */
 
     }
 
@@ -117,6 +128,8 @@ export class PRListComponent extends PageBaseComponent implements OnInit, AfterV
         this.m_form_doc_type = '';
         this.m_form_company = '';
         this.m_form_plant = '';
+        this.m_form_tracking_no = '';
+        this.m_form_requisitioner = '';
         this.dateFrom = '';
         this.dateTo = '';
 

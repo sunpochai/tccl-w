@@ -31,9 +31,9 @@ export class NPOListComponent extends PageBaseComponent implements OnInit, After
     public dateTo: any;
     public m_form_doc_no;
     public m_form_afp_no;
-    // public m_form_doc_type;
     public m_form_company;
     public m_form_plant;
+    public m_form_vendor;
     public chkStatusAll = false;
     public chkStatusWaitReview = true;
     public chkStatusWaitApprove = true;
@@ -110,6 +110,7 @@ export class NPOListComponent extends PageBaseComponent implements OnInit, After
         this.m_form_afp_no = '';
         this.m_form_company = '';
         this.m_form_plant = '';
+        this.m_form_vendor = '';
         this.dateFrom = '';
         this.dateTo = '';
 

@@ -184,8 +184,8 @@ var myDatatable = function( ) {
     query.doc_date_from = toInternalDate($('#m_form_date_from').val());
     query.doc_date_to = toInternalDate($('#m_form_date_to').val());
     query.comp_code = $('#m_form_company').val();
-    // query.vendor_code = $('#m_form_vendor').val();
     query.plant_code = $('#m_form_plant').val();
+    query.vendor_code = $('#m_form_vendor').val();
     
     var mystatus = [];
 

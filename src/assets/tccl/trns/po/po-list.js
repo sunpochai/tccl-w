@@ -204,10 +204,10 @@ var myDatatable = function( ) {
     query.po_date_from = toInternalDate($('#m_form_date_from').val());
     query.po_date_to = toInternalDate($('#m_form_date_to').val());
     query.comp_code = $('#m_form_company').val();
-    // query.subject = $('#m_form_subject').val();
-    query.vendor_code = $('#m_form_vendor').val();
     query.plant_code = $('#m_form_plant').val();
-    // query.c_doc_status = $('#m_form_status').val();
+    query.vendor_code = $('#m_form_vendor').val();
+    query.tracking_no = $('#m_form_tracking').val();
+    query.purchasing_group = $('#m_form_purchasing_group').val();
     
     var mystatus = [];
 

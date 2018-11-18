@@ -21,6 +21,7 @@ import { PlantService } from '../../_services/masters/plant.service';
 import { AttachmentService } from '../../_services/trns/attachment.service';
 import { WorkflowService } from '../../_services/trns/workflow.service';
 import { ADUserService } from '../../_services/masters/aduser.service';
+import { TrackingService } from '../../_services/masters/tracking.service';
 
 const routes: Routes = [
     {
@@ -51,6 +52,7 @@ const routes: Routes = [
         DocTypeService,
         CompanyService,
         PlantService,
+        TrackingService,
         AttachmentService,
         WorkflowService,
         ADUserService,

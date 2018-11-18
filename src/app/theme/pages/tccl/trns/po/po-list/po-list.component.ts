@@ -31,8 +31,10 @@ export class POListComponent extends PageBaseComponent implements OnInit, AfterV
     public dateTo: any;
     public m_form_po_no;
     public m_form_doc_type;
-    public m_form_company;
     public m_form_plant;
+    public m_form_vendor;
+    public m_form_tracking;
+    public m_form_purchasing_group;
     public chkStatusAll = false;
     public chkStatusWaitReview = true;
     public chkStatusWaitApprove = true;
@@ -128,8 +130,10 @@ export class POListComponent extends PageBaseComponent implements OnInit, AfterV
     clearForm() {
         this.m_form_po_no = '';
         this.m_form_doc_type = '';
-        this.m_form_company = '';
         this.m_form_plant = '';
+        this.m_form_vendor = '';
+        this.m_form_tracking = '';
+        this.m_form_purchasing_group = '';
         this.dateFrom = '';
         this.dateTo = '';
 
