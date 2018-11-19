@@ -34,7 +34,8 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
 
     // search criteria
     public m_form_route_name;
-    public tracking_no;
+    public m_form_tracking;
+    // public tracking_no;
     public m_form_doc_type;
     public loadCriteriaFlag = false;
 
@@ -86,7 +87,7 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
                 /**
                  * go back from detail page
                  * 1.read from local storage
-                 * 2.if exists then remove key
+                 * 2.if exists then remove key --- cancel
                  */
                 
                 let tmp_criteria = JSON.parse(localStorage.getItem('routeSearchCriteria'));
@@ -95,7 +96,7 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
                 if (tmp_criteria != null && tmp_criteria != '') {
                     // console.log('-');
                     this.routeSearchCriteria = tmp_criteria;
-                    localStorage.removeItem('routeSearchCriteria');
+                    // localStorage.removeItem('routeSearchCriteria'); --- cancel
 
                     this.loadCriteria();
                     this.loadCriteriaFlag = true;
@@ -139,7 +140,8 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
 
     loadCriteria() {
         this.m_form_route_name = this.routeSearchCriteria.route_name;
-        this.tracking_no = this.routeSearchCriteria.tracking_no;
+        this.m_form_tracking = this.routeSearchCriteria.tracking;
+        // this.tracking_no = this.routeSearchCriteria.tracking_no;
         this.m_form_doc_type = this.routeSearchCriteria.doc_type;
     }
 
@@ -221,7 +223,8 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
         super.blockui('#m-content');
         
         this.routeSearchCriteria.route_name = this.m_form_route_name;
-        this.routeSearchCriteria.tracking_no = this.tracking_no;
+        this.routeSearchCriteria.tracking = this.m_form_tracking;
+        // this.routeSearchCriteria.tracking_no = this.tracking_no;
         this.routeSearchCriteria.doc_type = this.m_form_doc_type;
         // console.log(this.routeSearchCriteria);
 
