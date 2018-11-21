@@ -5,6 +5,6 @@
 
 export const environment = {
     production: false,
-    report_server :""
+    api_domain :"http://sunpochai.thddns.net:5555"
 };
- 
+   

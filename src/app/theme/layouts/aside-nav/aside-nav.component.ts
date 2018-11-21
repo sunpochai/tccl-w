@@ -1,4 +1,4 @@
-import { environment } from './../../../../environments/environment';
+
 import { Component, OnInit, ViewEncapsulation, AfterViewInit } from '@angular/core';
 import { Helpers } from '../../../helpers';
 import { PageBaseComponent } from '../../pages/tccl/pagebase.component';
@@ -13,8 +13,7 @@ export class AsideNavComponent extends PageBaseComponent  implements OnInit, Aft
 
   isAdmin:boolean;
   isOwner:boolean;
-  export_url: string = environment.report_server + "";
-  import_url: string = environment.report_server + "";
+ 
     constructor() {
         super();
     }
@@ -31,4 +30,4 @@ export class AsideNavComponent extends PageBaseComponent  implements OnInit, Aft
 
     }
 
-}
+} 
