@@ -206,6 +206,8 @@ var myDatatable = function( ) {
     query.comp_code = $('#m_form_company').val();
     // query.subject = $('#m_form_subject').val();
     query.plant_code = $('#m_form_plant').val();
+    query.tracking_no = $('#m_form_tracking_no').val();
+    query.create_username = $('#m_form_requisitioner').val();
 
     var mystatus = [];
 

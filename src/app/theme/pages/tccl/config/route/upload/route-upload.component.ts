@@ -36,7 +36,8 @@ import { SortPipe } from '../../../../../../_pipe/sort';
 
 export class RouteUploadComponent extends PageBaseComponent implements OnInit, AfterViewInit {
     public formData: FormData = new FormData(); 
-
+    public fileList: FileList;
+    public uploadResp: any;
     constructor(private _script: ScriptLoaderService,
         private _router: Router, private route: ActivatedRoute,
         private _routeapproveService: RouteApproveService) {
@@ -54,39 +55,66 @@ export class RouteUploadComponent extends PageBaseComponent implements OnInit, A
       /*   this._script.loadScripts('config-route-detail',
             ['assets/tccl/config/route/route-detail.js']); */
     }
+    fileChange(event) {
+        //ebugger;  
+        this.fileList = event.target.files;
+        // console.log(this.fileList);
 
-    uploadFile() {
+        if (this.fileList.length > 0) {
+           
+            for (let index = 0; index < this.fileList.length; index++) {
+                let file = this.fileList[index];
+
+                var sFileName = file.name;
+                var sFileExtension = sFileName.split('.')[sFileName.split('.').length - 1].toLowerCase();
+                var iFileSize = file.size;
+              
+                if ( !( 
+                        sFileExtension === "xls" 
+                     || sFileExtension === "xlsx" )
+                     || iFileSize > (1048576*50) ) {
+                    
+                    super.showError("Wrong file format (only .xls, .xlsx allowed) or file size larger than 50MB!");
+                    this.fileList = null;
+                    return;
+                } 
+                console.log(this.fileList); this.fileList 
+            }
+            
+        } else {
+         
+        }
+    }
+  async  uploadFile() { 
         super.blockui('#m-content');
- 
+        console.log(this.fileList); this.fileList 
           //  this.formData.append("doc_group", ROUTE_PA.doc_group);
         //    this.formData.append("doc_id", this.pa.payment_id.toString());
             this.formData.append("create_user", this.getADUserLogin());
             this.formData.append("create_username", this.getFullNameUserLogin());
-
+            this.formData.append("file", this.fileList[0], this.fileList[0].name);
         /*     for (let index = 0; index < this.fileList.length; index++) {
                 let file = this.fileList[index];
                 this.formData.append("file_" + index.toString(), file, file.name);
-            } */
+            } */ 
             // console.log(this.attFile);
-           
-
-        this._routeapproveService.upload(this.formData).subscribe(
-            data => {
-                let att = data;
-                // console.log(att);  
-                this.formData = new FormData();
-                super.unblockui('#m-content');
-                super.showsuccess('upload complete');
-            },
-            error => {
-                super.unblockui('#m-content');
-                super.showError(error);
-            }
-        );  
-
+            this.uploadResp  = await   this._routeapproveService.upload(this.formData).toPromise().catch(
+         e =>{
+            alert(e);
+         }
+       )
+ 
         super.unblockui('#m-content');
     }
 
+        async import(){
+            super.blockui('#m-content');
+            let  resp =  await   this._routeapproveService.import(this.uploadResp.lot).toPromise().catch(e=>{
+                alert(e);
+            });
+            super.showsuccess("Impoert Route Success");
+            super.unblockui('#m-content');
+        }
     }
 
     /* isTrackingCodeValid(): boolean {

@@ -483,6 +483,10 @@ export class NPOUpdDetailComponent extends PageBaseComponent implements OnInit, 
             return false;
         }
 
+        if(!this.npo.create_user || this.npo.create_user == "") {
+            return true;
+        }
+        
         return super.getADUserLogin() == this.npo.create_user;
     }
 

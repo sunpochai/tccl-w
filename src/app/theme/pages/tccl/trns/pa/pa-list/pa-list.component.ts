@@ -34,6 +34,7 @@ export class PAListComponent extends PageBaseComponent implements OnInit, AfterV
     // public m_form_doc_type;fv
     public m_form_company;
     public m_form_plant;
+    public m_form_vendor;
     public chkStatusAll = false;
     public chkStatusWaitReview = true;
     public chkStatusWaitApprove = true;
@@ -110,6 +111,7 @@ export class PAListComponent extends PageBaseComponent implements OnInit, AfterV
         // this.m_form_doc_type = '';
         this.m_form_company = '';
         this.m_form_plant = '';
+        this.m_form_vendor = '';
         this.dateFrom = '';
         this.dateTo = '';
 

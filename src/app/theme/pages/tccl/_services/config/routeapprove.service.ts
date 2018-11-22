@@ -1,4 +1,4 @@
-import { API_ROUTE_UPLOAD } from './../../../../../app-constants';
+import { API_ROUTE_UPLOAD, API_ROUTE_IMPORT } from './../../../../../app-constants';
 import { TokenBaseService } from './../tokenbase.service';
 import { Injectable } from "@angular/core";
 import { Http, Headers, Response, RequestOptions } from "@angular/http";
@@ -44,10 +44,16 @@ export class RouteApproveService extends TokenBaseService {
             .map((response: Response) => <T>response.json());
     }
 
-    public upload(formData: FormData) {
+    public   upload(formData: FormData) {
         let headers = new Headers()
         headers.set('Authorization', 'Bearer ' + super.getToken());
-        return this.http.post(API_ROUTE_UPLOAD, formData, new RequestOptions({ headers: headers }))
+        return  this.http.post(API_ROUTE_UPLOAD, formData, new RequestOptions({ headers: headers }))
+            .map((response: Response) => response.json());
+    }
+    public   import(lot) {
+        let headers = new Headers()
+        headers.set('Authorization', 'Bearer ' + super.getToken());
+        return  this.http.post(API_ROUTE_IMPORT, {lot:lot}, new RequestOptions({ headers: headers }))
             .map((response: Response) => response.json());
     }
 }

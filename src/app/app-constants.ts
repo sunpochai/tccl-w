@@ -1,3 +1,5 @@
+import { environment } from './../environments/environment';
+ 
 //Service URL 
 //export const API_BASE_URL: string =  'https://portal.tccland.com:8090/OASRESTApi'
 <<<<<<< HEAD
@@ -13,20 +15,25 @@ export const API_AUTHEN_VERIFY: string = API_BASE_URL + '/api/authen/wverify'
 
 =======
 //export const API_BASE_URL: string = 'http://202.60.207.137/WebRESTApi'
-// export const API_BASE_URL: string = 'http://10.1.243.229/WebRESTApi'
+// const API_BASE_URL: string = 'http://10.1.243.229/WebRESTApi'
 //export const API_BASE_URL: string = 'http://sunpochai.thddns.net:5555'
 //export const API_BASE_URL: string = 'http://localhost:65179/' 
-export const API_BASE_URL: string = 'http://192.168.1.99:5555'          
+//export const API_BASE_URL: string = 'http://192.168.1.99:5555'           
+export const API_BASE_URL: string = environment.api_domain;
 export const API_AUTHEN_TOKEN: string = API_BASE_URL + '/token'  
 export const API_AUTHEN_CHECKIN: string = API_BASE_URL + '/api/authen/checkin'
 export const API_AUTHEN_CHECKOUT: string = API_BASE_URL + '/api/authen/checkout'
 export const API_AUTHEN_VERIFY: string = API_BASE_URL + '/api/authen/wverify'
+<<<<<<< HEAD
 <<<<<<< HEAD
      
 >>>>>>> 42426b4ab2078f7c94c45d1aa9d0131c89abe2dd
 =======
                       
 >>>>>>> d11fcbb4a874aac6e40f8742be7aaea9fab232c9
+=======
+                        
+>>>>>>> 231a2ed03594505727c557fced7fbaeb49ef821e
 export const API_COMPANY_GETALL: string = API_BASE_URL + '/api/company/getall' //list all item (use with dropdown)
 export const API_COMPANY_LIST: string = API_BASE_URL + '/api/company/list' //search item (use with search page)
 export const API_COMPANY_GET: string = API_BASE_URL + '/api/company'
@@ -62,6 +69,7 @@ export const API_ROUTE_NPO_LIST: string = API_BASE_URL + '/api/route/npolist'
 export const API_ROUTE_GET_PUT_DEL: string = API_BASE_URL + '/api/route'
 export const API_ROUTE_INSERT: string = API_BASE_URL + '/api/route/insert'
 export const API_ROUTE_UPLOAD: string = API_BASE_URL + '/api/uploadroute/upload'
+export const API_ROUTE_IMPORT: string = API_BASE_URL + '/api/uploadroute/importdata'
 
 export const API_REVIEWER_LIST: string = API_BASE_URL + '/api/reviewer/list'
 export const API_REVIEWER_SEARCH: string = API_BASE_URL + '/api/reviewer/list2'
