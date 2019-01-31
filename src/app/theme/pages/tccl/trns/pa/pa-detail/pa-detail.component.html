@@ -505,7 +505,7 @@
 											<th>Profit Center</th>
 											<th>Material No.</th>
 											<th>Mat. Desc.</th>
-											<th>Asset No.</th>
+											<th>Asset No./IO</th>
 											<th>Amount</th>
 											<th>Curr.</th>
 											<th>Qty</th>
@@ -520,7 +520,8 @@
 											<td class="m--font-deleted" style="vertical-align: middle" align="center" >{{row.profit_center}}</td>
 											<td class="m--font-deleted" style="vertical-align: middle" align="center" >{{lefttrim(row.mat_no,'0')}}</td>
 											<td class="m--font-deleted" style="vertical-align: middle" align="left" >{{row.mat_desc}}</td>
-											<td class="m--font-deleted" style="vertical-align: middle" align="center" >{{row.main_asset_no}}</td>
+											<!-- <td class="m--font-deleted" style="vertical-align: middle" align="center" >{{row.main_asset_no}}</td> -->
+											<td class="m--font-deleted" style="vertical-align: middle" align="center" >{{getAssetNumberDesc(row)}}</td>
 											<td class="m--font-deleted" style="vertical-align: middle" align="right" >{{row.amount | number:'1.2'}}</td>
 											<td class="m--font-deleted" style="vertical-align: middle" align="center" >{{row.currency}}</td>
 											<td class="m--font-deleted" style="vertical-align: middle" align="right" >{{row.gr_qty}}</td>
@@ -533,7 +534,8 @@
 											<td style="vertical-align: middle" align="center" >{{row.profit_center}}</td>
 											<td style="vertical-align: middle" align="center" >{{lefttrim(row.mat_no,'0')}}</td>
 											<td style="vertical-align: middle" align="left" >{{row.mat_desc}}</td>
-											<td style="vertical-align: middle" align="center" >{{row.main_asset_no}}</td>
+											<!-- <td style="vertical-align: middle" align="center" >{{row.main_asset_no}}</td> -->
+											<td style="vertical-align: middle" align="center" >{{getAssetNumberDesc(row)}}</td>
 											<td style="vertical-align: middle" align="right" >{{row.amount | number:'1.2'}}</td>
 											<td style="vertical-align: middle" align="center" >{{row.currency}}</td>
 											<td style="vertical-align: middle" align="right" >{{row.gr_qty}}</td>

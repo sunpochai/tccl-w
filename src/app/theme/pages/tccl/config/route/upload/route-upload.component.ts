@@ -90,6 +90,7 @@ export class RouteUploadComponent extends PageBaseComponent implements OnInit, A
         console.log(this.fileList); this.fileList 
           //  this.formData.append("doc_group", ROUTE_PA.doc_group);
         //    this.formData.append("doc_id", this.pa.payment_id.toString());
+            this.formData = new FormData();
             this.formData.append("create_user", this.getADUserLogin());
             this.formData.append("create_username", this.getFullNameUserLogin());
             this.formData.append("file", this.fileList[0], this.fileList[0].name);
@@ -105,6 +106,10 @@ export class RouteUploadComponent extends PageBaseComponent implements OnInit, A
        )
  
         super.unblockui('#m-content');
+
+        if(this.uploadResp.isError){
+            super.showError(this.uploadResp.errorMsg);
+        }
     }
 
         async import(){
@@ -112,7 +117,13 @@ export class RouteUploadComponent extends PageBaseComponent implements OnInit, A
             let  resp =  await   this._routeapproveService.import(this.uploadResp.lot).toPromise().catch(e=>{
                 alert(e);
             });
-            super.showsuccess("Impoert Route Success");
+
+            if(resp.is_error) super.showError(resp.error_msg);
+            else {
+                super.showsuccess("Impoert Route Success");
+                this._router.navigateByUrl("/config/route/upload");
+            }
+            
             super.unblockui('#m-content');
         }
     }

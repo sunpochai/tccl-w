@@ -841,16 +841,28 @@ export class PADetailComponent extends PageBaseComponent implements OnInit, Afte
 
     getAccountAssignmentDesc(paitem: any) {
         //WBS -> Order number -> Cost center + GL Account
+        //24/11/2018 cancel order number -> put order number in asset number desc
         if (paitem.wbs_no != null && paitem.wbs_no != '') {
-            return paitem.wbs_no + '-' + paitem.wbs_name;
-        } else if (paitem.order_no != null && paitem.order_no != '') {
-            return paitem.order_no;
+            return paitem.wbs_no + '-' + paitem.wbs_name ;
+        // } else if (paitem.order_no != null && paitem.order_no != '') {
+        //     return paitem.order_no ;
         } else {
             var tmp = paitem.costcenter + ' / ' + StringUtil.lefttrim(paitem.account_no, '0') + '-' + paitem.account_name;
             if (tmp == ' / ' + '-')
                 return '';
             else
                 return tmp;
+        }
+    }
+
+    //24/11/2018
+    getAssetNumberDesc(paitem: any) {
+        if (paitem.main_asset_no != null && paitem.main_asset_no != '') {
+            return paitem.main_asset_no ;
+        } else if (paitem.order_no != null && paitem.order_no != '') {
+            return paitem.order_no ;
+        } else {
+            return '';
         }
     }
 
