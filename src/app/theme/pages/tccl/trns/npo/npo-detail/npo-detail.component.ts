@@ -726,39 +726,6 @@ export class NPODetailComponent extends PageBaseComponent implements OnInit, Aft
         this._router.navigate(['/trns/pa/list']);
     }
 
-<<<<<<< HEAD
-    /*     searchUser(search) {
-            if (search.length < 2) return;
-            // console.log("search >>" + search);
-            this.showDropDownUser = true;
-            this._adUserService.search(search).subscribe(x => {
-                this.userList = x
-            });
-        }
-    
-        onChangeSearchUser(event) {
-            // console.log(event);
-            this.txtSearchUserChanged.next(event);
-        }
-    
-        selectUserValue(value) {
-            this.textSearchUser = value.fullname
-            this.txtAdUserSelected = value.ad_user;
-            this.txtAdUserNameSelected = value.fullname;
-            this.showDropDownUser = false;
-        }
-    
-        closeDropDown() {
-            //this.showDropDownTracking = false;
-            this.showDropDownUser = false;
-        }
-     */
-    toggleAdvances_payment() {
-        if (this.advances_payment == true) {
-            /* this.maxValPlaceholder = "Maximum Value Unlimited"
-            this.maxValCaption = "";
-            this.npo.maximum_value = null; */
-=======
     navigate_home() {
         this._router.navigate(['/trns/worklist/my']);
     }
@@ -838,7 +805,6 @@ export class NPODetailComponent extends PageBaseComponent implements OnInit, Aft
     getDisplayTR(pDescription): string {
         if (pDescription == null || pDescription == '') {
             return 'table-display-lastrow';
->>>>>>> 42426b4ab2078f7c94c45d1aa9d0131c89abe2dd
         } else {
             return '';/* no display class */
         }

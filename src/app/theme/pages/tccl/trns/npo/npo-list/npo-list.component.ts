@@ -58,16 +58,6 @@ export class NPOListComponent extends PageBaseComponent implements OnInit, After
             this.doctypeList = data;
             // console.log(data);
         });
-<<<<<<< HEAD
-
-
-        this._trackingService.getall().subscribe(resp => {
-            this.trackingNumberList = resp;
-            // console.log(resp);
-        });
-
-=======
->>>>>>> 42426b4ab2078f7c94c45d1aa9d0131c89abe2dd
     }
 
     ngAfterViewInit() {
