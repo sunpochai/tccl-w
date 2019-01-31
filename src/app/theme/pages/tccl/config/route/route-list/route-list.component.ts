@@ -53,23 +53,7 @@ export class RouteApproveListComponent extends PageBaseComponent implements OnIn
         window.my.namespace.del = this.del.bind(this);
         window.my.namespace.prepare_del = this.prepare_del.bind(this);
         window.my.namespace.navigate_edit = this.navigate_edit.bind(this);
-<<<<<<< HEAD
-
-        this._doctypeService.getall().subscribe(resp => {
-            this.doctypeList = resp;
-            // console.log(resp);
-        });
-
-
-        this._trackingService.getall().subscribe(resp => {
-            this.trackingNumberList = resp;
-            // console.log(resp);
-        });
-
-
-=======
         
->>>>>>> 42426b4ab2078f7c94c45d1aa9d0131c89abe2dd
         this.route.params.subscribe(params => {
             // console.log(params['routetype']);
             //routetype: string ('pr','po','pa','npo')

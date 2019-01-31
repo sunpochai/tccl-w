@@ -517,13 +517,6 @@ export class NPODetailComponent extends PageBaseComponent implements OnInit, Aft
         for (let user of this.user_list) {
             workflowaction.user_list.push(user);
         }
-<<<<<<< HEAD
-        console.log(this.action_npo_item);
-
-        this.action_npo_item.payment_n_id = this.npo.payment_n_id;
-        this.action_npo_item.item_status = 'CRT';
-=======
->>>>>>> 42426b4ab2078f7c94c45d1aa9d0131c89abe2dd
 
         // console.log(workflowaction);
 
